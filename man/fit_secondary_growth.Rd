@@ -13,6 +13,40 @@ fit_secondary_growth(
   ...
 )
 }
+\arguments{
+\item{fit_data}{Tibble with the data used for the fit. It must have
+one column named \code{mu} with the estimated growth rate and as many columns
+as needed with the environmental factors.}
+
+\item{starting_point}{Named vector with initial values for the model parameters
+to estimate from the data. The growth rate under optimum conditions must be named
+\code{mu_opt}. The rest must be called 'env_factor'+'_'+'parameter'. For instance,
+the minimum pH for growth is 'pH_xmin'.}
+
+\item{known_pars}{Named vector of fixed model parameters. Must be named using the
+same convention as \code{starting_point}.}
+
+\item{sec_model_names}{Named character vector defining the secondary model
+for each environmental factor.}
+
+\item{transformation}{Character defining the tranformation of \code{mu} for
+model fitting. One of \code{sq} (square root; default), \code{log} (log-transform) or
+\code{none} (no transformation).}
+
+\item{...}{Additional arguments passed to \code{\link{modFit}}.}
+}
+\value{
+A list of class \code{FitSecondaryGrowth} with the items:
+\itemize{
+\item fit_results: object returned by \code{\link{modFit}}.
+\item secondary_model: secondary model fitted to the data.
+\item mu_opt_fit: estimated growth rate under optimum conditions.
+\item data: data used for the fit.
+\item transformation: type of transformation of \code{mu} for the fit.
+}
+}
 \description{
-Fit secondary growth models
+Fits a secondary growth model to a set of growth rates obtained experimentally.
+Modelling is done according to the gamma concept proposed by Zwietering (1992)
+and cardinal parameter models.
 }

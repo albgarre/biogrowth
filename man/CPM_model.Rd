@@ -2,10 +2,24 @@
 % Please edit documentation in R/gamma_models.R
 \name{CPM_model}
 \alias{CPM_model}
-\title{Secondary Cardinal Parameter model}
+\title{Secondary Cardinal Parameter (CPM) model}
 \usage{
 CPM_model(x, xmin, xopt, xmax, n)
 }
+\arguments{
+\item{x}{Value of the environmental factor.}
+
+\item{xmin}{Minimum value for growth.}
+
+\item{xopt}{Optimum value for growth.}
+
+\item{xmax}{Maximum value for growth.}
+
+\item{n}{Order of the CPM model.}
+}
+\value{
+The corresponding gamma factor.
+}
 \description{
-Secondary Cardinal Parameter model
+Secondary cardinal parameter model as defined by Rosso et al. (1995).
 }

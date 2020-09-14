@@ -6,6 +6,20 @@
 \usage{
 iso_repGompertz(times, logN0, C, mu, lambda)
 }
+\arguments{
+\item{times}{Numeric vector of storage times}
+
+\item{logN0}{Initial log microbial count}
+
+\item{C}{Difference between \code{logN0} and the maximum log-count.}
+
+\item{mu}{Maximum specific growth rate}
+
+\item{lambda}{Lag phase duration}
+}
+\value{
+Numeric vector with the predicted microbial count.
+}
 \description{
-Reparameterized Gompertz model
+Reparameterized Gompertz growth model defined by Zwietering et al. (1990).
 }

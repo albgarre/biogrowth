@@ -4,8 +4,26 @@
 \alias{dBaranyi}
 \title{Baranyi growth model}
 \usage{
-dBaranyi(time, state, pars, env_func, sec_models, sec_pars)
+dBaranyi(time, state, pars, env_func, sec_models)
+}
+\arguments{
+\item{time}{numeric vector (length 1) of storage time}
+
+\item{state}{named numeric vector with two components: Q and N}
+
+\item{pars}{named numeric vector of model parameters (Nmax and mu_opt)}
+
+\item{sec_models}{named list of parameters of the secondary model}
+
+\item{env_function}{named list of functions returning the values of
+the environmental conditions for time (t)}
+}
+\value{
+A numeric vector of two components according to the requirements of
+\code{\link{ode}}.
 }
 \description{
-Baranyi growth model
+Microbial growth model as defined in Baranyi and Roberts (1994). It has
+been implemented according to the requirements of
+\code{\link{ode}}.
 }

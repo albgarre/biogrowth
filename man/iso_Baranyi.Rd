@@ -4,8 +4,22 @@
 \alias{iso_Baranyi}
 \title{Isothermal Baranyi model}
 \usage{
-iso_Baranyi(times, logN0, mu, lambda, logNmax, m = 1)
+iso_Baranyi(times, logN0, mu, lambda, logNmax)
+}
+\arguments{
+\item{times}{Numeric vector of storage times}
+
+\item{logN0}{Initial log microbial count}
+
+\item{mu}{Maximum specific growth rate}
+
+\item{lambda}{Lag phase duration}
+
+\item{logNmax}{Maximum log microbial count}
+}
+\value{
+Numeric vector with the predicted microbial count.
 }
 \description{
-Isothermal Baranyi model
+Baranyi growth model as defined by Baranyi and Roberts (1994).
 }

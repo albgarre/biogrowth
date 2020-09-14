@@ -6,6 +6,22 @@
 \usage{
 predict_isothermal_growth(model_name, times, model_pars)
 }
+\arguments{
+\item{model_name}{Character defining the growth model.}
+
+\item{times}{Numeric vector of storage times for the predictions.}
+
+\item{model_pars}{List defining the values of the model parameters.}
+}
+\value{
+A list of class \code{IsothermalGrowth} with the items:
+\itemize{
+\item simulation: A tibble with the model simulation.
+\item model: The name of the model used for the predictions.
+\item pars: A list with the values of the model parameters.
+}
+}
 \description{
-Isothermal microbial growth
+Predicts microbial growth under isothermal conditions according to
+models commonly used in predictive microbiology.
 }

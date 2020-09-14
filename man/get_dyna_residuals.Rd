@@ -12,6 +12,22 @@ get_dyna_residuals(
   sec_model_names
 )
 }
+\arguments{
+\item{this_p}{named vector of model parameters}
+
+\item{fit_data}{tibble with the data for the fit}
+
+\item{env_conditions}{tibble with the environmental conditions}
+
+\item{known_pars}{named vector of known model parameters}
+
+\item{sec_model_names}{named character vector with names the
+environmental conditions and values the secondary model (e.g. 'CPM').}
+}
+\value{
+An instance of \code{\link{modCost}}.
+}
 \description{
-Residuals of dynamic prediction
+Function for calculating residuals of a dynamic prediction according
+to the requirements of \code{\link{modFit}}.
 }

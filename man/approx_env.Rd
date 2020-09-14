@@ -6,6 +6,15 @@
 \usage{
 approx_env(env_conditions)
 }
+\arguments{
+\item{env_conditions}{A tibble describing the variation of the environmental
+conditions through the storage time. Must contain a column named \code{time}
+and as many additional columns as environmental factors.}
+}
+\value{
+A list of functions that return the value of each environmental
+condition for some storage time
+}
 \description{
 Generates functions for linear interpolation of environmental conditions
 }

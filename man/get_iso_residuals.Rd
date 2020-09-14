@@ -6,6 +6,18 @@
 \usage{
 get_iso_residuals(this_p, fit_data, model_name, known_pars)
 }
+\arguments{
+\item{this_p}{named vector of model parameters to fit}
+
+\item{fit_data}{tibble with the data for the fit}
+
+\item{model_name}{character defining the primary growth model}
+
+\item{known_pars}{named vector of fixed model parameters}
+}
+\value{
+An instance of \code{modCost}.
+}
 \description{
 Residuals of isothermal prediction
 }

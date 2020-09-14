@@ -12,6 +12,23 @@ get_secondary_residuals(
   transformation
 )
 }
+\arguments{
+\item{this_p}{Named vector of model parameter values.}
+
+\item{my_data}{Tibble with the data used for the fit.}
+
+\item{known_pars}{Named vector of fixed model paramaters.}
+
+\item{sec_model_names}{Named character vector defining the secondary model
+for each environmental factor.}
+
+\item{transformation}{Character defining the tranformation of \code{mu} for
+model fitting. One of \code{sq} (square root), \code{log} (log-transform) or
+\code{none} (no transformation).}
+}
+\value{
+A numeric vector of residuals.
+}
 \description{
-Residuals of secondary models
+Residual function for \code{\link{fit_secondary_growth}}.
 }

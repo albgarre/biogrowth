@@ -13,6 +13,44 @@ fit_dynamic_growth(
   ...
 )
 }
+\arguments{
+\item{fit_data}{Tibble with the data to use for model fit. It must
+contain a column named 'time' with the storage time and another named
+'logN' with the observed microbial count.}
+
+\item{env_conditions}{Tibble with the (dynamic) environmental conditions
+during the experiment. It must have one column named 'time' with the
+storage time and as many columns as required with the environmental conditions.
+Note that only those defined in 'sec_model_names' will be considered for
+the model fit.}
+
+\item{starting_point}{A named vector of starting values for the model parameters.
+Parameters for the primary model must be named in the usual way. Parameters for the
+secondary model are named as \code{env_factor}+'_'+\code{parameter}. For instance,
+the maximum growth temperature shall be named 'temperature_xmax'.}
+
+\item{known_pars}{A named vectors of known model parameters (i.e. not fitted). They
+must be named using the same convention as for \code{starting_point}.}
+
+\item{sec_model_names}{A named character vector defining the secondary model for each
+environmental factor. The names define the factor and the value the type of model.
+Names must match columns in \code{fit_data} and \code{env_conditions}.}
+
+\item{...}{Additional arguments passed to modFit.}
+}
+\value{
+A list of class FitDynamicGrowth with the following items:
+     \itemize{
+         \item fit_results: the object returned by \code{modFit}.
+         \item best_prediction: the model prediction for the fitted parameters.
+         \item data: data used for the fit.
+         \item starting: starting values for model fitting
+         \item known: parameter values set as known.
+         \item sec_models: a named vector with the secondary model
+         for each environmental factor
+         }
+}
 \description{
-Fit dynamic growth models
+Fits a growth model to a data obtained under dynamic conditions
+using the one-step approach (non-linear regression).
 }

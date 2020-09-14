@@ -1,6 +1,13 @@
 
 #' Generates functions for linear interpolation of environmental conditions
 #'
+#' @param env_conditions A tibble describing the variation of the environmental
+#' conditions through the storage time. Must contain a column named \code{time}
+#' and as many additional columns as environmental factors.
+#'
+#' @return A list of functions that return the value of each environmental
+#' condition for some storage time
+#'
 approx_env <- function(env_conditions) {
 
     out <- lapply(names(env_conditions[-1]), function(this_col) {
@@ -18,6 +25,17 @@ approx_env <- function(env_conditions) {
 }
 
 #' A helper to build the primary models
+#'
+#' Most of the functions for fitting mix in the vectors parameters for
+#' the primary and secondary models, but the functions for making predictions
+#' need that they are separated. This one extracts the parameters of the primary
+#' model.
+#'
+#' @param this_p A named vector of model parameters (usually, the ones fitted).
+#' @param known_pars Another named vector of model parameters (usually the
+#' known ones).
+#'
+#' @return A list with the parameters of the primary model
 #'
 extract_primary_pars <- function(this_p, known_pars) {
 
@@ -41,6 +59,17 @@ extract_primary_pars <- function(this_p, known_pars) {
 }
 
 #' A helper to build the secondary models
+#'
+#' Most of the functions for fitting mix in the vectors parameters for
+#' the primary and secondary models, but the functions for making predictions
+#' need that they are separated. This one extracts the parameters of the primary
+#' model.
+#'
+#' @inheritParams extract_primary_pars
+#' @param sec_model_names A named character vector defining for each environmental
+#' factor (vector names) the type of secondary model (vector values).
+#'
+#' @return A nested list defining the secondary models.
 #'
 extract_secondary_pars <- function(this_p, known_pars, sec_model_names) {
 

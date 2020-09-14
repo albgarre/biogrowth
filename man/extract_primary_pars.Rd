@@ -6,6 +6,18 @@
 \usage{
 extract_primary_pars(this_p, known_pars)
 }
+\arguments{
+\item{this_p}{A named vector of model parameters (usually, the ones fitted).}
+
+\item{known_pars}{Another named vector of model parameters (usually the
+known ones).}
+}
+\value{
+A list with the parameters of the primary model
+}
 \description{
-A helper to build the primary models
+Most of the functions for fitting mix in the vectors parameters for
+the primary and secondary models, but the functions for making predictions
+need that they are separated. This one extracts the parameters of the primary
+model.
 }

@@ -6,6 +6,20 @@
 \usage{
 trilinear_model(times, logN0, mu, lambda, logNmax)
 }
+\arguments{
+\item{times}{Numeric vector of storage times}
+
+\item{logN0}{Initial log microbial count}
+
+\item{mu}{Maximum specific growth rate}
+
+\item{lambda}{Lag phase duration}
+
+\item{logNmax}{Maximum log microbial count}
+}
+\value{
+Numeric vector with the predicted microbial count.
+}
 \description{
-Trilinear growth model
+Trilinear growth model defined by Buchanan et al. (1997).
 }

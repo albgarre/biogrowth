@@ -6,6 +6,19 @@
 \usage{
 calculate_gammas(this_t, env_func, sec_models)
 }
+\arguments{
+\item{this_t}{Storage time}
+
+\item{env_func}{A list of functions (generated using \code{approxfun}) that
+give the value of each environmental function for some storage time.}
+
+\item{sec_models}{A nested list describing the secondary models.}
+}
+\value{
+A vector of gamma factors (one per environmental factor).
+}
 \description{
-Calculates every gamma factor
+A helper function for \code{\link{predict_dynamic_growth}} that
+calculates the value of every gamma factor corresponding to some
+storage time.
 }

@@ -19,6 +19,52 @@ predict_stochastic_growth(
   corr_matrix = diag(4)
 )
 }
+\arguments{
+\item{model_name}{Character describing the primary growth model.}
+
+\item{times}{Numeric vector of storage times for the simulations}
+
+\item{n_sims}{Number of simulations}
+
+\item{mean_logN0}{Mean value of the initial log microbial count.}
+
+\item{sd_logN0}{Standard error of the initial log microbial count.}
+
+\item{mean_sqmu}{Mean value of the square root of the maximum
+specific growth rate.}
+
+\item{sd_sqmu}{Standard error of the square root of the maximum
+specific growth rate.}
+
+\item{mean_sqlambda}{Mean value of the square root of the lag phase duration.}
+
+\item{sd_sqlambda}{Standard error of the square root of the lag phase duration.}
+
+\item{mean_logNmax}{Mean value of the maximum log microbial count.}
+
+\item{sd_logNmax}{Standard error of the maximum log microbial count.}
+
+\item{corr_matrix}{Correlation matrix of the model parameters. Defined in the
+order (logN0, sqrt(mu), sqrt(lambda), logNmax). A diagonal matrix by default
+(uncorrelated parameters).}
+}
+\value{
+A list of class \code{StochasticGrowth} with the items:
+\itemize{
+\item sample: parameter sample used for the calculations.
+\item simulations: growth curves predicted for each parameter.
+\item quantiles: limits of the credible intervals (5%, 10%, 50%, 90%, 95%) for
+each time point.
+\item model: Model used for the calculations.
+\item mus: Mean parameter values used for the simulations.
+\item sigma: Variance-covariance matrix used for the simulations.
+}
+}
 \description{
-Isothermal growth with variability
+Stochastic simulation of microbial growth based on probability
+distributions of the parameters of the primary model.
+}
+\details{
+Simulations are limited to multivariate normal distributions of
+the model parameters.
 }

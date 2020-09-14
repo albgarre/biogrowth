@@ -1,18 +1,17 @@
 
-#' Reparameterized Gompertz model
-#'
-iso_repGompertz <- function(times, logN0, C, mu, lambda) {
-
-    logN <- logN0 + C*(exp(-exp( 2.71*(mu/C)*(lambda-times)+1 )))
-
-    logN
-
-}
-
-
 #' Isothermal Baranyi model
 #'
-iso_Baranyi <- function(times, logN0, mu, lambda, logNmax, m=1) {
+#' Baranyi growth model as defined by Baranyi and Roberts (1994).
+#'
+#' @param times Numeric vector of storage times
+#' @param logN0 Initial log microbial count
+#' @param mu Maximum specific growth rate
+#' @param lambda Lag phase duration
+#' @param logNmax Maximum log microbial count
+#'
+#' @return Numeric vector with the predicted microbial count.
+#'
+iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 
     h0 <- mu*lambda
 
@@ -23,7 +22,30 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax, m=1) {
 
 }
 
+#' Reparameterized Gompertz model
+#'
+#' Reparameterized Gompertz growth model defined by Zwietering et al. (1990).
+#'
+#' @inheritParams iso_Baranyi
+#' @param C Difference between \code{logN0} and the maximum log-count.
+#'
+#' @return Numeric vector with the predicted microbial count.
+#'
+iso_repGompertz <- function(times, logN0, C, mu, lambda) {
+
+    logN <- logN0 + C*(exp(-exp( 2.71*(mu/C)*(lambda-times)+1 )))
+
+    logN
+
+}
+
 #' Trilinear growth model
+#'
+#' Trilinear growth model defined by Buchanan et al. (1997).
+#'
+#' @inheritParams iso_Baranyi
+#'
+#' @return Numeric vector with the predicted microbial count.
 #'
 trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 
@@ -37,6 +59,20 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 }
 
 #' Isothermal microbial growth
+#'
+#' Predicts microbial growth under isothermal conditions according to
+#' models commonly used in predictive microbiology.
+#'
+#' @param model_name Character defining the growth model.
+#' @param times Numeric vector of storage times for the predictions.
+#' @param model_pars List defining the values of the model parameters.
+#'
+#' @return A list of class \code{IsothermalGrowth} with the items:
+#' \itemize{
+#' \item simulation: A tibble with the model simulation.
+#' \item model: The name of the model used for the predictions.
+#' \item pars: A list with the values of the model parameters.
+#' }
 #'
 #' @importFrom tibble tibble
 #'

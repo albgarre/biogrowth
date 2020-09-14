@@ -6,6 +6,21 @@
 \usage{
 extract_secondary_pars(this_p, known_pars, sec_model_names)
 }
+\arguments{
+\item{this_p}{A named vector of model parameters (usually, the ones fitted).}
+
+\item{known_pars}{Another named vector of model parameters (usually the
+known ones).}
+
+\item{sec_model_names}{A named character vector defining for each environmental
+factor (vector names) the type of secondary model (vector values).}
+}
+\value{
+A nested list defining the secondary models.
+}
 \description{
-A helper to build the secondary models
+Most of the functions for fitting mix in the vectors parameters for
+the primary and secondary models, but the functions for making predictions
+need that they are separated. This one extracts the parameters of the primary
+model.
 }

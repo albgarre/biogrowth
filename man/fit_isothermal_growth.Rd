@@ -6,6 +6,30 @@
 \usage{
 fit_isothermal_growth(fit_data, model_name, starting_point, known_pars, ...)
 }
+\arguments{
+\item{fit_data}{Tibble of data for the fit. It must have a column named
+\code{time} with the storage time and another named \code{logN} with the
+microbial count.}
+
+\item{model_name}{Character defining the primary growth model}
+
+\item{starting_point}{Named vector of initial values for the model parameters.}
+
+\item{known_pars}{Named vector of known model parameters (not fitted).}
+
+\item{...}{Additional arguments passed to \code{\link{modFit}}.}
+}
+\value{
+A list of class \code{FitIsoGrowth} with the following items:
+     \itemize{
+         \item data: data used for model fitting
+         \item model: name of the primary inactivation model
+         \item starting_point: initial value of the model parameters
+         \item known: fixed model parameters
+         \item fit: object returned by \code{\link{modFit}}
+         \item best_prediction: model prediction for the model fitted.
+         }
+}
 \description{
-Fit isothermal growth models
+Fits a primary growth model to data obtained under isothermal conditions.
 }
