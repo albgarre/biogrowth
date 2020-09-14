@@ -53,12 +53,12 @@ predict_MCMC_growth <- function(MCMCfit, times, env_conditions, niter) {
 
     q_values <- simulations %>%
         group_by(time) %>%
-        summarize(q50 = quantile(logN, probs = .5),
-                  q10 = quantile(logN, probs = .1),
-                  q90 = quantile(logN, probs = .9),
-                  q05 = quantile(logN, probs = .05),
-                  q95 = quantile(logN, probs = .95),
-                  m_logN= mean(logN)
+        summarize(q50 = quantile(logN, probs = .5, na.rm=TRUE),
+                  q10 = quantile(logN, probs = .1, na.rm=TRUE),
+                  q90 = quantile(logN, probs = .9, na.rm=TRUE),
+                  q05 = quantile(logN, probs = .05, na.rm=TRUE),
+                  q95 = quantile(logN, probs = .95, na.rm=TRUE),
+                  m_logN= mean(logN, na.rm=TRUE)
         )
 
     ## Output

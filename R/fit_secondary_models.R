@@ -1,4 +1,31 @@
 
+#' Gamma factors for fitting secondary models
+#'
+#' @importFrom dplyr bind_cols
+#'
+calculate_gammas_secondary <- function(sec_model_names, my_data, secondary_models) {
+
+    lapply(names(sec_model_names), function(this_condition) {
+
+        this_x <- my_data[[this_condition]]
+        this_sec <- secondary_models[[this_condition]]
+
+        this_gamma <- switch(this_sec$mode,
+                             # Ratkowsky = ratkowsky_model(this_x, this_sec$b, this_sec$xmin),
+                             CPM = CPM_model(this_x, this_sec$xmin,
+                                             this_sec$xopt, this_sec$xmax, this_sec$n),
+                             Zwietering = zwietering_gamma(this_x, this_sec$xmin, this_sec$xopt, this_sec$n),
+                             stop(paste("Model", this_sec$model, "not known."))
+        )
+
+        this_gamma
+
+    }) %>%
+        bind_cols() %>%
+        apply(., 1, prod)
+
+}
+
 #' Residuals of secondary models
 #'
 #' @importFrom dplyr mutate
@@ -20,24 +47,7 @@ get_secondary_residuals <- function(this_p, my_data,
 
     ## Calculate gammas
 
-    all_gammas <- lapply(names(sec_model_names), function(this_condition) {
-
-        this_x <- my_data[[this_condition]]
-        this_sec <- secondary_models[[this_condition]]
-
-        this_gamma <- switch(this_sec$mode,
-                             # Ratkowsky = ratkowsky_model(this_x, this_sec$b, this_sec$xmin),
-                             CPM = CPM_model(this_x, this_sec$xmin,
-                                             this_sec$xopt, this_sec$xmax, this_sec$n),
-                             Zwietering = zwietering_gamma(this_x, this_sec$xmin, this_sec$xopt, this_sec$n),
-                             stop(paste("Model", this_sec$model, "not known."))
-        )
-
-        this_gamma
-
-    }) %>%
-        bind_cols() %>%
-        apply(., 1, prod)
+    all_gammas <- calculate_gammas_secondary(sec_model_names, my_data, secondary_models)
 
     ## Compare prediction and observations
 

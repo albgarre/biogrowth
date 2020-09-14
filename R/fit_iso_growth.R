@@ -27,17 +27,27 @@ fit_isothermal_growth <- function(fit_data, model_name, starting_point,
                                   known_pars,
                                   ...) {
 
+    ## Fit the model
+
     my_fit <- modFit(get_iso_residuals, unlist(starting_point),
                      fit_data = fit_data, model_name = model_name,
                      known_pars = known_pars,
                      ...)
+
+    ## Prepare the output
+
+    times <- seq(0, max(fit_data$time), length = 1000)
+    pars <- c(my_fit$par, known_pars)
+
+    best_prediction <- predict_isothermal_growth(model_name, times, as.list(pars))
 
     out <- list(
         data = fit_data,
         model = model_name,
         starting_point = starting_point,
         known = known_pars,
-        fit = my_fit
+        fit = my_fit,
+        best_prediction = best_prediction
     )
 
     class(out) <- c("FitIsoGrowth", class(out))
