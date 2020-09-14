@@ -239,6 +239,34 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...) {
 
 }
 
+#' Plot of TimeDistribution Object
+#'
+#' Plots the predicted log microbial count for an
+#' instance of \code{TimeDistribution}.
+#'
+#' @param x The object of class \code{TimeDistribution} to plot.
+#' @param y ignored
+#' @param ... additional arguments passed to \code{plot}.
+#'
+#' @return An instance of \code{ggplot}.
+#'
+#' @export
+#'
+#' @importFrom ggplot2 ggplot geom_histogram aes
+#'
+plot.TimeDistribution <- function(x, y=NULL, ...) {
+
+    ggplot() +
+        geom_histogram(aes(x$distribution)) +
+        geom_vline(xintercept = c(x$summary$med_time),
+                   linetype = 2, colour = "red") +
+        geom_vline(xintercept = c(x$summary$q10, x$summary$q90),
+                   linetype = 2, colour = "darkgrey") +
+        xlab("time")
+
+
+}
+
 
 
 
