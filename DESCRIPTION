@@ -22,3 +22,8 @@ Imports:
     MASS (>= 7.3),
     rlang (>= 0.4.6),
     purrr (>= 0.3.3)
+Suggests: 
+    knitr,
+    rmarkdown,
+    tidyverse (>= 1.2.1)
+VignetteBuilder: knitr

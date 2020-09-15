@@ -16,6 +16,7 @@
 #' and the initial values of the model variables. That is, with names \code{mu_opt},
 #' \code{Nmax}, \code{N0}, \code{Q0}.
 #' @param secondary_models A nested list describing the secondary models.
+#' @param ... Additional arguments for \code{\link{ode}}.
 #'
 #' @return A list of class \code{DynamicGrowth} with items:
 #' \itemize{
@@ -38,7 +39,7 @@
 #' @export
 #'
 predict_dynamic_growth <- function(times, env_conditions, primary_pars,
-                                   secondary_models) {
+                                   secondary_models, ...) {
 
     ## Prepare stuff
 
@@ -51,7 +52,8 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
 
     my_sim <- ode(yini, times, dBaranyi, primary_pars,
                   env_func = my_env,
-                  sec_models = secondary_models
+                  sec_models = secondary_models,
+                  ...
     ) %>%
         as_tibble() %>%
         mutate(logN = log10(N))
