@@ -475,31 +475,72 @@ plot(static_fit)
 
 ## Fitting of secondary (gamma) models
 
-AA
+The function `fit_secondary_growth()` can be used to estimate the values of the cardinal parameters from the specific growth rates observed in a series of static growth experiments. This function has 6 arguments:
+
+* `fit_data`: data used for the fit.
+* `starting_point`: initial value of the model parameters
+* `known_pars`: model parameters fixed (not fitted to the data).
+* `sec_model_names`: type of secondary model for each environmental factor.
+* `transformation`: transformation of the growth rate for the fit (square root by default).
+* `...`: additional arguments passed to `modFit()`.
+
+A method to estimate the cardinal parameters is based on realizing various static growth experiments under a variety of experimental conditions. Such dataset is passed using the `fit_data` argument. The **biogrowth** package includes an example dataset with the right format.
 
 ```{r}
 data("example_cardinal")
-
-sec_model_names <- c(temperature = "Zwietering",
-                     pH = "CPM")
-
-known_pars <- list(mu_opt = 1.2,
-                   temperature_n = 1,
-                   pH_xmax = 6.8,
-                   pH_n = 2, pH_xmin = 5.2
-)
-
-this_p <- list(temperature_xmin = 5, temperature_xopt = 35,
-               pH_xopt = 6.5)
-
-aa <- fit_secondary_growth(example_cardinal, this_p, known_pars, sec_model_names) %>% summary()
-
-aa
+head(example_cardinal)
 ```
 
+This dataset must have one column named `mu` with the observed growth rate. Then, it must have as many additional columns as environmental factors included in the experiment. In the example dataset, the series of experiments considered two environmental conditions: temperature and pH. Nonetheless, the `fit_secondary_growth()` function is entirely flexible with respect to the number of factors and their names. The only restriction is that the definition of the columns of the dataset and the secondary models is consistent.
+
+The type of secondary model to use for each environmental factor is defined in the `sec_model_names` argument. It is a named vector whose names are the environmental factors and whose values define the model to use. Right now, the function admits cardinal parameters models ("CPM") and the gamma-type model defined by Zwietering et al. ("Zwietering"). For this example, we will use a CPM for the pH and an Zwietering model for temperature. Note that the names of the vector are identical to the column names of `fit_data`.
+
+```{r}
+sec_model_names <- c(temperature = "Zwietering",
+                     pH = "CPM")
+```
+
+The `fit_secondary_growth()` function estimates the values of the cardinal parameters, as well as the specific growth rate under optimal conditions. Also, it enables to fix any model parameter to an arbitrary value before fitting the model. The model parameters to fit are defined using the `known_pars` argument. Regarding the remaining parameters, because of the use of non-linear regression for parameter estimation, require the definition of initial parameter values. 
+
+The specific growth rate under optimal conditions is named `mu_opt`. The remaining cardinal parameters are named according to the convention `environ_factor`+`_`+`parameter(lower case)`. For instance, the minimum temperature for growth is `temperature_xmin` and the order of the CPM for pH is `pH_n`. Note that the environmental factor must be identical to the one used in `sec_model_names`.
+
+For this example, we will consider that the maximum specific growth rate is known, as well as most of the the cardinal parameters for pH. For temperature, we will only fix the order of the model.
+
+```{r}
+known_pars <- list(mu_opt = 1.2,
+                   temperature_n = 1,
+                   pH_n = 2, pH_xmax = 6.8, pH_xmin = 5.2
+                   )
+
+```
+
+The remaining model parameters will be fitted using reasonable initial values.
+
+```{r}
+my_start <- list(temperature_xmin = 5, temperature_xopt = 35,
+               pH_xopt = 6.5)
+```
+
+Finally, the `transformation` argument defines the transformation of the growth rate to use for model fitting. By default, the function applies a square root transformation, which has proved to stabilize the variance of microbial growth. Once the arguments have been defined, we can call the `fit_secondary_growth()` function:
+
+```{r}
+fit_cardinal <- fit_secondary_growth(example_cardinal, my_start, known_pars, sec_model_names)
+```
+
+This function returns an instance of `FitSecondaryGrowth` with 5 items:
+
+* `fit_results` the object returned by `modFit`.
+* `secondary_mode` parameters of the secondary model.
+* `mu_opt_fit` growth rate under optimal storage conditiosn.
+* `data` data used for the fit.
+* `transformation` tranformation applied to the growth rate before fitting.
+
+This class incorporates several S3 method to ease visualization of results. The function `summary()` returns the statistical information of the fit.
 
 
-
+```{r}
+summary(fit_cardinal)
+```
 
 ## One-step fitting under dynamic conditions
 
