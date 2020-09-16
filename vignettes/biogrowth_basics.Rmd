@@ -151,13 +151,40 @@ $$
 $$
 In this equation, $X_{min}$, $X_{opt}$ and $X_{max}$ are the minimum, maximum and optimum values of $X$ for microbial growth (usually called *cardinal parameters*). The coefficient $n$ is the order of the cardinal model.
 
-# Numerical methods
+## Numerical methods
 
 The numerical calculations are largely based on the **FME** and **deSolve** package. The differential equations required for dynamic calculations are calculated using the `ode()` function from **deSolve**, which implements the LSODA numerical method. Model fitting is done using the `modFit()` function from **FME** for linear regression and the `modMCMC` function from the same package for MCMC fitting.
 
 # Datasets included in the package
 
-AA
+The **biogrowth** package includes several datasets to aid in the understanding of its functions. Namely, it includes 3 datasets:
+* `example_cardinal`: an example of the results of a set of growth experiments to estimate cardinal parameters.
+* `example_dynamic_growth` and `example_env_conditions`: an example of the results of a dynamic growth experiment.
+
+All of them are automatically saved when the package is installed. Each one of them can be loaded with a call to the function `data()` passing the name of the dataset as an argument.
+
+The dataset `example_cardinal` includes an example of the type of data used for estimating cardinal model parameters. It has three columns: temperature, pH and mu. The two first represent the storage conditions during several static growth experiments, whereas the latter is the specific growth rate estimated in those experiments. This dataset is intended to be used for `fit_secondary_growth()`.
+
+```{r}
+data("example_cardinal")
+head(example_cardinal)
+```
+
+The datasets `example_dynamic_growth` and `example_env_conditions` describe a dynamic growth experiment, which can be used for the `fit_dynamic_growth()` function. The dataset `example_env_conditions` describes the experimental design; i.e. how the environmental factors vary during the experiment. It has three columns: time (the elapsed time), temperature (the storage temperature) and aw (the water activity). 
+
+```{r}
+data("example_env_conditions")
+head(example_env_conditions)
+```
+
+The dataset `example_dynamic_growth` illustrates the microbial counts observed during the experiment described by `example_env_conditions`. It has two columns: time (the elapsed time) and logN (the observed microbial count).
+
+```{r}
+data("example_dynamic_growth")
+head(example_dynamic_growth)
+```
+
+
 
 # Deterministic modelling
 
@@ -450,12 +477,59 @@ plot(static_fit)
 
 AA
 
+```{r}
+data("example_cardinal")
+
+sec_model_names <- c(temperature = "Zwietering",
+                     pH = "CPM")
+
+known_pars <- list(mu_opt = 1.2,
+                   temperature_n = 1,
+                   pH_xmax = 6.8,
+                   pH_n = 2, pH_xmin = 5.2
+)
+
+this_p <- list(temperature_xmin = 5, temperature_xopt = 35,
+               pH_xopt = 6.5)
+
+aa <- fit_secondary_growth(example_cardinal, this_p, known_pars, sec_model_names) %>% summary()
+
+aa
+```
+
+
 
 
 
 ## One-step fitting under dynamic conditions
 
 AA
+
+```{r}
+data("example_dynamic_growth")
+data("example_env_conditions")
+
+sec_model_names <- c(temperature = "CPM",
+                     aw= "CPM")
+
+known_pars <- list(mu_opt = 4, Nmax = 1e4,
+                   temperature_n = 1,
+                   aw_xmax = 1, aw_xmin = .9,
+                   N0 = 1e0, Q0 = 1e-3,
+                   aw_n = 1
+)
+
+this_p <- list(temperature_xmin = 25, temperature_xopt = 35,
+               temperature_xmax = 40,
+               aw_xopt = .95)
+
+aa <- fit_dynamic_growth(example_dynamic_growth, example_env_conditions, 
+                         unlist(this_p),
+                         unlist(known_pars), sec_model_names)
+summary(aa)
+plot(aa)
+```
+
 
 # Stochastic modelling
 
@@ -602,8 +676,6 @@ Rosso, L., Lobry, J. R., Bajard, S., & Flandrois, J. P. (1995). Convenient Model
 Soetaert, K., Petzoldt, T., & Setzer, R. W. (2010). Solving Differential Equations in R: Package deSolve. Journal of Statistical Software, 33(9). https://doi.org/10.18637/jss.v033.i09
 
 Soetaert, K., & Petzoldt, T. (2010). Inverse Modelling, Sensitivity and Monte Carlo Analysis in R Using Package FME. Journal of Statistical Software, 33(3). https://doi.org/10.18637/jss.v033.i03
-
-
 
 Zwietering, M. H., Jongenburger, I., Rombouts, F. M., & Riet, K. van ’t. (1990). Modeling of the Bacterial Growth Curve. Applied and Environmental Microbiology, 56(6), 1875–1881.
 
