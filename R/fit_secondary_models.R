@@ -67,9 +67,9 @@ get_secondary_residuals <- function(this_p, my_data,
                                                sec_model_names)
 
     if ("mu_opt" %in% names(known_pars)) {
-        mu_opt <- known_pars$mu_opt
+        mu_opt <- as.list(known_pars)$mu_opt
     } else {
-        mu_opt <- this_p$mu_opt
+        mu_opt <- as.list(this_p)$mu_opt
     }
 
     ## Calculate gammas
@@ -160,7 +160,7 @@ fit_secondary_growth <- function(fit_data, starting_point,
     if ("mu_opt" %in% names(known_pars)) {
         mu_opt <- known_pars$mu_opt
     } else {
-        mu_opt <- my_fit$par$mu_opt
+        mu_opt <- as.list(my_fit$par)$mu_opt
     }
 
     out <- list(fit_results = my_fit,
