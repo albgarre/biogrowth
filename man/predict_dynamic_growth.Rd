@@ -4,7 +4,13 @@
 \alias{predict_dynamic_growth}
 \title{Growth under dynamic conditions}
 \usage{
-predict_dynamic_growth(times, env_conditions, primary_pars, secondary_models)
+predict_dynamic_growth(
+  times,
+  env_conditions,
+  primary_pars,
+  secondary_models,
+  ...
+)
 }
 \arguments{
 \item{times}{Numeric vector of storage times to make the predictions}
@@ -18,6 +24,8 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 \code{Nmax}, \code{N0}, \code{Q0}.}
 
 \item{secondary_models}{A nested list describing the secondary models.}
+
+\item{...}{Additional arguments for \code{\link{ode}}.}
 }
 \value{
 A list of class \code{DynamicGrowth} with items:

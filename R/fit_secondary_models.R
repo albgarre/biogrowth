@@ -19,7 +19,7 @@
 #'
 calculate_gammas_secondary <- function(sec_model_names, my_data, secondary_models) {
 
-    lapply(names(sec_model_names), function(this_condition) {
+    all_gammas <- lapply(names(sec_model_names), function(this_condition) {
 
         this_x <- my_data[[this_condition]]
         this_sec <- secondary_models[[this_condition]]
@@ -35,8 +35,11 @@ calculate_gammas_secondary <- function(sec_model_names, my_data, secondary_model
         this_gamma
 
     }) %>%
-        bind_cols() %>%
-        apply(., 1, prod)
+        bind_cols()
+
+    # print(all_gammas)
+
+    apply(all_gammas, 1, prod)
 
 }
 
