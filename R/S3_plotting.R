@@ -81,7 +81,7 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
             my_line +
             scale_y_continuous(limits = ylims,
                                               name = label_y1,
-                                              sec.axis = sec_axis(~(. + intercept)/slope,
+                                              sec.axis = sec_axis(~(. - intercept)/slope,
                                                                   name = label_y2))
 
 

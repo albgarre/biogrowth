@@ -544,31 +544,112 @@ summary(fit_cardinal)
 
 ## One-step fitting under dynamic conditions
 
-AA
+The function `fit_dynamic_growth()` can be used to estimate the parameters of both the primary and the secondary model based on a growth experiment obtained under dynamic conditions. This function has 6 arguments:
+
+* `fit_data`: data used for model fitting.
+* `env_conditions`: variation of the environmental conditions during the experiment.
+* `starting_point`: initial value of the model parameters.
+* `known_pars`: model parameters known (i.e. not fitted).
+* `sec_model_names`: type of secondary model for each environmental factor.
+* `...`: additional arguments passed to `modFit`.
+
+The arguments `env_conditions` and `fit_data` are tibbles that describe, respectively, the experimental design and the observations. To help understanding `fit_dynamic_growth()`, **biogrowth** includes two example datasets that can be used with this function:
 
 ```{r}
 data("example_dynamic_growth")
 data("example_env_conditions")
+```
 
+The tibble passed to the argument `env_conditions` must have a column named `time` and as many additional columns as environmental factors. The `fit_dynamic_growth()` function is totally flexible with respect to the number of factors or the way they are named. The only requirement is that the definition of every argument is consistent. In the case of `example_env_conditions`, this dataset considers two factors: temperature and water activity (`aw`).
+
+```{r}
+head(example_env_conditions)
+```
+
+Note that for the calculations this function joins the data points by linear interpolation, as shown in this plot:
+
+```{r}
+ggplot(example_env_conditions, aes(x = time, y = temperature)) + 
+  geom_line() +
+  geom_point()
+```
+
+In order to have a stepwise profile, one should define additional time points.
+
+The tibble passed to the argument `fit_data` must have two columns named `time` (elapsed time) and `logN` (log microbial count), in the same format as `example_dynamic_growth`. 
+
+```{r}
+head(example_dynamic_growth)
+```
+
+The type of secondary model for each environmental factor is defined by the argument `sec_model_names`. As in every function in **biogrowth**, this argument is a named vector where the names refer to the environmental factor and the value the type of model. Supported models are cardinal models (`"CPM"`) and the gamma models by Zwietering (`"Zwietering"`). In this example we will use cardinal models for both environmental factors. Note that the names of this vector must be identical to the columns in `env_conditions`.
+
+```{r}
 sec_model_names <- c(temperature = "CPM",
                      aw= "CPM")
+```
 
-known_pars <- list(mu_opt = 4, Nmax = 1e4,
-                   temperature_n = 1,
-                   aw_xmax = 1, aw_xmin = .9,
-                   N0 = 1e0, Q0 = 1e-3,
-                   aw_n = 1
+The `fit_dynamic_growth()` function enables to fit or fix any model parameter. This distinction is made using the arguments `known_pars` (fixed parameters) and `starting_point` (fitted parameters). Note that these arguments must contain every parameter of the primary and secondary models. 
+
+Regarding the primary model, this function only enables the use of the Baranyi model. This primary model has two variables that need initial values (`N0` and `Q0`) and one primary model parameter (`Nmax`). The specific growth rate is described using the gamma concept. This requires the definition of its value under optimal conditions (`mu_opt`) as well as the cardinal parameters for each environmental factor. As well as for other functions, these must be defined as `factor`+`_`+`parameter name`. For instance, the minimum water activity for growth shall be written as `aw_min`.
+
+In this example we will consider the model parameters of the primary model as known. For the secondary model for water activity, we will only consider unknown the optimum value for growth. Finally, for the effect of temperature, the only parameter we consider known is the order of the model:
+
+```{r}
+known_pars <- list(Nmax = 1e4,  # Primary model
+                   N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+                   mu_opt = 4, # mu_opt of the gamma model
+                   temperature_n = 1,  # Secondary model for temperature
+                   aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
 )
+```
 
-this_p <- list(temperature_xmin = 25, temperature_xopt = 35,
+Then, the remaining model parameters must be defined in `starting_points`. Due to the use of non-linear regression for model fitting, it is required to define initial values for these parameters. They can be defined based on previous esperience or preliminary numerical simulations.
+
+```{r}
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
                temperature_xmax = 40,
                aw_xopt = .95)
 
-aa <- fit_dynamic_growth(example_dynamic_growth, example_env_conditions, 
-                         unlist(this_p),
-                         unlist(known_pars), sec_model_names)
-summary(aa)
-plot(aa)
+```
+
+Once every model parameter has been defined, we can call the `fit_dynamic_growth()` function.
+
+
+```{r}
+my_dyna_fit <- fit_dynamic_growth(example_dynamic_growth, example_env_conditions, 
+                         my_start,
+                         known_pars, 
+                         sec_model_names)
+```
+
+This function returns an instance of `FitDynamicGrowth` with 6 items:
+
+* `fit_results`: object returned by `modFit()`.
+* `best_prediction`: an instance of `DynamicGrowth` with the prediction corresponding to the fitted model.
+* `data`: data used to fit the model.
+* `starting`: starting values used for parameter estimation.
+* `known`: model parameters considered known.
+* `sec_models`: type of secondary model for each environmental factor.
+
+The `FitDynamicGrowth` includes several S3 methods that ease the visualization of the results. The summary function returns the statistical information of the fit.
+
+```{r}
+summary(my_dyna_fit)
+```
+
+The `plot()` method compares the model predictions against the data used for the fit:
+
+```{r}
+plot(my_dyna_fit)
+```
+
+The variation of the environmental factor can be plotted alongside the previous plot. For that, the name of the environmental factor must be passed to `add_factor`. Note that the value passed must be identical to the one defined in the previous arguments. Then, the label of the primary or secondary axes can be changed using `label_y1` or `label_y2`
+
+```{r}
+plot(my_dyna_fit, add_factor = "aw",
+     label_y1 = "Log count (log CFU/ml)",
+     label_y2 = "Water activity")
 ```
 
 
@@ -609,7 +690,7 @@ For the example, we will set the number of simulations to 1000. Nevertheless, it
 n_sims <- 1000
 ```
 
-
+Once the arguments have been defined, we can call the `predict_stochastic_growth()` function.
 
 ```{r}
 stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
@@ -664,7 +745,69 @@ Note that, in order to omit the variability/uncertainty of any model parameter, 
 
 ## One-step fitting using MCMC algorithms
 
-AA
+Numerical algorithms based on Markov Chains have been suggested as an alternative to non-linear regression for dynamic models. For that reason, **biogrowth** includes the function `fit_MCMC_growth()` that uses the interface included in the **FME** package to the Adaptive Monte Carlo algorithm by Haario et al. (2006). The arguments and the requirements of this function are identical to those of `fit_dynamic_growth()`. The only difference is that this function has the additional argument `niter`, which defines the number of samples from the Markov Chain. Hence, we will repeat the previous code to define the model parameters and the data.
+
+```{r}
+
+data("example_dynamic_growth")
+data("example_env_conditions")
+
+sec_model_names <- c(temperature = "CPM",
+                     aw= "CPM")
+
+known_pars <- list(Nmax = 1e4,  # Primary model
+                   N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+                   mu_opt = 4, # mu_opt of the gamma model
+                   temperature_n = 1,  # Secondary model for temperature
+                   aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
+)
+
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+                 temperature_xmax = 40,
+                 aw_xopt = .95)
+
+```
+
+Then, we can call the `fit_MCMC_growth()` using this arguments plus the argument `niter` that we will set to 500.
+
+```{r}
+my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions, 
+                                my_start,
+                                known_pars, 
+                                sec_model_names, 
+                                niter = 500)
+
+```
+
+This function returns an instance of `FitDynamicGrowthMCMC` with 6 entries:
+
+
+* `fit_results`: object returned by `modMCMC()`.
+* `best_prediction`: an instance of `DynamicGrowth` with the prediction corresponding to the fitted model.
+* `data`: data used to fit the model.
+* `starting`: starting values used for parameter estimation.
+* `known`: model parameters considered known.
+* `sec_models`: type of secondary model for each environmental factor.
+
+This class implements several S3 methods to aid in the the visualization of the results. A call to `summary()` returns the statistics of the Markov Chain.
+
+```{r}
+summary(my_MCMC_fit)
+```
+
+And a call to `plot()` compares the data against the model fitted.
+
+```{r}
+plot(my_MCMC_fit)
+```
+
+As well as for `fit_dynamic_growth()`, the environmental conditions can be added to the plot using the `add_factor` argument.
+
+```{r}
+plot(my_MCMC_fit, add_factor = "temperature")
+```
+
+
 
 ## Stochastic prediction based on an MCMC fit
 
@@ -709,6 +852,7 @@ Baranyi, J., & Roberts, T. A. (1994). A dynamic approach to predicting bacterial
 
 Buchanan, R. L., Whiting, R. C., & Damert, W. C. (1997). When is simple good enough: a comparison of the Gompertz, Baranyi, and three-phase linear models for fitting bacterial growth curves. Food Microbiology, 14(4), 313–326. https://doi.org/10.1006/fmic.1997.0125
 
+Haario, H., Laine, M., Mira, A., & Saksman, E. (2006). DRAM: Efficient adaptive MCMC. Statistics and Computing, 16(4), 339–354. https://doi.org/10.1007/s11222-006-9438-0
 
 Perez-Rodriguez, F., & Valero, A. (2012). Predictive Microbiology in Foods. Springer.
 
