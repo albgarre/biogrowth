@@ -811,7 +811,78 @@ plot(my_MCMC_fit, add_factor = "temperature")
 
 ## Stochastic prediction based on an MCMC fit
 
-AA
+The function `predict_MCMC_growth()` provides an interface to make stochastic predictions based on parameter distributions estimated using `fit_MCMC_growth()`. This function has 4 arguments:
+
+* `MCMCfit` an instance of `FitDynamicGrowthMCMC` returned by `fit_MCMC_growth()`.
+* `times` vector of time points for the calculations.
+* `env_conditions` tibble describing the (dynamic) environmental conditions.
+* `niter` number of samples for the Monte Carlo calculations.
+
+For this first example, we will use the same data we used previously to illustrate the use of the `fit_MCMC_growth()` function. The environmental conditions were defined by `example_env_conditions`
+
+```{r}
+example_env_conditions
+```
+
+This function estimates the credible intervals based on the quantiles of the predicted microbial count at each time point. Hence, their precision depends on the number of time points and the number of simulations. If the number of time points is too low, the prediction interval would not be "smooth". On the other hand, if the number of simulations is too low, the crecible interval would vary between repetitions of the same calculation.
+
+As an example, we wil use 5 time points uniformly distributed between 0 and 15
+
+```{r}
+my_times <- seq(0, 15, length = 5)
+```
+
+and 100 iterations.
+
+```{r}
+niter <- 100
+```
+
+Once we have defined every argument, we can call the `predict_MCMC_growth()` function.
+
+```{r, warning=FALSE}
+my_MCMC_prediction <- predict_MCMC_growth(my_MCMC_fit, 
+                                          my_times,
+                                          example_env_conditions, 
+                                          niter)
+```
+
+This function returns an instance of `MCMCgrowth` with 4 entries:
+
+* `sample` a tibble with the sample of model parameters used for the simulations.
+* `simulations` a tibble with the results of every individual simulation used.
+* `quantiles` a tibble providing the calculated quantiles (5th, 10th, 50th, 90th, 95th) of the microbial count for each time point.
+* `model` the instance of `FitDynamicGrowthMCMC` used for the predictions.
+
+Hence, the individual quantiles can be retrieved from `quantiles`
+
+```{r}
+my_MCMC_prediction$quantiles
+```
+
+This class implements an S3 method for `plot` to visualize the prediction interval.
+
+```{r}
+plot(my_MCMC_prediction)
+```
+
+In this plot, the solid line represents the median of the simulations, whereas the two shaded areas represent the space between the 10th and 90th, and 5th and 95th quantiles. As shown in this plot, the prediction interval is far from smooth. The reason for that is the low number of time points used for the calculations. Consequently, we will repeat them using 100 time points instead of 5:
+
+```{r, warning=FALSE}
+better_prediction <- predict_MCMC_growth(my_MCMC_fit, 
+                                          seq(0, 15, length = 100),
+                                          example_env_conditions, 
+                                          niter)
+```
+
+If we visualize the new prediction interval
+
+```{r}
+plot(better_prediction)
+```
+
+it is now smoother. However, the prediction interval is still odd. Even if it is smooth, there are several inflection points that are hard to justify based on the model equations. They are the result of the low number of Monte Carlo samples used for the simulations. Hence, this number should be increased to obtain reliable intervals (not done in this vignette due to excessive compilation time).
+
 
 ## Distributions of times to reach a certain count
 
