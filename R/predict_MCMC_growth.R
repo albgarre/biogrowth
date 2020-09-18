@@ -29,6 +29,7 @@
 #' @importFrom dplyr %>%
 #' @importFrom dplyr mutate
 #' @importFrom dplyr row_number
+#' @importFrom dplyr group_by
 #' @importFrom tibble as_tibble
 #' @importFrom purrr map2
 #' @importFrom purrr map
