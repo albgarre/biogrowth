@@ -55,6 +55,7 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                   sec_models = secondary_models,
                   ...
     ) %>%
+        as.data.frame() %>%
         as_tibble() %>%
         mutate(logN = log10(N))
 

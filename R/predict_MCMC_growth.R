@@ -42,6 +42,7 @@ predict_MCMC_growth <- function(MCMCfit, times, env_conditions, niter) {
     ## Extract the parameters
 
     par_sample <- MCMCfit$fit_results$pars %>%
+        as.data.frame() %>%
         as_tibble() %>%
         sample_n(niter, replace = TRUE) %>%
         mutate(iter = row_number())

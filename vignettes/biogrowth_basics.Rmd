@@ -184,8 +184,6 @@ data("example_dynamic_growth")
 head(example_dynamic_growth)
 ```
 
-
-
 # Deterministic modelling
 
 ## Growth prediction under static conditions
@@ -373,7 +371,7 @@ The arguments `ylims`, `label_y1` and `label_y2` enable to further edit the plot
 
 
 ```{r}
-plot(dynamic_prediction, add_factor = "temperature", ylims= c(0, 6.5), 
+plot(dynamic_prediction, add_factor = "temperature", ylims= c(0, 8), 
      label_y1 = "Microbial count (log CFU/ml)", label_y2 = "Storage temperature (ºC)")
 ```
 
@@ -840,7 +838,7 @@ niter <- 100
 
 Once we have defined every argument, we can call the `predict_MCMC_growth()` function.
 
-```{r, warning=FALSE}
+```{r}
 my_MCMC_prediction <- predict_MCMC_growth(my_MCMC_fit, 
                                           my_times,
                                           example_env_conditions, 
@@ -868,7 +866,7 @@ plot(my_MCMC_prediction)
 
 In this plot, the solid line represents the median of the simulations, whereas the two shaded areas represent the space between the 10th and 90th, and 5th and 95th quantiles. As shown in this plot, the prediction interval is far from smooth. The reason for that is the low number of time points used for the calculations. Consequently, we will repeat them using 100 time points instead of 5:
 
-```{r, warning=FALSE}
+```{r}
 better_prediction <- predict_MCMC_growth(my_MCMC_fit, 
                                           seq(0, 15, length = 100),
                                           example_env_conditions, 
