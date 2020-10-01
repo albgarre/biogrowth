@@ -8,6 +8,8 @@
 #' @param model An instance of \code{IsothermalGrowth} or \code{DynamicGrowth}.
 #' @param log_count The target log microbial count.
 #'
+#' @importFrom stats approx
+#'
 #' @return The predicted time to reach \code{log_count}.
 #'
 #' @export
@@ -46,7 +48,9 @@ time_to_logcount <- function(model, log_count) {
 #' }
 #'
 #' @importFrom purrr map_dfr
-#' @importFrom dplyr %>%
+#' @importFrom dplyr %>% summarize
+#' @importFrom rlang .data
+#' @importFrom stats sd median quantile
 #'
 #' @export
 #'
@@ -54,18 +58,16 @@ distribution_to_logcount <- function(model, log_count) {
 
     if (is.StochasticGrowth(model)) {
 
-        time_dist <- model$simulations %>%
-            split(.$iter) %>%
-            map_dfr(.,
-                    ~ approx(.$logN, .$time, log_count)
+        time_dist <- split(model$simulations, model$simulations$iter) %>%
+            # split(.$iter) %>%
+            map_dfr(~ approx(.$logN, .$time, log_count)
             )
 
     } else if(is.MCMCgrowth(model)) {
 
-        time_dist <- model$simulations %>%
-            split(.$sim) %>%
-            map_dfr(.,
-                    ~ approx(.$logN, .$time, log_count)
+        time_dist <- split(model$simulations, model$simulations$sim) %>%
+            # split(.$sim) %>%
+            map_dfr(~ approx(.$logN, .$time, log_count)
             )
 
     } else {
@@ -73,11 +75,11 @@ distribution_to_logcount <- function(model, log_count) {
     }
 
     my_summary <- time_dist %>%
-        summarize(m_time = mean(y, na.rm = TRUE),
-                  sd_time = sd(y, na.rm=TRUE),
-                  med_time = median(y, na.rm = TRUE),
-                  q10 = quantile(y, .1, na.rm = TRUE),
-                  q90 = quantile(y, .9, na.rm = TRUE))
+        summarize(m_time = mean(.data$y, na.rm = TRUE),
+                  sd_time = sd(.data$y, na.rm=TRUE),
+                  med_time = median(.data$y, na.rm = TRUE),
+                  q10 = quantile(.data$y, .1, na.rm = TRUE),
+                  q90 = quantile(.data$y, .9, na.rm = TRUE))
 
     out <- list(distribution = time_dist$y,
                 summary = my_summary)

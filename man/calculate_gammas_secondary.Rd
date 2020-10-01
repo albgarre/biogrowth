@@ -6,19 +6,22 @@
 \usage{
 calculate_gammas_secondary(sec_model_names, my_data, secondary_models)
 }
+\arguments{
+\item{sec_model_names}{named character vector defining the type of secondary
+model. Its names correspond to the environmental condition and the values
+define the corresponding type of secondary model.}
+
+\item{my_data}{Tibble of experimental conditions.}
+
+\item{secondary_models}{A list defining the parameters of the secondary models.}
+}
+\value{
+a numeric vector of length \code{nrow(my_data)} with the gamma factor
+for each experimental condition.
+}
 \description{
 A helper for fitting the secondary gamma models.
- Calculates the gamma factors corresponding to the models defined
- and the experimental conditions. In order for it to work, the environmental
- factors must be named identically in the 3 arguments.
-}
-\details{
-@param sec_model_names named character vector defining the type of secondary
- model. Its names correspond to the environmental condition and the values
- define the corresponding type of secondary model.
- @param my_data Tibble of experimental conditions.
- @param secondary_models A list defining the parameters of the secondary models.
-
- @return a numeric vector of length \code{nrow(my_data)} with the gamma factor
- for each experimental condition.
+Calculates the gamma factors corresponding to the models defined
+and the experimental conditions. In order for it to work, the environmental
+factors must be named identically in the 3 arguments.
 }

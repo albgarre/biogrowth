@@ -5,6 +5,8 @@
 #' conditions through the storage time. Must contain a column named \code{time}
 #' and as many additional columns as environmental factors.
 #'
+#' @importFrom stats approxfun
+#'
 #' @return A list of functions that return the value of each environmental
 #' condition for some storage time
 #'

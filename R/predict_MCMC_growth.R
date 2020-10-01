@@ -34,6 +34,8 @@
 #' @importFrom purrr map2
 #' @importFrom purrr map
 #' @importFrom purrr imap_dfr
+#' @importFrom rlang .data
+#' @importFrom stats quantile
 #'
 #' @export
 #'
@@ -53,18 +55,16 @@ predict_MCMC_growth <- function(MCMCfit, times, env_conditions, niter) {
 
     ## Build the models
 
-    primary_pars <- par_sample %>%
-        split(.$iter) %>%
+    primary_pars <- split(par_sample, par_sample$iter) %>%
+        # split(.$iter) %>%
         map(as.list) %>%
-        map(.,
-            ~ extract_primary_pars(., known_pars)
+        map(~ extract_primary_pars(., known_pars)
         )
 
-    secondary_models <- par_sample %>%
-        split(.$iter) %>%
+    secondary_models <- split(par_sample, par_sample$iter) %>%
+        # split(.$iter) %>%
         map(as.list) %>%
-        map(.,
-            ~ extract_secondary_pars(., known_pars, sec_model_names)
+        map(~ extract_secondary_pars(., known_pars, sec_model_names)
         )
 
     ## Do the simulations
@@ -78,13 +78,13 @@ predict_MCMC_growth <- function(MCMCfit, times, env_conditions, niter) {
         imap_dfr(~ mutate(.x, sim = .y))
 
     q_values <- simulations %>%
-        group_by(time) %>%
-        summarize(q50 = quantile(logN, probs = .5, na.rm=TRUE),
-                  q10 = quantile(logN, probs = .1, na.rm=TRUE),
-                  q90 = quantile(logN, probs = .9, na.rm=TRUE),
-                  q05 = quantile(logN, probs = .05, na.rm=TRUE),
-                  q95 = quantile(logN, probs = .95, na.rm=TRUE),
-                  m_logN= mean(logN, na.rm=TRUE)
+        group_by(.data$time) %>%
+        summarize(q50 = quantile(.data$logN, probs = .5, na.rm=TRUE),
+                  q10 = quantile(.data$logN, probs = .1, na.rm=TRUE),
+                  q90 = quantile(.data$logN, probs = .9, na.rm=TRUE),
+                  q05 = quantile(.data$logN, probs = .05, na.rm=TRUE),
+                  q95 = quantile(.data$logN, probs = .95, na.rm=TRUE),
+                  m_logN= mean(.data$logN, na.rm=TRUE)
         )
 
     ## Output

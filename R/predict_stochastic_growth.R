@@ -40,7 +40,7 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr row_number
 #' @importFrom dplyr select
-#' @importFrom rlang set_names
+#' @importFrom rlang set_names .data
 #' @importFrom purrr map
 #' @importFrom purrr imap_dfr
 #'
@@ -71,39 +71,38 @@ predict_stochastic_growth <- function(model_name, times, n_sims,
     ## Variable transformations
 
     par_sample <- par_sample %>%
-        mutate(mu = sq_mu^2,
-               lambda = sq_lambda^2) %>%
-        select(-sq_mu, -sq_lambda)
+        mutate(mu = .data$sq_mu^2,
+               lambda = .data$sq_lambda^2) %>%
+        select(-.data$sq_mu, -.data$sq_lambda)
 
     if (model_name == "modGompertz") {
         par_sample <- par_sample %>%
-            mutate(C = logNmax - logN0) %>%
-            select(-logNmax)
+            mutate(C = .data$logNmax - .data$logN0) %>%
+            select(-.data$logNmax)
     }
 
     ## Do the simulations
 
-    my_sims <- par_sample %>%
-        mutate(iter = row_number()) %>%
-        split(.$iter) %>%
+    aa <- par_sample %>%
+        mutate(iter = row_number())
+
+    my_sims <- split(aa, aa$iter) %>%
+        # split(.$iter) %>%
         map(as.list) %>%
-        map(.,
-            ~predict_isothermal_growth(model_name, times,
-                                       .)
-        ) %>%
-        map(., ~.$simulation) %>%
+        map(~ predict_isothermal_growth(model_name, times, .)) %>%
+        map(~ .$simulation) %>%
         imap_dfr(~ mutate(.x, iter = .y))
 
     ## Extract quantiles
 
     q_values <- my_sims %>%
-        group_by(time) %>%
-        summarize(q50 = quantile(logN, probs = .5, na.rm=TRUE),
-                  q10 = quantile(logN, probs = .1, na.rm=TRUE),
-                  q90 = quantile(logN, probs = .9, na.rm=TRUE),
-                  q05 = quantile(logN, probs = .05, na.rm=TRUE),
-                  q95 = quantile(logN, probs = .95, na.rm=TRUE),
-                  m_logN= mean(logN, na.rm=TRUE)
+        group_by(.data$time) %>%
+        summarize(q50 = quantile(.data$logN, probs = .5, na.rm=TRUE),
+                  q10 = quantile(.data$logN, probs = .1, na.rm=TRUE),
+                  q90 = quantile(.data$logN, probs = .9, na.rm=TRUE),
+                  q05 = quantile(.data$logN, probs = .05, na.rm=TRUE),
+                  q95 = quantile(.data$logN, probs = .95, na.rm=TRUE),
+                  m_logN= mean(.data$logN, na.rm=TRUE)
         )
 
 

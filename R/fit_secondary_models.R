@@ -2,18 +2,18 @@
 #' Gamma factors for fitting secondary models
 #'
 #' A helper for fitting the secondary gamma models.
-#'  Calculates the gamma factors corresponding to the models defined
-#'  and the experimental conditions. In order for it to work, the environmental
-#'  factors must be named identically in the 3 arguments.
+#' Calculates the gamma factors corresponding to the models defined
+#' and the experimental conditions. In order for it to work, the environmental
+#' factors must be named identically in the 3 arguments.
 #'
-#'  @param sec_model_names named character vector defining the type of secondary
-#'  model. Its names correspond to the environmental condition and the values
-#'  define the corresponding type of secondary model.
-#'  @param my_data Tibble of experimental conditions.
-#'  @param secondary_models A list defining the parameters of the secondary models.
+#' @param sec_model_names named character vector defining the type of secondary
+#' model. Its names correspond to the environmental condition and the values
+#' define the corresponding type of secondary model.
+#' @param my_data Tibble of experimental conditions.
+#' @param secondary_models A list defining the parameters of the secondary models.
 #'
-#'  @return a numeric vector of length \code{nrow(my_data)} with the gamma factor
-#'  for each experimental condition.
+#' @return a numeric vector of length \code{nrow(my_data)} with the gamma factor
+#' for each experimental condition.
 #'
 #' @importFrom dplyr bind_cols
 #'
@@ -133,6 +133,7 @@ get_secondary_residuals <- function(this_p, my_data,
 #'
 #' @importFrom dplyr mutate
 #' @importFrom FME modFit
+#' @importFrom rlang .data
 #'
 #' @export
 #'
@@ -144,8 +145,8 @@ fit_secondary_growth <- function(fit_data, starting_point,
     ## Model fitting
 
     fit_data <- fit_data %>%
-        mutate(log_mu = log10(mu),
-               sq_mu = sqrt(mu))
+        mutate(log_mu = log10(.data$mu),
+               sq_mu = sqrt(.data$mu))
 
     my_fit <- modFit(get_secondary_residuals, unlist(starting_point),
                      my_data = fit_data, known_pars = known_pars,

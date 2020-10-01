@@ -35,6 +35,7 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr %>%
 #' @importFrom dplyr bind_cols
+#' @importFrom rlang .data
 #'
 #' @export
 #'
@@ -57,7 +58,7 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
     ) %>%
         as.data.frame() %>%
         as_tibble() %>%
-        mutate(logN = log10(N))
+        mutate(logN = log10(.data$N))
 
     ## Calculate the gammas
 

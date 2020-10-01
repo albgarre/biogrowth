@@ -25,6 +25,12 @@
 If \code{NULL} (default), no environmenta factor is plotted. If set
 to one character string that matches one entry of x$env_conditions,
 that condition is plotted in the secondary axis}
+
+\item{ylims}{A two dimensional vector with the limits of the primary y-axis.}
+
+\item{label_y1}{Label of the primary y-axis.}
+
+\item{label_y2}{Label of the secondary y-axis.}
 }
 \value{
 An instance of \code{ggplot}.
