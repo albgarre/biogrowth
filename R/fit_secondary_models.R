@@ -137,6 +137,31 @@ get_secondary_residuals <- function(this_p, my_data,
 #'
 #' @export
 #'
+#' @examples
+#' ## We use the data included in the package
+#'
+#' data("example_cardinal")
+#'
+#' ## Define the models to fit
+#'
+#' sec_model_names <- c(temperature = "Zwietering", pH = "CPM")
+#'
+#' ## Any model parameter can be fixed
+#'
+#' known_pars <- list(mu_opt = 1.2, temperature_n = 1,
+#'     pH_n = 2, pH_xmax = 6.8, pH_xmin = 5.2)
+#'
+#' ## Initial values must be given for every other parameter
+#'
+#' my_start <- list(temperature_xmin = 5, temperature_xopt = 35,
+#'     pH_xopt = 6.5)
+#'
+#' ## We can now call the fitting function
+#'
+#' fit_cardinal <- fit_secondary_growth(example_cardinal, my_start, known_pars, sec_model_names)
+#'
+#' summary(fit_cardinal)
+#'
 fit_secondary_growth <- function(fit_data, starting_point,
                                  known_pars, sec_model_names,
                                  transformation = "sq",

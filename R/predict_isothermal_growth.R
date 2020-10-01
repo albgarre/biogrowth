@@ -78,6 +78,22 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 #'
 #' @export
 #'
+#' @examples
+#' ## Define the simulations parameters
+#'
+#' my_model <- "modGompertz"
+#' my_pars <- list(logN0 = 2, C = 6, mu = .2, lambda = 25)
+#' my_time <- seq(0, 100, length = 1000)
+#'
+#' ## Do the simulation
+#'
+#' static_prediction <- predict_isothermal_growth(my_model, my_time, my_pars)
+#'
+#' ## Plot the results
+#'
+#' plot(static_prediction)
+#'
+#'
 predict_isothermal_growth <- function(model_name, times, model_pars) {
 
     ## Calculate the prediction

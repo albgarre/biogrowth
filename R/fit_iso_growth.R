@@ -50,6 +50,35 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #'
 #' @export
 #'
+#' @examples
+#'
+#' ## Some dummy data
+#'
+#' my_data <- tibble(time = c(0, 25, 50, 75, 100),
+#'     logN = c(2, 2.5, 7, 8, 8))
+#'
+#' ## Choose the model
+#'
+#' my_model <- "Baranyi"
+#'
+#' ## Initial values for the model parameters
+#'
+#' start = c(logNmax = 8, lambda = 25, logN0 = 2)
+#'
+#' ## Any model parameter can be fixed
+#'
+#' known <- c(mu = .2)
+#'
+#' ## Now, we can call the function
+#'
+#' static_fit <- fit_isothermal_growth(my_data, my_model, start, known)
+#'
+#' summary(static_fit)
+#'
+#' ## We can plot the fitted model against the observations
+#'
+#' plot(static_fit)
+#'
 fit_isothermal_growth <- function(fit_data, model_name, starting_point,
                                   known_pars,
                                   ...) {

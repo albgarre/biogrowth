@@ -19,3 +19,25 @@ Returns the storage time required for the microbial count to
 reach \code{log_count} according to the predictions of \code{model}.
 Calculations are done using linear interpolation of the model predictions.
 }
+\examples{
+
+## First of all, we will get an IsothermalGrowth object
+
+my_model <- "modGompertz"
+my_pars <- list(logN0 = 2, C = 6, mu = .2, lambda = 25)
+my_time <- seq(0, 100, length = 1000)
+
+static_prediction <- predict_isothermal_growth(my_model, my_time, my_pars)
+plot(static_prediction)
+
+## And now we calculate the time to reach a microbial count
+
+time_to_logcount(static_prediction, 2.5)
+
+## If log_count is outside the range of the predicted values, NA is returned
+
+time_to_logcount(static_prediction, 20)
+
+
+
+}

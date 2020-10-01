@@ -54,3 +54,47 @@ A list of class FitDynamicGrowth with the following items:
 Fits a growth model to a data obtained under dynamic conditions
 using the one-step approach (non-linear regression).
 }
+\examples{
+\donttest{
+## We use the datasets included in the package
+
+data("example_dynamic_growth")
+data("example_env_conditions")
+
+## Define the secondary models
+
+sec_model_names <- c(temperature = "CPM", aw= "CPM")
+
+## Any model parameter can be fixed
+
+known_pars <- list(Nmax = 1e4,  # Primary model
+    N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+    mu_opt = 4, # mu_opt of the gamma model
+    temperature_n = 1,  # Secondary model for temperature
+    aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
+    )
+
+## The remaining parameters need initial values
+
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+    temperature_xmax = 40, aw_xopt = .95)
+
+## We can now call the fitting function
+
+my_dyna_fit <- fit_dynamic_growth(example_dynamic_growth, example_env_conditions,
+    my_start, known_pars, sec_model_names)
+
+summary(my_dyna_fit)
+
+## We can compare the data and the fitted curve
+
+plot(my_dyna_fit)
+
+## We can plot any environmental condition using add_factor
+
+plot(my_dyna_fit, add_factor = "aw",
+    label_y1 = "Log count (log CFU/ml)",
+    label_y2 = "Water activity")
+}
+
+}

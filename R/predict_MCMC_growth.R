@@ -39,6 +39,44 @@
 #'
 #' @export
 #'
+#' @examples
+#' \donttest{
+#' ## We need a FitDynamicGrowthMCMC object
+#'
+#' data("example_dynamic_growth")
+#' data("example_env_conditions")
+#'
+#' sec_model_names <- c(temperature = "CPM", aw= "CPM")
+#'
+#' known_pars <- list(Nmax = 1e4,  # Primary model
+#'     N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+#'     mu_opt = 4, # mu_opt of the gamma model
+#'     temperature_n = 1,  # Secondary model for temperature
+#'     aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
+#'     )
+#'
+#' my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+#'     temperature_xmax = 40,
+#'     aw_xopt = .95)
+#'
+#' set.seed(12124) # Setting seed for repeatability
+#'
+#' my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions,
+#'     my_start, known_pars, sec_model_names, niter = 3000)
+#'
+#' ## Define the conditions for the simulation
+#'
+#' my_times <- seq(0, 15, length = 5)
+#' niter <- 3000
+#'
+#' my_MCMC_prediction <- predict_MCMC_growth(my_MCMC_fit,
+#'     my_times,
+#'     example_env_conditions, # It could be different from the one used for fitting
+#'     niter)
+#'
+#' plot(my_MCMC_prediction)
+#' }
+#'
 predict_MCMC_growth <- function(MCMCfit, times, env_conditions, niter) {
 
     ## Extract the parameters

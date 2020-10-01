@@ -39,6 +39,51 @@
 #'
 #' @export
 #'
+#' @examples
+#'
+#' ## Definition of the environmental conditions
+#'
+#' my_conditions <- tibble(time = c(0, 5, 40),
+#'     temperature = c(20, 30, 35),
+#'     pH = c(7, 6.5, 5)
+#'     )
+#'
+#' ## Definition of the model parameters
+#'
+#' my_primary <- list(mu_opt = 2,
+#'     Nmax = 1e8,N0 = 1e0,
+#'     Q0 = 1e-3)
+#'
+#' sec_temperature <- list(model = "Zwietering",
+#'     xmin = 25, xopt = 35, n = 1)
+#'
+#' sec_pH = list(model = "CPM",
+#'     xmin = 5.5, xopt = 6.5,
+#'     xmax = 7.5, n = 2)
+#'
+#' my_secondary <- list(
+#'     temperature = sec_temperature,
+#'     pH = sec_pH
+#'     )
+#'
+#' my_times <- seq(0, 50, length = 1000)
+#'
+#' ## Do the simulation
+#'
+#' dynamic_prediction <- predict_dynamic_growth(my_times,
+#'     my_conditions, my_primary,
+#'     my_secondary)
+#'
+#' ## Plot the results
+#'
+#' plot(dynamic_prediction)
+#'
+#' ## We can plot some environmental factor with add_factor
+#'
+#' plot(dynamic_prediction, add_factor = "temperature", ylims= c(0, 8),
+#'     label_y1 = "Microbial count (log CFU/ml)",
+#'     label_y2 = "Storage temperature (C)")
+#'
 predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                                    secondary_models, ...) {
 
