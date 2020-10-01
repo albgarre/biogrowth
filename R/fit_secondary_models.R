@@ -158,7 +158,8 @@ fit_secondary_growth <- function(fit_data, starting_point,
     ## Output
 
 
-    secondary_models <- extract_secondary_pars(my_fit$par, known_pars,
+    secondary_models <- extract_secondary_pars(as.data.frame(my_fit$par),
+                                               known_pars,
                                                sec_model_names)
 
     if ("mu_opt" %in% names(known_pars)) {
