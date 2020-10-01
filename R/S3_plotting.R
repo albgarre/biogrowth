@@ -14,11 +14,13 @@
 #'
 #' @importFrom ggplot2 ggplot geom_line
 #' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.IsothermalGrowth <- function(x, y=NULL, ...) {
 
     ggplot(x$simulation) +
-        geom_line(aes(x = .data$time, y = .data$logN))
+        geom_line(aes(x = .data$time, y = .data$logN)) +
+        theme_cowplot()
 
 }
 
@@ -45,6 +47,7 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...) {
 #'
 #' @importFrom ggplot2 ggplot geom_line scale_y_continuous sec_axis
 #' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.DynamicGrowth <- function(x, y=NULL, ...,
                                add_factor = NULL,
@@ -95,7 +98,7 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
 
     }
 
-    p
+    p + theme_cowplot()
 
 }
 
@@ -114,6 +117,7 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon ylab
 #' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.MCMCgrowth <- function(x, y=NULL, ...) {
 
@@ -121,7 +125,8 @@ plot.MCMCgrowth <- function(x, y=NULL, ...) {
         geom_line(aes(y = .data$q50)) +
         geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90), alpha = .5) +
         geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95), alpha = .5) +
-        ylab("logN")
+        ylab("logN") +
+        theme_cowplot()
 
 }
 
@@ -140,6 +145,7 @@ plot.MCMCgrowth <- function(x, y=NULL, ...) {
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon ylab
 #' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.StochasticGrowth <- function(x, y=NULL, ...) {
 
@@ -147,7 +153,8 @@ plot.StochasticGrowth <- function(x, y=NULL, ...) {
         geom_line(aes(y = .data$q50)) +
         geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90), alpha = .5) +
         geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95), alpha = .5) +
-        ylab("logN")
+        ylab("logN") +
+        theme_cowplot()
 
 }
 
@@ -175,6 +182,7 @@ plot.StochasticGrowth <- function(x, y=NULL, ...) {
 #' @importFrom ggplot2 ggplot geom_point
 #' @importFrom graphics plot
 #' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
                                add_factor = NULL,
@@ -189,7 +197,8 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
               label_y2 = label_y2)
 
     p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
-                   inherit.aes = FALSE)
+                   inherit.aes = FALSE) +
+        theme_cowplot()
 
 }
 
@@ -217,6 +226,7 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #' @importFrom ggplot2 ggplot geom_point
 #' @importFrom graphics plot
 #' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.FitDynamicGrowth <- function(x, y=NULL, ...,
                                       add_factor = NULL,
@@ -231,7 +241,8 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
               label_y2 = label_y2)
 
     p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
-                   inherit.aes = FALSE)
+                   inherit.aes = FALSE) +
+        theme_cowplot()
 
 }
 
@@ -251,12 +262,14 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
 #' @importFrom ggplot2 ggplot geom_point
 #' @importFrom rlang .data
 #' @importFrom graphics plot
+#' @importFrom cowplot theme_cowplot
 #'
 plot.FitIsoGrowth <- function(x, y=NULL, ...) {
 
     p <- plot(x$best_prediction)
 
-    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data)
+    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data) +
+        theme_cowplot()
 
 
 }
@@ -275,6 +288,7 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...) {
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_histogram aes geom_vline xlab
+#' @importFrom cowplot theme_cowplot
 #'
 plot.TimeDistribution <- function(x, y=NULL, ...) {
 
@@ -284,7 +298,8 @@ plot.TimeDistribution <- function(x, y=NULL, ...) {
                    linetype = 2, colour = "red") +
         geom_vline(xintercept = c(x$summary$q10, x$summary$q90),
                    linetype = 2, colour = "darkgrey") +
-        xlab("time")
+        xlab("time") +
+        theme_cowplot()
 
 
 }

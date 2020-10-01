@@ -23,7 +23,8 @@ Imports:
     MASS (>= 7.3),
     rlang (>= 0.4.7),
     purrr (>= 0.3.4),
-    ggplot2 (>= 3.3.2)
+    ggplot2 (>= 3.3.2),
+    cowplot (>= 1.0.0)
 Suggests: 
     knitr,
     rmarkdown,

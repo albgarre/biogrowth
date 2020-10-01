@@ -245,7 +245,7 @@ The plot is generated as a gpplot object. Hence, it can be editted using layers 
 plot(static_prediction) +
   xlab("Storage time (h)") +
   ylab("Microbial count (log CFU/ml)") +
-  theme_bw()
+  theme_gray()
 ```
 
 
