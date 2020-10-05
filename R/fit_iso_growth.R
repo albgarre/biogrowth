@@ -54,6 +54,8 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #'
 #' ## Some dummy data
 #'
+#' library(tibble)
+#'
 #' my_data <- tibble(time = c(0, 25, 50, 75, 100),
 #'     logN = c(2, 2.5, 7, 8, 8))
 #'
