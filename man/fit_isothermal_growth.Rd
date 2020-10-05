@@ -37,6 +37,8 @@ Fits a primary growth model to data obtained under isothermal conditions.
 
 ## Some dummy data
 
+library(tibble)
+
 my_data <- tibble(time = c(0, 25, 50, 75, 100),
     logN = c(2, 2.5, 7, 8, 8))
 

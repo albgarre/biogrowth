@@ -1,6 +1,6 @@
 Package: biogrowth
 Type: Package
-Title: Modelling of microbial growth 
+Title: Modelling of Microbial Growth 
 Version: 0.1.0
 Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role = c("aut", "cre")),
              person("Jeroen", "Koomen", email = "jeroen.koomen@wur.nl", role = "aut"),

@@ -35,5 +35,4 @@
 #'   \item{time}{elapsed time}
 #'   \item{logN}{log microbial count}
 #' }
-#' @source \url{http://www.diamondse.info/}
 "example_dynamic_growth"
