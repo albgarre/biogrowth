@@ -52,6 +52,8 @@ conditions defined in \code{env_conditions}.
 
 ## Definition of the environmental conditions
 
+library(tibble)
+
 my_conditions <- tibble(time = c(0, 5, 40),
     temperature = c(20, 30, 35),
     pH = c(7, 6.5, 5)
