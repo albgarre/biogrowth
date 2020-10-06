@@ -117,9 +117,9 @@ where $t_{max}$, defined is the time required for the microbial count to reach $
 
 ## Secondary growth models included in biogrowth
 
-Although other approaches for secondary modeling exist in the literature, the **biogrowth** package uses the gamma approach proposed by Zwietering et al. (1992). This approach assumes that the effect of each environmental factor on the growth rate is multiplicative and independent. Hence, the specific growth rate ($\mu$) observed under a combination of environmental conditions ($X_1$, $X_2$,...,$X_n$) is the result of multiplying the value of $\mu$ observed under optimal conditions for growth ($\mu_{opt}$) times a *gamma factor* corresponding to each environmental factor ($\gamma(X_i)$). Because gamma factors represent sub-optimal conditions, they must be functions defined in $f(R^1) \rightarrow R^1[0,1]$. # This last sentence might be the correct mathematical desctiption, but I would have to look up what you mean by this. As this vignette is a "gentle" into, could you rephrase this in words? 
+Although other approaches for secondary modeling exist in the literature, the **biogrowth** package uses the gamma approach proposed by Zwietering et al. (1992). This approach assumes that the effect of each environmental factor on the growth rate is multiplicative and independent. Hence, the specific growth rate ($\mu$) observed under a combination of environmental conditions ($X_1$, $X_2$,...,$X_n$) is the result of multiplying the value of $\mu$ observed under optimal conditions for growth ($\mu_{opt}$) times a *gamma factor* corresponding to each environmental factor ($\gamma(X_i)$). Because gamma factors represent growth rates under sub-optimal conditions, they are correction factors taking values between 0 and 1. 
 
-Is the interaction term between the parameters taken into account? If not, can we explicitly mention why not? 
+Note that this approach does not take into consideration interaction between the different terms. The reason for this is that, in the opinion of the authors, their implementation is still a research topic, without any model being broadly accepted. Therefore, their inclusion is not in line with the phylosophi of **biogrowth**, which aims at easing the application of commonly accepted modelling approaches.
 
 $$
 \mu = \mu_{opt} \cdot \gamma(X_1) \cdot \gamma(X_2) \cdot ... \cdot \gamma(X_n)
@@ -133,7 +133,7 @@ $$
 \gamma(X) = \left( \frac{X-X_{min}}{X_{opt}-X_{min}} \right)^n
 $$
 
-where $X_min$ is the minimum value of $X$ enabling growth, $X_{opt}$ is the optimum value of $X$ for growth and $n$ is the order of the model. # How do I know the order of the model? Can you explain this in a bit more detail? 
+where $X_min$ is the minimum value of $X$ enabling growth, $X_{opt}$ is the optimum value of $X$ for growth and $n$ is the order of the model. The latter value usually takes the value 1 or 2, depending on the environmental factor.
 
 ### Cardinal Parameter Models (CPM)
 
@@ -151,7 +151,7 @@ $$
 \gamma(X) = \frac{(X-X_{max})(X-X_{min})^n}
 {(X_{opt}-X_{min})^{n-1}( (X_{opt}-X_{min})(X-X_{opt}) - (X_{opt}-X_{max}) \cdot ((n-1)X_{opt} + X_{min}-n \cdot X) )}; otherwise
 $$
-In this equation, $X_{min}$, $X_{opt}$ and $X_{max}$ are the minimum, maximum and optimum values of $X$ for microbial growth (usually called *cardinal parameters*). The coefficient $n$ is the order of the cardinal model. # Maybe shape parameter for $n$ is more intuitive for the less math savvy readers. Maybe with examples of common values? 
+In this equation, $X_{min}$, $X_{opt}$ and $X_{max}$ are the minimum, maximum and optimum values of $X$ for microbial growth (usually called *cardinal parameters*). The coefficient $n$ is the shape parameter of the cardinal model.
 
 ## Numerical methods
 
@@ -307,17 +307,15 @@ For instance, we will define a gamma-type model for temperature as defined by Zw
 
 
 ```{r}
-# again here, how do I know the order of the model?
 sec_temperature <- list(model = "Zwietering",
                         xmin = 25,
                         xopt = 35,
                         n = 1)
 ```
 
-Next, we will define a CPM model for the effect of pH. The definition is very similar as for the Zwietering-type model. First of all, we need to set the item `model` to `"CPM"` instead of `"Zwietering"`. Then, we need to give one additional parameter value (`xmax`):
+Next, we will define a CPM model for the effect of pH. Note that the model selection is for illustration purposes, not based on predictive power. The definition is very similar as for the Zwietering-type model. First of all, we need to set the item `model` to `"CPM"` instead of `"Zwietering"`. Then, we need to give one additional parameter value (`xmax`):
 
 ```{r}
-# how do I know that I need to use a CPM model here instead of a Zwietering? Or is this assumed knowledge for end users?
 sec_pH = list(model = "CPM",
               xmin = 5.5,
               xopt = 6.5,
@@ -527,25 +525,16 @@ my_start <- list(temperature_xmin = 5, temperature_xopt = 35,
                pH_xopt = 6.5)
 ```
 
-Finally, the `transformation` argument defines the transformation of the growth rate to use for model fitting. By default, the function applies a square root transformation, which has proved to stabilize the variance of microbial growth. Once the arguments have been defined, we can call the `fit_secondary_growth()` function:
+Finally, the `transformation` argument defines the transformation of the growth rate to use for model fitting. By default, the function applies a square root transformation, which has proved to stabilize the variance of microbial growth. Once the arguments have been defined, we can call the `fit_secondary_growth()` function. Note that, because we are using the default value of `transformation`, we do not need to define this argument:
 
 ```{r}
-# Am I missing the transformation argument? 
-# If I run this I get a very long list of warnings: 
-# New names:
-# * NA -> ...1
-# * NA -> ...2
-
-# repeats a lot of times.. 
-# The summary does work though 
-
 fit_cardinal <- fit_secondary_growth(example_cardinal, my_start, known_pars, sec_model_names)
 ```
 
 This function returns an instance of `FitSecondaryGrowth` with 5 items:
 
 * `fit_results` the object returned by `modFit`.
-* `secondary_mode` parameters of the secondary model. # Not  `secondary_model` ??
+* `secondary_model` parameters of the secondary model.
 * `mu_opt_fit` growth rate under optimal storage conditiosn.
 * `data` data used for the fit.
 * `transformation` tranformation applied to the growth rate before fitting.
@@ -656,14 +645,12 @@ summary(my_dyna_fit)
 The `plot()` method compares the model predictions against the data used for the fit:
 
 ```{r}
-# I also get a warning here: Don't know how to automatically pick scale for object of type deSolve/matrix. Defaulting to continuous.
 plot(my_dyna_fit)
 ```
 
 The variation of the environmental factor can be plotted alongside the previous plot. For that, the name of the environmental factor must be passed to `add_factor`. Note that the value passed must be identical to the one defined in the previous arguments. Then, the label of the primary or secondary axes can be changed using `label_y1` or `label_y2`
 
 ```{r}
-# Double y-axis... Don't show this to Hadley =)  
 plot(my_dyna_fit, add_factor = "aw",
      label_y1 = "Log count (log CFU/ml)",
      label_y2 = "Water activity")
@@ -711,7 +698,7 @@ Once the arguments have been defined, we can call the `predict_stochastic_growth
 
 ```{r}
 stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
-  mean_logN0 = 0.5, sd_logN0 = .2, # Is there a reason why you would start with 0 cells?
+  mean_logN0 = 0, sd_logN0 = .2,
   mean_sqmu = 2,sd_sqmu = .3,
   mean_sqlambda = 4, sd_sqlambda = .4,
   mean_logNmax = 6, sd_logNmax = .5)
@@ -747,7 +734,6 @@ my_cor <- matrix(c(1,   0,   0, 0,
 Then, we can include it in the call to the function
 
 ```{r}
-# It is not obvious to me (visually) what the changes are..
 stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims,
   mean_logN0 = 0, sd_logN0 = .2,
   mean_sqmu = 2,sd_sqmu = .3,
@@ -789,8 +775,6 @@ my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
 Then, we can call the `fit_MCMC_growth()` using this arguments plus the argument `niter` that we will set to 500.
 
 ```{r}
-# It only accepted 8% - 12% of the MCMC runs, is that normal? Should we change the start parameters?
-
 my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions, 
                                 my_start,
                                 known_pars, 
@@ -916,9 +900,6 @@ For shelf-life estimation and risk assessment, the storage time required to reac
 For instance, we can use this function to get the distribution of times required to reach a microbial count of 4 log cFU/g based on the simulations we did before and saved in `stoc_growth`
 
 ```{r}
-
-# throws a hughe error: collapsing to unique 'x' 500 x
-# Is does seem to work tough, it gives a result in the later examples
 time_distrib <- distribution_to_logcount(stoc_growth, 4)
 ```
 
@@ -942,7 +923,7 @@ plot(time_distrib)
 In this plot, the vertical red line illustrates the median of the distribution and the grey lines the 10th and 90th quantile.
 
 
-# References
+## References
 
 Baranyi, J., & Roberts, T. A. (1994). A dynamic approach to predicting bacterial growth in food. International Journal of Food Microbiology, 23(3–4), 277–294. https://doi.org/10.1016/0168-1605(94)90157-0
 
