@@ -25,3 +25,20 @@ A list of class \code{IsothermalGrowth} with the items:
 Predicts microbial growth under isothermal conditions according to
 models commonly used in predictive microbiology.
 }
+\examples{
+## Define the simulations parameters
+
+my_model <- "modGompertz"
+my_pars <- list(logN0 = 2, C = 6, mu = .2, lambda = 25)
+my_time <- seq(0, 100, length = 1000)
+
+## Do the simulation
+
+static_prediction <- predict_isothermal_growth(my_model, my_time, my_pars)
+
+## Plot the results
+
+plot(static_prediction)
+
+
+}

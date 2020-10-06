@@ -57,3 +57,50 @@ A list of class 'FitDynamicGrowthMCMC' with the following items:
 Fits a growth model to a data obtained under dynamic conditions
 using the one-step approach (MCMC algorithm).
 }
+\examples{
+\donttest{
+## We use the example data included in the package
+
+data("example_dynamic_growth")
+data("example_env_conditions")
+
+## Definition of the secondary models
+sec_model_names <- c(temperature = "CPM", aw= "CPM")
+
+## Any model parameter can be fixed
+known_pars <- list(Nmax = 1e4,  # Primary model
+    N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+    mu_opt = 4, # mu_opt of the gamma model
+    temperature_n = 1,  # Secondary model for temperature
+    aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
+    )
+
+## We need starting values for the remaining parameters
+
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+    temperature_xmax = 40,
+    aw_xopt = .95)
+
+## We can now call the fitting function
+
+set.seed(12124) # Setting seed for repeatability
+
+my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions,
+    my_start, known_pars, sec_model_names, niter = 3000)
+
+## Always check the MCMC chain!!
+
+plot(my_MCMC_fit$fit_results)
+
+## We can compare data against fitted curve
+
+plot(my_MCMC_fit)
+
+## Any environmental factor can be included using add_factor
+
+plot(my_MCMC_fit, add_factor = "temperature",
+    label_y1 = "Count (log CFU/ml)", label_y2 = "Temperature (C)")
+
+}
+
+}

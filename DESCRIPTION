@@ -1,8 +1,9 @@
 Package: biogrowth
 Type: Package
-Title: Modelling of microbial growth 
+Title: Modelling of Microbial Growth 
 Version: 0.1.0
 Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role = c("aut", "cre")),
+             person("Jeroen", "Koomen", email = "jeroen.koomen@wur.nl", role = "aut"),
              person("Heidy", "den Besten", email = "heidy.denbesten@wur.nl", role = "aut"),
              person("Marcel", "Zwietering", email = "marcel.zwietering@wur.nl", role = "aut")
              )
@@ -15,17 +16,19 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Imports:
-    deSolve (>= 1.21),
-    tibble (>= 2.1.3),
-    dplyr (>= 0.8.3),
-    FME (>= 1.3.5),
+    deSolve (>= 1.28),
+    tibble (>= 3.0.3),
+    dplyr (>= 0.8.5),
+    FME (>= 1.3.6),
     MASS (>= 7.3),
-    rlang (>= 0.4.6),
-    purrr (>= 0.3.3)
+    rlang (>= 0.4.7),
+    purrr (>= 0.3.4),
+    ggplot2 (>= 3.3.2),
+    cowplot (>= 1.0.0)
 Suggests: 
     knitr,
     rmarkdown,
-    tidyverse (>= 1.2.1)
+    tidyverse (>= 1.3.0)
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)

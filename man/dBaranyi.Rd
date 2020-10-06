@@ -13,10 +13,10 @@ dBaranyi(time, state, pars, env_func, sec_models)
 
 \item{pars}{named numeric vector of model parameters (Nmax and mu_opt)}
 
-\item{sec_models}{named list of parameters of the secondary model}
-
-\item{env_function}{named list of functions returning the values of
+\item{env_func}{named list of functions returning the values of
 the environmental conditions for time (t)}
+
+\item{sec_models}{named list of parameters of the secondary model}
 }
 \value{
 A numeric vector of two components according to the requirements of

@@ -8,7 +8,7 @@
 #' @param time numeric vector (length 1) of storage time
 #' @param state named numeric vector with two components: Q and N
 #' @param pars named numeric vector of model parameters (Nmax and mu_opt)
-#' @param env_function named list of functions returning the values of
+#' @param env_func named list of functions returning the values of
 #' the environmental conditions for time (t)
 #' @param sec_models named list of parameters of the secondary model
 #'

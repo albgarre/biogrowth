@@ -11,9 +11,6 @@ A data frame with 30 rows and 2 variables:
   \item{logN}{log microbial count}
 }
 }
-\source{
-\url{http://www.diamondse.info/}
-}
 \usage{
 example_dynamic_growth
 }

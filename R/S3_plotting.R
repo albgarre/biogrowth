@@ -13,11 +13,14 @@
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_line
+#' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.IsothermalGrowth <- function(x, y=NULL, ...) {
 
     ggplot(x$simulation) +
-        geom_line(aes(x = time, y = logN))
+        geom_line(aes(x = .data$time, y = .data$logN)) +
+        theme_cowplot()
 
 }
 
@@ -34,12 +37,17 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...) {
 #' If \code{NULL} (default), no environmenta factor is plotted. If set
 #' to one character string that matches one entry of x$env_conditions,
 #' that condition is plotted in the secondary axis
+#' @param ylims A two dimensional vector with the limits of the primary y-axis.
+#' @param label_y1 Label of the primary y-axis.
+#' @param label_y2 Label of the secondary y-axis.
 #'
 #' @return An instance of \code{ggplot}.
 #'
 #' @export
 #'
-#' @importFrom ggplot2 ggplot geom_line
+#' @importFrom ggplot2 ggplot geom_line scale_y_continuous sec_axis
+#' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.DynamicGrowth <- function(x, y=NULL, ...,
                                add_factor = NULL,
@@ -48,7 +56,7 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
                                label_y2 = add_factor) {
 
     p <- ggplot(x$simulation) +
-        geom_line(aes(x = time, y = logN))
+        geom_line(aes(x = .data$time, y = .data$logN))
 
     if(!is.null(add_factor)) {
 
@@ -72,22 +80,25 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
         slope <- (max_count - min_count)/(max_temp - min_temp)
         intercept <- max_count - slope*max_temp
 
-        my_line <- tibble(time = seq(0, max_time, length = 1000),
-               y = x$env_conditions[[add_factor]](time),
-               fake_y = y*slope + intercept) %>%
-            geom_line(aes(x = time, y = fake_y), data = ., linetype = 2)
+        my_t <- seq(0, max_time, length = 1000)
+
+        aa <- tibble(time = my_t,
+               y = x$env_conditions[[add_factor]](my_t)) %>%
+            mutate(fake_y = .data$y*slope + intercept)
+
+        my_line <- geom_line(aes(x = .data$time, y = .data$fake_y), data = aa, linetype = 2)
 
         p <- p +
             my_line +
             scale_y_continuous(limits = ylims,
-                                              name = label_y1,
-                                              sec.axis = sec_axis(~(. - intercept)/slope,
-                                                                  name = label_y2))
+                              name = label_y1,
+                              sec.axis = sec_axis(~(. - intercept)/slope,
+                                                  name = label_y2))
 
 
     }
 
-    p
+    p + theme_cowplot()
 
 }
 
@@ -105,14 +116,17 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon ylab
+#' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.MCMCgrowth <- function(x, y=NULL, ...) {
 
-    ggplot(x$quantiles, aes(x = time)) +
-        geom_line(aes(y = q50)) +
-        geom_ribbon(aes(ymin = q10, ymax = q90), alpha = .5) +
-        geom_ribbon(aes(ymin = q05, ymax = q95), alpha = .5) +
-        ylab("logN")
+    ggplot(x$quantiles, aes(x = .data$time)) +
+        geom_line(aes(y = .data$q50)) +
+        geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90), alpha = .5) +
+        geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95), alpha = .5) +
+        ylab("logN") +
+        theme_cowplot()
 
 }
 
@@ -130,14 +144,17 @@ plot.MCMCgrowth <- function(x, y=NULL, ...) {
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon ylab
+#' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.StochasticGrowth <- function(x, y=NULL, ...) {
 
-    ggplot(x$quantiles, aes(x = time)) +
-        geom_line(aes(y = q50)) +
-        geom_ribbon(aes(ymin = q10, ymax = q90), alpha = .5) +
-        geom_ribbon(aes(ymin = q05, ymax = q95), alpha = .5) +
-        ylab("logN")
+    ggplot(x$quantiles, aes(x = .data$time)) +
+        geom_line(aes(y = .data$q50)) +
+        geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90), alpha = .5) +
+        geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95), alpha = .5) +
+        ylab("logN") +
+        theme_cowplot()
 
 }
 
@@ -154,12 +171,18 @@ plot.StochasticGrowth <- function(x, y=NULL, ...) {
 #' If \code{NULL} (default), no environmenta factor is plotted. If set
 #' to one character string that matches one entry of x$env_conditions,
 #' that condition is plotted in the secondary axis
+#' @param ylims A two dimensional vector with the limits of the primary y-axis.
+#' @param label_y1 Label of the primary y-axis.
+#' @param label_y2 Label of the secondary y-axis.
 #'
 #' @return An instance of \code{ggplot}.
 #'
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_point
+#' @importFrom graphics plot
+#' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
                                add_factor = NULL,
@@ -173,8 +196,9 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
               label_y1 = label_y1,
               label_y2 = label_y2)
 
-    p + geom_point(aes(x = time, y = logN), data = x$data,
-                   inherit.aes = FALSE)
+    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
+                   inherit.aes = FALSE) +
+        theme_cowplot()
 
 }
 
@@ -191,12 +215,18 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #' If \code{NULL} (default), no environmenta factor is plotted. If set
 #' to one character string that matches one entry of x$env_conditions,
 #' that condition is plotted in the secondary axis
+#' @param ylims A two dimensional vector with the limits of the primary y-axis.
+#' @param label_y1 Label of the primary y-axis.
+#' @param label_y2 Label of the secondary y-axis.
 #'
 #' @return An instance of \code{ggplot}.
 #'
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_point
+#' @importFrom graphics plot
+#' @importFrom rlang .data
+#' @importFrom cowplot theme_cowplot
 #'
 plot.FitDynamicGrowth <- function(x, y=NULL, ...,
                                       add_factor = NULL,
@@ -210,8 +240,9 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
               label_y1 = label_y1,
               label_y2 = label_y2)
 
-    p + geom_point(aes(x = time, y = logN), data = x$data,
-                   inherit.aes = FALSE)
+    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
+                   inherit.aes = FALSE) +
+        theme_cowplot()
 
 }
 
@@ -229,12 +260,16 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_point
+#' @importFrom rlang .data
+#' @importFrom graphics plot
+#' @importFrom cowplot theme_cowplot
 #'
 plot.FitIsoGrowth <- function(x, y=NULL, ...) {
 
     p <- plot(x$best_prediction)
 
-    p + geom_point(aes(x = time, y = logN), data = x$data)
+    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data) +
+        theme_cowplot()
 
 
 }
@@ -252,7 +287,8 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...) {
 #'
 #' @export
 #'
-#' @importFrom ggplot2 ggplot geom_histogram aes
+#' @importFrom ggplot2 ggplot geom_histogram aes geom_vline xlab
+#' @importFrom cowplot theme_cowplot
 #'
 plot.TimeDistribution <- function(x, y=NULL, ...) {
 
@@ -262,7 +298,8 @@ plot.TimeDistribution <- function(x, y=NULL, ...) {
                    linetype = 2, colour = "red") +
         geom_vline(xintercept = c(x$summary$q10, x$summary$q90),
                    linetype = 2, colour = "darkgrey") +
-        xlab("time")
+        xlab("time") +
+        theme_cowplot()
 
 
 }
