@@ -42,13 +42,13 @@ In this document, we will present the functions included in **biogrowth**. In or
 library(tidyverse)
 ```
 
-Several functions in the package make use of stochastic algorithm. For reproducibility, we will set the internal seed of the PRNG to some arbitrary value
+Several functions in the package make use of stochastic algorithm. For reproducibility, we will set the internal seed of R's internal random number generator (PRNG) to some arbitrary value
 
 ```{r}
 set.seed(1241)
 ```
 
-According to the usual conventions in predictive microbiology, we will use in this document $log$ to refer to the decimal logarithm and $ln$ for the natural logarithm.
+According to the usual conventions in predictive microbiology, in this document we will use $log$ to refer to the decimal logarithm and $ln$ for the natural logarithm.
 
 # Mathematical background
 
@@ -117,7 +117,9 @@ where $t_{max}$, defined is the time required for the microbial count to reach $
 
 ## Secondary growth models included in biogrowth
 
-Although other approaches for secondary modeling exist in the literature, the **biogrowth** package uses the gamma approach proposed by Zwietering et al. (1992). This approach assumes that the effect of each environmental factor on the growth rate is multiplicative and independent. Hence, the specific growth rate ($\mu$) observed under a combination of environmental conditions ($X_1$, $X_2$,...,$X_n$) is the result of multiplying the value of $\mu$ observed under optimal conditions for growth ($\mu_{opt}$) times a *gamma factor* corresponding to each environmental factor ($\gamma(X_i)$). Because gamma factors represent sub-optimal conditions, they must be functions defined in $f(R^1) \rightarrow R^1[0,1]$.
+Although other approaches for secondary modeling exist in the literature, the **biogrowth** package uses the gamma approach proposed by Zwietering et al. (1992). This approach assumes that the effect of each environmental factor on the growth rate is multiplicative and independent. Hence, the specific growth rate ($\mu$) observed under a combination of environmental conditions ($X_1$, $X_2$,...,$X_n$) is the result of multiplying the value of $\mu$ observed under optimal conditions for growth ($\mu_{opt}$) times a *gamma factor* corresponding to each environmental factor ($\gamma(X_i)$). Because gamma factors represent sub-optimal conditions, they must be functions defined in $f(R^1) \rightarrow R^1[0,1]$. # This last sentence might be the correct mathematical desctiption, but I would have to look up what you mean by this. As this vignette is a "gentle" into, could you rephrase this in words? 
+
+Is the interaction term between the parameters taken into account? If not, can we explicitly mention why not? 
 
 $$
 \mu = \mu_{opt} \cdot \gamma(X_1) \cdot \gamma(X_2) \cdot ... \cdot \gamma(X_n)
@@ -131,7 +133,7 @@ $$
 \gamma(X) = \left( \frac{X-X_{min}}{X_{opt}-X_{min}} \right)^n
 $$
 
-where $X_min$ is the minimum value of $X$ enabling growth, $X_{opt}$ is the optimum value of $X$ for growth and $n$ is the order of the model.
+where $X_min$ is the minimum value of $X$ enabling growth, $X_{opt}$ is the optimum value of $X$ for growth and $n$ is the order of the model. # How do I know the order of the model? Can you explain this in a bit more detail? 
 
 ### Cardinal Parameter Models (CPM)
 
@@ -149,15 +151,15 @@ $$
 \gamma(X) = \frac{(X-X_{max})(X-X_{min})^n}
 {(X_{opt}-X_{min})^{n-1}( (X_{opt}-X_{min})(X-X_{opt}) - (X_{opt}-X_{max}) \cdot ((n-1)X_{opt} + X_{min}-n \cdot X) )}; otherwise
 $$
-In this equation, $X_{min}$, $X_{opt}$ and $X_{max}$ are the minimum, maximum and optimum values of $X$ for microbial growth (usually called *cardinal parameters*). The coefficient $n$ is the order of the cardinal model.
+In this equation, $X_{min}$, $X_{opt}$ and $X_{max}$ are the minimum, maximum and optimum values of $X$ for microbial growth (usually called *cardinal parameters*). The coefficient $n$ is the order of the cardinal model. # Maybe shape parameter for $n$ is more intuitive for the less math savvy readers. Maybe with examples of common values? 
 
 ## Numerical methods
 
-The numerical calculations are largely based on the **FME** and **deSolve** package. The differential equations required for dynamic calculations are calculated using the `ode()` function from **deSolve**, which implements the LSODA numerical method. Model fitting is done using the `modFit()` function from **FME** for linear regression and the `modMCMC` function from the same package for MCMC fitting.
+The numerical calculations are largely based on the **FME** and **deSolve** packages. The differential equations required for dynamic calculations are calculated using the `ode()` function from **deSolve**, which implements the LSODA numerical method. Model fitting is done using the `modFit()` function from **FME** for linear regression and the `modMCMC` function from the same package for MCMC fitting.
 
 # Datasets included in the package
 
-The **biogrowth** package includes several datasets to aid in the understanding of its functions. Namely, it includes 3 datasets:
+The **biogrowth** package includes three datasets to aid in the understanding of its functions:
 * `example_cardinal`: an example of the results of a set of growth experiments to estimate cardinal parameters.
 * `example_dynamic_growth` and `example_env_conditions`: an example of the results of a dynamic growth experiment.
 
@@ -236,10 +238,11 @@ Alternatively, this class implements an S3 method for plot that illustrates the 
 
 
 ```{r}
+# this is a bit confusing to me, as normally plot() refers to base R plotting functions (but I will adapt :P)
 plot(static_prediction)
 ```
 
-The plot is generated as a gpplot object. Hence, it can be editted using layers as usual in the ggplot2 package. For instance,
+The plot is generated as a gpplot object. Therefore, it can be edited using layers as usual in the ggplot2 package. For instance,
 
 ```{r}
 plot(static_prediction) +
@@ -274,33 +277,37 @@ my_conditions <- tibble(time = c(0, 5, 40),
 Then, the simulations would consider this temperature profile
 
 ```{r}
-ggplot(my_conditions) + geom_line(aes(x = time, y = temperature))
+ggplot(my_conditions) + 
+  geom_line(aes(x = time, y = temperature))
 ```
 
 And this pH profile
 
 ```{r}
-ggplot(my_conditions) + geom_line(aes(x = time, y = pH))
+ggplot(my_conditions) + 
+  geom_line(aes(x = time, y = pH))
 ```
 
 Therefore, in order to get smoother profiles, one has to define additional rows in the tibble.
 
-For dynamic conditions, **biogrowth** can only use as primary model the Baranyi growth model. This model requires the definition of two model parameters: the specific growth rate at optimum conditions (`mu_opt`) and the maximum microbial count (`Nmax`). Moreover, the initial values of the microbial count (`N0`) and the theoretical substance $Q$ (`Q0`) must be defined. For the `predict_dynamic_growth()`function, they must be defined in a single list:
+For dynamic conditions, **biogrowth** can only use the Baranyi growth model as primary model. This model requires the definition of two model parameters: the specific growth rate at optimum conditions (`mu_opt`) and the maximum microbial count (`Nmax`). Moreover, the initial values of the microbial count (`N0`) and the theoretical substance $Q$ (`Q0`) must be defined. For the `predict_dynamic_growth()`function, they must be defined in a single list:
 
 
 ```{r}
+# can you give a sort of range for this theoretical substance? Or should the user play around a bit to find a value that suits the needs? 
 my_primary <- list(mu_opt = 2,
              Nmax = 1e8,
              N0 = 1e0,
              Q0 = 1e-3)
 ```
 
-The next step is the definition of the secondary models. As already described above, **biogrowth** describes the variation of $\mu$ with temperature based on the gamma concept. Therefore, we need to define one secondary model per environmental condition. This must be done using list. We define a list per environmental condition and this list defines the type of gamma model as well as the model parameters.
+The next step is the definition of the secondary models. As already described above, **biogrowth** describes the variation of $\mu$ with temperature based on the gamma concept. Therefore, we need to define one secondary model per environmental condition. This must be done using a list. We define a list per environmental condition and this list defines the type of gamma model as well as the model parameters.
 
 For instance, we will define a gamma-type model for temperature as defined by Zwietering et al. This is done by including an item called `model` in the list and assigning it the value `"Zwietering"`. Then, we define the values of the model parameters. In this case, we need the minimum (`xmin`) and optimum (`xopt`) cardinal values, as well as the order of the model (`n`). We define them using individual entries in the list:
 
 
 ```{r}
+# again here, how do I know the order of the model?
 sec_temperature <- list(model = "Zwietering",
                         xmin = 25,
                         xopt = 35,
@@ -310,6 +317,7 @@ sec_temperature <- list(model = "Zwietering",
 Next, we will define a CPM model for the effect of pH. The definition is very similar as for the Zwietering-type model. First of all, we need to set the item `model` to `"CPM"` instead of `"Zwietering"`. Then, we need to give one additional parameter value (`xmax`):
 
 ```{r}
+# how do I know that I need to use a CPM model here instead of a Zwietering? Or is this assumed knowledge for end users?
 sec_pH = list(model = "CPM",
               xmin = 5.5,
               xopt = 6.5,
@@ -381,7 +389,7 @@ plot(dynamic_prediction, add_factor = "temperature", ylims= c(0, 8),
 
 For shelf-life estimation and food safety, it is usually of interest to calculate the storage time required to reach a given microbial count. The **biogrowth** package includes the function `time_to_logcount()` can be used for this purpose. This function has 2 arguments:
 
-* `model`: A model returned by `predict_dynamic_growth()`or `predict_isothermal_growth()`.
+* `model`: A model returned by `predict_dynamic_growth()` or `predict_isothermal_growth()`.
 * `log_count`: target microbial count.
 
 For instance, we can use this function to estimate the time required to reach a microbial count of 2.5 log CFU/ml for the static prediction we did earlier:
@@ -498,7 +506,7 @@ sec_model_names <- c(temperature = "Zwietering",
                      pH = "CPM")
 ```
 
-The `fit_secondary_growth()` function estimates the values of the cardinal parameters, as well as the specific growth rate under optimal conditions. Also, it enables to fix any model parameter to an arbitrary value before fitting the model. The model parameters to fit are defined using the `known_pars` argument. Regarding the remaining parameters, because of the use of non-linear regression for parameter estimation, require the definition of initial parameter values. 
+The `fit_secondary_growth()` function estimates the values of the cardinal parameters, as well as the specific growth rate under optimal conditions. Also, it enables to fix any model parameter to an arbitrary value before fitting the model. The model parameters to fit are defined using the `known_pars` argument. The remaining parameters, because of the use of non-linear regression for parameter estimation, require the definition of initial parameter values. 
 
 The specific growth rate under optimal conditions is named `mu_opt`. The remaining cardinal parameters are named according to the convention `environ_factor`+`_`+`parameter(lower case)`. For instance, the minimum temperature for growth is `temperature_xmin` and the order of the CPM for pH is `pH_n`. Note that the environmental factor must be identical to the one used in `sec_model_names`.
 
@@ -522,13 +530,22 @@ my_start <- list(temperature_xmin = 5, temperature_xopt = 35,
 Finally, the `transformation` argument defines the transformation of the growth rate to use for model fitting. By default, the function applies a square root transformation, which has proved to stabilize the variance of microbial growth. Once the arguments have been defined, we can call the `fit_secondary_growth()` function:
 
 ```{r}
+# Am I missing the transformation argument? 
+# If I run this I get a very long list of warnings: 
+# New names:
+# * NA -> ...1
+# * NA -> ...2
+
+# repeats a lot of times.. 
+# The summary does work though 
+
 fit_cardinal <- fit_secondary_growth(example_cardinal, my_start, known_pars, sec_model_names)
 ```
 
 This function returns an instance of `FitSecondaryGrowth` with 5 items:
 
 * `fit_results` the object returned by `modFit`.
-* `secondary_mode` parameters of the secondary model.
+* `secondary_mode` parameters of the secondary model. # Not  `secondary_model` ??
 * `mu_opt_fit` growth rate under optimal storage conditiosn.
 * `data` data used for the fit.
 * `transformation` tranformation applied to the growth rate before fitting.
@@ -589,12 +606,12 @@ sec_model_names <- c(temperature = "CPM",
 
 The `fit_dynamic_growth()` function enables to fit or fix any model parameter. This distinction is made using the arguments `known_pars` (fixed parameters) and `starting_point` (fitted parameters). Note that these arguments must contain every parameter of the primary and secondary models. 
 
-Regarding the primary model, this function only enables the use of the Baranyi model. This primary model has two variables that need initial values (`N0` and `Q0`) and one primary model parameter (`Nmax`). The specific growth rate is described using the gamma concept. This requires the definition of its value under optimal conditions (`mu_opt`) as well as the cardinal parameters for each environmental factor. As well as for other functions, these must be defined as `factor`+`_`+`parameter name`. For instance, the minimum water activity for growth shall be written as `aw_min`.
+Regarding the primary model, this function only enables the use of the Baranyi model. This primary model has two variables that need initial values (`N0` and `Q0`) and one primary model parameter (`Nmax`). The specific growth rate is described using the gamma concept. This requires the definition of its value under optimal conditions (`mu_opt`) as well as the cardinal parameters for each environmental factor. As well as for other functions, these must be defined as `factor`+`_`+`parameter name`. For instance, the minimum water activity for growth must be written as `aw_min`.
 
-In this example we will consider the model parameters of the primary model as known. For the secondary model for water activity, we will only consider unknown the optimum value for growth. Finally, for the effect of temperature, the only parameter we consider known is the order of the model:
+In this example we will consider the model parameters of the primary model as known. For the secondary model for water activity, we will only consider the optimum value for growth as unknown. Finally, for the effect of temperature, the only parameter we consider known is the order of the model:
 
 ```{r}
-known_pars <- list(Nmax = 1e4,  # Primary model
+known_pars <- list(Nmax = 1e4,  # Nmax for primary model
                    N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
                    mu_opt = 4, # mu_opt of the gamma model
                    temperature_n = 1,  # Secondary model for temperature
@@ -639,12 +656,14 @@ summary(my_dyna_fit)
 The `plot()` method compares the model predictions against the data used for the fit:
 
 ```{r}
+# I also get a warning here: Don't know how to automatically pick scale for object of type deSolve/matrix. Defaulting to continuous.
 plot(my_dyna_fit)
 ```
 
 The variation of the environmental factor can be plotted alongside the previous plot. For that, the name of the environmental factor must be passed to `add_factor`. Note that the value passed must be identical to the one defined in the previous arguments. Then, the label of the primary or secondary axes can be changed using `label_y1` or `label_y2`
 
 ```{r}
+# Double y-axis... Don't show this to Hadley =)  
 plot(my_dyna_fit, add_factor = "aw",
      label_y1 = "Log count (log CFU/ml)",
      label_y2 = "Water activity")
@@ -668,7 +687,7 @@ For that, this function includes two arguments per growth parameter (expected va
 * `n_sims` defines the number of Monte Carlo simulations.
 * `corr_matrix` correlation matrix between the model parameters. By default, this argument is set to a diagonal matrix (i.e. no correlation between parameters).
 
-The calculations are done by taking a sample of size `n_sims` of the model parameters according to a multi-variate normal distribution. For simulatoin, the microbial growth is predicted and the quantiles of the predicted microbial count is used as an estimate of the credible interval.
+The calculations are done by taking a sample of size `n_sims` of the model parameters according to a multi-variate normal distribution. For simulation, the microbial growth is predicted and the quantiles of the predicted microbial count is used as an estimate of the credible interval.
 
 For this example, we will use the tri-linear growth model
 
@@ -692,7 +711,7 @@ Once the arguments have been defined, we can call the `predict_stochastic_growth
 
 ```{r}
 stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
-  mean_logN0 = 0, sd_logN0 = .2,
+  mean_logN0 = 0.5, sd_logN0 = .2, # Is there a reason why you would start with 0 cells?
   mean_sqmu = 2,sd_sqmu = .3,
   mean_sqlambda = 4, sd_sqlambda = .4,
   mean_logNmax = 6, sd_logNmax = .5)
@@ -728,6 +747,7 @@ my_cor <- matrix(c(1,   0,   0, 0,
 Then, we can include it in the call to the function
 
 ```{r}
+# It is not obvious to me (visually) what the changes are..
 stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims,
   mean_logN0 = 0, sd_logN0 = .2,
   mean_sqmu = 2,sd_sqmu = .3,
@@ -769,6 +789,8 @@ my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
 Then, we can call the `fit_MCMC_growth()` using this arguments plus the argument `niter` that we will set to 500.
 
 ```{r}
+# It only accepted 8% - 12% of the MCMC runs, is that normal? Should we change the start parameters?
+
 my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions, 
                                 my_start,
                                 known_pars, 
@@ -838,7 +860,9 @@ niter <- 100
 
 Once we have defined every argument, we can call the `predict_MCMC_growth()` function.
 
-```{r}
+
+```{r, warning=FALSE}
+
 my_MCMC_prediction <- predict_MCMC_growth(my_MCMC_fit, 
                                           my_times,
                                           example_env_conditions, 
@@ -892,6 +916,9 @@ For shelf-life estimation and risk assessment, the storage time required to reac
 For instance, we can use this function to get the distribution of times required to reach a microbial count of 4 log cFU/g based on the simulations we did before and saved in `stoc_growth`
 
 ```{r}
+
+# throws a hughe error: collapsing to unique 'x' 500 x
+# Is does seem to work tough, it gives a result in the later examples
 time_distrib <- distribution_to_logcount(stoc_growth, 4)
 ```
 
