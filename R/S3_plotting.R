@@ -16,10 +16,11 @@
 #' @importFrom rlang .data
 #' @importFrom cowplot theme_cowplot
 #'
-plot.IsothermalGrowth <- function(x, y=NULL, ...) {
+plot.IsothermalGrowth <- function(x, y=NULL, ...,
+                                  my_col = line_col) {
 
     ggplot(x$simulation) +
-        geom_line(aes(x = .data$time, y = .data$logN)) +
+        geom_line(aes(x = .data$time, y = .data$logN) col = my_col) +
         theme_cowplot()
 
 }
