@@ -20,7 +20,7 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...,
                                   my_col = line_col) {
 
     ggplot(x$simulation) +
-        geom_line(aes(x = .data$time, y = .data$logN) col = my_col) +
+        geom_line(aes(x = .data$time, y = .data$logN), col = my_col) +
         theme_cowplot()
 
 }
