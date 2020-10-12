@@ -189,5 +189,20 @@ bind_rows(
 
 ```
 
+```{r}
+bert <- function(x, y=NULL, ...,
+                 my_col= "black") {
+
+    ggplot(x$simulation) +
+      geom_line(aes(x = .data$time, y = .data$logN), col = my_col) +
+      theme_cowplot()
+
+}
+
+
+bert(static_prediction, my_col = "red")
+
+
+```
 
 
