@@ -2,7 +2,7 @@ Package: biogrowth
 Type: Package
 Title: Modelling of Microbial Growth 
 Version: 0.1.0
-Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role = c("aut", "cre")),
+Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4404-3550")),
              person("Jeroen", "Koomen", email = "jeroen.koomen@wur.nl", role = "aut"),
              person("Heidy", "den Besten", email = "heidy.denbesten@wur.nl", role = "aut"),
              person("Marcel", "Zwietering", email = "marcel.zwietering@wur.nl", role = "aut")
@@ -10,7 +10,7 @@ Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role 
 Description: Modelling of microbial growth under isothermal and dynamic conditions. 
     Includes functions for model fitting and making prediction under isothermal and 
     dynamic conditions using methods (algorithms & models) common in 
-    predictive microbiology.
+    predictive microbiology (See Perez-Rodriguez and Valero (2012, ISBN:978-1-4614-5519-6)).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
