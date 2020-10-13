@@ -22,6 +22,8 @@ functions. This is not allowed by the CRAN policies.
 the functions extract_primary_pars and extract_secondary_pars. Both functions have been rewritten
 avoiding the use of <<-.
 
+> Apart from that, I improved the wording of some parts of the vignette.
+
 ## Test environments
 * local R installation, R 3.5.3
 * ubuntu 16.04 (on travis-ci), R 3.5.3
