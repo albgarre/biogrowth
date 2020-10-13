@@ -17,10 +17,15 @@
 #' @importFrom cowplot theme_cowplot
 #'
 plot.IsothermalGrowth <- function(x, y=NULL, ...,
-                                  line_col = "black") {
+                                  line_col = "black",
+                                  line_size = 1,
+                                  line_type = "solid") {
 
     ggplot(x$simulation) +
-        geom_line(aes(x = .data$time, y = .data$logN), col = line_col) +
+        geom_line(aes(x = .data$time, y = .data$logN), 
+                  col = line_col, 
+                  size = line_size,
+                  linetype = line_type) +
         theme_cowplot()
 
 }
