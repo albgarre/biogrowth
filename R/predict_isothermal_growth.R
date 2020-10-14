@@ -1,7 +1,10 @@
 
 #' Isothermal Baranyi model
 #'
-#' Baranyi growth model as defined by Baranyi and Roberts (1994).
+#' Baranyi growth model as defined by Baranyi and Roberts (1994). We use the solution
+#' calculated by Poschet et al. (2005, doi: https://doi.org/10.1016/j.ijfoodmicro.2004.10.008)
+#' after log-transformation according to MONTE CARLO ANALYSIS FOR MICROBIAL GROWTH CURVES,
+#' by Oksuz and Buzrul.
 #'
 #' @param times Numeric vector of storage times
 #' @param logN0 Initial log microbial count
@@ -13,10 +16,14 @@
 #'
 iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 
-    h0 <- mu*lambda
+    # h0 <- mu*lambda
+    #
+    # A <- times + 1/mu * log(exp(-mu * times) + exp(-h0) - exp(-mu * times - h0))
+    # logN <- logN0 + mu * A - log(1 + (exp(mu * A) - 1) / exp(logNmax - logN0))
 
-    A <- times + 1/mu * log(exp(-mu * times) + exp(-h0) - exp(-mu * times - h0))
-    logN <- logN0 + mu * A - log(1 + (exp(mu * A) - 1) / exp(logNmax - logN0))
+    num <- 1 + exp(log(10)*mu*(times - lambda)) - exp(-log(10)*mu*lambda)
+    den <- exp(log(10)*mu*(times-lambda)) - exp(-log(10)*mu*lambda) + 10^(logNmax - logN0)
+    logN <- logNmax + log10(num/den)
 
     logN
 
