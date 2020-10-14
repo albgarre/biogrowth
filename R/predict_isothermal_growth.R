@@ -40,7 +40,7 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 #'
 iso_repGompertz <- function(times, logN0, C, mu, lambda) {
 
-    logN <- logN0 + C*(exp(-exp( 2.71*(mu/C)*(lambda-times)+1 )))
+    logN <- logN0 + C*(exp(-exp( exp(1)*(mu/C)*(lambda-times)+1 )))
 
     logN
 
