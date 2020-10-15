@@ -19,5 +19,6 @@ zwietering_gamma(x, xmin, xopt, n)
 The corresponding gamma factor.
 }
 \description{
-Gamma model as defined by Zwietering et al. (1992).
+Gamma model as defined by Zwietering et al. (1992). To avoid unreasonable predictions,
+it has been modified setting gamma=0 for values of x outside [xmin, xopt]
 }

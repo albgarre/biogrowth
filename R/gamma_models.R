@@ -25,7 +25,8 @@ CPM_model <- function(x, xmin, xopt, xmax, n) {
 
 #' Zwietering gamma model
 #'
-#' Gamma model as defined by Zwietering et al. (1992).
+#' Gamma model as defined by Zwietering et al. (1992). To avoid unreasonable predictions,
+#' it has been modified setting gamma=0 for values of x outside [xmin, xopt]
 #'
 #' @param x Value of the environmental factor.
 #' @param xmin Minimum value of the environmental factor for growth.
@@ -38,6 +39,7 @@ zwietering_gamma <- function(x, xmin, xopt, n) {
 
     gamma <- ((x-xmin)/(xopt-xmin))^n
     gamma[x < xmin] <- 0
+    gamma[x > xopt] <- 0
 
     return(gamma)
 
