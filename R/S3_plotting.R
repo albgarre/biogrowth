@@ -7,6 +7,9 @@
 #' @param x The object of class \code{IsothermalGrowth} to plot.
 #' @param y ignored
 #' @param ... additional arguments passed to \code{plot}.
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -18,7 +21,7 @@
 #'
 plot.IsothermalGrowth <- function(x, y=NULL, ...,
                                   line_col = "black",
-                                  line_size = 1,
+                                  line_size = 0.5,
                                   line_type = "solid") {
 
     ggplot(x$simulation) +
@@ -46,6 +49,9 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...,
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
 #' @param label_y1 Label of the primary y-axis.
 #' @param label_y2 Label of the secondary y-axis.
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -59,10 +65,16 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
                                add_factor = NULL,
                                ylims = NULL,
                                label_y1 = "logN",
-                               label_y2 = add_factor) {
+                               label_y2 = add_factor,
+                               line_col = "black",
+                               line_size = 0.5,
+                               line_type = "solid") {
 
     p <- ggplot(x$simulation) +
-        geom_line(aes(x = .data$time, y = .data$logN))
+        geom_line(aes(x = .data$time, y = .data$logN),
+                  col = line_col, 
+                  size = line_size,
+                  linetype = line_type)
 
     if(!is.null(add_factor)) {
 
