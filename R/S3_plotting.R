@@ -187,7 +187,7 @@ plot.StochasticGrowth <- function(x, y=NULL, ...,
         geom_line(aes(y = .data$q50),
                   col = line_col, 
                   size = line_size,
-                  linetype = line_type ) + 
+                  linetype = line_type) + 
         ylab("logN") +
         theme_cowplot()
 
