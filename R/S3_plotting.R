@@ -192,6 +192,12 @@ plot.StochasticGrowth <- function(x, y=NULL, ...) {
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
 #' @param label_y1 Label of the primary y-axis.
 #' @param label_y2 Label of the secondary y-axis.
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point} 
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -203,21 +209,30 @@ plot.StochasticGrowth <- function(x, y=NULL, ...) {
 #' @importFrom cowplot theme_cowplot
 #'
 plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
-                               add_factor = NULL,
-                               ylims = NULL,
-                               label_y1 = "logN",
-                               label_y2 = add_factor) {
-
-    p <- plot(x$best_prediction,
-              add_factor = add_factor,
-              ylims = ylims,
-              label_y1 = label_y1,
-              label_y2 = label_y2)
-
-    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
-                   inherit.aes = FALSE) +
-        theme_cowplot()
-
+                                   add_factor = NULL,
+                                   ylims = NULL,
+                                   label_y1 = "logN",
+                                   label_y2 = add_factor,
+                                   line_col = "black",
+                                   line_size = 0.5,
+                                   line_type = 1,
+                                   point_col = "black",
+                                   point_size = 0.5,
+                                   point_shape = 16) {
+  
+  p <- plot(x$best_prediction,
+            add_factor = add_factor,
+            ylims = ylims,
+            label_y1 = label_y1,
+            label_y2 = label_y2,
+            line_col = line_col,
+            line_size = line_size,
+            line_type = line_type)
+  
+  p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
+                 inherit.aes = FALSE, col = point_col,  size = point_size, shape = point_shape) +
+    theme_cowplot()
+  
 }
 
 
@@ -236,6 +251,12 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
 #' @param label_y1 Label of the primary y-axis.
 #' @param label_y2 Label of the secondary y-axis.
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point} 
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -250,16 +271,25 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
                                       add_factor = NULL,
                                       ylims = NULL,
                                       label_y1 = "logN",
-                                      label_y2 = add_factor) {
+                                      label_y2 = add_factor, 
+                                      line_col = "black",
+                                      line_size = 0.5,
+                                      line_type = 1,
+                                      point_col = "black",
+                                      point_size = 0.5,
+                                      point_shape = 16) {
 
     p <- plot(x$best_prediction,
               add_factor = add_factor,
               ylims = ylims,
               label_y1 = label_y1,
-              label_y2 = label_y2)
+              label_y2 = label_y2,
+              line_col = line_col,
+              line_size = line_size,
+              line_type = line_type)
 
     p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
-                   inherit.aes = FALSE) +
+                   inherit.aes = FALSE, col = point_col,  size = point_size, shape = point_shape) +
         theme_cowplot()
 
 }
