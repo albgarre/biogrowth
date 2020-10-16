@@ -245,7 +245,6 @@ static_prediction$simulation
 
 Alternatively, this class implements an S3 method for plot that illustrates the survivor curve:
 
-#COMMENT this is a bit confusing to me, as normally plot() refers to base R plotting functions (but I will adapt :P)
 ```{r}
 plot(static_prediction)
 ```
@@ -434,10 +433,10 @@ my_data <- tibble(time = c(0, 25, 50, 75, 100),
                   logN = c(2, 2.5, 7, 8, 8))
 ```
 #COMMENT:for the beginners: can we add a couple of lines that show how to load an Excel file here? Or just one or two lines that mentions that this is also possible with Excel data?
-#COMMENT It is dead obvious, but this package will attract N00B (PhD)students that have limited experience in R
+#COMMENT It is obvious, but this package will attract N00B (PhD)students that have limited experience in R
 
 #COMMENT Many people have more than one dataset to consider, we could even make an example of mapping the function over a list of tibbles? 
-#COMMENT I have seen beginners copy-pasting the same code 8 times to make 8 fits... 
+
 
 The primary model is defined using `model_name`. It can be one of `"Baranyi"`, `"modGompertz"` or `"Trilinear"`. For instance, we can use the Baranyi model in this example:
 
@@ -795,7 +794,7 @@ my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions,
                                 known_pars, 
                                 sec_model_names, 
                                 niter = 500,
-                                updatecov = 10) #COMMENT probably a hacky solution, we need to look at what causes the low nr of accepted runs
+                                updatecov = 10) #COMMENT probably a hacky solution, do we need to look at what causes the low nr of accepted runs?
 
 ```
 #COMMENT I keep getting ~10% accepted runs, is this bc of the input settings? 
