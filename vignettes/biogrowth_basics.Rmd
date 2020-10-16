@@ -42,19 +42,19 @@ In this document, we will present the functions included in **biogrowth**. In or
 library(tidyverse)
 ```
 
-Several functions in the package make use of stochastic algorithm. For reproducibility, we will set the internal seed of R's internal random number generator (PRNG) to some arbitrary value
+Several functions in the package make use of stochastic algorithms. For reproducibility, we will set the seed of R's internal random number generator (PRNG) to some arbitrary value
 
 ```{r}
 set.seed(1241)
 ```
 
-According to the usual conventions in predictive microbiology, in this document we will use $log$ to refer to the decimal logarithm and $ln$ for the natural logarithm.
+According to the conventions in predictive microbiology, in this document we will use $log$ to refer to the decimal logarithm and $ln$ for the natural logarithm.
 
 # Mathematical background
 
 ## Microbial growth according to predictive microbiology
 
-In predictive microbiology mathematical models are usually divided in *primary* and *secondary* models (Perez-Rodriguez and Valero, 2012). Primary models describe the variation of the variable(s) of interest (usually the microbial count) against time. Due to the strong empirical component of these models, primary models have model parameters that are dependent on the environmental conditions. A typical example is the relationship between the specific growth rate and the storage temperature. Hence, secondary models describe the relationship between the parameters of the primary model and the environmental conditions.
+In predictive microbiology mathematical models are usually divided in *primary* and *secondary* models (Perez-Rodriguez and Valero, 2012). Primary models describe the variation of the variable(s) of interest (usually the microbial count) against time. Due to the strong empirical component of these models, primary models have model parameters that are dependent on the environmental conditions. A typical example is the relationship between the specific growth rate and the storage temperature. In contrast, secondary models describe the relationship between the parameters of the primary model and the environmental conditions.
 
 ## Primary growth models included in biogrowth
 
@@ -79,7 +79,7 @@ $$
 $$
 \frac{dQ}{dt}=\mu \space Q
 $$
-In this model, the deviations with respect to exponential growth are justified based on two hypothesis. It introduces the variable $Q(t)$, which represents a theoretical substance that must be produced before the microorganism can enter the exponential growth phase. Hence, its initial value ($Q_0$) defines the lag phase duration (under static conditions) as $\lambda = \frac{\ln (1+1/Q_{0})}{\mu}$. On the other hand, the stationary growth phase is defined by the logistic term $(1-N/N_{max})$, which reduces the growth rate as the microorganism reaches the maximum count.
+In this model, the deviations with respect to exponential growth are justified based on two hypotheses. It introduces the variable $Q(t)$, which represents a theoretical substance that must be produced before the microorganism can enter the exponential growth phase. Hence, its initial value ($Q_0$) defines the lag phase duration (under static conditions) as $\lambda = \frac{\ln (1+1/Q_{0})}{\mu}$. On the other hand, the stationary growth phase is defined by the logistic term $(1-N/N_{max})$, which reduces the growth rate as the microorganisms reach the maximum count.
 
 Note that the original paper by Baranyi and Roberts included an exponent, $m$, in the term defining the stationary growth phase. However, that term is usually set to 1 in predictive microbiology and, consequently, has been omitted from *biogrowth*. Also, in its original paper, the specific growth rate of $Q(t)$ was given by a different growth rate ($\nu$). However, because this variable does not correspond to any known substance, this growth rate lacks a biological meaning and has been set to $\mu$.
 
@@ -100,15 +100,22 @@ In these equations, where $N_0$ is the initial microbial count, $\mu$ is the max
 
 ### Trilinear model under static conditions
 
+#COMMENT These three definitions can improve from a bit of layman perspective:
 Buchanan et al. (1997) proposed a trilinear model as a more simple approach to describe microbial growth. This model is defined by the piece-wise equation:
 
+Lag phase  
+Until the time elapsed exceeds the lag time $\lambda$, there is no growth.
 $$
 \log N(t) = \log N_0; t \leq \lambda
 $$
+Exponential phase  
+As long as time is between $\lambda$ and $t_{max}$, growth is maximal
 $$
 \log N(t) = \log N_0 + \mu(t-\lambda); t\in(\lambda,t_{max})
 $$
 
+Stationary phase  
+If time exceeds $t_{max}$, growth stops
 $$
 \log N(t) = \log N_{max}; t \geq t_{max}
 $$
@@ -119,7 +126,7 @@ where $t_{max}$, defined is the time required for the microbial count to reach $
 
 Although other approaches for secondary modeling exist in the literature, the **biogrowth** package uses the gamma approach proposed by Zwietering et al. (1992). This approach assumes that the effect of each environmental factor on the growth rate is multiplicative and independent. Hence, the specific growth rate ($\mu$) observed under a combination of environmental conditions ($X_1$, $X_2$,...,$X_n$) is the result of multiplying the value of $\mu$ observed under optimal conditions for growth ($\mu_{opt}$) times a *gamma factor* corresponding to each environmental factor ($\gamma(X_i)$). Because gamma factors represent growth rates under sub-optimal conditions, they are correction factors taking values between 0 and 1. 
 
-Note that this approach does not take into consideration interaction between the different terms. The reason for this is that, in the opinion of the authors, their implementation is still a research topic, without any model being broadly accepted. Therefore, their inclusion is not in line with the phylosophi of **biogrowth**, which aims at easing the application of commonly accepted modelling approaches.
+Note that this approach does not take into consideration interaction between the different terms. The reason for this is that, in the opinion of the authors, their implementation is still a research topic, without any model being broadly accepted. Therefore, the inclusion of interactions between terms is not in line with the philosophy of **biogrowth**, which aims at easing the application of commonly accepted modelling approaches.
 
 $$
 \mu = \mu_{opt} \cdot \gamma(X_1) \cdot \gamma(X_2) \cdot ... \cdot \gamma(X_n)
@@ -134,6 +141,8 @@ $$
 $$
 
 where $X_min$ is the minimum value of $X$ enabling growth, $X_{opt}$ is the optimum value of $X$ for growth and $n$ is the order of the model. The latter value usually takes the value 1 or 2, depending on the environmental factor.
+
+#COMMENT the original paper just mentions n=2 for Temp right? Should we mention the default here? 
 
 ### Cardinal Parameter Models (CPM)
 
@@ -236,13 +245,11 @@ static_prediction$simulation
 
 Alternatively, this class implements an S3 method for plot that illustrates the survivor curve:
 
-
 ```{r}
-# this is a bit confusing to me, as normally plot() refers to base R plotting functions (but I will adapt :P)
 plot(static_prediction)
 ```
 
-The plot is generated as a gpplot object. Therefore, it can be edited using layers as usual in the ggplot2 package. For instance,
+The plot is generated as a gpplot object, with theme_cowplot() as default. Therefore, it can be edited using layers as usual in the ggplot2 package. For instance,
 
 ```{r}
 plot(static_prediction) +
@@ -251,7 +258,7 @@ plot(static_prediction) +
   theme_gray()
 ```
 
-
+See the vignette #ADD LINK HERE for pretty graphics
 
 ## Growth prediction under dynamic conditions
 
@@ -292,9 +299,8 @@ Therefore, in order to get smoother profiles, one has to define additional rows 
 
 For dynamic conditions, **biogrowth** can only use the Baranyi growth model as primary model. This model requires the definition of two model parameters: the specific growth rate at optimum conditions (`mu_opt`) and the maximum microbial count (`Nmax`). Moreover, the initial values of the microbial count (`N0`) and the theoretical substance $Q$ (`Q0`) must be defined. For the `predict_dynamic_growth()`function, they must be defined in a single list:
 
-
+#COMMENT can you give a sort of range for this theoretical substance? Or should the user play around a bit to find a value that suits the needs? 
 ```{r}
-# can you give a sort of range for this theoretical substance? Or should the user play around a bit to find a value that suits the needs? 
 my_primary <- list(mu_opt = 2,
              Nmax = 1e8,
              N0 = 1e0,
@@ -397,13 +403,13 @@ time_to_logcount(static_prediction, 2.5)
 ```
 
 Or the time required to reach 5 log CFU/ml in the dynamic prediction:
-
+#COMMENT this throws a warning: collapsing to unique 'x' values, is the solver acting up?
 ```{r}
 time_to_logcount(dynamic_prediction, 5)
 ```
 
 If the value of `log_count` was outside the range of the simulations, the function returns an `NA`:
-
+#COMMENT throws warning and NA
 ```{r}
 time_to_logcount(dynamic_prediction, 10)
 ```
@@ -426,6 +432,11 @@ The data used for model fitting is defined through the `fit_data` argument. It m
 my_data <- tibble(time = c(0, 25, 50, 75, 100),
                   logN = c(2, 2.5, 7, 8, 8))
 ```
+#COMMENT:for the beginners: can we add a couple of lines that show how to load an Excel file here? Or just one or two lines that mentions that this is also possible with Excel data?
+#COMMENT It is obvious, but this package will attract N00B (PhD)students that have limited experience in R
+
+#COMMENT Many people have more than one dataset to consider, we could even make an example of mapping the function over a list of tibbles? 
+
 
 The primary model is defined using `model_name`. It can be one of `"Baranyi"`, `"modGompertz"` or `"Trilinear"`. For instance, we can use the Baranyi model in this example:
 
@@ -471,6 +482,7 @@ summary(static_fit)
 
 whereas `plot()` compares the data and the fitted curve
 
+
 ```{r}
 plot(static_fit)
 ```
@@ -499,6 +511,8 @@ This dataset must have one column named `mu` with the observed growth rate. Then
 
 The type of secondary model to use for each environmental factor is defined in the `sec_model_names` argument. It is a named vector whose names are the environmental factors and whose values define the model to use. Right now, the function admits cardinal parameters models ("CPM") and the gamma-type model defined by Zwietering et al. ("Zwietering"). For this example, we will use a CPM for the pH and an Zwietering model for temperature. Note that the names of the vector are identical to the column names of `fit_data`.
 
+#COMMENT, I am not really sure why you would use a diferent model for pH, but that may be my lack of understanding of these models
+#COMMENT but the difference between Zwietering and CPM is the interaction between terms right? Then why would you use different models for each parameter? 
 ```{r}
 sec_model_names <- c(temperature = "Zwietering",
                      pH = "CPM")
@@ -745,7 +759,7 @@ plot(stoc_growth2)
 ```
 
 Note that, in order to omit the variability/uncertainty of any model parameter, one just has to set its corresponding standard error to zero.
-
+#COMMENT: I am having a very hard time so see what is different in these graphs, after adjusting the correlation matrix. Maybe a more extreme example? Or lower the boundaries on the uncertainty?  
 
 ## One-step fitting using MCMC algorithms
 
@@ -772,16 +786,19 @@ my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
 
 ```
 
-Then, we can call the `fit_MCMC_growth()` using this arguments plus the argument `niter` that we will set to 500.
+Then, we can call the `fit_MCMC_growth()` using these arguments plus the argument `niter` that we will set to 500.
 
 ```{r}
 my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions, 
                                 my_start,
                                 known_pars, 
                                 sec_model_names, 
-                                niter = 500)
+                                niter = 500,
+                                updatecov = 10) #COMMENT probably a hacky solution, do we need to look at what causes the low nr of accepted runs?
 
 ```
+#COMMENT I keep getting ~10% accepted runs, is this bc of the input settings? 
+#COMMENT Users get stressed by this kind of warning 
 
 This function returns an instance of `FitDynamicGrowthMCMC` with 6 entries:
 
@@ -844,6 +861,8 @@ niter <- 100
 
 Once we have defined every argument, we can call the `predict_MCMC_growth()` function.
 
+#TODO this function throws an error: 
+# Error: Can't combine `..1` <deSolve> and `..2` <deSolve>. x Some attributes are incompatible. ℹ The author of the class should implement vctrs methods. ℹ See <https://vctrs.r-lib.org/reference/faq-error-incompatible-attributes.html>
 
 ```{r, warning=FALSE}
 
@@ -899,6 +918,7 @@ For shelf-life estimation and risk assessment, the storage time required to reac
 
 For instance, we can use this function to get the distribution of times required to reach a microbial count of 4 log cFU/g based on the simulations we did before and saved in `stoc_growth`
 
+#COMMENT: Gives warning:valuescollapsing to unique 'x'
 ```{r}
 time_distrib <- distribution_to_logcount(stoc_growth, 4)
 ```
