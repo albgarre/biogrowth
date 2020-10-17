@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # Introduction  
 
-The **biogrowth** package for R allows for modelling microbial growth using methods developed in the field of predictive microbiology. This vignette is an addition to the main vignette describing the detailed use of the functions in **biogrowth**. Here, we assume the reader is already familiar with **biogrowth**, so we focus explicitly on creating and saving publication ready figures. 
+The **biogrowth** package for R allows for modelling of microbial growth using  predictive microbiology. This vignette is an addition to the main vignette of the package, giving further detail on how tu use  the functions in **biogrowth** to prepare publication ready figures. Here, we assume the reader is already familiar with **biogrowth**. 
 
  
 
@@ -26,14 +26,14 @@ library(tidyverse)
 ```
 
 
-Several functions in the package make use of stochastic algorithms. For reproducibility, we will set the seed of R's internal random number generator (PRNG) to some arbitrary value
+Several functions in the package make use of stochastic algorithms. For reproducibility, we will set the seed of R's internal pseodu-random number generator (PRNG) to some arbitrary value
 
 ```{r}
 set.seed(1241)
 ```
 
 
-**Biogrowth** uses the **Cowplot** package and the **Cowplot** theme as default. Therefore, the vanilla figures produced by **biogrowth** already have a nice clean theme and could be used in a publication as is. However, more control over formatting options can be needed in order to standardize plots or when preparing figures for a specific journal.  
+**Biogrowth** uses the **cowplot** package and the **cowplot** theme as default. Therefore, the vanilla figures produced by **biogrowth** already have a nice clean theme and could be used in a publication as is. However, more control over formatting options can be needed in order to standardize plots or when preparing figures for a specific journal.  
 
 **Cowplot** is a package that works with **gplot2**, and therefore the plots can be manipulated in the same way. Arguments that control the way that data is represented by geoms such as:
   
@@ -41,7 +41,7 @@ set.seed(1241)
 * `size`
 * `linetype`
 
-would normally go inside the ggplot call. In **Biogrowth** a modified version of these arguments can be set by providing additional arguments to the **biogrowth** function as shown in this vignette. 
+would normally go inside the ggplot call. In **biogrowth**, a modified version of these arguments can be set by providing additional arguments to plotting methods in **biogrowth**. 
 
 We start with a prediction using the modified Gompertz model
 
@@ -144,6 +144,7 @@ static_fit <- fit_isothermal_growth(my_data, my_model,
 
 
 and plot this with additional arguments for the color of the points, and a different `line_type`  
+
 ```{r}
 # Plotting
 plot(static_fit, 
@@ -153,6 +154,7 @@ plot(static_fit,
 ```
   
 This example uses the tri-linear growth model to make a stochastic prediction with the `predict_stochastic_growth()` function. Note that the same arguments can be set for `fit_MCMC_growth()`  
+
 ```{r}
 # Example data from the main vignette
 my_model <- "Trilinear"
@@ -174,9 +176,6 @@ We can supply `plot()` with the arguments that control the size, type and colour
 * `alpha80`: the opacity of the ribbon80_fill 
 * `alpha90`: the opacity of the ribbon90_fill  
 
-
-
-
 ```{r}
 plot(stoc_growth, 
      line_type = 3,
@@ -187,7 +186,6 @@ plot(stoc_growth,
 ```
   
 Note that `ribbon80_fill` and `ribbon90_fill` can be set to different colours, but this is not always an improvement
-
 
 ```{r}
 plot(stoc_growth, 
@@ -206,6 +204,7 @@ plot(stoc_growth,
 #COMMENT  need at least two non-NA values to interpolate  
    
 We use the result of ` predict_stochastic_growth()` stored in `stoc_growth` from the example above. 
+
 ```{r}
 time_distrib <- distribution_to_logcount(stoc_growth, 4)
 ```
@@ -217,13 +216,13 @@ The prediction of times to reach a specified count is shown in a histogram. We c
 plot(time_distrib, bin_width = 2)
 ```
   
-## Combining plots  
+## Combining plots into subplots
 
-**Cowplot** has a nice feature for combining plots into grids, we will use a combination of the previous examples here.  
+The function `plot_grid()` of **cowplot** can be used to combine different plots into a grid. 
 
-#COMMENT, this might not be the best example as the figures are not that related. Should I make a set of related figures here?
+```{r, fig.width=7, fig.height=5}
 
-```{r}
+library(cowplot)
 
 p1 <- plot(static_fit, 
      point_col = "lightgreen", 
@@ -249,11 +248,10 @@ p4 <- plot(stoc_growth,
      alpha90 = .4)
 
 # Making a nice grid of plots
-cowplot::plot_grid(p1, p2, p3, p4)
+plot_grid(p1, p2, p3, p4, labels = "AUTO")
 
 
 ```
-
 
 # Additional changes to the plotting area  
 
@@ -279,16 +277,15 @@ plot(static_prediction, line_col = "red") +
 ## Saving and reshaping plots  
   
 `ggsave()` will automatically save the last plot to a specified location. It needs a filename as a string, for instance "static_prediction.pdf" to save the figure as a pdf. It also needs a location to save to (defaults to the working directory), and optionally the user can set dimentions and units.  
+
 ```{r}
 # We save the plot as p1, notice that it does not get drawn now
 p1 <- plot(static_prediction, line_col = "red") + 
   theme(axis.line = element_line(colour = 'grey', size = 0.8))
 
 # We save P1 as .pdf, as a 20x 20 cm square
-ggsave("static_prediction.pdf", p1, width = 20, height = 20, units = "cm")
+# ggsave("static_prediction.pdf", p1, width = 20, height = 20, units = "cm")
 ```
-
-
 
 
 # Full manual control  
@@ -296,8 +293,6 @@ ggsave("static_prediction.pdf", p1, width = 20, height = 20, units = "cm")
 By accessing the data directly, the experienced user can get full control over plotting:  
 
 ```{r}
-library(cowplot)
-
 # Vanilla biogrowth figure
 static_prediction$simulation %>%
   ggplot(., aes(x= time, y =logN )) + 
@@ -334,7 +329,7 @@ stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
   mean_logNmax = 6, sd_logNmax = .5)
 
 # Plotting
- ggplot(stoc_growth$quantiles, aes(x = .data$time)) +
+ggplot(stoc_growth$quantiles, aes(x = .data$time)) +
         geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90), fill = "red",  alpha = .3) +
         geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95), fill = "red",  alpha = .2) +
         geom_line(aes(y = .data$q50)) +
@@ -344,13 +339,11 @@ stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
  
 ```
 
-## Combining plots  
+## Comparing predictions 
   
-In order to compare the outcome of simulations with different parameters we can combine simulations into a single plot
-#COMMENT This is not the most elegant way, but maybe more understandable like this?
-#Well, you get the idea =P
+In order to compare the outcome of simulations with different parameters we can combine simulations into a single plot using the `plot_grid()` function from **cowplot**.
 
-```{r}
+```{r, fig.width=7, fig.height=5}
 # Plotting multiple plots together
 my_model <- "modGompertz"
 
@@ -376,7 +369,7 @@ plot_grid(p1, p2, p3, labels = "auto")
 
 ```
   
-Or, by making a single tibble from the information stored in the static_prediction objects we can make a combined plot, clearly showing the differences between  simulations  
+Alternatively, one can combine the predicted counts into a single tibble and, then, plot all the growth curves in a single plot.  
 
 ```{r}
 bind_rows(
