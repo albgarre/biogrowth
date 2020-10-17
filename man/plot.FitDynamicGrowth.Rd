@@ -11,7 +11,13 @@
   add_factor = NULL,
   ylims = NULL,
   label_y1 = "logN",
-  label_y2 = add_factor
+  label_y2 = add_factor,
+  line_col = "black",
+  line_size = 0.5,
+  line_type = 1,
+  point_col = "black",
+  point_size = 0.5,
+  point_shape = 16
 )
 }
 \arguments{
@@ -31,6 +37,18 @@ that condition is plotted in the secondary axis}
 \item{label_y1}{Label of the primary y-axis.}
 
 \item{label_y2}{Label of the secondary y-axis.}
+
+\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}}
+
+\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}}
+
+\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}}
+
+\item{point_col}{Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}}
+
+\item{point_size}{Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}}
+
+\item{point_shape}{Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}}
 }
 \value{
 An instance of \code{ggplot}.

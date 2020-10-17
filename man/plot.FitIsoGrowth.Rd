@@ -4,7 +4,17 @@
 \alias{plot.FitIsoGrowth}
 \title{Plot of FitIsoGrowth Object}
 \usage{
-\method{plot}{FitIsoGrowth}(x, y = NULL, ...)
+\method{plot}{FitIsoGrowth}(
+  x,
+  y = NULL,
+  ...,
+  line_col = "black",
+  line_size = 0.5,
+  line_type = 1,
+  point_col = "black",
+  point_size = 0.5,
+  point_shape = 16
+)
 }
 \arguments{
 \item{x}{The object of class \code{FitIsoGrowth} to plot.}
@@ -12,6 +22,18 @@
 \item{y}{ignored}
 
 \item{...}{additional arguments passed to \code{plot}.}
+
+\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}}
+
+\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}}
+
+\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}}
+
+\item{point_col}{Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}}
+
+\item{point_size}{Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}}
+
+\item{point_shape}{Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}}
 }
 \value{
 An instance of \code{ggplot}.

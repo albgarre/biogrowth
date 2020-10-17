@@ -25,8 +25,8 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...,
                                   line_type = "solid") {
 
     ggplot(x$simulation) +
-        geom_line(aes(x = .data$time, y = .data$logN), 
-                  col = line_col, 
+        geom_line(aes(x = .data$time, y = .data$logN),
+                  col = line_col,
                   size = line_size,
                   linetype = line_type) +
         theme_cowplot()
@@ -72,7 +72,7 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
 
     p <- ggplot(x$simulation) +
         geom_line(aes(x = .data$time, y = .data$logN),
-                  col = line_col, 
+                  col = line_col,
                   size = line_size,
                   linetype = line_type)
 
@@ -161,8 +161,8 @@ plot.MCMCgrowth <- function(x, y=NULL, ...) {
 #' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
 #' @param ribbon80_fill fill colour for the space between the 10th and 90th quantile, see: \code{\link{geom_ribbon}}
 #' @param ribbon90_fill fill colour for the space between the 5th and 95th quantile, see: \code{\link{geom_ribbon}}
-#' @param alpha80 transparency of the ribbon aesthetic for the space between the 10th and 90th quantile. Takes a value between 0 (fully transparant) and 1 (fully opaque) 
-#' @param alpha90 transparency of the ribbon aesthetic for the space between the 5th and 95th quantile. Takes a value between 0 (fully transparant) and 1 (fully opaque) 
+#' @param alpha80 transparency of the ribbon aesthetic for the space between the 10th and 90th quantile. Takes a value between 0 (fully transparant) and 1 (fully opaque)
+#' @param alpha90 transparency of the ribbon aesthetic for the space between the 5th and 95th quantile. Takes a value between 0 (fully transparant) and 1 (fully opaque)
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -185,9 +185,9 @@ plot.StochasticGrowth <- function(x, y=NULL, ...,
         geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90), fill = ribbon80_fill, alpha = alpha80) +
         geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95), fill = ribbon90_fill, alpha = alpha90) +
         geom_line(aes(y = .data$q50),
-                  col = line_col, 
+                  col = line_col,
                   size = line_size,
-                  linetype = line_type) + 
+                  linetype = line_type) +
         ylab("logN") +
         theme_cowplot()
 
@@ -212,9 +212,9 @@ plot.StochasticGrowth <- function(x, y=NULL, ...,
 #' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
-#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}
-#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point} 
-#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -236,7 +236,7 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
                                    point_col = "black",
                                    point_size = 0.5,
                                    point_shape = 16) {
-  
+
   p <- plot(x$best_prediction,
             add_factor = add_factor,
             ylims = ylims,
@@ -245,11 +245,11 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
             line_col = line_col,
             line_size = line_size,
             line_type = line_type)
-  
+
   p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
                  inherit.aes = FALSE, col = point_col,  size = point_size, shape = point_shape) +
     theme_cowplot()
-  
+
 }
 
 
@@ -271,9 +271,9 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
-#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}
-#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point} 
-#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -288,7 +288,7 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
                                       add_factor = NULL,
                                       ylims = NULL,
                                       label_y1 = "logN",
-                                      label_y2 = add_factor, 
+                                      label_y2 = add_factor,
                                       line_col = "black",
                                       line_size = 0.5,
                                       line_type = 1,
@@ -322,9 +322,9 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
 #' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
-#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}
-#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point} 
-#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -343,7 +343,7 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
                               point_size = 0.5,
                               point_shape = 16) {
 
-    p <- plot(x$best_prediction,  
+    p <- plot(x$best_prediction,
               line_col = line_col,
               line_size = line_size,
               line_type = line_type)
@@ -362,7 +362,7 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
 #' @param x The object of class \code{TimeDistribution} to plot.
 #' @param y ignored
 #' @param ... additional arguments passed to \code{plot}.
-#' @param bin_width A number that specifies the width of a bin in the histogram, see: \code{\link{geom_histogram} 
+#' @param bin_width A number that specifies the width of a bin in the histogram, see: \code{\link{geom_histogram}}
 #'
 #' @return An instance of \code{ggplot}.
 #'
