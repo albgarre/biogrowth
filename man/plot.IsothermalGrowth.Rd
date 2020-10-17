@@ -4,14 +4,7 @@
 \alias{plot.IsothermalGrowth}
 \title{Plot of IsothermalGrowth Object}
 \usage{
-\method{plot}{IsothermalGrowth}(
-  x,
-  y = NULL,
-  ...,
-  line_col = "black",
-  line_size = 0.5,
-  line_type = "solid"
-)
+\method{plot}{IsothermalGrowth}(x, y = NULL, ..., line_col = "black", line_size = 1, line_type = "solid")
 }
 \arguments{
 \item{x}{The object of class \code{IsothermalGrowth} to plot.}
@@ -20,11 +13,14 @@
 
 \item{...}{additional arguments passed to \code{plot}.}
 
-\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}}
+\item{line_col}{Aesthetic parameter to change the colour of the line,
+see: \code{\link{geom_line}}}
 
-\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}}
+\item{line_size}{Aesthetic parameter to change the thickness of the line,
+see: \code{\link{geom_line}}}
 
-\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}}
+\item{line_type}{Aesthetic parameter to change the type of the line,
+takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}}
 }
 \value{
 An instance of \code{ggplot}.

@@ -13,11 +13,14 @@
   label_y1 = "logN",
   label_y2 = add_factor,
   line_col = "black",
-  line_size = 0.5,
+  line_size = 1,
   line_type = 1,
   point_col = "black",
-  point_size = 0.5,
-  point_shape = 16
+  point_size = 3,
+  point_shape = 16,
+  line_col2 = "black",
+  line_size2 = 1,
+  line_type2 = "dashed"
 )
 }
 \arguments{
@@ -49,6 +52,12 @@ that condition is plotted in the secondary axis}
 \item{point_size}{Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}}
 
 \item{point_shape}{Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}}
+
+\item{line_col2}{Same as lin_col, but for the environmental factor.}
+
+\item{line_size2}{Same as line_size, but for the environmental factor.}
+
+\item{line_type2}{Same as lin_type, but for the environmental factor.}
 }
 \value{
 An instance of \code{ggplot}.

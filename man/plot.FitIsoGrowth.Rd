@@ -12,7 +12,7 @@
   line_size = 0.5,
   line_type = 1,
   point_col = "black",
-  point_size = 0.5,
+  point_size = 3,
   point_shape = 16
 )
 }

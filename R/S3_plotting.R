@@ -7,9 +7,12 @@
 #' @param x The object of class \code{IsothermalGrowth} to plot.
 #' @param y ignored
 #' @param ... additional arguments passed to \code{plot}.
-#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
+#' @param line_col Aesthetic parameter to change the colour of the line,
+#' see: \code{\link{geom_line}}
+#' @param line_size Aesthetic parameter to change the thickness of the line,
+#' see: \code{\link{geom_line}}
+#' @param line_type Aesthetic parameter to change the type of the line,
+#' takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -21,7 +24,7 @@
 #'
 plot.IsothermalGrowth <- function(x, y=NULL, ...,
                                   line_col = "black",
-                                  line_size = 0.5,
+                                  line_size = 1,
                                   line_type = "solid") {
 
     ggplot(x$simulation) +
@@ -52,6 +55,9 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...,
 #' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
 #' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
+#' @param line_col2 Same as lin_col, but for the environmental factor.
+#' @param line_size2 Same as line_size, but for the environmental factor.
+#' @param line_type2 Same as lin_type, but for the environmental factor.
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -67,8 +73,12 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
                                label_y1 = "logN",
                                label_y2 = add_factor,
                                line_col = "black",
-                               line_size = 0.5,
-                               line_type = "solid") {
+                               line_size = 1,
+                               line_type = "solid",
+                               line_col2 = "black",
+                               line_size2 = 1,
+                               line_type2 = "dashed"
+                               ) {
 
     p <- ggplot(x$simulation) +
         geom_line(aes(x = .data$time, y = .data$logN),
@@ -104,7 +114,9 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
                y = x$env_conditions[[add_factor]](my_t)) %>%
             mutate(fake_y = .data$y*slope + intercept)
 
-        my_line <- geom_line(aes(x = .data$time, y = .data$fake_y), data = aa, linetype = 2)
+        my_line <- geom_line(aes(x = .data$time, y = .data$fake_y),
+                             data = aa, linetype = line_type2,
+                             colour = line_col2, size = line_size2)
 
         p <- p +
             my_line +
@@ -182,8 +194,10 @@ plot.StochasticGrowth <- function(x, y=NULL, ...,
                                   alpha90 = .4) {
 
     ggplot(x$quantiles, aes(x = .data$time)) +
-        geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90), fill = ribbon80_fill, alpha = alpha80) +
-        geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95), fill = ribbon90_fill, alpha = alpha90) +
+        geom_ribbon(aes(ymin = .data$q10, ymax = .data$q90),
+                    fill = ribbon80_fill, alpha = alpha80) +
+        geom_ribbon(aes(ymin = .data$q05, ymax = .data$q95),
+                    fill = ribbon90_fill, alpha = alpha90) +
         geom_line(aes(y = .data$q50),
                   col = line_col,
                   size = line_size,
@@ -215,6 +229,9 @@ plot.StochasticGrowth <- function(x, y=NULL, ...,
 #' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
 #' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
 #' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
+#' @param line_col2 Same as lin_col, but for the environmental factor.
+#' @param line_size2 Same as line_size, but for the environmental factor.
+#' @param line_type2 Same as lin_type, but for the environmental factor.
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -231,11 +248,15 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
                                    label_y1 = "logN",
                                    label_y2 = add_factor,
                                    line_col = "black",
-                                   line_size = 0.5,
+                                   line_size = 1,
                                    line_type = 1,
                                    point_col = "black",
-                                   point_size = 0.5,
-                                   point_shape = 16) {
+                                   point_size = 3,
+                                   point_shape = 16,
+                                   line_col2 = "black",
+                                   line_size2 = 1,
+                                   line_type2 = "dashed"
+                                   ) {
 
   p <- plot(x$best_prediction,
             add_factor = add_factor,
@@ -244,10 +265,15 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
             label_y2 = label_y2,
             line_col = line_col,
             line_size = line_size,
-            line_type = line_type)
+            line_type = line_type,
+            line_col2 = line_col2,
+            line_size2 = line_size2,
+            line_type2 = line_type2
+            )
 
   p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
-                 inherit.aes = FALSE, col = point_col,  size = point_size, shape = point_shape) +
+                 inherit.aes = FALSE, col = point_col,
+                 size = point_size, shape = point_shape) +
     theme_cowplot()
 
 }
@@ -274,6 +300,9 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
 #' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
 #' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
+#' @param line_col2 Same as lin_col, but for the environmental factor.
+#' @param line_size2 Same as line_size, but for the environmental factor.
+#' @param line_type2 Same as lin_type, but for the environmental factor.
 #'
 #' @return An instance of \code{ggplot}.
 #'
@@ -285,16 +314,20 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #' @importFrom cowplot theme_cowplot
 #'
 plot.FitDynamicGrowth <- function(x, y=NULL, ...,
-                                      add_factor = NULL,
-                                      ylims = NULL,
-                                      label_y1 = "logN",
-                                      label_y2 = add_factor,
-                                      line_col = "black",
-                                      line_size = 0.5,
-                                      line_type = 1,
-                                      point_col = "black",
-                                      point_size = 0.5,
-                                      point_shape = 16) {
+                                  add_factor = NULL,
+                                  ylims = NULL,
+                                  label_y1 = "logN",
+                                  label_y2 = add_factor,
+                                  line_col = "black",
+                                  line_size = 1,
+                                  line_type = 1,
+                                  point_col = "black",
+                                  point_size = 3,
+                                  point_shape = 16,
+                                  line_col2 = "black",
+                                  line_size2 = 1,
+                                  line_type2 = "dashed"
+                                  ) {
 
     p <- plot(x$best_prediction,
               add_factor = add_factor,
@@ -303,10 +336,15 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
               label_y2 = label_y2,
               line_col = line_col,
               line_size = line_size,
-              line_type = line_type)
+              line_type = line_type,
+              line_col2 = line_col2,
+              line_size2 = line_size2,
+              line_type2 = line_type2
+              )
 
     p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
-                   inherit.aes = FALSE, col = point_col,  size = point_size, shape = point_shape) +
+                   inherit.aes = FALSE, col = point_col,
+                   size = point_size, shape = point_shape) +
         theme_cowplot()
 
 }
@@ -337,10 +375,10 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
 #'
 plot.FitIsoGrowth <- function(x, y=NULL, ...,
                               line_col = "black",
-                              line_size = 0.5,
+                              line_size = 1,
                               line_type = 1,
                               point_col = "black",
-                              point_size = 0.5,
+                              point_size = 3,
                               point_shape = 16) {
 
     p <- plot(x$best_prediction,
@@ -348,7 +386,8 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
               line_size = line_size,
               line_type = line_type)
 
-    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data, col = point_col,  size = point_size, shape = point_shape) +
+    p + geom_point(aes(x = .data$time, y = .data$logN), data = x$data,
+                   col = point_col,  size = point_size, shape = point_shape) +
         theme_cowplot()
 
 
