@@ -9,7 +9,7 @@
   y = NULL,
   ...,
   line_col = "black",
-  line_size = 0.5,
+  line_size = 1,
   line_type = 1,
   point_col = "black",
   point_size = 3,
