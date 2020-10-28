@@ -64,6 +64,7 @@ full_Ratkowski <- function(x, xmin, xmax, c) {
 
     gamma <- b*(x - xmin)*(1 - exp(c*(x - xmax)))
     gamma <- gamma/mu_opt
+    gamma <- gamma^2
 
     gamma[x < xmin] <- 0
     gamma[x > xmax] <- 0
