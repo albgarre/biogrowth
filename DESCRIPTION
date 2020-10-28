@@ -24,7 +24,8 @@ Imports:
     rlang (>= 0.4.7),
     purrr (>= 0.3.4),
     ggplot2 (>= 3.3.2),
-    cowplot (>= 1.0.0)
+    cowplot (>= 1.0.0),
+    lamW (>= 1.3.0)
 Suggests: 
     knitr,
     rmarkdown,

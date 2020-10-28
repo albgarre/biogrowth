@@ -89,6 +89,9 @@ extract_secondary_pars <- function(this_p, known_pars, sec_model_names) {
                                        xopt = NA,
                                        xmax = NA,
                                        n = NA),
+                            fullRatkowsky = list(xmin = NA,
+                                                 xmax = NA,
+                                                 c = NA),
                             stop(paste("Unknown model:", sec_model_names[[this_i]]))
         )
 

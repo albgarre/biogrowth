@@ -43,6 +43,35 @@ zwietering_gamma <- function(x, xmin, xopt, n) {
 
 }
 
+#' Full Ratkowsky model
+#'
+#' Gamma model adapted from the one by Ratkowsky et al. (1983).
+#'
+#' @param x Value of the environmental factor.
+#' @param xmin Minimum value for growth
+#' @param xmax Maximum value for growth
+#' @param c Parameter defining the speed of the decline
+#'
+#' @importFrom lamW lambertW0
+#'
+full_Ratkowski <- function(x, xmin, xmax, c) {
+
+    b <- 1 # Does not affect predictions (see supp. material)
+
+    xopt <- (lambertW0(exp(-xmin*c + xmax*c + 1)) + c*xmin - 1)/c
+
+    mu_opt <- b*(xopt - xmin)*(1 - exp(c*(xopt - xmax)))
+
+    gamma <- b*(x - xmin)*(1 - exp(c*(x - xmax)))
+    gamma <- gamma/mu_opt
+
+    gamma[x < xmin] <- 0
+    gamma[x > xmax] <- 0
+
+    return(gamma)
+
+}
+
 #' Calculates every gamma factor
 #'
 #' A helper function for \code{\link{predict_dynamic_growth}} that
@@ -64,7 +93,8 @@ calculate_gammas <- function(this_t, env_func, sec_models) {
         this_sec <- sec_models[[this_condition]]
 
         this_gamma <- switch(this_sec$model,
-                             # Ratkowsky = ratkowsky_model(this_x, this_sec$b, this_sec$xmin),
+                             fullRatkowsky = full_Ratkowski(this_x, this_sec$xmin,
+                                                            this_sec$xmax, this_sec$c),
                              CPM = CPM_model(this_x, this_sec$xmin,
                                              this_sec$xopt, this_sec$xmax, this_sec$n),
                              Zwietering = zwietering_gamma(this_x, this_sec$xmin, this_sec$xopt, this_sec$n),
@@ -81,15 +111,4 @@ calculate_gammas <- function(this_t, env_func, sec_models) {
 
 }
 
-###########
-
-#' #' Secondary Ratkowsky model
-#' #'
-#' ratkowsky_model <- function(x, b, xmin) {
-#'
-#'     sq_gamma <- b*(x - xmin)
-#'     sq_gamma[x<xmin] <- 0
-#'     return(sq_gamma^2)
-#'
-#' }
 
