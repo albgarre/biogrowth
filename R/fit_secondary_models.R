@@ -120,6 +120,7 @@ get_secondary_residuals <- function(this_p, my_data,
 #' model fitting. One of \code{sq} (square root; default), \code{log} (log-transform) or
 #' \code{none} (no transformation).
 #' @param ... Additional arguments passed to \code{\link{modFit}}.
+#' @param check Whether to do some basic checks (TRUE by default).
 #'
 #' @return A list of class \code{FitSecondaryGrowth} with the items:
 #' \itemize{
@@ -165,7 +166,20 @@ get_secondary_residuals <- function(this_p, my_data,
 fit_secondary_growth <- function(fit_data, starting_point,
                                  known_pars, sec_model_names,
                                  transformation = "sq",
+                                 check = TRUE,
                                  ...) {
+
+    ## Check model parameters
+
+    if (isTRUE(check)) {
+
+        secondary_models <- extract_secondary_pars(starting_point,
+                                                   known_pars,
+                                                   sec_model_names)
+
+        check_secondary_pars(secondary_models)
+
+    }
 
     ## Model fitting
 
