@@ -16,7 +16,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 
     pars <- c(this_p, known_pars)
 
-    predictions <- predict_isothermal_growth(model_name, times, as.list(pars))
+    predictions <- predict_isothermal_growth(model_name, times, as.list(pars), check=FALSE)
 
     modCost(model = as.data.frame(predictions$simulation),
             obs = as.data.frame(fit_data))
@@ -37,6 +37,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #' @param starting_point Named vector of initial values for the model parameters.
 #' @param known_pars Named vector of known model parameters (not fitted).
 #' @param ... Additional arguments passed to \code{\link{modFit}}.
+#' @param check Whether to do some basic checks (TRUE by default).
 #'
 #' @return A list of class \code{FitIsoGrowth} with the following items:
 #'      \itemize{
@@ -82,8 +83,16 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #' plot(static_fit)
 #'
 fit_isothermal_growth <- function(fit_data, model_name, starting_point,
-                                  known_pars,
+                                  known_pars, check = TRUE,
                                   ...) {
+
+    ## Check the model parameters
+
+    if (isTRUE(check)) {
+
+        check_primary_pars(model_name, c(starting_point, known_pars))
+
+    }
 
     ## Fit the model
 
@@ -97,7 +106,7 @@ fit_isothermal_growth <- function(fit_data, model_name, starting_point,
     times <- seq(0, max(fit_data$time), length = 1000)
     pars <- c(my_fit$par, known_pars)
 
-    best_prediction <- predict_isothermal_growth(model_name, times, as.list(pars))
+    best_prediction <- predict_isothermal_growth(model_name, times, as.list(pars), check=FALSE)
 
     out <- list(
         data = fit_data,

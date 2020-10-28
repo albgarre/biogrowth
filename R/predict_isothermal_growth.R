@@ -66,6 +66,7 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 #' @param model_name Character defining the growth model.
 #' @param times Numeric vector of storage times for the predictions.
 #' @param model_pars List defining the values of the model parameters.
+#' @param check Whether to do basic checks (TRUE by default).
 #'
 #' @return A list of class \code{IsothermalGrowth} with the items:
 #' \itemize{
@@ -94,7 +95,15 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 #' plot(static_prediction)
 #'
 #'
-predict_isothermal_growth <- function(model_name, times, model_pars) {
+predict_isothermal_growth <- function(model_name, times, model_pars, check = TRUE) {
+
+    ## Check the model parameters
+
+    if (isTRUE(check)) {
+
+        check_primary_pars(model_name, model_pars)
+
+    }
 
     ## Calculate the prediction
 

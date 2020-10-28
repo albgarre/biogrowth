@@ -4,7 +4,14 @@
 \alias{fit_isothermal_growth}
 \title{Fit isothermal growth models}
 \usage{
-fit_isothermal_growth(fit_data, model_name, starting_point, known_pars, ...)
+fit_isothermal_growth(
+  fit_data,
+  model_name,
+  starting_point,
+  known_pars,
+  check = TRUE,
+  ...
+)
 }
 \arguments{
 \item{fit_data}{Tibble of data for the fit. It must have a column named
@@ -16,6 +23,8 @@ microbial count.}
 \item{starting_point}{Named vector of initial values for the model parameters.}
 
 \item{known_pars}{Named vector of known model parameters (not fitted).}
+
+\item{check}{Whether to do some basic checks (TRUE by default).}
 
 \item{...}{Additional arguments passed to \code{\link{modFit}}.}
 }

@@ -4,7 +4,7 @@
 \alias{predict_isothermal_growth}
 \title{Isothermal microbial growth}
 \usage{
-predict_isothermal_growth(model_name, times, model_pars)
+predict_isothermal_growth(model_name, times, model_pars, check = TRUE)
 }
 \arguments{
 \item{model_name}{Character defining the growth model.}
@@ -12,6 +12,8 @@ predict_isothermal_growth(model_name, times, model_pars)
 \item{times}{Numeric vector of storage times for the predictions.}
 
 \item{model_pars}{List defining the values of the model parameters.}
+
+\item{check}{Whether to do basic checks (TRUE by default).}
 }
 \value{
 A list of class \code{IsothermalGrowth} with the items:
