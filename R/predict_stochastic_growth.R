@@ -127,7 +127,7 @@ predict_stochastic_growth <- function(model_name, times, n_sims,
     my_sims <- split(aa, aa$iter) %>%
         # split(.$iter) %>%
         map(as.list) %>%
-        map(~ predict_isothermal_growth(model_name, times, .)) %>%
+        map(~ predict_isothermal_growth(model_name, times, ., check = FALSE)) %>%
         map(~ .$simulation) %>%
         imap_dfr(~ mutate(.x, iter = .y))
 
