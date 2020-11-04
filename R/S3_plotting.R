@@ -514,4 +514,63 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
 }
 
 
+#' Plot of FitMultipleDynamicGrowth objects
+#'
+#' @inheritParams plot.DynamicGrowth
+#' @param x an instance of FitMultipleDynamicGrowth.
+#' @param point_size Size of the data points
+#' @param point_shape shape of the data points
+#' @param subplot_labels labels of the subplots according to \code{plot_grid}.
+#'
+#' @importFrom ggplot2 geom_point
+#' @importFrom cowplot plot_grid
+#'
+#' @export
+#'
+plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
+                                          add_factor = NULL,
+                                          ylims = NULL,
+                                          label_y1 = "logN",
+                                          label_y2 = add_factor,
+                                          line_col = "black",
+                                          line_size = 1,
+                                          line_type = "solid",
+                                          line_col2 = "black",
+                                          line_size2 = 1,
+                                          line_type2 = "dashed",
+                                          point_size = 3,
+                                          point_shape = 16,
+                                          subplot_lables = "AUTO"
+                                          ) {
+
+  my_plots <- lapply(1:length(x$data), function(i) {
+
+    this_d <- x$data[[i]]$data
+    this_sim <- x$best_prediction[[i]]
+
+    plot(this_sim, add_factor = add_factor, ylims = ylims,
+         label_y1 = label_y1, label_y2 = label_y2,
+         line_col = line_col, line_size = line_size,
+         line_type = line_type, line_col2 = line_col2,
+         line_size2 = line_size2, line_type2 = line_type2) +
+      geom_point(aes(x = time, y = logN), data = this_d,
+                 size = point_size, shape = point_shape)
+
+  })
+
+  plot_grid(plotlist = my_plots, labels = subplot_lables)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

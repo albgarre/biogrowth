@@ -174,6 +174,19 @@ summary.FitSecondaryGrowth <- function(object, ...) {
 
 }
 
+#' Summary of a FitMultipleDynamicGrowth object
+#'
+#' @param object Instance of FitMultipleDynamicGrowth
+#' @param ... ignored
+#'
+#' @export
+#'
+summary.FitMultipleDynamicGrowth <- function(object, ...) {
+
+    summary(object$fit_results)
+
+}
+
 #---------------------------------------------------------
 
 #' Residuals of a FitSecondaryGrowth object
@@ -201,7 +214,6 @@ residuals.FitSecondaryGrowth <- function(object, ...) {
 residuals.FitIsoGrowth <- function(object, ...) {
     residuals(object$fit)
 }
-
 
 #' Residuals of FitDynamicGrowth
 #'
@@ -240,7 +252,18 @@ residuals.FitDynamicGrowthMCMC <- function(object, ...) {
 
 }
 
-
+#' Residuals of FitMultipleDynamicGrowth
+#'
+#' @param object Instance of FitMultipleDynamicGrowth
+#' @param ... ignored
+#'
+#' @importFrom stats residuals
+#'
+#' @export
+#'
+residuals.FitMultipleDynamicGrowth <- function(object, ...) {
+    residuals(object$fit_results)
+}
 
 
 
