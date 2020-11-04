@@ -21,6 +21,6 @@ A nested list defining the secondary models.
 \description{
 Most of the functions for fitting mix in the vectors parameters for
 the primary and secondary models, but the functions for making predictions
-need that they are separated. This one extracts the parameters of the primary
+need that they are separated. This one extracts the parameters of the secondary
 model.
 }

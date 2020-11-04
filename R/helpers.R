@@ -64,7 +64,7 @@ extract_primary_pars <- function(this_p, known_pars) {
 #'
 #' Most of the functions for fitting mix in the vectors parameters for
 #' the primary and secondary models, but the functions for making predictions
-#' need that they are separated. This one extracts the parameters of the primary
+#' need that they are separated. This one extracts the parameters of the secondary
 #' model.
 #'
 #' @inheritParams extract_primary_pars

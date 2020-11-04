@@ -399,8 +399,8 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
 #' instance of \code{TimeDistribution}.
 #'
 #' @param x The object of class \code{TimeDistribution} to plot.
-#' @param y ignored
-#' @param ... additional arguments passed to \code{plot}.
+#' @param y ignored.
+#' @param ... ignored.
 #' @param bin_width A number that specifies the width of a bin in the histogram, see: \code{\link{geom_histogram}}
 #'
 #' @return An instance of \code{ggplot}.
@@ -426,8 +426,88 @@ plot.TimeDistribution <- function(x, y=NULL, ...,
 }
 
 
+#' Plot of FitSecondaryGrowth
+#'
+#' @param x An instance of FitSecondaryGrowth.
+#' @param y ignored.
+#' @param ... ignored.
+#' @param which A numeric with the type of plot. 1 for obs versus predicted (default),
+#' 2 for gamma curve
+#' @param add_trend Whether to add a trend line (only for which=2)
+#'
+#' @importFrom purrr %>%
+#' @importFrom rlang .data
+#' @importFrom dplyr mutate select rename
+#' @importFrom ggplot2 ggplot geom_point geom_abline geom_smooth xlab ylab
+#' @importFrom cowplot theme_cowplot
+#'
+#' @export
+#'
+plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE) {
+
+  obs_data <- x$data
+  obs_data$res <- residuals(x)
+
+  ## Convert according to transformation
+
+  obs_data <- if (x$transformation == "sq") {
+
+    obs_data %>%
+      select(-"log_mu", -"mu") %>%
+      rename(observed = "sq_mu")
+
+  } else if (x$transformation == "none") {
+
+    obs_data %>%
+      select(-.data$log_mu, -.data$sq_mu) %>%
+      rename(observed = .$mu)
+
+  } else if (x$transformation == "log") {
+
+    obs_data %>%
+      select(-.data$sq_mu, -.data$mu) %>%
+      rename(observed = .$mu)
+
+  }
+
+  if (which == 1) { # Prediction vs observation
+
+    p1 <- obs_data %>%
+      mutate(predicted = .data$observed + .data$res) %>%
+      ggplot(aes(x = .data$observed, y = .data$predicted)) +
+      geom_point() +
+      geom_abline(slope = 1, intercept = 0, linetype = 2) +
+      geom_smooth(method = "lm", se = FALSE, colour = "grey") +
+      xlab("Observed growth rate (same scale as fitting)") +
+      ylab("Predicted growth rate (same scale as fitting)") +
+      theme_cowplot()
 
 
+  } else if(which == 2) {  # Gamma curve
+
+    p1 <- obs_data %>%
+      mutate(predicted = .data$observed + .data$res) %>%
+      select(-"res") %>%
+      pivot_longer(-c("observed", "predicted"),
+                   names_to = "env_factor", values_to = "value") %>%
+      pivot_longer(-c("env_factor", "value"),
+                   names_to = "point_type", values_to = "growth") %>%
+      ggplot(aes(x = .data$value)) +
+      geom_point(aes(y = .data$growth, colour = .data$point_type)) +
+            facet_wrap("env_factor", scales = "free_x") +
+      ylab("Growth rate (same units as transformation") + xlab("") +
+      theme(legend.position = "none")
+
+    if (isTRUE(add_trend)) {
+      p1 <- p1 + geom_smooth(aes(y = .data$growth, colour = .data$point_type))
+    }
+
+  }
+
+  p1
+
+
+}
 
 
 
