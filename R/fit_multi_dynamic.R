@@ -15,25 +15,27 @@
 #' with two columns: time and logN. \code{conditions} is a tibble with one column named time
 #' and as many additional columns as environmental factors.
 #'
-#' @return A vector of residuals.
+#' @return an instance of \code{modCost}.
 #'
 #' @importFrom FME modCost
 #'
 get_multi_dyna_residuals <- function(this_p, experiment_data,
                                      known_pars, sec_model_names) {
 
-    residuals <- lapply(experiment_data, function(each_experiment) {
+    old_cost <- NULL
 
+    for (each_experiment in experiment_data) {
 
-        my_cost <- get_dyna_residuals(unlist(this_p), each_experiment$data,
-                                      each_experiment$conditions,
-                                      unlist(known_pars), sec_model_names)
+            my_cost <- get_dyna_residuals(unlist(this_p), each_experiment$data,
+                                          each_experiment$conditions,
+                                          unlist(known_pars), sec_model_names,
+                                          cost = old_cost)
 
-        my_cost$residuals$res
+            old_cost <- my_cost
 
-    })
+    }
 
-    unlist(residuals)
+    my_cost
 
 }
 
@@ -93,11 +95,66 @@ fit_multiple_growth <- function(starting_point, experiment_data,
     class(out) <- c("FitMultipleDynamicGrowth", class(out))
     return(out)
 
-
 }
 
 
+#' Fitting growth models to multiple dynamic experiments using MCMC
+#'
+#' This functions enables to fit a growth model using a dataset comprised of
+#' several experiments with potentially different dynamic experimental conditions.
+#'
+#' @inheritParams get_multi_dyna_residuals
+#' @param ... additional arguments for \code{modMCMC}.
+#' @param niter number of samples of the MCMC algorithm.
+#'
+#' @return An instance of
+#'
+#' @export
+#'
+fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
+                                known_pars, sec_model_names, niter,
+                                ...) {
 
+    ## Fit the model
+
+    my_fit <- modMCMC(get_multi_dyna_residuals, unlist(starting_point),
+                     experiment_data = experiment_data,
+                     known_pars = unlist(known_pars),
+                     sec_model_names = sec_model_names,
+                     niter = niter,
+                     ...)
+
+    #- Output the results
+
+    pars_fit <- my_fit$bestpar
+
+    primary_pars <- extract_primary_pars(pars_fit, known_pars)
+
+    secondary_models <- extract_secondary_pars(pars_fit, known_pars,
+                                               sec_model_names)
+
+    best_predictions <- lapply(experiment_data, function(each_experiment) {
+
+        times <- seq(0, max(each_experiment$data$time), length=100)
+
+        best_prediction <- predict_dynamic_growth(times, each_experiment$conditions,
+                                                  as.list(primary_pars),
+                                                  secondary_models)
+
+    })
+
+    out <- list(fit_results = my_fit,
+                best_prediction = best_predictions,
+                data = experiment_data,
+                starting = starting_point,
+                known = known_pars,
+                sec_models = sec_model_names
+    )
+
+    class(out) <- c("FitMultipleGrowthMCMC", class(out))
+    return(out)
+
+}
 
 
 

@@ -540,7 +540,7 @@ plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
                                           line_type2 = "dashed",
                                           point_size = 3,
                                           point_shape = 16,
-                                          subplot_lables = "AUTO"
+                                          subplot_labels = "AUTO"
                                           ) {
 
   my_plots <- lapply(1:length(x$data), function(i) {
@@ -558,12 +558,50 @@ plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
 
   })
 
-  plot_grid(plotlist = my_plots, labels = subplot_lables)
+  plot_grid(plotlist = my_plots, labels = subplot_labels)
 
 }
 
+#' Plot of FitMultipleGrowthMCMC
+#'
+#' @inheritParams plot.FitMultipleDynamicGrowth
+#' @param x an instance of FitMultipleGrowthMCMC.
+#'
+#' @export
+#'
+plot.FitMultipleGrowthMCMC <- function(x, y=NULL, ...,
+                                       add_factor = NULL,
+                                       ylims = NULL,
+                                       label_y1 = "logN",
+                                       label_y2 = add_factor,
+                                       line_col = "black",
+                                       line_size = 1,
+                                       line_type = "solid",
+                                       line_col2 = "black",
+                                       line_size2 = 1,
+                                       line_type2 = "dashed",
+                                       point_size = 3,
+                                       point_shape = 16,
+                                       subplot_labels = "AUTO"
+                                       ) {
 
+  plot.FitMultipleDynamicGrowth(x,
+                                add_factor = add_factor,
+                                ylims = ylims,
+                                label_y1 = label_y1,
+                                label_y2 = label_y2,
+                                line_col = line_col,
+                                line_size = line_size,
+                                line_type = line_type,
+                                line_col2 = line_col2,
+                                line_size2 = line_size2,
+                                line_type2 = line_type2,
+                                point_size = point_size,
+                                point_shape = point_shape,
+                                subplot_labels = subplot_labels
+                                )
 
+}
 
 
 

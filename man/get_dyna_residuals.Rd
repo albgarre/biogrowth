@@ -9,7 +9,8 @@ get_dyna_residuals(
   fit_data,
   env_conditions,
   known_pars,
-  sec_model_names
+  sec_model_names,
+  cost = NULL
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ get_dyna_residuals(
 
 \item{sec_model_names}{named character vector with names the
 environmental conditions and values the secondary model (e.g. 'CPM').}
+
+\item{cost}{an instance of modCost to be combined (to fit multiple models).}
 }
 \value{
 An instance of \code{\link{modCost}}.

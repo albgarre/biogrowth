@@ -11,13 +11,15 @@
 #' @param known_pars named vector of known model parameters
 #' @param sec_model_names named character vector with names the
 #' environmental conditions and values the secondary model (e.g. 'CPM').
+#' @param cost an instance of modCost to be combined (to fit multiple models).
 #'
 #' @return An instance of \code{\link{modCost}}.
 #'
 #' @importFrom FME modCost
 #'
 get_dyna_residuals <- function(this_p, fit_data, env_conditions,
-                               known_pars, sec_model_names
+                               known_pars, sec_model_names,
+                               cost = NULL
                                ) {
 
     ## Build the parameters of the primary model
@@ -39,7 +41,8 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
     ## Calculate residuals
 
     modCost(model = as.data.frame(prediction$simulation),
-            obs = as.data.frame(fit_data)
+            obs = as.data.frame(fit_data),
+            cost = cost
             )
 
 }
