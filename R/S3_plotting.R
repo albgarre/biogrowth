@@ -440,7 +440,9 @@ plot.TimeDistribution <- function(x, y=NULL, ...,
 #' @importFrom dplyr mutate select rename
 #' @importFrom ggplot2 ggplot geom_point geom_abline geom_smooth xlab ylab
 #' @importFrom cowplot theme_cowplot
-#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme_bw element_blank facet_wrap theme
+#' @importFrom tidyr pivot_longer
+#' @importFrom stats residuals
 #'
 #' @export
 #'
@@ -460,14 +462,14 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
   } else if (x$transformation == "none") {
 
     obs_data %>%
-      select(-.data$log_mu, -.data$sq_mu) %>%
-      rename(observed = .$mu)
+      select(-"log_mu", -"sq_mu") %>%
+      rename(observed = "mu")
 
   } else if (x$transformation == "log") {
 
     obs_data %>%
-      select(-.data$sq_mu, -.data$mu) %>%
-      rename(observed = .$mu)
+      select(-"sq_mu", "mu") %>%
+      rename(observed = "mu")
 
   }
 

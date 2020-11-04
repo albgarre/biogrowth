@@ -181,6 +181,8 @@ summary.FitSecondaryGrowth <- function(object, ...) {
 #' @param object Instance of FitSecondaryGrowth
 #' @param ... ignored
 #'
+#' @importFrom stats residuals
+#'
 #' @export
 #'
 residuals.FitSecondaryGrowth <- function(object, ...) {
@@ -191,6 +193,8 @@ residuals.FitSecondaryGrowth <- function(object, ...) {
 #'
 #' @param object Instance of FitIsoGrowth
 #' @param ... ignored
+#'
+#' @importFrom stats residuals
 #'
 #' @export
 #'
@@ -203,6 +207,8 @@ residuals.FitIsoGrowth <- function(object, ...) {
 #'
 #' @param object Instance of FitDynamicGrowth
 #' @param ... ignored
+#'
+#' @importFrom stats residuals
 #'
 #' @export
 #'
