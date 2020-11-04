@@ -174,6 +174,81 @@ summary.FitSecondaryGrowth <- function(object, ...) {
 
 }
 
+#---------------------------------------------------------
+
+#' Residuals of a FitSecondaryGrowth object
+#'
+#' @param object Instance of FitSecondaryGrowth
+#' @param ... ignored
+#'
+#' @export
+#'
+residuals.FitSecondaryGrowth <- function(object, ...) {
+    residuals(object$fit_results)
+}
+
+#' Residuals of FitIsoGrowth object
+#'
+#' @param object Instance of FitIsoGrowth
+#' @param ... ignored
+#'
+#' @export
+#'
+residuals.FitIsoGrowth <- function(object, ...) {
+    residuals(object$fit)
+}
+
+
+#' Residuals of FitDynamicGrowth
+#'
+#' @param object Instance of FitDynamicGrowth
+#' @param ... ignored
+#'
+#' @export
+#'
+residuals.FitDynamicGrowth <- function(object, ...) {
+    residuals(object$fit_results)
+}
+
+
+#' Residuals of FitDynamicGrowthMCMC
+#'
+#' @param object Instance of FitDynamicGrowthMCMC.
+#' @param ... ignored.
+#'
+#' @importFrom dplyr select
+#' @importFrom FME modCost
+#'
+#' @export
+#'
+residuals.FitDynamicGrowthMCMC <- function(object, ...) {
+
+    simulations <- object$best_prediction$simulation %>%
+        select("time", "logN") %>%
+        as.data.frame()
+
+    my_cost <- modCost(model = simulations,
+                obs = as.data.frame(object$data))
+
+    my_cost$residuals$res
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
