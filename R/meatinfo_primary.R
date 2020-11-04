@@ -15,15 +15,29 @@ primary_model_data <- function(model_name=NULL) {
     model_data <- list(modGompertz = list(identifier = "modGompertz",
                                           name = "modified Gompertz model",
                                           pars = c("logN0", "C", "mu", "lambda"),
-                                          model = iso_repGompertz),
+                                          model = iso_repGompertz,
+                                          ref = paste("Zwietering, M. H., Jongenburger, I., Rombouts,",
+                                                      "F. M., & Riet, K. van ’t. (1990). Modeling of the Bacterial",
+                                                      "Growth Curve. Applied and Environmental Microbiology, 56(6), 1875–1881.")
+                                          ),
                        Baranyi = list(identifier = "Baranyi",
                                       name = "Isothermal Baranyi model",
                                       pars = c("logN0", "logNmax", "mu", "lambda"),
-                                      model = iso_Baranyi),
+                                      model = iso_Baranyi,
+                                      ref = paste("Baranyi, J., & Roberts, T. A. (1994). A dynamic approach",
+                                      "to predicting bacterial growth in food. International Journal of Food",
+                                      "Microbiology, 23(3–4), 277–294. https://doi.org/10.1016/0168-1605(94)90157-0")
+                                      ),
                        Trilinear = list(identifier = "Trilinear",
                                         name = "Tri-linear growth model",
                                         pars = c("logN0", "logNmax", "mu", "lambda"),
-                                        model = trilinear_model)
+                                        model = trilinear_model,
+                                        ref = paste("Buchanan, R. L., Whiting, R. C., & Damert, W. C. (1997).",
+                                                    "When is simple good enough: A comparison of the Gompertz,",
+                                                    "Baranyi, and three-phase linear models for fitting bacterial",
+                                                    "growth curves. Food Microbiology, 14(4), 313–326.",
+                                                    "https://doi.org/10.1006/fmic.1997.0125")
+                                        )
                        )
 
 
