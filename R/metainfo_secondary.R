@@ -16,15 +16,30 @@ secondary_model_data <- function(model_name=NULL) {
     model_data <- list(CPM = list(identifier = "CPM",
                                   name = "Cardinal Parameter Model",
                                   pars = c("xmin", "xopt", "xmax", "n"),
-                                  model = CPM_model),
+                                  model = CPM_model,
+                                  ref = paste("Rosso, L., Lobry, J. R., Bajard, S., & Flandrois, J. P. (1995).",
+                                  "Convenient Model To Describe the Combined Effects of Temperature and pH on",
+                                  "Microbial Growth. Applied and Environmental Microbiology, 61(2), 610–616.")
+                                  ),
                        Zwietering = list(identifier = "Zwietering",
                                          name = "Zwietering gamma function",
                                          pars = c("xmin", "xopt", "n"),
-                                         model = zwietering_gamma),
+                                         model = zwietering_gamma,
+                                         ref = paste("Zwietering, Marcel H., Wijtzes, T., De Wit, J. C., & Riet,",
+                                         "K. V. (1992). A Decision Support System for Prediction of the Microbial",
+                                         "Spoilage in Foods. Journal of Food Protection, 55(12), 973–979.",
+                                         "https://doi.org/10.4315/0362-028X-55.12.973")
+                                         ),
                        fullRatkowsky = list(identifier = "fullRatkowsky",
                                             name = "(Adapted) Full Ratkowsky model",
                                             pars = c("xmin", "xmax", "c"),
-                                            model = full_Ratkowski)
+                                            model = full_Ratkowski,
+                                            ref = paste("Ratkowsky, D. A., Lowry, R. K., McMeekin, T. A.,",
+                                                        "Stokes, A. N., & Chandler, R. E. (1983). Model for",
+                                                        "bacterial culture growth rate throughout the entire",
+                                                        "biokinetic temperature range. Journal of Bacteriology,",
+                                                        "154(3), 1222–1226.")
+                                            )
                        )
 
     if (is.null(model_name)) {
