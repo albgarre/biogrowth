@@ -21,5 +21,8 @@ iso_Baranyi(times, logN0, mu, lambda, logNmax)
 Numeric vector with the predicted microbial count.
 }
 \description{
-Baranyi growth model as defined by Baranyi and Roberts (1994).
+Baranyi growth model as defined by Baranyi and Roberts (1994). We use the solution
+calculated by Poschet et al. (2005, doi: https://doi.org/10.1016/j.ijfoodmicro.2004.10.008)
+after log-transformation according to MONTE CARLO ANALYSIS FOR MICROBIAL GROWTH CURVES,
+by Oksuz and Buzrul.
 }
