@@ -440,6 +440,7 @@ plot.TimeDistribution <- function(x, y=NULL, ...,
 #' @importFrom dplyr mutate select rename
 #' @importFrom ggplot2 ggplot geom_point geom_abline geom_smooth xlab ylab
 #' @importFrom cowplot theme_cowplot
+#' @importFrom ggplot2 theme_bw
 #'
 #' @export
 #'
@@ -496,7 +497,8 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
       geom_point(aes(y = .data$growth, colour = .data$point_type)) +
             facet_wrap("env_factor", scales = "free_x") +
       ylab("Growth rate (same units as transformation") + xlab("") +
-      theme(legend.position = "none")
+      theme_bw() +
+      theme(legend.title = element_blank())
 
     if (isTRUE(add_trend)) {
       p1 <- p1 + geom_smooth(aes(y = .data$growth, colour = .data$point_type))
