@@ -1039,21 +1039,39 @@ In this plot, the vertical red line illustrates the median of the distribution a
 ## References
 
 Baranyi, J., & Roberts, T. A. (1994). A dynamic approach to predicting bacterial growth in food. International Journal of Food Microbiology, 23(3–4), 277–294. https://doi.org/10.1016/0168-1605(94)90157-0
+
 Bates, D. M., & Watts, D. G. (2007). Nonlinear Regression Analysis and Its Applications (1 edition). Wiley-Interscience.
+
 Buchanan, R. L., Whiting, R. C., & Damert, W. C. (1997). When is simple good enough: A comparison of the Gompertz, Baranyi, and three-phase linear models for fitting bacterial growth curves. Food Microbiology, 14(4), 313–326. https://doi.org/10.1006/fmic.1997.0125
+
 Chang, W., Cheng, J., Allaire, J. J., Xie, Y., & McPherson, J. (2017). shiny: Web Application Framework for R. https://CRAN.R-project.org/package=shiny
+
 Chang, W., & Ribeiro, B. B. (2017). shinydashboard: Create Dashboards with “Shiny.” https://CRAN.R-project.org/package=shinydashboard
+
 Haario, H., Laine, M., Mira, A., & Saksman, E. (2006). DRAM: Efficient adaptive MCMC. Statistics and Computing, 16(4), 339–354. https://doi.org/10.1007/s11222-006-9438-0
+
 Hindmarsh, A. (1983). ODEPACK, A Systematized Collection of ODE Solvers , R. S. Stepleman et al. (Eds.), North-Holland, Amsterdam, (vol. 1 of ), pp. 55-64. IMACS Transactions on Scientific Computation, 1, 55–64.
+
 Moré, J. J. (1978). The Levenberg-Marquardt algorithm: Implementation and theory. In Numerical Analysis (pp. 105–116). Springer, Berlin, Heidelberg. https://doi.org/10.1007/BFb0067700
+
 Perez-Rodriguez, F., & Valero, A. (2012). Predictive Microbiology in Foods. Springer.
+
 Poschet, F., Geeraerd, A. H., Van Loey, A. M., Hendrickx, M. E., & Van Impe, J. F. (2005). Assessing the optimal experiment setup for first order kinetic studies by Monte Carlo analysis. Food Control, 16(10), 873–882. https://doi.org/10.1016/j.foodcont.2004.07.009
+
 Ratkowsky, D. A., Lowry, R. K., McMeekin, T. A., Stokes, A. N., & Chandler, R. E. (1983). Model for bacterial culture growth rate throughout the entire biokinetic temperature range. Journal of Bacteriology, 154(3), 1222–1226.
+
 Ratkowsky, D. A., Olley, J., McMeekin, T. A., & Ball, A. (1982). Relationship between temperature and growth rate of bacterial cultures. J Bacteriol, 149(1), 1–5.
+
 Rosso, L., Lobry, J. R., Bajard, S., & Flandrois, J. P. (1995). Convenient Model To Describe the Combined Effects of Temperature and pH on Microbial Growth. Applied and Environmental Microbiology, 61(2), 610–616.
+
 Soetaert, K., & Petzoldt, T. (2010). Inverse Modelling, Sensitivity and Monte Carlo Analysis in R Using Package FME. Journal of Statistical Software, 33(3). https://doi.org/10.18637/jss.v033.i03
+
 Soetaert, K., Petzoldt, T., & Setzer, R. W. (2010). Solving Differential Equations in R: Package deSolve. Journal of Statistical Software, 33(9). https://doi.org/10.18637/jss.v033.i09
+
 Tocino, A., & Ardanuy, R. (2002). Runge–Kutta methods for numerical solution of stochastic differential equations. Journal of Computational and Applied Mathematics, 138(2), 219–241. https://doi.org/10.1016/S0377-0427(01)00380-6
+
 Wijtzes, T., Rombouts, F. M., Kant-Muermans, M. L. T., van ’t Riet, K., & Zwietering, M. H. (2001). Development and validation of a combined temperature, water activity, pH model for bacterial growth rate of Lactobacillus curvatus. International Journal of Food Microbiology, 63(1–2), 57–64. https://doi.org/10.1016/S0168-1605(00)00401-3
+
 Zwietering, M. H., Jongenburger, I., Rombouts, F. M., & Riet, K. van ’t. (1990). Modeling of the Bacterial Growth Curve. Applied and Environmental Microbiology, 56(6), 1875–1881.
+
 Zwietering, Marcel H., Wijtzes, T., De Wit, J. C., & Riet, K. V. (1992). A Decision Support System for Prediction of the Microbial Spoilage in Foods. Journal of Food Protection, 55(12), 973–979. https://doi.org/10.4315/0362-028X-55.12.973
