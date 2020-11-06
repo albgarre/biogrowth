@@ -282,6 +282,33 @@ data("example_dynamic_growth")
 head(example_dynamic_growth)
 ```
 
+The dataset `multiple_experiments` simulates several growth experiments performed for the same microorganism under dynamic conditions that vary between experiments. It is a nested list with two elements, each describing a single experiment.
+
+```{r}
+data("multiple_experiments")
+length(multiple_experiments)
+```
+
+Each experiment is described using a list with two elements: `data` and `conditions`. The former is a tibble with two columns: `time` (the elapsed time) and `logN` the observed microbial count.
+
+```{r}
+head(multiple_experiments[[1]]$data)
+```
+
+Then, `conditions` is also a tibble with one column named `time` (elapsed time), one called `temperature` (the storage temperature) and another one called `pH` (the pH of the media).
+
+```{r}
+print(multiple_experiments[[1]]$conditions)
+```
+
+The second experiment is described using the same structure.
+
+```{r}
+head(multiple_experiments[[2]]$data)
+print(multiple_experiments[[2]]$conditions)
+```
+
+
 # Deterministic modelling
 
 ## Growth prediction under static conditions
@@ -771,6 +798,84 @@ plot(my_dyna_fit, add_factor = "aw",
      label_y2 = "Water activity")
 ```
 
+## Global fitting of various (dynamic) experiments
+
+The function `fit_multiple_growth()` can be used to fit one growth model to data gathered in various experiments performed under dynamic conditions. It has several arguments:
+
+* `starting_point` starting values of the model parameters to fit.
+* `experiment_data` a nested list describing the experimental data and conditions.
+* `known_pars` vector of parameters that are fixed (i.e. not fitted).
+* `sec_model_names` definition of the secondary models for each condition.
+* `...` additional arguments passed to `FME::modFit`.
+
+The data to use for the fit is described using the `experiment_data` argument. It is a nested list with as many elements as experiments. The dataset `multiple_experiments` serves as an example with the format required by this function.
+
+```{r}
+data("multiple_experiments")
+```
+
+Each experiemnt is described using a list with two elements: `data` and `conditions`. The element `data` is a tibble with two columns, `time` and `logN`, that describe the observed log-microbial count.
+
+```{r}
+ggplot(multiple_experiments[[1]]$data) + 
+  geom_point(aes(x = time, y = logN)) 
+```
+
+The element `conditions` describes the (dynamic) environmental conditions during storage. It must have one column named `time` and as many additional columns as environmental conditions considered in the model. Note that, for every simulation, the values of environmental conditions at times not included in the data frame are calculated by linear interpolation.
+
+```{r, fig.width=7, fig.height=5}
+
+multiple_experiments[[1]]$conditions %>%
+  pivot_longer(-time, names_to = "condition", values_to = "value") %>%
+  ggplot() +
+  geom_line(aes(x = time, y = value)) +
+  facet_wrap("condition", scales = "free")
+  
+```
+
+The secondary models to use to describe the influence of the environmental conditions on the growth rate is defined using `sec_model_names`. This argument is a named vector whose names are identical to those in the experimental data and whose values corresponds to valid identifiers according to `seccondary_model_data()`. For this example, we will use a CPM model for both pH and temperature (for no particular scientific reason).
+
+```{r}
+sec_names <- c(temperature = "CPM", pH = "CPM")
+```
+
+The next step is the definition of what model parameters to estimate from the data and which ones to keep fixed. This is done using the `starting_point` and `known_pars` arguments, which are lists. Every parameter of both the primary and secondary models must be included in either of these arguments. The format for parameter definition is identical to the one of `fit_dynamic_inactivation`.
+
+For this example, we will only fit the maximum specific growth rate and the optimum temperature for growth (for no particular scientific reason).
+
+
+```{r}
+known <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+    temperature_n = 2, temperature_xmin = 20, temperature_xmax = 35,
+    pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+
+start <- list(mu_opt = .8, temperature_xopt = 30)
+
+```
+
+Once every argument has been defined, we can call the `fit_multiple_growth()` function. 
+
+```{r}
+global_fit <- fit_multiple_growth(start, multiple_experiments, known, sec_names)
+```
+
+This function returns a list of class `FitMultipleDynamicGrowth` with several elements. The parameter estimates can be accessed using the S3 method for summary.
+
+```{r}
+summary(global_fit)
+```
+
+Moreover, the predictions of the fitted model can be compared against the data using the S3 method for plot.
+
+```{r, fig.width=7, fig.height=5}
+plot(global_fit)
+```
+
+This function generates an individual plot for each experiment. Any environmental factor can be included in the plot by passing the name of the factor to the `add_factor` argument. Note that the name must be identical to the one used for model definition.
+
+```{r, fig.width=7, fig.height=5}
+plot(global_fit, add_factor = "temperature")
+```
 
 # Stochastic modelling
 
@@ -926,6 +1031,62 @@ As well as for `fit_dynamic_growth()`, the environmental conditions can be added
 plot(my_MCMC_fit, add_factor = "temperature")
 ```
 
+## Global fitting using MCMC algorithms
+
+Following the same logic as with the `fit_MCMC_growth()` function, `fit_multiple_growth_MCMC()` serves as an alternative to `fit_multiple_growth()` that uses an MCMC fitting algorithm instead of non-linear regression. The arguments of this function are identical to those of `fit_multiple_growth()` with the addition of `niter`, which defines the number of iterations from the MCMC sample.
+
+Therefore, the definition of the data to use for the fit is identical.
+
+```{r}
+data("multiple_experiments")
+```
+
+As well as the model definition.
+
+```{r}
+## For each environmental factor, we need to defined a model
+
+sec_names <- c(temperature = "CPM", pH = "CPM")
+
+## Any model parameter can be fixed
+
+known <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+    temperature_n = 2, temperature_xmin = 20, temperature_xmax = 35,
+    pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+
+## The rest require starting values for model fitting
+
+start <- list(mu_opt = .8, temperature_xopt = 30)
+
+```
+
+Then, the function can be called. Note that the MCMC algorithm is stochastic, so we will set the seed before fitting to grant reproducibility. Additionally, we will define upper and lower bounds for this function by passing the arguments `lower` and `upper` to `modMCMC`. For further ways to edit the fitting, please check the help page of `modMCMC()`.
+
+```{r}
+set.seed(12412)
+global_MCMC <- fit_multiple_growth_MCMC(start, multiple_experiments, known, sec_names, niter = 1000,
+   lower = c(.2, 29),  # lower limits of the model parameters
+   upper = c(.8, 34))  # upper limits of the model parameters
+
+```
+
+This function returns a list of class `FitMultipleDynamicGrowthMCMC` with the same entries as `FitMultipleDynamicGrowth`. It also implements S3 methods to inspect the parameter estimates
+
+```{r}
+summary(global_MCMC)
+```
+
+Or to plot the predictions of the fitted model against the data.
+
+```{r}
+plot(global_MCMC)
+```
+
+Any environmental factor can be included in the plot using the `add_factor` argument.
+
+```{r}
+plot(global_MCMC, add_factor = "temperature")
+```
 
 
 ## Stochastic prediction based on an MCMC fit
