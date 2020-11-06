@@ -1091,9 +1091,9 @@ plot(global_MCMC, add_factor = "temperature")
 
 ## Stochastic prediction based on an MCMC fit
 
-The function `predict_MCMC_growth()` provides an interface to make stochastic predictions based on parameter distributions estimated using `fit_MCMC_growth()`. This function has 4 arguments:
+The function `predict_MCMC_growth()` provides an interface to make stochastic predictions based on parameter distributions estimated using `fit_MCMC_growth()` or `fit_multiple_growth_MCMC()`. This function has 4 arguments:
 
-* `MCMCfit` an instance of `FitDynamicGrowthMCMC` returned by `fit_MCMC_growth()`.
+* `MCMCfit` an instance of `FitDynamicGrowthMCMC` returned by `fit_MCMC_growth()`, or an instance of `FitMultipleGrowthMCMC` returned by `fit_multiple_growth_MCMC()`.
 * `times` vector of time points for the calculations.
 * `env_conditions` tibble describing the (dynamic) environmental conditions.
 * `niter` number of samples for the Monte Carlo calculations.
