@@ -161,7 +161,18 @@ get_secondary_residuals <- function(this_p, my_data,
 #'
 #' fit_cardinal <- fit_secondary_growth(example_cardinal, my_start, known_pars, sec_model_names)
 #'
+#' ## With summary, we can look at the parameter estimates
+#'
 #' summary(fit_cardinal)
+#'
+#' ## The plot function compares predictions against observations
+#'
+#' plot(fit_cardinal)
+#'
+#' ## Passing which = 2, generates a different kind of plot
+#'
+#' plot(fit_cardinal, which = 2)
+#' plot(fit_cardinal, which = 2, add_trend = TRUE)
 #'
 fit_secondary_growth <- function(fit_data, starting_point,
                                  known_pars, sec_model_names,
