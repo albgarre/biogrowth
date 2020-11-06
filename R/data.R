@@ -36,3 +36,20 @@
 #'   \item{logN}{log microbial count}
 #' }
 "example_dynamic_growth"
+
+#' A set of growth experiments under dynamic conditions
+#'
+#' An example dataset illustrating the requirements of
+#' \code{\link{fit_multiple_growth}} and
+#' \code{\link{fit_multiple_growth_MCMC}}.
+#'
+#' @format A nested list with two elements. Each element
+#' corresponds to one experiment and is described by a list
+#' with two data frames:
+#' \describe{
+#'     \item{data}{a tibble describing the microbial counts. It has 2 columns:
+#'     time (elapsed time) and logN (logarithm of the microbial count)}.
+#'     \item{conditions}{a tibble describing the environmental conditions. It has
+#'     3 columns: time (elapsed time), temperature (storage temperature) and pH (pH of the media).}
+#' }
+"multiple_experiments"
