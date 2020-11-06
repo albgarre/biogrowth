@@ -13,6 +13,8 @@ fit_multiple_growth(
 )
 }
 \arguments{
+\item{starting_point}{a named vector of starting values for the model parameters.}
+
 \item{experiment_data}{a nested list with the experimental data. Each entry describes
 one experiment as a list with two elements: data and conditions. \code{data} is a tibble
 with two columns: time and logN. \code{conditions} is a tibble with one column named time
@@ -41,6 +43,8 @@ A list of calss \code{FitMultipleDynamicGrowth} with:
 \description{
 This functions enables to fit a growth model using a dataset comprised of
 several experiments with potentially different dynamic experimental conditions.
+Note that the definition of secondary models must comply with the
+`secondary_model_data` function.
 }
 \examples{
 ## We will use the multiple_experiments data set

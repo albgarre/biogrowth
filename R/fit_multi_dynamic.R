@@ -43,8 +43,11 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #'
 #' This functions enables to fit a growth model using a dataset comprised of
 #' several experiments with potentially different dynamic experimental conditions.
+#' Note that the definition of secondary models must comply with the
+#' `secondary_model_data` function.
 #'
 #' @inheritParams get_multi_dyna_residuals
+#' @param starting_point a named vector of starting values for the model parameters.
 #' @param ... additional arguments for \code{modFit}.
 #'
 #' @importFrom FME modFit
@@ -155,7 +158,7 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #' @param ... additional arguments for \code{modMCMC} (e.g. upper and lower bounds).
 #' @param niter number of samples of the MCMC algorithm.
 #'
-#' @return A list of calss \code{FitMultipleDynamicGrowth} with:
+#' @return A list of calss \code{FitMultipleDynamicGrowthMCMC} with:
 #'
 #'      \itemize{
 #'          \item fit_results: the object returned by \code{modFit}.
