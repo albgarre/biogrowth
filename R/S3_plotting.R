@@ -524,6 +524,7 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
 #'
 #' @importFrom ggplot2 geom_point
 #' @importFrom cowplot plot_grid
+#' @importFrom rlang .data
 #'
 #' @export
 #'
@@ -553,7 +554,7 @@ plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
          line_col = line_col, line_size = line_size,
          line_type = line_type, line_col2 = line_col2,
          line_size2 = line_size2, line_type2 = line_type2) +
-      geom_point(aes(x = time, y = logN), data = this_d,
+      geom_point(aes(x = .data$time, y = .data$logN), data = this_d,
                  size = point_size, shape = point_shape)
 
   })

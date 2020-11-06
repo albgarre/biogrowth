@@ -14,6 +14,9 @@ fit_multiple_growth_MCMC(
 )
 }
 \arguments{
+\item{starting_point}{a named vector with the starting values of the model parameters
+to estimate from the data.}
+
 \item{experiment_data}{a nested list with the experimental data. Each entry describes
 one experiment as a list with two elements: data and conditions. \code{data} is a tibble
 with two columns: time and logN. \code{conditions} is a tibble with one column named time
@@ -29,7 +32,7 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \item{...}{additional arguments for \code{modMCMC} (e.g. upper and lower bounds).}
 }
 \value{
-A list of calss \code{FitMultipleDynamicGrowth} with:
+A list of calss \code{FitMultipleDynamicGrowthMCMC} with:
 
      \itemize{
          \item fit_results: the object returned by \code{modFit}.

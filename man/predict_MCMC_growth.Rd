@@ -7,7 +7,8 @@
 predict_MCMC_growth(MCMCfit, times, env_conditions, niter)
 }
 \arguments{
-\item{MCMCfit}{An instance of \code{FitDynamicGrowthMCMC}.}
+\item{MCMCfit}{An instance of \code{FitDynamicGrowthMCMC} or
+\code{FitMultipleGrowthMCMC}.}
 
 \item{times}{Numeric vector of storage times for the predictions.}
 
@@ -30,9 +31,9 @@ sample.
 }
 \description{
 Makes a stochastic prediction of microbial growth based on a growth model
-fitted using \code{\link{fit_MCMC_growth}}. This function predicts growth
-curves for \code{niter} samples (with replacement) of the samples of the
-MCMC algorithm. Then, credible intervals are calculated based on the
+fitted using \code{\link{fit_MCMC_growth}} or \code{\link{fit_multiple_growth_MCMC}}.
+This function predicts growth curves for \code{niter} samples (with replacement)
+of the samples of the MCMC algorithm. Then, credible intervals are calculated based on the
 quantiles of the model predictions at each time point.
 }
 \examples{

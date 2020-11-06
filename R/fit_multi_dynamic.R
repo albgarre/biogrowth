@@ -156,6 +156,8 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #'
 #' @inheritParams get_multi_dyna_residuals
 #' @param ... additional arguments for \code{modMCMC} (e.g. upper and lower bounds).
+#' @param starting_point a named vector with the starting values of the model parameters
+#' to estimate from the data.
 #' @param niter number of samples of the MCMC algorithm.
 #'
 #' @return A list of calss \code{FitMultipleDynamicGrowthMCMC} with:
