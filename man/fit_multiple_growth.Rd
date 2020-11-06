@@ -26,9 +26,56 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \item{...}{additional arguments for \code{modFit}.}
 }
 \value{
-An instance of
+A list of calss \code{FitMultipleDynamicGrowth} with:
+
+     \itemize{
+         \item fit_results: the object returned by \code{modFit}.
+         \item best_prediction: a list with the models predictions for each condition.
+         \item data: a list with the data used for the fit.
+         \item starting: starting values for model fitting
+         \item known: parameter values set as known.
+         \item sec_models: a named vector with the secondary model
+         for each environmental factor.
+         }
 }
 \description{
 This functions enables to fit a growth model using a dataset comprised of
 several experiments with potentially different dynamic experimental conditions.
+}
+\examples{
+## We will use the multiple_experiments data set
+
+data("multiple_experiments")
+
+## For each environmental factor, we need to defined a model
+
+sec_names <- c(temperature = "CPM", pH = "CPM")
+
+## Any model parameter can be fixed
+
+known <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+    temperature_n = 2, temperature_xmin = 20, temperature_xmax = 35,
+    pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+
+## The rest require starting values for model fitting
+
+start <- list(mu_opt = .8, temperature_xopt = 30)
+
+## We can now call the fitting function
+
+global_fit <- fit_multiple_growth(start, multiple_experiments, known, sec_names)
+
+## Parameter estimates can be retrieved with summary
+
+summary(global_fit)
+
+## We can compare fitted model against observations
+
+plot(global_fit)
+
+## Any single environmental factor can be added to the plot using add_factor
+
+plot(global_fit, add_factor = "temperature")
+
+
 }
