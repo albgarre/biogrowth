@@ -2,6 +2,7 @@
 
 * Added a `NEWS.md` file to track changes to the package.
 * Included the full Ratkowsky model.
+* Added the possibility to a single model to various curves with the `fit_multiple_growth` and `fit_multiple_growth_MCMC` functions.
 * Included a new vignette with advanced plotting options.
 * Implemented automatic checks about model parameters for primary models.
 * Implemented automatic checks about model parameters for cardinal fits.
@@ -11,6 +12,6 @@
 aesthetic options.
 * Defined a range in the Zwietering secondary model to avoid unreasonable
 results.
-# Updated vignette with new functions.
+* Updated vignette with new functions.
 * Small changes in function documentation and vignettes for better clarity.
 
