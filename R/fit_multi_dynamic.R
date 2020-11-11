@@ -67,6 +67,7 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' ## We will use the multiple_experiments data set
 #'
 #' data("multiple_experiments")
@@ -100,7 +101,7 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #' ## Any single environmental factor can be added to the plot using add_factor
 #'
 #' plot(global_fit, add_factor = "temperature")
-#'
+#'}
 #'
 fit_multiple_growth <- function(starting_point, experiment_data,
                                 known_pars, sec_model_names,

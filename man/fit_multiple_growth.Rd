@@ -47,6 +47,7 @@ Note that the definition of secondary models must comply with the
 `secondary_model_data` function.
 }
 \examples{
+\donttest{
 ## We will use the multiple_experiments data set
 
 data("multiple_experiments")
@@ -80,6 +81,6 @@ plot(global_fit)
 ## Any single environmental factor can be added to the plot using add_factor
 
 plot(global_fit, add_factor = "temperature")
-
+}
 
 }
