@@ -47,6 +47,10 @@ based on the gamma concept (Zwietering et al. 1992).
 \details{
 Model predictions are done by linear interpolation of the environmental
 conditions defined in \code{env_conditions}.
+
+For consistency with the function for isothermal growth,
+calculations are done considering mu is in log10 scale. In other words,
+it is multiplied by ln(10).
 }
 \examples{
 

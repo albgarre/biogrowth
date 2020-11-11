@@ -8,6 +8,10 @@
 #' Model predictions are done by linear interpolation of the environmental
 #' conditions defined in \code{env_conditions}.
 #'
+#' For consistency with the function for isothermal growth,
+#' calculations are done considering mu is in log10 scale. In other words,
+#' it is multiplied by ln(10).
+#'
 #' @param times Numeric vector of storage times to make the predictions
 #' @param env_conditions Tibble describing the variation of the environmental
 #' conditions during storage. It must have a column named \code{time} with the
