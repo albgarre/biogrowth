@@ -103,14 +103,14 @@ distribution_to_logcount <- function(model, log_count) {
 
         time_dist <- split(model$simulations, model$simulations$iter) %>%
             # split(.$iter) %>%
-            map_dfr(~ approx(.$logN, .$time, log_count)
+            map_dfr(~ approx(.$logN, .$time, log_count, ties = "ordered")
             )
 
     } else if(is.MCMCgrowth(model)) {
 
         time_dist <- split(model$simulations, model$simulations$sim) %>%
             # split(.$sim) %>%
-            map_dfr(~ approx(.$logN, .$time, log_count)
+            map_dfr(~ approx(.$logN, .$time, log_count, ties = "ordered")
             )
 
     } else {

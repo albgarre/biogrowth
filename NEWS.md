@@ -1,3 +1,8 @@
+# biogrowth 0.1.2
+
+* Now, the full Ratkowsky model can be fitted under dynamic conditions. I had forgotten to add it in the helper.
+* Bug fix for in distribution_to_logcount. If the growth rate was 0 in one of the simulations, approx would give an error. Added ties="ordered" to try and fix this.
+
 # biogrowth 0.1.1
 
 * Added a `NEWS.md` file to track changes to the package.
