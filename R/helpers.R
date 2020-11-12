@@ -79,6 +79,7 @@ extract_secondary_pars <- function(this_p, known_pars, sec_model_names) {
         all_names <- switch(sec_model_names[[this_i]],
                             Zwietering = c("xmin", "xopt", "n"),
                             CPM = c("xmin", "xopt", "xmax", "n"),
+                            fullRatkowsky = c("c", "xmin", "xmax"),
                             stop(paste("Unknown model:", sec_model_names[[this_i]]))
         )
 
