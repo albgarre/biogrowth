@@ -105,6 +105,33 @@ is.MCMCgrowth <- function(x) inherits(x, "MCMCgrowth")
 #'
 is.StochasticGrowth <- function(x) inherits(x, "StochasticGrowth")
 
+#' Test of FitMultipleDynamicGrowth object
+#'
+#' Tests if an object is of class \code{FitMultipleDynamicGrowth}.
+#'
+#' @param x object to be checked.
+#'
+#' @return A boolean specifying whether \code{x} is of class
+#'         \code{FitMultipleDynamicGrowth}
+#'
+#' @export
+#'
+is.FitMultipleDynamicGrowth <- function(x) inherits(x, "FitMultipleDynamicGrowth")
+
+#' Test of FitMultipleDynamicGrowthMCMC object
+#'
+#' Tests if an object is of class \code{FitMultipleDynamicGrowthMCMC}.
+#'
+#' @param x object to be checked.
+#'
+#' @return A boolean specifying whether \code{x} is of class
+#'         \code{FitMultipleDynamicGrowthMCMC}
+#'
+#' @export
+#'
+is.FitMultipleDynamicGrowthMCMC <- function(x) inherits(x, "FitMultipleGrowthMCMC")
+
+
 #------------------------------------------------------------------------------
 
 ## "summary" methods
@@ -286,6 +313,9 @@ residuals.FitMultipleDynamicGrowth <- function(object, ...) {
 #' @importFrom dplyr bind_rows select
 #' @importFrom FME modCost
 #'
+#' @return A tibble with two columns: residual (the residual) and
+#' experiment (the id of the experiment).
+#'
 #' @export
 #'
 #'
@@ -308,8 +338,6 @@ residuals.FitMultipleGrowthMCMC <- function(object, ...) {
     bind_rows(out)
 
 }
-
-
 
 
 
