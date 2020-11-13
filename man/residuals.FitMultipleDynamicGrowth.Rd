@@ -11,6 +11,10 @@
 
 \item{...}{ignored}
 }
+\value{
+A table with 4 columns: time (storage time), logN (observed count),
+exp (name of the experiment) and res (residual).
+}
 \description{
 Residuals of FitMultipleDynamicGrowth
 }

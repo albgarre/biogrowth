@@ -299,10 +299,20 @@ residuals.FitDynamicGrowthMCMC <- function(object, ...) {
 #'
 #' @importFrom stats residuals
 #'
+#' @return A table with 4 columns: time (storage time), logN (observed count),
+#' exp (name of the experiment) and res (residual).
+#'
 #' @export
 #'
 residuals.FitMultipleDynamicGrowth <- function(object, ...) {
     residuals(object$fit_results)
+
+
+    object$data %>%
+        map(~ .$data) %>%
+        imap_dfr(~ mutate(.x, exp = .y)) %>%
+        mutate(res = residuals(object$fit_results))
+
 }
 
 #' Residuals of FitMultipleGrowthMCMC
@@ -313,25 +323,31 @@ residuals.FitMultipleDynamicGrowth <- function(object, ...) {
 #' @importFrom dplyr bind_rows select
 #' @importFrom FME modCost
 #'
-#' @return A tibble with two columns: residual (the residual) and
-#' experiment (the id of the experiment).
+#' @return A table with 4 columns: time (storage time), logN (observed count),
+#' exp (name of the experiment) and res (residual).
 #'
 #' @export
 #'
 #'
 residuals.FitMultipleGrowthMCMC <- function(object, ...) {
 
-    out <- lapply(1:length(object$data), function(i) {
+    out <- lapply(names(object$data), function(each_sim) {
 
-        simulations <- object$best_prediction[[i]]$simulation %>%
+        simulations <- object$best_prediction[[each_sim]]$simulation %>%
             select("time", "logN") %>%
             as.data.frame()
 
-        my_cost <- modCost(model = simulations,
-                           obs = as.data.frame(object$data[[i]]$data))
+        # my_cost <- modCost(model = simulations,
+        #                    obs = as.data.frame(object$data[[i]]$data))
+        #
+        # tibble(residual = my_cost$residuals$res,
+        #        experiment = i)
 
-        tibble(residual = my_cost$residuals$res,
-               experiment = i)
+
+        modCost(model = simulations,
+                obs = as.data.frame(object$data[[each_sim]]$data))$residuals %>%
+            select(time = "x", logN = "obs", res = "res") %>%
+            mutate(exp = each_sim)
 
     })
 
