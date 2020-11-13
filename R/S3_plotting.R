@@ -521,6 +521,7 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
 #' @param point_size Size of the data points
 #' @param point_shape shape of the data points
 #' @param subplot_labels labels of the subplots according to \code{plot_grid}.
+#' @param label_x label of the x-axis
 #'
 #' @importFrom ggplot2 geom_point
 #' @importFrom cowplot plot_grid
@@ -531,6 +532,7 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
 plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
                                           add_factor = NULL,
                                           ylims = NULL,
+                                          label_x = "time",
                                           label_y1 = "logN",
                                           label_y2 = add_factor,
                                           line_col = "black",
@@ -555,7 +557,8 @@ plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
          line_type = line_type, line_col2 = line_col2,
          line_size2 = line_size2, line_type2 = line_type2) +
       geom_point(aes(x = .data$time, y = .data$logN), data = this_d,
-                 size = point_size, shape = point_shape)
+                 size = point_size, shape = point_shape) +
+      xlab(label_x)
 
   })
 
@@ -573,6 +576,7 @@ plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
 plot.FitMultipleGrowthMCMC <- function(x, y=NULL, ...,
                                        add_factor = NULL,
                                        ylims = NULL,
+                                       label_x = "time",
                                        label_y1 = "logN",
                                        label_y2 = add_factor,
                                        line_col = "black",
@@ -588,6 +592,7 @@ plot.FitMultipleGrowthMCMC <- function(x, y=NULL, ...,
 
   plot.FitMultipleDynamicGrowth(x,
                                 add_factor = add_factor,
+                                label_x = label_x,
                                 ylims = ylims,
                                 label_y1 = label_y1,
                                 label_y2 = label_y2,

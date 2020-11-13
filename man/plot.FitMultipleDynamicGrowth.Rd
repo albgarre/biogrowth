@@ -10,6 +10,7 @@
   ...,
   add_factor = NULL,
   ylims = NULL,
+  label_x = "time",
   label_y1 = "logN",
   label_y2 = add_factor,
   line_col = "black",
@@ -36,6 +37,8 @@ to one character string that matches one entry of x$env_conditions,
 that condition is plotted in the secondary axis}
 
 \item{ylims}{A two dimensional vector with the limits of the primary y-axis.}
+
+\item{label_x}{label of the x-axis}
 
 \item{label_y1}{Label of the primary y-axis.}
 
