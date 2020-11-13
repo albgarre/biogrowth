@@ -84,7 +84,8 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
         geom_line(aes(x = .data$time, y = .data$logN),
                   col = line_col,
                   size = line_size,
-                  linetype = line_type)
+                  linetype = line_type) +
+      ylab(label_y1)
 
     if(!is.null(add_factor)) {
 
