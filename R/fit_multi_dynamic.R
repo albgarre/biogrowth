@@ -247,6 +247,8 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
 
     })
 
+    names(best_predictions) <- names(experiment_data)
+
     out <- list(fit_results = my_fit,
                 best_prediction = best_predictions,
                 data = experiment_data,
