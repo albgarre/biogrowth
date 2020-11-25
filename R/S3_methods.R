@@ -280,15 +280,19 @@ residuals.FitDynamicGrowth <- function(object, ...) {
 #' @export
 #'
 residuals.FitDynamicGrowthMCMC <- function(object, ...) {
+    
+    pred <- predict(object)
+    
+    pred - my_MCMC_fit$data$logN
 
-    simulations <- object$best_prediction$simulation %>%
-        select("time", "logN") %>%
-        as.data.frame()
-
-    my_cost <- modCost(model = simulations,
-                obs = as.data.frame(object$data))
-
-    my_cost$residuals$res
+    # simulations <- object$best_prediction$simulation %>%
+    #     select("time", "logN") %>%
+    #     as.data.frame()
+    # 
+    # my_cost <- modCost(model = simulations,
+    #             obs = as.data.frame(object$data))
+    # 
+    # my_cost$residuals$res
 
 }
 
@@ -305,8 +309,8 @@ residuals.FitDynamicGrowthMCMC <- function(object, ...) {
 #' @export
 #'
 residuals.FitMultipleDynamicGrowth <- function(object, ...) {
+    
     residuals(object$fit_results)
-
 
     object$data %>%
         map(~ .$data) %>%
@@ -707,18 +711,333 @@ deviance.FitSecondaryGrowth <- function(object, ...) {
     
 }
 
+#--------------------------------------------------------------------
 
+#' Fitted values of static fit
+#' 
+#' @param object an instance of \code{itIsoGrowth }.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+fitted.FitIsoGrowth <- function(object, ...) {
+    
+    object$data$logN + residuals(object)
+    
+}
 
+#' Fitted values of dynamic fit
+#' 
+#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+fitted.FitDynamicGrowth <- function(object, ...) {
+    
+    object$data$logN + residuals(object)
+    
+}
 
+#' Fitted values of MCMC fit
+#' 
+#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+fitted.FitDynamicGrowthMCMC <- function(object, ...) {
+    
+    object$data$logN + residuals(object)
+    
+}
 
+#' Fitted values of global fit
+#' 
+#' @param object an instance of \code{FitMultipleDynamicGrowth}.
+#' @param ... ignored
+#' 
+#' @importFrom rlang .data
+#' @importFrom dplyr select mutate
+#' @importFrom purrr %>%
+#' 
+#' @return A tibble with 3 columns: time (storage time), exp (experiment 
+#' identifier) and fitted (fitted value).
+#' 
+#' @export
+#' 
+fitted.FitMultipleDynamicGrowth <- function(object, ...) {
+    
+    residuals(object) %>%
+        mutate(fitted = .data$logN + .data$res) %>%
+        select("exp", "time", "fitted")
+    
+}
 
+#' Fitted values of global fit with MCMC
+#' 
+#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param ... ignored
+#' 
+#' @importFrom rlang .data
+#' @importFrom dplyr select mutate
+#' @importFrom purrr %>%
+#' 
+#' @return A tibble with 3 columns: time (storage time), exp (experiment 
+#' identifier) and fitted (fitted value).
+#' 
+#' @export
+#' 
+fitted.FitMultipleGrowthMCMC <- function(object, ...) {
+    
+    residuals(object) %>%
+        mutate(fitted = .data$logN + .data$res) %>%
+        select("exp", "time", "fitted")
+    
+}
 
+#' Fitted values of cardinal fit
+#' 
+#' The fitted values are returned in the same scale as the one
+#' used for the fitting (sqrt, log or none).
+#' 
+#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+fitted.FitSecondaryGrowth <- function(object, ...) {
+    
+    observed <- switch(object$transformation,
+                       sq = object$data$sq_mu,
+                       log = object$data$log_mu,
+                       none = object$data$mu
+    )
+    
+    
+    observed + residuals(object)
+    
+}
 
+#------------------------------------------------------------------------
 
+#' Model prediction for static fit
+#' 
+#' 
+#' @param object an instance of FitIsoGrowth
+#' @param ... ignored
+#' @param times numeric vector describing the time points for the prediction.
+#' If \code{NULL} (default), uses the same points as those used for fitting.
+#' 
+#' @export
+#' 
+predict.FitIsoGrowth <- function(object, times = NULL, ...) {
+    
+    if (is.null(times)) {
+        
+        times <- object$data$time
+        
+    }
+    
+    
+    pred <- predict_isothermal_growth(object$model,
+                              times,
+                              object$best_prediction$pars,
+                              check=FALSE)
+    
+    pred$simulation$logN
+    
+}
 
+#' Model prediction for dynamic fit
+#' 
+#' 
+#' @param object an instance of FitDynamicGrowth
+#' @param ... ignored
+#' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
+#' in \code{\link{predict_dynamic_growth}}. 
+#' If \code{NULL} (default), uses the same conditions as those for fitting.
+#' 
+#' @export
+#' 
+predict.FitDynamicGrowth <- function(object, newdata = NULL, ...) {
+    
+    if (is.null(newdata)) {
+        
+        newdata <- object$env_conditions
+        
+    }
+    
+    
+    pred <- predict_dynamic_growth(
+        object$data$time,
+        newdata,
+        object$best_prediction$primary_pars,
+        object$best_prediction$sec_models
+    )
+    
+    pred$simulation$logN
+    
+}
 
+#' Model prediction for dynamic fit using MCMC
+#' 
+#' 
+#' @param object an instance of FitDynamicGrowthMCMC
+#' @param ... ignored
+#' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
+#' in \code{\link{predict_dynamic_growth}}. 
+#' If \code{NULL} (default), uses the same conditions as those for fitting.
+#' 
+#' @export
+#' 
+predict.FitDynamicGrowthMCMC <- function(object, newdata = NULL, ...) {
+    
+    if (is.null(newdata)) {
+        
+        newdata <- object$env_conditions
+        
+    }
+    
+    
+    pred <- predict_dynamic_growth(
+        object$data$time,
+        newdata,
+        object$best_prediction$primary_pars,
+        object$best_prediction$sec_models
+    )
+    
+    pred$simulation$logN
+    
+}
 
+#' Model predictions of FitMultipleDynamicGrowth
+#'
+#' @param object Instance of FitMultipleDynamicGrowth
+#' @param ... ignored
+#' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
+#' in \code{\link{fit_multiple_growth}}. 
+#' If \code{NULL} (default), uses the same conditions as those for fitting.
+#' 
+#' @importFrom dplyr bind_rows
+#'
+#' @return A table with 3 columns: time (storage time), logN (observed count),
+#' and exp (name of the experiment).
+#'
+#' @export
+#'
+predict.FitMultipleDynamicGrowth <- function(object, newdata=NULL, ...) {
+    
+    if (is.null(newdata)) {
+        
+        newdata <- object$data
+        
+    }
 
+    out <- lapply(1:length(newdata), function(i) {
+        
+        times <- newdata[[i]]$data$time
+        
+        pred <- predict_dynamic_growth(
+            times,
+            newdata[[i]]$conditions,
+            object$best_prediction[[1]]$primary_pars,
+            object$best_prediction[[1]]$sec_models
+        )
+        
+        exp_name <- names(newdata)[[i]]
+        
+        if (is.null(exp_name)) {
+            exp_name <- paste0("exp", i)
+        }
+        
+        tibble(time = times,
+               exp = exp_name,
+               logN = pred$simulation$logN)
+        
+    }) 
+    
+    bind_rows(out)
+    
+}
+
+#' Model predictions of FitMultipleGrowthMCMC
+#'
+#' @param object Instance of FitMultipleGrowthMCMC
+#' @param ... ignored
+#' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
+#' in \code{\link{fit_multiple_growth}}. 
+#' If \code{NULL} (default), uses the same conditions as those for fitting.
+#' 
+#' @importFrom dplyr bind_rows
+#'
+#' @return A table with 3 columns: time (storage time), logN (observed count),
+#' and exp (name of the experiment).
+#'
+#' @export
+#'
+predict.FitMultipleGrowthMCMC <- function(object, newdata=NULL, ...) {
+    
+    if (is.null(newdata)) {
+        
+        newdata <- object$data
+        
+    }
+    
+    out <- lapply(1:length(newdata), function(i) {
+        
+        times <- newdata[[i]]$data$time
+        
+        pred <- predict_dynamic_growth(
+            times,
+            newdata[[i]]$conditions,
+            object$best_prediction[[1]]$primary_pars,
+            object$best_prediction[[1]]$sec_models
+        )
+        
+        exp_name <- names(newdata)[[i]]
+        
+        if (is.null(exp_name)) {
+            exp_name <- paste0("exp", i)
+        }
+        
+        tibble(time = times,
+               exp = exp_name,
+               logN = pred$simulation$logN)
+        
+    }) 
+    
+    bind_rows(out)
+    
+}
+
+#' Model predictions for FitSecondaryGrowth
+#' 
+#' @param object an instance of FitSecondaryGrowth
+#' @param ... ignored
+#' @param newdata
+#' 
+#' @export
+#' 
+predict.FitSecondaryGrowth <- function(object, newdata=NULL, ...) {
+    
+    if (is.null(newdata)) {
+        
+        newdata <- object$data
+        
+    }
+    
+    sec_model_names <- object$secondary_model %>% 
+        map_chr(~ .$model)
+    
+    
+    gammas <- calculate_gammas_secondary(sec_model_names,
+                               newdata, 
+                               object$secondary_model) 
+    
+    gammas*object$mu_opt_fit
+    
+}
 
 
 
