@@ -161,7 +161,7 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #' to estimate from the data.
 #' @param niter number of samples of the MCMC algorithm.
 #'
-#' @return A list of calss \code{FitMultipleDynamicGrowthMCMC} with:
+#' @return A list of calss \code{FitMultipleGrowthMCMC} with:
 #'
 #'      \itemize{
 #'          \item fit_results: the object returned by \code{modFit}.
