@@ -75,6 +75,7 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #'      \itemize{
 #'          \item fit_results: the object returned by \code{modFit}.
 #'          \item best_prediction: the model prediction for the fitted parameters.
+#'          \item env_conditions: environmental conditions for the fit.
 #'          \item data: data used for the fit.
 #'          \item starting: starting values for model fitting
 #'          \item known: parameter values set as known.
@@ -160,6 +161,7 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
     out <- list(fit_results = my_fit,
                 best_prediction = best_prediction,
                 data = fit_data,
+                env_conditions = env_conditions,
                 starting = starting_point,
                 known = known_pars,
                 sec_models = sec_model_names
@@ -183,6 +185,7 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
 #'      \itemize{
 #'          \item fit_results: the object returned by \code{modMCMC}.
 #'          \item best_prediction: the model prediction for the fitted parameters.
+#'          \item env_conditions: environmental conditions for the fit.
 #'          \item data: data used for the fit.
 #'          \item starting: starting values for model fitting
 #'          \item known: parameter values set as known.
@@ -271,6 +274,7 @@ fit_MCMC_growth <- function(fit_data, env_conditions,
 
     out <- list(fit_results = my_fit,
                 best_prediction = best_prediction,
+                env_conditions = env_conditions,
                 data = fit_data,
                 starting = starting_point,
                 known = known_pars,
