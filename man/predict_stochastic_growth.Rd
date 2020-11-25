@@ -49,16 +49,7 @@ order (logN0, sqrt(mu), sqrt(lambda), logNmax). A diagonal matrix by default
 (uncorrelated parameters).}
 }
 \value{
-A list of class \code{StochasticGrowth} with the items:
-\itemize{
-\item sample: parameter sample used for the calculations.
-\item simulations: growth curves predicted for each parameter.
-\item quantiles: limits of the credible intervals (5%, 10%, 50%, 90%, 95%) for
-each time point.
-\item model: Model used for the calculations.
-\item mus: Mean parameter values used for the simulations.
-\item sigma: Variance-covariance matrix used for the simulations.
-}
+An instance of \code{\link{StochasticGrowth}}.
 }
 \description{
 Stochastic simulation of microbial growth based on probability

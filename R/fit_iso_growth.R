@@ -39,15 +39,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #' @param ... Additional arguments passed to \code{\link{modFit}}.
 #' @param check Whether to do some basic checks (TRUE by default).
 #'
-#' @return A list of class \code{FitIsoGrowth} with the following items:
-#'      \itemize{
-#'          \item data: data used for model fitting
-#'          \item model: name of the primary inactivation model
-#'          \item starting_point: initial value of the model parameters
-#'          \item known: fixed model parameters
-#'          \item fit: object returned by \code{\link{modFit}}
-#'          \item best_prediction: model prediction for the model fitted.
-#'          }
+#' @return An instance of \code{\link{FitIsoGrowth}}.
 #'
 #' @export
 #'

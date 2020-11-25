@@ -16,12 +16,7 @@ predict_isothermal_growth(model_name, times, model_pars, check = TRUE)
 \item{check}{Whether to do basic checks (TRUE by default).}
 }
 \value{
-A list of class \code{IsothermalGrowth} with the items:
-\itemize{
-\item simulation: A tibble with the model simulation.
-\item model: The name of the model used for the predictions.
-\item pars: A list with the values of the model parameters.
-}
+An instance of \code{\link{IsothermalGrowth}}.
 }
 \description{
 Predicts microbial growth under isothermal conditions according to

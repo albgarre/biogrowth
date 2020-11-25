@@ -75,12 +75,7 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 #' @param model_pars List defining the values of the model parameters.
 #' @param check Whether to do basic checks (TRUE by default).
 #'
-#' @return A list of class \code{IsothermalGrowth} with the items:
-#' \itemize{
-#' \item simulation: A tibble with the model simulation.
-#' \item model: The name of the model used for the predictions.
-#' \item pars: A list with the values of the model parameters.
-#' }
+#' @return An instance of \code{\link{IsothermalGrowth}}.
 #'
 #' @importFrom tibble tibble
 #'

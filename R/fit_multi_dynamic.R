@@ -52,17 +52,7 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #'
 #' @importFrom FME modFit
 #'
-#' @return A list of calss \code{FitMultipleDynamicGrowth} with:
-#'
-#'      \itemize{
-#'          \item fit_results: the object returned by \code{modFit}.
-#'          \item best_prediction: a list with the models predictions for each condition.
-#'          \item data: a list with the data used for the fit.
-#'          \item starting: starting values for model fitting
-#'          \item known: parameter values set as known.
-#'          \item sec_models: a named vector with the secondary model
-#'          for each environmental factor.
-#'          }
+#' @return An instance of \code{\link{FitMultipleDynamicGrowth}}.
 #'
 #' @export
 #'
@@ -161,17 +151,7 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #' to estimate from the data.
 #' @param niter number of samples of the MCMC algorithm.
 #'
-#' @return A list of calss \code{FitMultipleGrowthMCMC} with:
-#'
-#'      \itemize{
-#'          \item fit_results: the object returned by \code{modFit}.
-#'          \item best_prediction: a list with the models predictions for each condition.
-#'          \item data: a list with the data used for the fit.
-#'          \item starting: starting values for model fitting
-#'          \item known: parameter values set as known.
-#'          \item sec_models: a named vector with the secondary model
-#'          for each environmental factor.
-#'          }
+#' @return An instance of \code{\link{FitMultipleGrowthMCMC}}.
 #'
 #' @export
 #'

@@ -12,11 +12,7 @@ distribution_to_logcount(model, log_count)
 \item{log_count}{The target microbial count.}
 }
 \value{
-A list of class \code{TimeDistribution} with the items:
-\itemize{
-\item distribution Sample of the distribution of times to reach \code{log_count}.
-\item summary Summary statistics of distribution (mean, sd, median, q10 and q90).
-}
+An instance of \code{\link{TimeDistribution}}.
 }
 \description{
 Returns the probability distribution of the storage time required for

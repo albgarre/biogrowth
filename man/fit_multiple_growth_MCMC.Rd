@@ -32,17 +32,7 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \item{...}{additional arguments for \code{modMCMC} (e.g. upper and lower bounds).}
 }
 \value{
-A list of calss \code{FitMultipleGrowthMCMC} with:
-
-     \itemize{
-         \item fit_results: the object returned by \code{modFit}.
-         \item best_prediction: a list with the models predictions for each condition.
-         \item data: a list with the data used for the fit.
-         \item starting: starting values for model fitting
-         \item known: parameter values set as known.
-         \item sec_models: a named vector with the secondary model
-         for each environmental factor.
-         }
+An instance of \code{\link{FitMultipleGrowthMCMC}}.
 }
 \description{
 This functions enables to fit a growth model using a dataset comprised of

@@ -22,17 +22,7 @@
 #' @param secondary_models A nested list describing the secondary models.
 #' @param ... Additional arguments for \code{\link{ode}}.
 #'
-#' @return A list of class \code{DynamicGrowth} with items:
-#' \itemize{
-#' \item simulation: A tibble with the model prediction
-#' \item gammas: A tibble with the value of each gamma factor for each
-#' value of \code{times}.
-#' \item env_conditions: A list of functions interpolating the environmental
-#' conditions.
-#' \item primary_pars: A list with the model parameters of the primary model.
-#' \item sec_models: A nested list defining the secondary models.
-#' }
-#'
+#' @return An instance of \code{\link{DynamicGrowth}}.
 #'
 #' @importFrom deSolve ode
 #' @importFrom tibble as_tibble

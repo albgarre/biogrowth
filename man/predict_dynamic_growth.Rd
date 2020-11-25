@@ -28,16 +28,7 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 \item{...}{Additional arguments for \code{\link{ode}}.}
 }
 \value{
-A list of class \code{DynamicGrowth} with items:
-\itemize{
-\item simulation: A tibble with the model prediction
-\item gammas: A tibble with the value of each gamma factor for each
-value of \code{times}.
-\item env_conditions: A list of functions interpolating the environmental
-conditions.
-\item primary_pars: A list with the model parameters of the primary model.
-\item sec_models: A nested list defining the secondary models.
-}
+An instance of \code{\link{DynamicGrowth}}.
 }
 \description{
 Predicts microbial growth under dynamic conditions based on the

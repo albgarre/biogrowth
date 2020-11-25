@@ -39,14 +39,7 @@ model fitting. One of \code{sq} (square root; default), \code{log} (log-transfor
 \item{...}{Additional arguments passed to \code{\link{modFit}}.}
 }
 \value{
-A list of class \code{FitSecondaryGrowth} with the items:
-\itemize{
-\item fit_results: object returned by \code{\link{modFit}}.
-\item secondary_model: secondary model fitted to the data.
-\item mu_opt_fit: estimated growth rate under optimum conditions.
-\item data: data used for the fit.
-\item transformation: type of transformation of \code{mu} for the fit.
-}
+An instance of \code{\link{FitSecondaryGrowth}}.
 }
 \description{
 Fits a secondary growth model to a set of growth rates obtained experimentally.

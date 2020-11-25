@@ -124,15 +124,7 @@ get_secondary_residuals <- function(this_p, my_data,
 #' @param ... Additional arguments passed to \code{\link{modFit}}.
 #' @param check Whether to do some basic checks (TRUE by default).
 #'
-#' @return A list of class \code{FitSecondaryGrowth} with the items:
-#' \itemize{
-#' \item fit_results: object returned by \code{\link{modFit}}.
-#' \item secondary_model: secondary model fitted to the data.
-#' \item mu_opt_fit: estimated growth rate under optimum conditions.
-#' \item data: data used for the fit.
-#' \item transformation: type of transformation of \code{mu} for the fit.
-#' }
-#'
+#' @return An instance of \code{\link{FitSecondaryGrowth}}.
 #'
 #' @importFrom dplyr mutate
 #' @importFrom FME modFit

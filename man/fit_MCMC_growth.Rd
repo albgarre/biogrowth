@@ -42,17 +42,7 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 \item{...}{Additional arguments passed to modFit.}
 }
 \value{
-A list of class 'FitDynamicGrowthMCMC' with the following items:
-     \itemize{
-         \item fit_results: the object returned by \code{modMCMC}.
-         \item best_prediction: the model prediction for the fitted parameters.
-         \item env_conditions: environmental conditions for the fit.
-         \item data: data used for the fit.
-         \item starting: starting values for model fitting
-         \item known: parameter values set as known.
-         \item sec_models: a named vector with the secondary model
-         for each environmental factor
-         }
+An instance of \code{\link{FitDynamicGrowthMCMC}}.
 }
 \description{
 Fits a growth model to a data obtained under dynamic conditions
