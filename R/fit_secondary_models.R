@@ -208,7 +208,7 @@ fit_secondary_growth <- function(fit_data, starting_point,
     ## Output
 
 
-    secondary_models <- extract_secondary_pars(as.data.frame(my_fit$par),
+    secondary_models <- extract_secondary_pars(as.list(my_fit$par),
                                                known_pars,
                                                sec_model_names)
 
