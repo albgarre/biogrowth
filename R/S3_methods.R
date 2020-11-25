@@ -355,6 +355,377 @@ residuals.FitMultipleGrowthMCMC <- function(object, ...) {
 
 }
 
+#-----------------------------------------------
+
+#' Fitted parameters of an isothermal fit
+#'
+#' @param object an instance of \code{FitIsoGrowth}.
+#' @param ... ignored
+#'
+#' @importFrom stats coef
+#'
+#' @export
+#'
+coef.FitIsoGrowth <- function(object, ...) {
+    
+    coef(object$fit)
+    
+}
+
+#' Fitted parameters of a dynamic fit
+#'
+#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param ... ignored
+#'
+#' @importFrom stats coef
+#'
+#' @export
+#'
+coef.FitDynamicGrowth <- function(object, ...) {
+    
+    coef(object$fit_results)
+    
+}
+
+#' Fitted parameters of an MCMC fit
+#'
+#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param ... ignored
+#'
+#' @export
+#'
+coef.FitDynamicGrowthMCMC <- function(object, ...) {
+    
+    object$fit_results$bestpar
+    
+}
+
+#' Fitted parameters of a global fit
+#'
+#' @param object an instance of \code{FitMultipleDynamicGrowth}.
+#' @param ... ignored
+#'
+#' @importFrom stats coef
+#'
+#' @export
+#'
+coef.FitMultipleDynamicGrowth <- function(object, ...) {
+    
+    coef(object$fit_results)
+    
+}
+
+#' Fitted parameters of a global fit using MCMC
+#'
+#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param ... ignored
+#'
+#' @export
+#'
+coef.FitMultipleGrowthMCMC <- function(object, ...) {
+    
+    object$fit_results$bestpar
+    
+}
+
+#' Fitted parameters of a secondary model fit
+#'
+#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param ... ignored
+#'
+#' @importFrom stats coef
+#'
+#' @export
+#'
+coef.FitSecondaryGrowth <- function(object, ...) {
+    
+    coef(object$fit_results)
+    
+}
+
+#--------------------------------------------------------------
+
+#' Variance matrix of an isothermal fit
+#'
+#' Returns the unscaled covariance matrix, calculated as 1/(0.5*Hessian)
+#'
+#' @param object an instance of \code{FitIsoGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+vcov.FitIsoGrowth <- function(object, ...) {
+    
+    # The code has been adapted from the one of summary.modFit
+    
+    covar  <- try(solve(0.5*object$fit$hessian), silent = TRUE)
+    
+    if (!is.numeric(covar)) {
+        warning("Cannot estimate covariance; system is singular")
+        
+        param  <- object$par
+        p      <- length(param)
+        
+        covar <- matrix(data = NA, nrow = p, ncol = p)
+    }
+    
+    covar
+    
+}
+
+#' Variance matrix of a dynamic fit
+#'
+#' Returns the unscaled covariance matrix, calculated as 1/(0.5*Hessian)
+#'
+#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+vcov.FitDynamicGrowth <- function(object, ...) {
+    
+    # The code has been adapted from the one of summary.modFit
+    
+    covar  <- try(solve(0.5*object$fit_results$hessian), silent = TRUE)
+    
+    if (!is.numeric(covar)) {
+        warning("Cannot estimate covariance; system is singular")
+        
+        param  <- object$par
+        p      <- length(param)
+        
+        covar <- matrix(data = NA, nrow = p, ncol = p)
+    }
+    
+    covar
+    
+}
+
+#' Variance matrix of an MCMC dynamic fit
+#'
+#' Returns the covariance, estimated as the variance of the samples
+#' from the Markov chain.
+#'
+#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param ... ignored
+#'
+#' @importFrom stats cov
+#'
+#' @export
+#'
+vcov.FitDynamicGrowthMCMC <- function(object, ...) {
+    
+    cov(object$fit_results$pars)
+    
+}
+
+#' Variance matrix of a global fit
+#'
+#' Returns the unscaled covariance matrix, calculated as 1/(0.5*Hessian)
+#'
+#' @param object an instance of \code{FitMultipleDynamicGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+vcov.FitMultipleDynamicGrowth <- function(object, ...) {
+    
+    # The code has been adapted from the one of summary.modFit
+    
+    covar  <- try(solve(0.5*object$fit_results$hessian), silent = TRUE)
+    
+    if (!is.numeric(covar)) {
+        warning("Cannot estimate covariance; system is singular")
+        
+        param  <- object$par
+        p      <- length(param)
+        
+        covar <- matrix(data = NA, nrow = p, ncol = p)
+    }
+    
+    covar
+    
+}
+
+#' Variance matrix of a global fit using MCMC
+#'
+#' Returns the covariance, estimated as the variance of the samples
+#' from the Markov chain.
+#'
+#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param ... ignored
+#'
+#' @importFrom stats cov
+#'
+#' @export
+#'
+vcov.FitMultipleGrowthMCMC <- function(object, ...) {
+    
+    cov(object$fit_results$pars)
+    
+}
+
+#' Variance matrix of a cardinal fit
+#'
+#' Returns the unscaled covariance matrix, calculated as 1/(0.5*Hessian)
+#'
+#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+vcov.FitSecondaryGrowth <- function(object, ...) {
+    
+    # The code has been adapted from the one of summary.modFit
+    
+    covar  <- try(solve(0.5*object$fit_results$hessian), silent = TRUE)
+    
+    if (!is.numeric(covar)) {
+        warning("Cannot estimate covariance; system is singular")
+        
+        param  <- object$par
+        p      <- length(param)
+        
+        covar <- matrix(data = NA, nrow = p, ncol = p)
+    }
+    
+    covar
+    
+}
+
+#-------------------------------------------------------------------
+
+#' Deviance of an isothermal fit
+#'
+#' @param object an instance of \code{FitIsoGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+deviance.FitIsoGrowth <- function(object, ...) {
+    
+    deviance(object$fit)
+    
+}
+
+#' Deviance of a dynamic fit
+#'
+#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+deviance.FitDynamicGrowth <- function(object, ...) {
+    
+    deviance(object$fit_results)
+    
+}
+
+#' Deviance of an MCMC fit
+#'
+#' Returns the deviance of the best fit, calculated as the sum of
+#' squared residuals.
+#'
+#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param ... ignored
+#'
+#' @importFrom dplyr select
+#' @importFrom FME modCost
+#'
+#' @export
+#'
+deviance.FitDynamicGrowthMCMC <- function(object, ...) {
+    
+    model <- object$best_prediction$simulation %>%
+        select("time", "logN") %>%
+        as.data.frame()
+    
+    obs <- object$data %>%
+        select("time", "logN") %>%
+        as.data.frame()
+    
+    modCost(model, obs)$residuals$res^2 %>% sum()
+    
+}
+
+#' Deviance of a global fit
+#'
+#' @param object an instance of \code{FitMultipleDynamicGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+deviance.FitMultipleDynamicGrowth <- function(object, ...) {
+    
+    deviance(object$fit_results)
+    
+}
+
+#' Deviance of a global fit using MCMC
+#'
+#' Returns the deviance of the best fit, calculated as the sum of
+#' squared residuals.
+#'
+#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param ... ignored
+#'
+#' @importFrom dplyr select
+#' @importFrom FME modCost
+#'
+#' @export
+#'
+deviance.FitMultipleGrowthMCMC <- function(object, ...) {
+    
+    lapply(1:length(object$best_prediction), function(i) {
+        
+        model <- object$best_prediction[[i]]$simulation %>%
+            select("time", "logN") %>%
+            as.data.frame()
+        
+        obs <- object$data[[i]]$data %>%
+            select("time", "logN") %>%
+            as.data.frame()
+        
+        modCost(model, obs)$residuals$res^2
+        
+    }) %>%
+        unlist() %>%
+        sum()
+    
+}
+
+#' Deviance of a cardinal fit
+#'
+#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param ... ignored
+#'
+#' @export
+#'
+deviance.FitSecondaryGrowth <- function(object, ...) {
+    
+    deviance(object$fit_results)
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
