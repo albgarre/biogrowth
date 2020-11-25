@@ -43,6 +43,7 @@ A list of class FitDynamicGrowth with the following items:
      \itemize{
          \item fit_results: the object returned by \code{modFit}.
          \item best_prediction: the model prediction for the fitted parameters.
+         \item env_conditions: environmental conditions for the fit.
          \item data: data used for the fit.
          \item starting: starting values for model fitting
          \item known: parameter values set as known.

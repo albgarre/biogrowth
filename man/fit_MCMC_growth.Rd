@@ -46,6 +46,7 @@ A list of class 'FitDynamicGrowthMCMC' with the following items:
      \itemize{
          \item fit_results: the object returned by \code{modMCMC}.
          \item best_prediction: the model prediction for the fitted parameters.
+         \item env_conditions: environmental conditions for the fit.
          \item data: data used for the fit.
          \item starting: starting values for model fitting
          \item known: parameter values set as known.

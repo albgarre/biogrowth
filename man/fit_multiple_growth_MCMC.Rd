@@ -32,7 +32,7 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \item{...}{additional arguments for \code{modMCMC} (e.g. upper and lower bounds).}
 }
 \value{
-A list of calss \code{FitMultipleDynamicGrowthMCMC} with:
+A list of calss \code{FitMultipleGrowthMCMC} with:
 
      \itemize{
          \item fit_results: the object returned by \code{modFit}.
