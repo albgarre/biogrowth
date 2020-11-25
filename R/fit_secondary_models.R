@@ -31,7 +31,9 @@ calculate_gammas_secondary <- function(sec_model_names, my_data, secondary_model
                              fullRatkowsky = full_Ratkowski(this_x, this_sec$xmin, this_sec$xmax, this_sec$c),
                              stop(paste("Model", this_sec$model, "not known."))
         )
-
+        
+        this_gamma <- tibble(this_gamma)
+        names(this_gamma) <- this_condition
         this_gamma
 
     }) %>%
