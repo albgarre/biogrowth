@@ -1,3 +1,7 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Reduced the duration of the tests.
 
 ## Test environments
 * local R installation, R 3.5.3

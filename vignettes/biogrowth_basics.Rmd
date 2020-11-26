@@ -739,22 +739,21 @@ The `fit_dynamic_growth()` function enables to fit or fix any model parameter. T
 
 Regarding the primary model, this function only enables the use of the Baranyi model. This primary model has two variables that need initial values (`N0` and `Q0`) and one primary model parameter (`Nmax`). The specific growth rate is described using the gamma concept. This requires the definition of its value under optimal conditions (`mu_opt`) as well as the cardinal parameters for each environmental factor. As well as for other functions, these must be defined as `factor`+`_`+`parameter name`. For instance, the minimum water activity for growth must be written as `aw_min`.
 
-In this example we will consider the model parameters of the primary model as known. For the secondary model for water activity, we will only consider the optimum value for growth as unknown. Finally, for the effect of temperature, the only parameter we consider known is the order of the model:
+In this example we will consider the model parameters of the primary model as known. For the secondary model for water activity, we will only consider the optimum value for growth as unknown. Finally, for the effect of temperature, we will consider the order and xmax are known:
 
 ```{r}
 known_pars <- list(Nmax = 1e4,  # Nmax for primary model
                    N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
                    mu_opt = 4, # mu_opt of the gamma model
-                   temperature_n = 1,  # Secondary model for temperature
+                   temperature_n = 1, temperature_xmax = 40,  # Secondary model for temperature
                    aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
-)
+                   )
 ```
 
 Then, the remaining model parameters must be defined in `starting_points`. Due to the use of non-linear regression for model fitting, it is required to define initial values for these parameters. They can be defined based on previous esperience or preliminary numerical simulations.
 
 ```{r}
 my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
-               temperature_xmax = 40,
                aw_xopt = .95)
 
 ```
@@ -981,25 +980,24 @@ sec_model_names <- c(temperature = "CPM",
 known_pars <- list(Nmax = 1e4,  # Primary model
                    N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
                    mu_opt = 4, # mu_opt of the gamma model
-                   temperature_n = 1,  # Secondary model for temperature
+                   temperature_n = 1, temperature_xmax = 40, # Secondary model for temperature
                    aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
 )
 
-my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
-                 temperature_xmax = 40,
+my_start <- list(temperature_xmin = 25, 
+                 temperature_xopt = 35,
                  aw_xopt = .95)
 
 ```
 
-Then, we can call the `fit_MCMC_growth()` using these arguments plus the argument `niter` that we will set to 500.
+Then, we can call the `fit_MCMC_growth()` using these arguments plus the argument `niter` that we will set to 100.
 
 ```{r}
 my_MCMC_fit <- fit_MCMC_growth(example_dynamic_growth, example_env_conditions, 
                                 my_start,
                                 known_pars, 
                                 sec_model_names, 
-                                niter = 500,
-                                updatecov = 10) 
+                                niter = 100) 
 
 ```
 
@@ -1064,9 +1062,10 @@ Then, the function can be called. Note that the MCMC algorithm is stochastic, so
 
 ```{r}
 set.seed(12412)
-global_MCMC <- fit_multiple_growth_MCMC(start, multiple_experiments, known, sec_names, niter = 1000,
-   lower = c(.2, 29),  # lower limits of the model parameters
-   upper = c(.8, 34))  # upper limits of the model parameters
+global_MCMC <- fit_multiple_growth_MCMC(start, multiple_experiments, known, sec_names, 
+                                        niter = 100,
+                                        lower = c(.2, 29),  # lower limits of the model parameters
+                                        upper = c(.8, 34))  # upper limits of the model parameters
 
 ```
 
