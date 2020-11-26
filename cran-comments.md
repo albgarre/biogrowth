@@ -1,7 +1,7 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Reduced the duration of the tests.
+* Reduced the duration of the tests (175s according to winbuilder).
 
 ## Test environments
 * local R installation, R 3.5.3

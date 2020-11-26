@@ -7,6 +7,7 @@
 * Bug fix in fit_secondary_model. The function was returning NA for the fitted parameters due to some error generating the output. 
 * I got rid of the ugly warning messages in fit_secondary_model. They were due to bind_cols trying to fix names.
 * Bug fix in plotting of dynamic predictions. The attribute for the y-axis label was not really used.
+* Reduced iterations in the vignette to reduce compilation time.
 
 # biogrowth 0.1.1
 
