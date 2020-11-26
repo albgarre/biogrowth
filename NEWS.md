@@ -1,7 +1,12 @@
 # biogrowth 0.1.2
 
-* Now, the full Ratkowsky model can be fitted under dynamic conditions. I had forgotten to add it in the helper.
-* Bug fix for in distribution_to_logcount. If the growth rate was 0 in one of the simulations, approx would give an error. Added ties="ordered" to try and fix this.
+* Documented S3 classes.
+* Implemented additional S3 methods for all the fitting classes (vcov, deviance, predict, fitted, residuals, coef).
+* Now, the full Ratkowsky model can be fitted under dynamic conditions. I had forgotten to add it in the helper.^
+* Bug fix in distribution_to_logcount. If the growth rate was 0 in one of the simulations, approx would give an error. Added ties="ordered" to try and fix this.
+* Bug fix in fit_secondary_model. The function was returning NA for the fitted parameters due to some error generating the output. 
+* I got rid of the ugly warning messages in fit_secondary_model. They were due to bind_cols trying to fix names.
+* Bug fix in plotting of dynamic predictions. The attribute for the y-axis label was not really used.
 
 # biogrowth 0.1.1
 

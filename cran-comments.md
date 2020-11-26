@@ -1,7 +1,7 @@
 
 ## Test environments
 * local R installation, R 3.5.3
-* ubuntu 16.04 (on travis-ci), R 3.5.3
+* ubuntu 20.04 (on travis-ci), R 3.5.3
 * win-builder (devel)
 
 ## R CMD check results
