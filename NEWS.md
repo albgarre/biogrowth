@@ -1,3 +1,7 @@
+# biogrowth 0.1.3
+
+* Included the Richards and logistic growth models.
+
 # biogrowth 0.1.2
 
 * Documented S3 classes.

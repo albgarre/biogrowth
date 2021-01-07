@@ -65,6 +65,31 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 
 }
 
+#' Logistic growth model
+#' 
+#' @inheritParams iso_repGompertz
+#' 
+#' @return Numeric vector with the predicted microbial count
+#' 
+logistic_model <- function(times, logN0, mu, lambda, C) {
+    
+    logN <- logN0 + C/(1 + exp(4*mu/C*(lambda-times) + 2))
+    
+    logN
+}
+
+#' Richards growth model
+#' 
+richards_model <- function(times, logN0, mu, lambda, C, nu) {
+    
+    exp_part <- 1 + nu + mu/C*(1+nu)^(1 + 1/nu)*(lambda-times)
+    
+    logN <- logN0 + C*(1 + nu*exp(exp_part))^(-1/nu)
+    
+    logN
+    
+}
+
 #' Isothermal microbial growth
 #'
 #' Predicts microbial growth under isothermal conditions according to
@@ -116,6 +141,11 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
                                  model_pars$lambda, model_pars$logNmax),
            Trilinear = trilinear_model(times, model_pars$logN0, model_pars$mu,
                                        model_pars$lambda,model_pars$logNmax),
+           Logistic = logistic_model(times, model_pars$logN0, model_pars$mu,
+                                     model_pars$lambda, model_pars$C),
+           Richards = richards_model(times, model_pars$logN0, model_pars$mu,
+                                     model_pars$lambda, model_pars$C,
+                                     model_pars$nu),
            stop(paste("Unknown model:", model_name))
            )
 
