@@ -1,6 +1,7 @@
 # biogrowth 0.1.3
 
 * Included the Richards and logistic growth models.
+* predict_isothermal_growth now accepts both named vectors or list as arguments.
 
 # biogrowth 0.1.2
 
