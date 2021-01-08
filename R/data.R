@@ -1,4 +1,18 @@
 
+#' Growth of Salmonella spp in broth
+#' 
+#' An example dataset to illustrate \code{\link{fit_isothermal_growth}}. It
+#' describes the growth of Salmonella spp. in broth. It was retrieved from 
+#' ComBase (ID: B092_10).
+#' 
+#' @format A tibble with 21 rows and 2 columns:
+#' \describe{
+#'     \item{time}{elapsed time in hours.}
+#'     \item{logN}{observed microbial count (log CFU/g).}
+#' }
+#' 
+"growth_salmonella"
+
 #' Growth rates obtained for several growth experiments
 #'
 #' An example dataset illustrating the requirements of the
