@@ -1,7 +1,12 @@
-# biogrowth 0.1.3
+# biogrowth 0.2.0
 
 * Included the Richards and logistic growth models.
 * predict_isothermal_growth now accepts both named vectors or list as arguments.
+* The model definition for predict_stochastic_growth has been improved. Now they are 
+defined in a single argument using a tibble which includes expected values, standard
+deviations and scale where the normal distribution is defined. This makes it easier
+to define (not so many arguments) and way more flexible (specially when it comes to 
+adding new models).
 
 # biogrowth 0.1.2
 

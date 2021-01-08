@@ -2,24 +2,26 @@
 #' Isothermal growth with variability
 #'
 #' Stochastic simulation of microbial growth based on probability
-#' distributions of the parameters of the primary model.
-#'
-#' Simulations are limited to multivariate normal distributions of
-#' the model parameters.
+#' distributions of the parameters of the primary model. It is included by
+#' Monte Carlo simulation considering the parameters follow a multivariate normal
+#' distribution. 
+#' 
+#' They are defined in the \code{pars} argument using a tibble with 4 columns:
+#' \itemize{
+#'     \item{par: identifier of the model parameter (according to \code{\link{primary_model_data}})},
+#'     \item{mean: mean value of the model parameter.},
+#'     \item{sd: standard deviation of the model parameter.},
+#'     \item{scale: scale at which the model parameter is defined. Valid values are
+#'     'original' (no transformation), 'sqrt' square root or 'log' log-scale. The
+#'     parameter sample is generated considering the parameter follows a marginal
+#'     normal distribution at this scale, and is later converted to the original scale
+#'     for calculations.}
+#' }
 #'
 #' @param model_name Character describing the primary growth model.
-#' @param times Numeric vector of storage times for the simulations
-#' @param n_sims Number of simulations
-#' @param mean_logN0 Mean value of the initial log microbial count.
-#' @param sd_logN0 Standard error of the initial log microbial count.
-#' @param mean_sqmu Mean value of the square root of the maximum
-#' specific growth rate.
-#' @param sd_sqmu Standard error of the square root of the maximum
-#' specific growth rate.
-#' @param mean_sqlambda Mean value of the square root of the lag phase duration.
-#' @param sd_sqlambda Standard error of the square root of the lag phase duration.
-#' @param mean_logNmax Mean value of the maximum log microbial count.
-#' @param sd_logNmax Standard error of the maximum log microbial count.
+#' @param times Numeric vector of storage times for the simulations.
+#' @param n_sims Number of simulations.
+#' @param pars A tibble describing the parameter uncertainty (see details).
 #' @param corr_matrix Correlation matrix of the model parameters. Defined in the
 #' order (logN0, sqrt(mu), sqrt(lambda), logNmax). A diagonal matrix by default
 #' (uncorrelated parameters).
@@ -40,17 +42,21 @@
 #' \donttest{
 #' ## Definition of the simulation settings
 #'
-#' my_model <- "Trilinear"
+#' my_model <- "Baranyi"
 #' my_times <- seq(0, 30, length = 100)
 #' n_sims <- 3000
-#'
-#' ## Call the function
-#'
-#' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
-#'     mean_logN0 = 0, sd_logN0 = .2,
-#'     mean_sqmu = 2,sd_sqmu = .3,
-#'     mean_sqlambda = 4, sd_sqlambda = .4,
-#'     mean_logNmax = 6, sd_logNmax = .5)
+#' 
+#' pars <- tribble(
+#'     ~par, ~mean, ~sd, ~scale,
+#'     "logN0", 0, .2, "original",
+#'     "mu", 2, .3, "sqrt",
+#'     "lambda", 4, .4, "sqrt",
+#'     "logNmax", 6, .5, "original"
+#' )
+#' 
+#' ## Calling the function
+#' 
+#' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
 #'
 #' ## We can plot the results
 #'
@@ -64,49 +70,46 @@
 #'     0,   0,   0, 1),
 #'     nrow = 4)
 #'
-#' stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims,
-#'     mean_logN0 = 0, sd_logN0 = .2,
-#'     mean_sqmu = 2,sd_sqmu = .3,
-#'     mean_sqlambda = 4, sd_sqlambda = .4,
-#'     mean_logNmax = 6, sd_logNmax = .5,
-#'     my_cor)
+#' #' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
 #'
 #' plot(stoc_growth2)
 #' }
 #'
 predict_stochastic_growth <- function(model_name, times, n_sims,
-                                      mean_logN0, sd_logN0,
-                                      mean_sqmu, sd_sqmu,
-                                      mean_sqlambda, sd_sqlambda,
-                                      mean_logNmax, sd_logNmax,
-                                      corr_matrix = diag(4)
+                                      pars, 
+                                      # mean_logN0, sd_logN0,
+                                      # mean_sqmu, sd_sqmu,
+                                      # mean_sqlambda, sd_sqlambda,
+                                      # mean_logNmax, sd_logNmax,
+                                      corr_matrix = diag(nrow(pars))  # Do not forget
                                       ) {
 
-    ## Build the parameter sample
-
-    mus <- c(mean_logN0, mean_sqmu, mean_sqlambda, mean_logNmax)
-    stdevs <- c(sd_logN0, sd_sqmu, sd_sqlambda, sd_logNmax)
+    ## Generate the parameter sample
+    
+    mus <- pars$mean
+    stdevs <- pars$sd
     b <- stdevs %*% t(stdevs)
     cov_matrix <- b * corr_matrix
-
+    
     par_sample <- as.data.frame(mvrnorm(n_sims,
                                         mus,
-                                        cov_matrix
-                                        )
+                                        cov_matrix)
                                 ) %>%
-        set_names(c("logN0", "sq_mu", "sq_lambda", "logNmax"))
-
-    ## Variable transformations
-
-    par_sample <- par_sample %>%
-        mutate(mu = .data$sq_mu^2,
-               lambda = .data$sq_lambda^2) %>%
-        select(-.data$sq_mu, -.data$sq_lambda)
-
-    if (model_name == "modGompertz") {
-        par_sample <- par_sample %>%
-            mutate(C = .data$logNmax - .data$logN0) %>%
-            select(-.data$logNmax)
+        set_names(pars$par)
+    
+    ## Undo the transformation
+    
+    for (i in 1:nrow(pars)) {
+        transf <- pars$scale[i]
+        
+        new_col <- switch(transf,
+                          original = par_sample[,i],
+                          sqrt = par_sample[,i]^2,
+                          log = exp(par_sample[,i]),
+                          stop("Unknown scale:", transf)
+        )
+        
+        par_sample[,i] <- new_col
     }
 
     ## Do the simulations

@@ -880,17 +880,12 @@ plot(global_fit, add_factor = "temperature")
 
 ## Stochastic prediction under static conditions
 
-Due to the relevance of uncertainty and variability Quantitative Microbial Risk Assessment usually requires the calculation of stochastic simulations. The function `predict_stochastic_growth` enables to constract credible intervals of the microbial growth for a normal distribution of:
-* the square root of $\mu$
-* the square root of $\lambda$
-* the logarithm of the initial microbial count
-* the logarithm of the maximum microbial count
+Due to the relevance of uncertainty and variability Quantitative Microbial Risk Assessment usually requires the calculation of stochastic simulations. The function `predict_stochastic_growth` enables to include parameter uncertainty on the model predictions. It has 5 arguments:
 
-For that, this function includes two arguments per growth parameter (expected value and standard deviation) and 4 additional arguments:
-
-* `model_name` defines the primary growth model
-* `times` defines the time points where to make the calculations
-* `n_sims` defines the number of Monte Carlo simulations.
+* `model_name` defines the primary growth model,
+* `times` defines the time points where to make the calculations,
+* `n_sims` defines the number of Monte Carlo simulations,
+* `pars` defines the distribution of the model parameters,
 * `corr_matrix` correlation matrix between the model parameters. By default, this argument is set to a diagonal matrix (i.e. no correlation between parameters).
 
 The calculations are done by taking a sample of size `n_sims` of the model parameters according to a multi-variate normal distribution. For simulation, the microbial growth is predicted and the quantiles of the predicted microbial count is used as an estimate of the credible interval.
@@ -898,13 +893,34 @@ The calculations are done by taking a sample of size `n_sims` of the model param
 For this example, we will use the tri-linear growth model
 
 ```{r}
-my_model <- "Trilinear"
+my_model <- "modGompertz"
+```
+
+The `pars` argument defines the distribution of the model parameters. It must be 
+a tibble with 4 columns (`par`, `mean`, `sd` and `scale`) and as many rows as model
+parameters. Then, for the modified Gompertz model, we will need 4 rows. The column
+`par` defines the parameter that is defined on each row. It must be a parameter identifier
+according to `primary_model_data()`. This function considers that each model parameter
+follows a marginal normal distribution with the mean defined in the `mean` column and
+the standard deviation defined in `sd`. This distribution can be defined in log-scale
+(by setting the value in `scale` to "log"), square-root scale ("sqrt") or in the original
+scale ("original"). Then, the function converts the parameter sample to the original scale 
+before doing the calculations.
+
+```{r}
+pars <- tribble(
+    ~par, ~mean, ~sd, ~scale,
+    "logN0", 0, .2, "original",
+    "mu", 2, .3, "sqrt",
+    "lambda", 4, .4, "log",
+    "C", 6, .5, "original"
+    )
 ```
 
 For the time points, we will take 100 points uniformly distributed between 0 and 30:
 
 ```{r}
-my_times <- seq(0, 30, length = 100)
+my_times <- seq(0, 200, length = 100)
 ```
 
 For the example, we will set the number of simulations to 1000. Nevertheless, it is advisable to repeat the calculations for various number of simulations to ensure that the relevant variables converged.
@@ -916,11 +932,7 @@ n_sims <- 1000
 Once the arguments have been defined, we can call the `predict_stochastic_growth()` function.
 
 ```{r}
-stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
-  mean_logN0 = 0, sd_logN0 = .2,
-  mean_sqmu = 2,sd_sqmu = .3,
-  mean_sqlambda = 4, sd_sqlambda = .4,
-  mean_logNmax = 6, sd_logNmax = .5)
+stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
 ```
 
 This function returns an instance of `StochasticGrowth` with several items:
@@ -944,21 +956,16 @@ By default, the function considers that there is no correlation between the mode
 
 ```{r}
 my_cor <- matrix(c(1,   0,   0, 0,
-                   0,   1, 0.7, 0,
-                   0, 0.7,   1, 0,
-                   0,   0,   0, 1),
-                 nrow = 4)
+   0,   1, 0.7, 0,
+   0, 0.7,   1, 0,
+   0,   0,   0, 1),
+   nrow = 4)
 ```
 
 Then, we can include it in the call to the function
 
 ```{r}
-stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims,
-  mean_logN0 = 0, sd_logN0 = .2,
-  mean_sqmu = 2,sd_sqmu = .3,
-  mean_sqlambda = 4, sd_sqlambda = .4,
-  mean_logNmax = 6, sd_logNmax = .5,
-  my_cor)
+stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
 
 plot(stoc_growth2)
 ```

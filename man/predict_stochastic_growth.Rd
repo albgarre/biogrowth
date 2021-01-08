@@ -8,41 +8,18 @@ predict_stochastic_growth(
   model_name,
   times,
   n_sims,
-  mean_logN0,
-  sd_logN0,
-  mean_sqmu,
-  sd_sqmu,
-  mean_sqlambda,
-  sd_sqlambda,
-  mean_logNmax,
-  sd_logNmax,
-  corr_matrix = diag(4)
+  pars,
+  corr_matrix = diag(nrow(pars))
 )
 }
 \arguments{
 \item{model_name}{Character describing the primary growth model.}
 
-\item{times}{Numeric vector of storage times for the simulations}
+\item{times}{Numeric vector of storage times for the simulations.}
 
-\item{n_sims}{Number of simulations}
+\item{n_sims}{Number of simulations.}
 
-\item{mean_logN0}{Mean value of the initial log microbial count.}
-
-\item{sd_logN0}{Standard error of the initial log microbial count.}
-
-\item{mean_sqmu}{Mean value of the square root of the maximum
-specific growth rate.}
-
-\item{sd_sqmu}{Standard error of the square root of the maximum
-specific growth rate.}
-
-\item{mean_sqlambda}{Mean value of the square root of the lag phase duration.}
-
-\item{sd_sqlambda}{Standard error of the square root of the lag phase duration.}
-
-\item{mean_logNmax}{Mean value of the maximum log microbial count.}
-
-\item{sd_logNmax}{Standard error of the maximum log microbial count.}
+\item{pars}{A tibble describing the parameter uncertainty (see details).}
 
 \item{corr_matrix}{Correlation matrix of the model parameters. Defined in the
 order (logN0, sqrt(mu), sqrt(lambda), logNmax). A diagonal matrix by default
@@ -53,27 +30,42 @@ An instance of \code{\link{StochasticGrowth}}.
 }
 \description{
 Stochastic simulation of microbial growth based on probability
-distributions of the parameters of the primary model.
+distributions of the parameters of the primary model. It is included by
+Monte Carlo simulation considering the parameters follow a multivariate normal
+distribution.
 }
 \details{
-Simulations are limited to multivariate normal distributions of
-the model parameters.
+They are defined in the \code{pars} argument using a tibble with 4 columns:
+\itemize{
+    \item{par: identifier of the model parameter (according to \code{\link{primary_model_data}})},
+    \item{mean: mean value of the model parameter.},
+    \item{sd: standard deviation of the model parameter.},
+    \item{scale: scale at which the model parameter is defined. Valid values are
+    'original' (no transformation), 'sqrt' square root or 'log' log-scale. The
+    parameter sample is generated considering the parameter follows a marginal
+    normal distribution at this scale, and is later converted to the original scale
+    for calculations.}
+}
 }
 \examples{
 \donttest{
 ## Definition of the simulation settings
 
-my_model <- "Trilinear"
+my_model <- "Baranyi"
 my_times <- seq(0, 30, length = 100)
 n_sims <- 3000
 
-## Call the function
+pars <- tribble(
+    ~par, ~mean, ~sd, ~scale,
+    "logN0", 0, .2, "original",
+    "mu", 2, .3, "sqrt",
+    "lambda", 4, .4, "sqrt",
+    "logNmax", 6, .5, "original"
+)
 
-stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
-    mean_logN0 = 0, sd_logN0 = .2,
-    mean_sqmu = 2,sd_sqmu = .3,
-    mean_sqlambda = 4, sd_sqlambda = .4,
-    mean_logNmax = 6, sd_logNmax = .5)
+## Calling the function
+
+stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
 
 ## We can plot the results
 
@@ -87,12 +79,7 @@ my_cor <- matrix(c(1,   0,   0, 0,
     0,   0,   0, 1),
     nrow = 4)
 
-stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims,
-    mean_logN0 = 0, sd_logN0 = .2,
-    mean_sqmu = 2,sd_sqmu = .3,
-    mean_sqlambda = 4, sd_sqlambda = .4,
-    mean_logNmax = 6, sd_logNmax = .5,
-    my_cor)
+#' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
 
 plot(stoc_growth2)
 }

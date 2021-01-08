@@ -11,7 +11,7 @@ predict_isothermal_growth(model_name, times, model_pars, check = TRUE)
 
 \item{times}{Numeric vector of storage times for the predictions.}
 
-\item{model_pars}{List defining the values of the model parameters.}
+\item{model_pars}{Named vector or list defining the values of the model parameters.}
 
 \item{check}{Whether to do basic checks (TRUE by default).}
 }
