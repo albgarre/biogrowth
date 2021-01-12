@@ -49,6 +49,7 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #' @inheritParams get_multi_dyna_residuals
 #' @param starting_point a named vector of starting values for the model parameters.
 #' @param ... additional arguments for \code{modFit}.
+#' @param check Whether to check the validity of the models. \code{TRUE} by default.
 #'
 #' @importFrom FME modFit
 #'
@@ -95,7 +96,16 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #'
 fit_multiple_growth <- function(starting_point, experiment_data,
                                 known_pars, sec_model_names,
-                                ...) {
+                                ..., check = TRUE) {
+    
+    ## Check the model parameters
+    
+    if (isTRUE(check)) {
+        
+        check_secondary_pars(starting_point, known_pars, sec_model_names,
+                             primary_pars = c("mu_opt", "N0", "Nmax", "Q0"))
+        
+    }
 
     ## Fit the model
 

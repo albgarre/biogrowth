@@ -9,7 +9,8 @@ fit_multiple_growth(
   experiment_data,
   known_pars,
   sec_model_names,
-  ...
+  ...,
+  check = TRUE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ and as many additional columns as environmental factors.}
 environmental conditions and values the secondary model (see secondary_model_data).}
 
 \item{...}{additional arguments for \code{modFit}.}
+
+\item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 }
 \value{
 An instance of \code{\link{FitMultipleDynamicGrowth}}.
