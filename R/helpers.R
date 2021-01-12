@@ -75,13 +75,8 @@ extract_primary_pars <- function(this_p, known_pars) {
 extract_secondary_pars <- function(this_p, known_pars, sec_model_names) {
 
     secondary_models <- lapply(1:length(sec_model_names), function(this_i) {
-
-        all_names <- switch(sec_model_names[[this_i]],
-                            Zwietering = c("xmin", "xopt", "n"),
-                            CPM = c("xmin", "xopt", "xmax", "n"),
-                            fullRatkowsky = c("c", "xmin", "xmax"),
-                            stop(paste("Unknown model:", sec_model_names[[this_i]]))
-        )
+        
+        all_names <- secondary_model_data(sec_model_names[[this_i]])$pars
 
         new_model <- lapply(all_names, function(par_name) {
 
