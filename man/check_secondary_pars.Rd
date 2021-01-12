@@ -4,7 +4,7 @@
 \alias{check_secondary_pars}
 \title{Basic checks of secondary parameters}
 \usage{
-check_secondary_pars(secondary_models)
+check_secondary_pars(starting_point, known_pars, sec_model_names)
 }
 \arguments{
 \item{secondary_models}{A list of secondary models returned by extract_secondary_pars}

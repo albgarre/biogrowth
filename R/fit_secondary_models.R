@@ -178,11 +178,7 @@ fit_secondary_growth <- function(fit_data, starting_point,
 
     if (isTRUE(check)) {
 
-        secondary_models <- extract_secondary_pars(starting_point,
-                                                   known_pars,
-                                                   sec_model_names)
-
-        check_secondary_pars(secondary_models)
+        check_secondary_pars(starting_point, known_pars, sec_model_names)
 
     }
 
