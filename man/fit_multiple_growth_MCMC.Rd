@@ -10,7 +10,8 @@ fit_multiple_growth_MCMC(
   known_pars,
   sec_model_names,
   niter,
-  ...
+  ...,
+  check = TRUE
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \item{niter}{number of samples of the MCMC algorithm.}
 
 \item{...}{additional arguments for \code{modMCMC} (e.g. upper and lower bounds).}
+
+\item{check}{Whether to check the validity of the model parameters. \code{TRUE} by default.}
 }
 \value{
 An instance of \code{\link{FitMultipleGrowthMCMC}}.
