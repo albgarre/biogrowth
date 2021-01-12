@@ -88,7 +88,8 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
     my_env <- approx_env(env_conditions)
 
     yini <- c(Q = primary_pars$Q0,
-              N = primary_pars$N0)
+              N = primary_pars$N0
+              )
 
     ## Make the simulation
 

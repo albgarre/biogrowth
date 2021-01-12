@@ -27,10 +27,10 @@ dBaranyi <- function(time, state, pars, env_func, sec_models) {
 
 
     gamma <- calculate_gammas(time, env_func, sec_models)
-    mu <- pars$mu_opt*prod(gamma)*log(10)  # Multiplied by log(10) to correct units
+    mu <- pars$mu_opt*prod(gamma) 
 
 
-    dN <- alpha * mu * beta * state$N
+    dN <- alpha * mu * beta * state$N 
     dQ <- mu*state$Q
 
 

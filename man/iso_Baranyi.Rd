@@ -11,7 +11,7 @@ iso_Baranyi(times, logN0, mu, lambda, logNmax)
 
 \item{logN0}{Initial log microbial count}
 
-\item{mu}{Maximum specific growth rate}
+\item{mu}{Maximum specific growth rate (in ln CFU/[t])}
 
 \item{lambda}{Lag phase duration}
 

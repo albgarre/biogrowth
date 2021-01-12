@@ -11,7 +11,7 @@ logistic_model(times, logN0, mu, lambda, C)
 
 \item{logN0}{Initial log microbial count}
 
-\item{mu}{Maximum specific growth rate}
+\item{mu}{Maximum specific growth rate (in ln CFU/[t])}
 
 \item{lambda}{Lag phase duration}
 

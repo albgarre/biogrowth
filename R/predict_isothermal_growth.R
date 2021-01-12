@@ -8,7 +8,7 @@
 #'
 #' @param times Numeric vector of storage times
 #' @param logN0 Initial log microbial count
-#' @param mu Maximum specific growth rate
+#' @param mu Maximum specific growth rate (in ln CFU/[t])
 #' @param lambda Lag phase duration
 #' @param logNmax Maximum log microbial count
 #'
@@ -20,6 +20,8 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
     #
     # A <- times + 1/mu * log(exp(-mu * times) + exp(-h0) - exp(-mu * times - h0))
     # logN <- logN0 + mu * A - log(1 + (exp(mu * A) - 1) / exp(logNmax - logN0))
+    
+    mu <- mu/log(10)
 
     num <- 1 + exp(log(10)*mu*(times - lambda)) - exp(-log(10)*mu*lambda)
     den <- exp(log(10)*mu*(times-lambda)) - exp(-log(10)*mu*lambda) + 10^(logNmax - logN0)
@@ -39,6 +41,8 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 #' @return Numeric vector with the predicted microbial count.
 #'
 iso_repGompertz <- function(times, logN0, C, mu, lambda) {
+    
+    mu <- mu/log(10)
 
     logN <- logN0 + C*(exp(-exp( exp(1)*(mu/C)*(lambda-times)+1 )))
 
@@ -55,6 +59,8 @@ iso_repGompertz <- function(times, logN0, C, mu, lambda) {
 #' @return Numeric vector with the predicted microbial count.
 #'
 trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
+    
+    mu <- mu/log(10)
 
     logN <- logN0 + mu*(times - lambda)
     logN[times < lambda] <- logN0
@@ -73,6 +79,8 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 #' 
 logistic_model <- function(times, logN0, mu, lambda, C) {
     
+    mu <- mu/log(10)
+    
     logN <- logN0 + C/(1 + exp(4*mu/C*(lambda-times) + 2))
     
     logN
@@ -80,7 +88,12 @@ logistic_model <- function(times, logN0, mu, lambda, C) {
 
 #' Richards growth model
 #' 
+#' @inheritParams iso_repGompertz
+#' @param nu Parameter describing the transition between growth phases
+#' 
 richards_model <- function(times, logN0, mu, lambda, C, nu) {
+    
+    mu <- mu/log(10)
     
     exp_part <- 1 + nu + mu/C*(1+nu)^(1 + 1/nu)*(lambda-times)
     

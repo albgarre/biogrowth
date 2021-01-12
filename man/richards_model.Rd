@@ -6,6 +6,19 @@
 \usage{
 richards_model(times, logN0, mu, lambda, C, nu)
 }
+\arguments{
+\item{times}{Numeric vector of storage times}
+
+\item{logN0}{Initial log microbial count}
+
+\item{mu}{Maximum specific growth rate (in ln CFU/[t])}
+
+\item{lambda}{Lag phase duration}
+
+\item{C}{Difference between \code{logN0} and the maximum log-count.}
+
+\item{nu}{Parameter describing the transition between growth phases}
+}
 \description{
 Richards growth model
 }

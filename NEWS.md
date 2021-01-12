@@ -7,6 +7,9 @@ defined in a single argument using a tibble which includes expected values, stan
 deviations and scale where the normal distribution is defined. This makes it easier
 to define (not so many arguments) and way more flexible (specially when it comes to 
 adding new models).
+* Using a flexible unit system was giving more issues than it solved. Especially when
+making the Baranyi model under dynamic and static conditions equivalent. Set the 
+unit system to log10 for population size and ln(units)/[time] for the growth rate.
 
 # biogrowth 0.1.2
 
