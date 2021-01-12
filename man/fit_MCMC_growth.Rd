@@ -11,7 +11,8 @@ fit_MCMC_growth(
   known_pars,
   sec_model_names,
   niter,
-  ...
+  ...,
+  check = TRUE
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 \item{niter}{number of iterations of the MCMC algorithm.}
 
 \item{...}{Additional arguments passed to modFit.}
+
+\item{check}{Whether to check model parameters (TRUE by default).}
 }
 \value{
 An instance of \code{\link{FitDynamicGrowthMCMC}}.

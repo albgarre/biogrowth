@@ -238,8 +238,20 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
 #'
 fit_MCMC_growth <- function(fit_data, env_conditions,
                             starting_point, known_pars,
-                            sec_model_names, niter, ...) {
+                            sec_model_names, niter, ...,
+                            check = TRUE) {
 
+    ## Check the model parameters
+    
+    if (isTRUE(check)) {
+        
+        check_secondary_pars(starting_point, known_pars, sec_model_names,
+                             primary_pars = c("mu_opt", "N0", "Nmax", "Q0"))
+        
+    }
+    
+    ## Fit the model
+    
     my_fit <- modMCMC(get_dyna_residuals, unlist(starting_point),
                      fit_data = fit_data,
                      env_conditions = env_conditions,
