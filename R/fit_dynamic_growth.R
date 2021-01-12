@@ -70,6 +70,7 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #' environmental factor. The names define the factor and the value the type of model.
 #' Names must match columns in \code{fit_data} and \code{env_conditions}.
 #' @param ... Additional arguments passed to modFit.
+#' @param check Whether to check model parameters (TRUE by default).
 #'
 #' @return An instance of \code{\link{FitDynamicGrowth}}.
 #'
@@ -122,7 +123,19 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #'
 fit_dynamic_growth <- function(fit_data, env_conditions,
                                starting_point, known_pars,
-                               sec_model_names, ...) {
+                               sec_model_names, ...,
+                               check=TRUE) {
+    
+    ## Check the model parameters
+    
+    if (isTRUE(check)) {
+        
+        check_secondary_pars(starting_point, known_pars, sec_model_names,
+                             primary_pars = c("mu_opt", "N0", "Nmax", "Q0"))
+        
+    }
+    
+    ## Call the fitting function
 
     my_fit <- modFit(get_dyna_residuals, unlist(starting_point),
                      fit_data = fit_data,

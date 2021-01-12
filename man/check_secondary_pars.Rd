@@ -4,12 +4,29 @@
 \alias{check_secondary_pars}
 \title{Basic checks of secondary parameters}
 \usage{
-check_secondary_pars(starting_point, known_pars, sec_model_names)
+check_secondary_pars(
+  starting_point,
+  known_pars,
+  sec_model_names,
+  primary_pars = "mu_opt"
+)
 }
 \arguments{
-\item{secondary_models}{A list of secondary models returned by extract_secondary_pars}
+\item{starting_point}{Named vector with initial values for the model parameters
+to estimate from the data. The growth rate under optimum conditions must be named
+\code{mu_opt}. The rest must be called 'env_factor'+'_'+'parameter'. For instance,
+the minimum pH for growth is 'pH_xmin'.}
+
+\item{known_pars}{Named vector of fixed model parameters. Must be named using the
+same convention as \code{starting_point}.}
+
+\item{sec_model_names}{Named character vector defining the secondary model
+for each environmental factor.}
+
+\item{primary_pars}{Character vector with the parameter names of the primary model.}
 }
 \description{
-Checks that the model name is correct, that the number of model parameters is correct
-and that every parameter is defined.
+Checks that the model names are correct, that no parameter is defined twice,
+that every parameter is defined and that no unknown parameter has been defined.
+Raises an error if any of these conditions is not met.
 }
