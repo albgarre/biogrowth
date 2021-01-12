@@ -1073,7 +1073,7 @@ known <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
 
 ## The rest require starting values for model fitting
 
-start <- list(mu_opt = .8, temperature_xopt = 30)
+start <- list(mu_opt = 1.6, temperature_xopt = 30)
 
 ```
 
@@ -1083,8 +1083,8 @@ Then, the function can be called. Note that the MCMC algorithm is stochastic, so
 set.seed(12412)
 global_MCMC <- fit_multiple_growth_MCMC(start, multiple_experiments, known, sec_names, 
                                         niter = 100,
-                                        lower = c(.2, 29),  # lower limits of the model parameters
-                                        upper = c(.8, 34))  # upper limits of the model parameters
+                                        lower = c(.8, 29),  # lower limits of the model parameters
+                                        upper = c(3, 34))  # upper limits of the model parameters
 
 ```
 
