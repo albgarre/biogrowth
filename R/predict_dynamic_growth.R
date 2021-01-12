@@ -96,7 +96,7 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
         
         check_pars_names <- lapply(names(secondary_models), function(each_factor) {
             
-            this_model <- my_secondary[[each_factor]]
+            this_model <- secondary_models[[each_factor]]
             this_model$model <- NULL
             paste0(each_factor, "_", names(this_model))
         }) %>%
