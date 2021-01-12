@@ -62,7 +62,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #'
 #' ## Any model parameter can be fixed
 #'
-#' known <- c(mu = .2)
+#' known <- c(mu = .4)
 #'
 #' ## Now, we can call the function
 #'

@@ -53,7 +53,7 @@ start = c(logNmax = 8, lambda = 25, logN0 = 2)
 
 ## Any model parameter can be fixed
 
-known <- c(mu = .2)
+known <- c(mu = .4)
 
 ## Now, we can call the function
 

@@ -346,7 +346,7 @@ my_pars <- list(logN0 = 2, C = 6, mu = .2, lambda = 25)
 Finally, we have to define the storage times for which the prediction is calculated. For instance, we can define
 
 ```{r}
-my_time <- seq(0, 100, length = 1000)
+my_time <- seq(0, 200, length = 1000)
 ```
 
 Once we have defined the arguments, we can call the function `predict_isothermal_growth` to get the model predictions. This function automatically checks that the number of model parameters and their names and raises a warning or error if there are mismatches between the arguments and the model definition.
@@ -563,10 +563,10 @@ The primary model is defined using `model_name`. For instance, we can use the Ba
 my_model <- "Baranyi"
 ```
 
-This function uses non-linear regression (through the `modFit()` function of the **FME** package), so it requires initial values for every model parameter to fit. In the case of the Baranyi model, the model parameters are: `mu`, `lambda` and `logNmax`. Additional, the initial microbial count must be defined. Nonetheless, the `fit_isothermal_growth()` function enables to fix any model parameter before model fit using the `known_pars` argument. For instance, we can fix the specific growth rate to 0.2
+This function uses non-linear regression (through the `modFit()` function of the **FME** package), so it requires initial values for every model parameter to fit. In the case of the Baranyi model, the model parameters are: `mu`, `lambda` and `logNmax`. Additional, the initial microbial count must be defined. Nonetheless, the `fit_isothermal_growth()` function enables to fix any model parameter before model fit using the `known_pars` argument. For instance, we can fix the specific growth rate to 0.4 (no particular reason for this, just as a demonstration)
 
 ```{r}
-known <- c(mu = .2)
+known <- c(mu = .4)
 ```
 
 And fit the remaining model parameters
@@ -1213,6 +1213,13 @@ plot(time_distrib)
 ```
 
 In this plot, the vertical red line illustrates the median of the distribution and the grey lines the 10th and 90th quantile.
+
+The width of the bins can be changed using the `bin_width` argument. 
+
+```{r}
+plot(time_distrib, bin_width = 2)
+```
+
 
 
 ## References
