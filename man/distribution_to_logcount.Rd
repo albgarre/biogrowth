@@ -25,15 +25,19 @@ Calculations are done using linear interpolation of the individual
 \donttest{
 ## We need an instance of StochasticGrowth
 
-my_model <- "Trilinear"
+my_model <- "modGompertz"
 my_times <- seq(0, 30, length = 100)
 n_sims <- 3000
 
-stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims,
-    mean_logN0 = 0, sd_logN0 = .2,
-    mean_sqmu = 2,sd_sqmu = .3,
-    mean_sqlambda = 4, sd_sqlambda = .4,
-    mean_logNmax = 6, sd_logNmax = .5)
+pars <- tribble(
+    ~par, ~mean, ~sd, ~scale,
+    "logN0", 0, .2, "original",
+    "mu", 2, .3, "sqrt",
+    "lambda", 4, .4, "sqrt",
+    "C", 6, .5, "original"
+)
+
+stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
 
 ## We can now call the function
 

@@ -5,7 +5,7 @@
 \alias{plot.TimeDistribution}
 \title{TimeDistribution class}
 \usage{
-\method{plot}{TimeDistribution}(x, y = NULL, ..., bin_width = 0.5)
+\method{plot}{TimeDistribution}(x, y = NULL, ..., bin_width = 1)
 }
 \arguments{
 \item{x}{The object of class \code{TimeDistribution} to plot.}
