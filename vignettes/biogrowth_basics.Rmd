@@ -282,6 +282,18 @@ data("example_dynamic_growth")
 head(example_dynamic_growth)
 ```
 
+The dataset `growth_salmonella` contains the growth of *Salmonella spp.* in broth. It has
+been retrived from ComBase (ID: B092_10). It has two columns: time (elapsed time) and
+logN (the observed microbial count).
+
+```{r}
+data("growth_salmonella")
+head(growth_salmonella)
+```
+
+
+
+
 The dataset `multiple_experiments` simulates several growth experiments performed for the same microorganism under dynamic conditions that vary between experiments. It is a nested list with two elements, each describing a single experiment.
 
 ```{r}
