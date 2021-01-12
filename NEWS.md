@@ -11,6 +11,7 @@ adding new models).
 making the Baranyi model under dynamic and static conditions equivalent. Set the 
 unit system to log10 for population size and ln(units)/[time] for the growth rate.
 * Set the default binwidth of plot.TimeDistribution to NULL (geom_histogram picks it).
+* Added a new vignette about using predict_dynamic_growth() for static conditions
 
 # biogrowth 0.1.2
 
