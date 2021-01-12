@@ -5,7 +5,7 @@
 \alias{plot.TimeDistribution}
 \title{TimeDistribution class}
 \usage{
-\method{plot}{TimeDistribution}(x, y = NULL, ..., bin_width = 1)
+\method{plot}{TimeDistribution}(x, y = NULL, ..., bin_width = NULL)
 }
 \arguments{
 \item{x}{The object of class \code{TimeDistribution} to plot.}
@@ -15,7 +15,7 @@
 \item{...}{ignored.}
 
 \item{bin_width}{A number that specifies the width of a bin in the histogram, 
-see: \code{\link{geom_histogram}}}
+see: \code{\link{geom_histogram}}. \code{NULL} by default.}
 }
 \description{
 The \code{TimeDistribution} class contains an estimate of the probability

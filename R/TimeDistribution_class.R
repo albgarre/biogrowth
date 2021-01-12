@@ -23,7 +23,7 @@ NULL
 #' @param y ignored.
 #' @param ... ignored.
 #' @param bin_width A number that specifies the width of a bin in the histogram, 
-#' see: \code{\link{geom_histogram}}
+#' see: \code{\link{geom_histogram}}. \code{NULL} by default.
 #'
 #' @export
 #'
@@ -31,7 +31,7 @@ NULL
 #' @importFrom cowplot theme_cowplot
 #'
 plot.TimeDistribution <- function(x, y=NULL, ...,
-                                  bin_width = 1) {
+                                  bin_width = NULL) {
     
     ggplot() +
         geom_histogram(aes(x$distribution), binwidth = bin_width) +

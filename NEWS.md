@@ -10,6 +10,7 @@ adding new models).
 * Using a flexible unit system was giving more issues than it solved. Especially when
 making the Baranyi model under dynamic and static conditions equivalent. Set the 
 unit system to log10 for population size and ln(units)/[time] for the growth rate.
+* Set the default binwidth of plot.TimeDistribution to NULL (geom_histogram picks it).
 
 # biogrowth 0.1.2
 
