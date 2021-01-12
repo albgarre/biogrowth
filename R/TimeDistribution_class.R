@@ -31,7 +31,7 @@ NULL
 #' @importFrom cowplot theme_cowplot
 #'
 plot.TimeDistribution <- function(x, y=NULL, ...,
-                                  bin_width = 0.5) {
+                                  bin_width = 1) {
     
     ggplot() +
         geom_histogram(aes(x$distribution), binwidth = bin_width) +
