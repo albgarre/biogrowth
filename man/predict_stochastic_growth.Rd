@@ -9,7 +9,8 @@ predict_stochastic_growth(
   times,
   n_sims,
   pars,
-  corr_matrix = diag(nrow(pars))
+  corr_matrix = diag(nrow(pars)),
+  check = TRUE
 )
 }
 \arguments{
@@ -22,8 +23,10 @@ predict_stochastic_growth(
 \item{pars}{A tibble describing the parameter uncertainty (see details).}
 
 \item{corr_matrix}{Correlation matrix of the model parameters. Defined in the
-order (logN0, sqrt(mu), sqrt(lambda), logNmax). A diagonal matrix by default
+same order as in \code{pars}. A diagonal matrix by default
 (uncorrelated parameters).}
+
+\item{check}{Whether to do some tests. \code{FALSE} by default.}
 }
 \value{
 An instance of \code{\link{StochasticGrowth}}.
@@ -79,7 +82,7 @@ my_cor <- matrix(c(1,   0,   0, 0,
     0,   0,   0, 1),
     nrow = 4)
 
-#' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
+stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
 
 plot(stoc_growth2)
 }

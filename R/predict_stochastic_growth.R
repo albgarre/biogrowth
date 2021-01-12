@@ -23,8 +23,9 @@
 #' @param n_sims Number of simulations.
 #' @param pars A tibble describing the parameter uncertainty (see details).
 #' @param corr_matrix Correlation matrix of the model parameters. Defined in the
-#' order (logN0, sqrt(mu), sqrt(lambda), logNmax). A diagonal matrix by default
+#' same order as in \code{pars}. A diagonal matrix by default
 #' (uncorrelated parameters).
+#' @param check Whether to do some tests. \code{FALSE} by default.
 #'
 #' @return An instance of \code{\link{StochasticGrowth}}.
 #'
@@ -70,20 +71,25 @@
 #'     0,   0,   0, 1),
 #'     nrow = 4)
 #'
-#' #' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
+#' stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
 #'
 #' plot(stoc_growth2)
 #' }
 #'
 predict_stochastic_growth <- function(model_name, times, n_sims,
                                       pars, 
-                                      # mean_logN0, sd_logN0,
-                                      # mean_sqmu, sd_sqmu,
-                                      # mean_sqlambda, sd_sqlambda,
-                                      # mean_logNmax, sd_logNmax,
-                                      corr_matrix = diag(nrow(pars))  # Do not forget
+                                      corr_matrix = diag(nrow(pars)),
+                                      check = TRUE
                                       ) {
-
+    
+    ## Checks
+    
+    if (isTRUE(check)) {
+        
+        check_stochastic_pars(model_name, pars, corr_matrix)
+        
+    }
+    
     ## Generate the parameter sample
     
     mus <- pars$mean
@@ -153,8 +159,42 @@ predict_stochastic_growth <- function(model_name, times, n_sims,
 }
 
 
-
-
+#' Model definition checks for predict_stochastic_growth
+#' 
+#' Does several checks of the model parameters. Besides those by 
+#' check_primary_pars, it checks that corr_matrix is square, that pars and
+#' corr_matrix have compatible dimensions, and that pars has the correct names.
+#' 
+#' @inheritParams predict_stochastic_growth
+#' 
+check_stochastic_pars <- function(model_name, pars, corr_matrix) {
+    
+    ## Check that corr_matrix is square
+    
+    if (nrow(corr_matrix) != ncol(corr_matrix)) {
+        stop("corr_matrix is not square.")
+    }
+    
+    ## Check the dimensions of corr_matrix and pars
+    
+    if (nrow(pars) != nrow(corr_matrix)) {
+        stop("Incompatible dimensions between pars and corr_matrix.")
+    }
+    
+    ## Check column names in pars
+    
+    if (isFALSE( all(c("par", "mean", "sd", "scale") %in% names(pars)) )) {
+        stop("The names of the argument par must be 'par', 'mean', 'sd' and 'scale'")
+    }
+    
+    ## Call the checks of predict_isothermal_growth
+    
+    pars_as_list <- as.list(pars$mean)
+    names(pars_as_list) <- pars$par
+    
+    check_primary_pars(model_name, pars_as_list)
+    
+}
 
 
 
