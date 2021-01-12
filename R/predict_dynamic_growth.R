@@ -21,6 +21,7 @@
 #' \code{Nmax}, \code{N0}, \code{Q0}.
 #' @param secondary_models A nested list describing the secondary models.
 #' @param ... Additional arguments for \code{\link{ode}}.
+#' @param check Whether to check the validity of the models. \code{TRUE} by default.
 #'
 #' @return An instance of \code{\link{DynamicGrowth}}.
 #'
@@ -30,6 +31,7 @@
 #' @importFrom dplyr %>%
 #' @importFrom dplyr bind_cols
 #' @importFrom rlang .data
+#' @imoprtFrom purrr map
 #'
 #' @export
 #'
@@ -81,7 +83,33 @@
 #'     label_y2 = "Storage temperature (C)")
 #'
 predict_dynamic_growth <- function(times, env_conditions, primary_pars,
-                                   secondary_models, ...) {
+                                   secondary_models, ...,
+                                   check = TRUE) {
+    
+    ## Check model parameters
+    
+    if (isTRUE(check)) {
+        
+        sec_model_names <- secondary_models %>%
+            map(., ~ .$model) %>% 
+            unlist()
+        
+        check_pars_names <- lapply(names(secondary_models), function(each_factor) {
+            
+            this_model <- my_secondary[[each_factor]]
+            this_model$model <- NULL
+            paste0(each_factor, "_", names(this_model))
+        }) %>%
+            unlist()
+        
+        check_pars <- rep(1, length(check_pars_names))  # I do not check values, so it does not matter
+        names(check_pars) <- check_pars_names
+        
+        
+        check_secondary_pars(check_pars, unlist(primary_pars), sec_model_names,
+                             primary_pars = c("mu_opt", "N0", "Nmax", "Q0"))
+        
+    }
 
     ## Prepare stuff
 

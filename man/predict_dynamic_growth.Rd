@@ -9,7 +9,8 @@ predict_dynamic_growth(
   env_conditions,
   primary_pars,
   secondary_models,
-  ...
+  ...,
+  check = TRUE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 \item{secondary_models}{A nested list describing the secondary models.}
 
 \item{...}{Additional arguments for \code{\link{ode}}.}
+
+\item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 }
 \value{
 An instance of \code{\link{DynamicGrowth}}.
