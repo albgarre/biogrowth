@@ -1,8 +1,8 @@
 ---
-title: "Modelling microbial growth under static and dynamic conditions: biogrowth"
+title: "Modelling population growth with biogrowth"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{biogrowth_basics}
+  %\VignetteIndexEntry{Modelling population growth with biogrowth}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
