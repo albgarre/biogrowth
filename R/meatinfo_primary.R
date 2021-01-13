@@ -42,13 +42,17 @@ primary_model_data <- function(model_name=NULL) {
                                        name = "Logistic growth model",
                                        pars = c("logN0", "C", "mu", "lambda"),
                                        model = logistic_model,
-                                       ref = ""
+                                       ref = paste("Zwietering, M. H., Jongenburger, I., Rombouts,",
+                                                   "F. M., and Riet, K. van t. (1990). Modeling of the Bacterial",
+                                                   "Growth Curve. Applied and Environmental Microbiology, 56(6), 1875-1881.")
                                        ),
                        Richards = list(identifier = "Richards",
                                        name = "Richards growth model",
                                        pars = c("logN0", "C", "mu", "lambda", "nu"),
                                        model = richards_model,
-                                       ref = ""
+                                       ref = paste("Zwietering, M. H., Jongenburger, I., Rombouts,",
+                                                   "F. M., and Riet, K. van t. (1990). Modeling of the Bacterial",
+                                                   "Growth Curve. Applied and Environmental Microbiology, 56(6), 1875-1881.")
                                        )
                        )
 
