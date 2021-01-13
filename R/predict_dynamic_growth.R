@@ -91,7 +91,7 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
     if (isTRUE(check)) {
         
         sec_model_names <- secondary_models %>%
-            map(., ~ .$model) %>% 
+            map(~ .$model) %>% 
             unlist()
         
         check_pars_names <- lapply(names(secondary_models), function(each_factor) {
