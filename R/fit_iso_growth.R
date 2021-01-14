@@ -24,9 +24,9 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 }
 
 
-#' Fit isothermal growth models
+#' Fit primary growth models
 #'
-#' Fits a primary growth model to data obtained under isothermal conditions.
+#' Fits a primary growth model to data obtained under static environmental conditions.
 #'
 #' @importFrom FME modFit
 #'
@@ -75,8 +75,8 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #' plot(static_fit)
 #'
 fit_isothermal_growth <- function(fit_data, model_name, starting_point,
-                                  known_pars, check = TRUE,
-                                  ...) {
+                                  known_pars,
+                                  ..., check = TRUE) {
 
     ## Check the model parameters
 
