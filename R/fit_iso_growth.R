@@ -32,7 +32,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #'
 #' @param fit_data Tibble of data for the fit. It must have a column named
 #' \code{time} with the storage time and another named \code{logN} with the
-#' microbial count.
+#' decimal logarithm of the population size.
 #' @param model_name Character defining the primary growth model
 #' @param starting_point Named vector of initial values for the model parameters.
 #' @param known_pars Named vector of known model parameters (not fitted).

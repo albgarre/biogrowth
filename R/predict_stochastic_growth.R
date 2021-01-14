@@ -23,7 +23,7 @@
 #' @param n_sims Number of simulations.
 #' @param pars A tibble describing the parameter uncertainty (see details).
 #' @param corr_matrix Correlation matrix of the model parameters. Defined in the
-#' same order as in \code{pars}. A diagonal matrix by default
+#' same order as in \code{pars}. An identity matrix by default
 #' (uncorrelated parameters).
 #' @param check Whether to do some tests. \code{FALSE} by default.
 #'

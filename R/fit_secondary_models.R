@@ -171,8 +171,7 @@ get_secondary_residuals <- function(this_p, my_data,
 fit_secondary_growth <- function(fit_data, starting_point,
                                  known_pars, sec_model_names,
                                  transformation = "sq",
-                                 check = TRUE,
-                                 ...) {
+                                 ..., check = TRUE) {
 
     ## Check model parameters
 

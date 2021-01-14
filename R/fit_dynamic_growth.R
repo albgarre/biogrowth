@@ -54,7 +54,7 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #'
 #' @param fit_data Tibble with the data to use for model fit. It must
 #' contain a column named 'time' with the storage time and another named
-#' 'logN' with the observed microbial count.
+#' 'logN' with the decimal logarithm of the observed population size.
 #' @param env_conditions Tibble with the (dynamic) environmental conditions
 #' during the experiment. It must have one column named 'time' with the
 #' storage time and as many columns as required with the environmental conditions.

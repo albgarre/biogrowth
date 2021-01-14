@@ -8,7 +8,7 @@
 #' @format A tibble with 21 rows and 2 columns:
 #' \describe{
 #'     \item{time}{elapsed time in hours.}
-#'     \item{logN}{observed microbial count (log CFU/g).}
+#'     \item{logN}{observed population size (log CFU/g).}
 #' }
 #' 
 "growth_salmonella"
@@ -20,9 +20,9 @@
 #'
 #' @format A data frame with 64 rows and 3 variables:
 #' \describe{
-#'   \item{temperature}{storage temperature}
+#'   \item{temperature}{storage temperature (ºC)}
 #'   \item{pH}{pH of the media}
-#'   \item{mu}{specific growth rate}
+#'   \item{mu}{specific growth rate (log10 CFU/h)}
 #' }
 "example_cardinal"
 
@@ -33,8 +33,8 @@
 #'
 #' @format A data frame with 3 rows and 3 variables:
 #' \describe{
-#'   \item{time}{elapsed time}
-#'   \item{temperature}{storage temperature}
+#'   \item{time}{elapsed time (h)}
+#'   \item{temperature}{storage temperature (ºC)}
 #'   \item{aw}{water activity}
 #' }
 "example_env_conditions"
@@ -46,8 +46,8 @@
 #'
 #' @format A data frame with 30 rows and 2 variables:
 #' \describe{
-#'   \item{time}{elapsed time}
-#'   \item{logN}{log microbial count}
+#'   \item{time}{elapsed time (h)}
+#'   \item{logN}{log population size (log10 CFU)}
 #' }
 "example_dynamic_growth"
 
