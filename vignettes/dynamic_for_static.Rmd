@@ -37,8 +37,8 @@ my_conditions <- tibble(time = c(0, 50),
 Next, we define primary and secondary models as usual. 
 
 ```{r}
-q0 <- 1e-3
-mu_opt <- 1
+q0 <- 1e-4
+mu_opt <- .5
 
 
 my_primary <- list(mu_opt = mu_opt,
@@ -71,7 +71,7 @@ the predicted population size is identical to the one calculated using `predict_
 for the Baranyi model when $\mu = \mu_{opt}$ and $\lambda = \frac{ \ln \left(1 +1/Q_0 \right) }{\mu_{opt}}$.
 
 ```{r}
-lambda <- log(1 +1/q0)/mu_opt
+lambda <- Q0_to_lambda(q0, mu_opt)
 
 my_model <- "Baranyi"
 my_pars <- list(logN0 = 2, logNmax = 8, mu = mu_opt, lambda = lambda)
@@ -81,7 +81,7 @@ static_prediction <- predict_isothermal_growth(my_model, my_times, my_pars)
 
 plot(static_prediction) +
     geom_line(aes(x = time, y = logN), linetype = 2, data = dynamic_prediction$simulation,
-              colour = "green") 
+              colour = "green")
 
 ```
 
