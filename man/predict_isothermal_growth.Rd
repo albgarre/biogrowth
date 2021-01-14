@@ -19,8 +19,7 @@ predict_isothermal_growth(model_name, times, model_pars, check = TRUE)
 An instance of \code{\link{IsothermalGrowth}}.
 }
 \description{
-Predicts microbial growth under isothermal conditions according to
-models commonly used in predictive microbiology.
+Predicts population growth under static conditions using primary models.
 }
 \examples{
 ## Define the simulations parameters

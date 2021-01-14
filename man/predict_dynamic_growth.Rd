@@ -34,17 +34,13 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 An instance of \code{\link{DynamicGrowth}}.
 }
 \description{
-Predicts microbial growth under dynamic conditions based on the
+Predicts population growth under dynamic conditions based on the
 Baranyi model (Baranyi and Roberts, 1994) and secondary models
 based on the gamma concept (Zwietering et al. 1992).
 }
 \details{
 Model predictions are done by linear interpolation of the environmental
 conditions defined in \code{env_conditions}.
-
-For consistency with the function for isothermal growth,
-calculations are done considering mu is in log10 scale. In other words,
-it is multiplied by ln(10).
 }
 \examples{
 

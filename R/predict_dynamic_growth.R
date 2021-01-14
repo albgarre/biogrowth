@@ -1,16 +1,12 @@
 
 #' Growth under dynamic conditions
 #'
-#' Predicts microbial growth under dynamic conditions based on the
+#' Predicts population growth under dynamic conditions based on the
 #' Baranyi model (Baranyi and Roberts, 1994) and secondary models
 #' based on the gamma concept (Zwietering et al. 1992).
 #'
 #' Model predictions are done by linear interpolation of the environmental
 #' conditions defined in \code{env_conditions}.
-#'
-#' For consistency with the function for isothermal growth,
-#' calculations are done considering mu is in log10 scale. In other words,
-#' it is multiplied by ln(10).
 #'
 #' @param times Numeric vector of storage times to make the predictions
 #' @param env_conditions Tibble describing the variation of the environmental

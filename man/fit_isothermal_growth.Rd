@@ -2,15 +2,15 @@
 % Please edit documentation in R/fit_iso_growth.R
 \name{fit_isothermal_growth}
 \alias{fit_isothermal_growth}
-\title{Fit isothermal growth models}
+\title{Fit primary growth models}
 \usage{
 fit_isothermal_growth(
   fit_data,
   model_name,
   starting_point,
   known_pars,
-  check = TRUE,
-  ...
+  ...,
+  check = TRUE
 )
 }
 \arguments{
@@ -24,15 +24,15 @@ microbial count.}
 
 \item{known_pars}{Named vector of known model parameters (not fitted).}
 
-\item{check}{Whether to do some basic checks (TRUE by default).}
-
 \item{...}{Additional arguments passed to \code{\link{modFit}}.}
+
+\item{check}{Whether to do some basic checks (TRUE by default).}
 }
 \value{
 An instance of \code{\link{FitIsoGrowth}}.
 }
 \description{
-Fits a primary growth model to data obtained under isothermal conditions.
+Fits a primary growth model to data obtained under static environmental conditions.
 }
 \examples{
 
