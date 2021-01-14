@@ -16,12 +16,7 @@
 #'
 iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 
-    # h0 <- mu*lambda
-    #
-    # A <- times + 1/mu * log(exp(-mu * times) + exp(-h0) - exp(-mu * times - h0))
-    # logN <- logN0 + mu * A - log(1 + (exp(mu * A) - 1) / exp(logNmax - logN0))
-    
-    mu <- mu/log(10)
+    # mu <- mu/log(10)
 
     num <- 1 + exp(log(10)*mu*(times - lambda)) - exp(-log(10)*mu*lambda)
     den <- exp(log(10)*mu*(times-lambda)) - exp(-log(10)*mu*lambda) + 10^(logNmax - logN0)
@@ -42,7 +37,7 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 #'
 iso_repGompertz <- function(times, logN0, C, mu, lambda) {
     
-    mu <- mu/log(10)
+    # mu <- mu/log(10)
 
     logN <- logN0 + C*(exp(-exp( exp(1)*(mu/C)*(lambda-times)+1 )))
 
@@ -60,7 +55,7 @@ iso_repGompertz <- function(times, logN0, C, mu, lambda) {
 #'
 trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
     
-    mu <- mu/log(10)
+    # mu <- mu/log(10)
 
     logN <- logN0 + mu*(times - lambda)
     logN[times < lambda] <- logN0
@@ -79,7 +74,7 @@ trilinear_model <- function(times, logN0, mu, lambda, logNmax) {
 #' 
 logistic_model <- function(times, logN0, mu, lambda, C) {
     
-    mu <- mu/log(10)
+    # mu <- mu/log(10)
     
     logN <- logN0 + C/(1 + exp(4*mu/C*(lambda-times) + 2))
     
@@ -93,7 +88,7 @@ logistic_model <- function(times, logN0, mu, lambda, C) {
 #' 
 richards_model <- function(times, logN0, mu, lambda, C, nu) {
     
-    mu <- mu/log(10)
+    # mu <- mu/log(10)
     
     exp_part <- 1 + nu + mu/C*(1+nu)^(1 + 1/nu)*(lambda-times)
     
@@ -105,8 +100,7 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 
 #' Isothermal microbial growth
 #'
-#' Predicts microbial growth under isothermal conditions according to
-#' models commonly used in predictive microbiology.
+#' Predicts population growth under static conditions using primary models.
 #'
 #' @param model_name Character defining the growth model.
 #' @param times Numeric vector of storage times for the predictions.
