@@ -39,10 +39,10 @@ time_to_logcount <- function(model, log_count) {
 
     if (is.IsothermalGrowth(model)) {
         approx(model$simulation$logN, model$simulation$time,
-               log_count)$y
+               log_count, ties = "ordered")$y
     } else if(is.DynamicGrowth(model)) {
         approx(model$simulation$logN, model$simulation$time,
-               log_count)$y
+               log_count, ties = "ordered")$y
     } else {
         stop("Model not supported")
     }
