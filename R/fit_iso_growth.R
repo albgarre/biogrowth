@@ -29,15 +29,19 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #' Fits a primary growth model to data obtained under static environmental conditions.
 #'
 #' @importFrom FME modFit
+#' @importFrom formula.tools lhs rhs get.vars
 #'
-#' @param fit_data Tibble of data for the fit. It must have a column named
-#' \code{time} with the storage time and another named \code{logN} with the
-#' decimal logarithm of the population size.
+#' @param fit_data Tibble of data for the fit. It must have two columns, one with
+#' the elapsed time (\code{time} by default) and another one with the decimal logarithm
+#' of the populatoin size (\code{logN} by default). Different column names can be
+#' defined using the \code{formula} argument. 
 #' @param model_name Character defining the primary growth model
 #' @param starting_point Named vector of initial values for the model parameters.
 #' @param known_pars Named vector of known model parameters (not fitted).
 #' @param ... Additional arguments passed to \code{\link{modFit}}.
 #' @param check Whether to do some basic checks (TRUE by default).
+#' @param formula an object of class "formula" describing the x and y variables.
+#' \code{logN ~ time} as a default. Only formulas with 
 #'
 #' @return An instance of \code{\link{FitIsoGrowth}}.
 #'
@@ -62,7 +66,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #'
 #' ## Any model parameter can be fixed
 #'
-#' known <- c(mu = .4)
+#' known <- c(mu = .2)
 #'
 #' ## Now, we can call the function
 #'
@@ -76,7 +80,10 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #'
 fit_isothermal_growth <- function(fit_data, model_name, starting_point,
                                   known_pars,
-                                  ..., check = TRUE) {
+                                  ..., 
+                                  check = TRUE,
+                                  formula = logN ~ time
+                                  ) {
 
     ## Check the model parameters
 
@@ -85,6 +92,20 @@ fit_isothermal_growth <- function(fit_data, model_name, starting_point,
         check_primary_pars(model_name, c(starting_point, known_pars))
 
     }
+    
+    ## Apply the formula
+    
+    if (length(get.vars(formula)) > 2) {
+        stop("Only formulas with 2 terms are supported.")
+    }
+    
+    y_col <- lhs(formula)
+    x_col <- rhs(formula)
+    
+    fit_data <- rename(fit_data, 
+                       time = x_col,
+                       logN = y_col
+                       )
 
     ## Fit the model
 

@@ -10,13 +10,15 @@ fit_isothermal_growth(
   starting_point,
   known_pars,
   ...,
-  check = TRUE
+  check = TRUE,
+  formula = logN ~ time
 )
 }
 \arguments{
-\item{fit_data}{Tibble of data for the fit. It must have a column named
-\code{time} with the storage time and another named \code{logN} with the
-microbial count.}
+\item{fit_data}{Tibble of data for the fit. It must have two columns, one with
+the elapsed time (\code{time} by default) and another one with the decimal logarithm
+of the populatoin size (\code{logN} by default). Different column names can be
+defined using the \code{formula} argument.}
 
 \item{model_name}{Character defining the primary growth model}
 
@@ -27,6 +29,9 @@ microbial count.}
 \item{...}{Additional arguments passed to \code{\link{modFit}}.}
 
 \item{check}{Whether to do some basic checks (TRUE by default).}
+
+\item{formula}{an object of class "formula" describing the x and y variables.
+\code{logN ~ time} as a default. Only formulas with}
 }
 \value{
 An instance of \code{\link{FitIsoGrowth}}.
@@ -53,7 +58,7 @@ start = c(logNmax = 8, lambda = 25, logN0 = 2)
 
 ## Any model parameter can be fixed
 
-known <- c(mu = .4)
+known <- c(mu = .2)
 
 ## Now, we can call the function
 
