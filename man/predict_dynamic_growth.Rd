@@ -10,15 +10,17 @@ predict_dynamic_growth(
   primary_pars,
   secondary_models,
   ...,
-  check = TRUE
+  check = TRUE,
+  formula = . ~ time
 )
 }
 \arguments{
 \item{times}{Numeric vector of storage times to make the predictions}
 
 \item{env_conditions}{Tibble describing the variation of the environmental
-conditions during storage. It must have a column named \code{time} with the
-storage time and as many additional columns as environmental factors.}
+conditions during storage. It must have with the elapsed time (named \code{time} 
+by default; can be changed with the "formula" argument), 
+and as many additional columns as environmental factors.}
 
 \item{primary_pars}{A named list defining the parameters of the primary model
 and the initial values of the model variables. That is, with names \code{mu_opt},
@@ -29,6 +31,9 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 \item{...}{Additional arguments for \code{\link{ode}}.}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
+
+\item{formula}{an object of class "formula" describing the x variable.
+\code{. ~ time} as a default.}
 }
 \value{
 An instance of \code{\link{DynamicGrowth}}.
