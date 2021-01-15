@@ -184,12 +184,9 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #' This functions enables to fit a growth model using a dataset comprised of
 #' several experiments with potentially different dynamic experimental conditions.
 #'
-#' @inheritParams get_multi_dyna_residuals
+#' @inheritParams fit_multiple_growth
 #' @param ... additional arguments for \code{modMCMC} (e.g. upper and lower bounds).
-#' @param starting_point a named vector with the starting values of the model parameters
-#' to estimate from the data.
 #' @param niter number of samples of the MCMC algorithm.
-#' @param check Whether to check the validity of the model parameters. \code{TRUE} by default.
 #'
 #' @return An instance of \code{\link{FitMultipleGrowthMCMC}}.
 #'
@@ -237,7 +234,8 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #'
 fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                                 known_pars, sec_model_names, niter,
-                                ..., check = TRUE) {
+                                ..., check = TRUE,
+                                formula = logN ~ time) {
 
     ## Check the model parameters
     
@@ -246,6 +244,24 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
         check_secondary_pars(starting_point, known_pars, sec_model_names,
                              primary_pars = c("mu_opt", "N0", "Nmax", "Q0"))
         
+    }
+    
+    ## Apply the formula
+    
+    if (length(get.vars(formula)) > 2) {
+        stop("Only formulas with 2 terms are supported.")
+    }
+    
+    y_col <- lhs(formula)
+    x_col <- rhs(formula)
+    
+    for (i in 1:length(experiment_data)) {
+        
+        experiment_data[[i]]$data <- experiment_data[[i]]$data %>%
+            rename(time = x_col, logN = y_col)
+        
+        experiment_data[[i]]$conditions <- experiment_data[[i]]$conditions %>%
+            rename(time = x_col)
     }
     
     ## Fit the model
