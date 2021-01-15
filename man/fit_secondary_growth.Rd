@@ -10,8 +10,8 @@ fit_secondary_growth(
   known_pars,
   sec_model_names,
   transformation = "sq",
-  check = TRUE,
-  ...
+  ...,
+  check = TRUE
 )
 }
 \arguments{
@@ -34,9 +34,9 @@ for each environmental factor.}
 model fitting. One of \code{sq} (square root; default), \code{log} (log-transform) or
 \code{none} (no transformation).}
 
-\item{check}{Whether to do some basic checks (TRUE by default).}
-
 \item{...}{Additional arguments passed to \code{\link{modFit}}.}
+
+\item{check}{Whether to do some basic checks (TRUE by default).}
 }
 \value{
 An instance of \code{\link{FitSecondaryGrowth}}.

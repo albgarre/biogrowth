@@ -7,8 +7,8 @@
 \format{
 A data frame with 30 rows and 2 variables:
 \describe{
-  \item{time}{elapsed time}
-  \item{logN}{log microbial count}
+  \item{time}{elapsed time (h)}
+  \item{logN}{log population size (log10 CFU)}
 }
 }
 \usage{

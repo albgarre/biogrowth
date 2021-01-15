@@ -8,7 +8,7 @@
 A tibble with 21 rows and 2 columns:
 \describe{
     \item{time}{elapsed time in hours.}
-    \item{logN}{observed microbial count (log CFU/g).}
+    \item{logN}{observed population size (log CFU/g).}
 }
 }
 \usage{

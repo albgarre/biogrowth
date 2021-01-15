@@ -12,7 +12,7 @@ check_stochastic_pars(model_name, pars, corr_matrix)
 \item{pars}{A tibble describing the parameter uncertainty (see details).}
 
 \item{corr_matrix}{Correlation matrix of the model parameters. Defined in the
-same order as in \code{pars}. A diagonal matrix by default
+same order as in \code{pars}. An identity matrix by default
 (uncorrelated parameters).}
 }
 \description{

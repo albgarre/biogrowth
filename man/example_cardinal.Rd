@@ -7,9 +7,9 @@
 \format{
 A data frame with 64 rows and 3 variables:
 \describe{
-  \item{temperature}{storage temperature}
+  \item{temperature}{storage temperature (ºC)}
   \item{pH}{pH of the media}
-  \item{mu}{specific growth rate}
+  \item{mu}{specific growth rate (log10 CFU/h)}
 }
 }
 \usage{

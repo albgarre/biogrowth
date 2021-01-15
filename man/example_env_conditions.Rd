@@ -7,8 +7,8 @@
 \format{
 A data frame with 3 rows and 3 variables:
 \describe{
-  \item{time}{elapsed time}
-  \item{temperature}{storage temperature}
+  \item{time}{elapsed time (h)}
+  \item{temperature}{storage temperature (ºC)}
   \item{aw}{water activity}
 }
 }

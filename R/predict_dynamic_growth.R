@@ -27,7 +27,7 @@
 #' @importFrom dplyr %>%
 #' @importFrom dplyr bind_cols
 #' @importFrom rlang .data
-#' @imoprtFrom purrr map
+#' @importFrom purrr map
 #'
 #' @export
 #'
