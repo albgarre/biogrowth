@@ -152,7 +152,7 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
     y_col <- lhs(formula)
     x_col <- rhs(formula)
     
-    fit_data <- rename(fit_data, 
+    fit_data <- select(fit_data, 
                        time = x_col,
                        logN = y_col
     )
@@ -285,7 +285,7 @@ fit_MCMC_growth <- function(fit_data, env_conditions,
     y_col <- lhs(formula)
     x_col <- rhs(formula)
     
-    fit_data <- rename(fit_data, 
+    fit_data <- select(fit_data, 
                        time = x_col,
                        logN = y_col
     )

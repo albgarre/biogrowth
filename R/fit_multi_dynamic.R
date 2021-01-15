@@ -130,7 +130,7 @@ fit_multiple_growth <- function(starting_point, experiment_data,
     for (i in 1:length(experiment_data)) {
         
         experiment_data[[i]]$data <- experiment_data[[i]]$data %>%
-            rename(time = x_col, logN = y_col)
+            select(time = x_col, logN = y_col)
         
         experiment_data[[i]]$conditions <- experiment_data[[i]]$conditions %>%
             rename(time = x_col)
@@ -258,7 +258,7 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
     for (i in 1:length(experiment_data)) {
         
         experiment_data[[i]]$data <- experiment_data[[i]]$data %>%
-            rename(time = x_col, logN = y_col)
+            select(time = x_col, logN = y_col)
         
         experiment_data[[i]]$conditions <- experiment_data[[i]]$conditions %>%
             rename(time = x_col)
