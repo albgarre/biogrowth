@@ -108,7 +108,8 @@ get_secondary_residuals <- function(this_p, my_data,
 #' and cardinal parameter models.
 #'
 #' @param fit_data Tibble with the data used for the fit. It must have
-#' one column named \code{mu} with the estimated growth rate and as many columns
+#' one column with the observed growth rate (named \code{mu} by default; can be
+#' changed using the "formula" argument) and as many columns
 #' as needed with the environmental factors.
 #' @param starting_point Named vector with initial values for the model parameters
 #' to estimate from the data. The growth rate under optimum conditions must be named
@@ -118,17 +119,20 @@ get_secondary_residuals <- function(this_p, my_data,
 #' same convention as \code{starting_point}.
 #' @param sec_model_names Named character vector defining the secondary model
 #' for each environmental factor.
-#' @param transformation Character defining the tranformation of \code{mu} for
+#' @param transformation Character defining the transformation of \code{mu} for
 #' model fitting. One of \code{sq} (square root; default), \code{log} (log-transform) or
 #' \code{none} (no transformation).
 #' @param ... Additional arguments passed to \code{\link{modFit}}.
 #' @param check Whether to do some basic checks (TRUE by default).
+#' @param formula an object of class "formula" describing the y variable. The
+#' right hand side must be ".". By default \code{mu ~ .}.
 #'
 #' @return An instance of \code{\link{FitSecondaryGrowth}}.
 #'
-#' @importFrom dplyr mutate
+#' @importFrom dplyr mutate rename
 #' @importFrom FME modFit
 #' @importFrom rlang .data
+#' @importFrom formula.tools lhs
 #'
 #' @export
 #'
@@ -171,7 +175,9 @@ get_secondary_residuals <- function(this_p, my_data,
 fit_secondary_growth <- function(fit_data, starting_point,
                                  known_pars, sec_model_names,
                                  transformation = "sq",
-                                 ..., check = TRUE) {
+                                 ..., 
+                                 check = TRUE,
+                                 formula = mu ~ .) {
 
     ## Check model parameters
 
@@ -180,6 +186,14 @@ fit_secondary_growth <- function(fit_data, starting_point,
         check_secondary_pars(starting_point, known_pars, sec_model_names)
 
     }
+    
+    ## Apply the formula
+    
+    y_col <- lhs(formula)
+    
+    fit_data <- rename(fit_data, 
+                       mu = y_col
+                       )
 
     ## Model fitting
 

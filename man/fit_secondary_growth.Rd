@@ -11,12 +11,14 @@ fit_secondary_growth(
   sec_model_names,
   transformation = "sq",
   ...,
-  check = TRUE
+  check = TRUE,
+  formula = mu ~ .
 )
 }
 \arguments{
 \item{fit_data}{Tibble with the data used for the fit. It must have
-one column named \code{mu} with the estimated growth rate and as many columns
+one column with the observed growth rate (named \code{mu} by default; can be
+changed using the "formula" argument) and as many columns
 as needed with the environmental factors.}
 
 \item{starting_point}{Named vector with initial values for the model parameters
@@ -30,13 +32,16 @@ same convention as \code{starting_point}.}
 \item{sec_model_names}{Named character vector defining the secondary model
 for each environmental factor.}
 
-\item{transformation}{Character defining the tranformation of \code{mu} for
+\item{transformation}{Character defining the transformation of \code{mu} for
 model fitting. One of \code{sq} (square root; default), \code{log} (log-transform) or
 \code{none} (no transformation).}
 
 \item{...}{Additional arguments passed to \code{\link{modFit}}.}
 
 \item{check}{Whether to do some basic checks (TRUE by default).}
+
+\item{formula}{an object of class "formula" describing the y variable. The
+right hand side must be ".". By default \code{mu ~ .}.}
 }
 \value{
 An instance of \code{\link{FitSecondaryGrowth}}.
