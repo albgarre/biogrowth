@@ -5,7 +5,25 @@
 \alias{plot.MCMCgrowth}
 \title{MCMCgrowth class}
 \usage{
-\method{plot}{MCMCgrowth}(x, y = NULL, ...)
+\method{plot}{MCMCgrowth}(
+  x,
+  y = NULL,
+  ...,
+  add_factor = NULL,
+  alpha_80 = 0.5,
+  fill_80 = "grey",
+  alpha_90 = 0.5,
+  fill_90 = "grey",
+  label_y1 = "logN",
+  label_y2 = add_factor,
+  line_col = "black",
+  line_type = 1,
+  line_size = 1,
+  line_type2 = 2,
+  line_col2 = "black",
+  line_size2 = 1,
+  ylims = NULL
+)
 }
 \arguments{
 \item{x}{The object of class \code{MCMCgrowth} to plot.}
@@ -13,6 +31,38 @@
 \item{y}{ignored}
 
 \item{...}{ignored.}
+
+\item{add_factor}{Includes the variation of one environmental factor in the plot.
+It must be one of the column names in x$env_conditions.}
+
+\item{alpha_80}{transparency of the ribbon for the 80th posterior. .5 by default.}
+
+\item{fill_80}{fill colour of the ribbon for the 80th posterior. "grey" by default.}
+
+\item{alpha_90}{transparency of the ribbon for the 90th posterior. .5 by default.}
+
+\item{fill_90}{fill colour of the ribbon for the 90th posterior. "grey" by default.}
+
+\item{label_y1}{label of the primary y axis. "logN" by default.}
+
+\item{label_y2}{label of the secondary y axis. The name of the environmental factor
+by default.}
+
+\item{line_col}{colour of the line representing the median. "black" by default.}
+
+\item{line_type}{linetype for the line representing the median. solid by default.}
+
+\item{line_size}{size of the line representing the median. 1 by default.}
+
+\item{line_type2}{linetype for the line representing the environmental condition.
+Dashed by default.}
+
+\item{line_col2}{colour of the line representing the environmental condition. "black"
+by default.}
+
+\item{line_size2}{size of the line representing the environmental condition. 1 by default.}
+
+\item{ylims}{limits of the primary y-axis. \code{NULL} by default (let ggplot choose).}
 }
 \description{
 The \code{MCMCgrowth} class contains the results of a growth prediction

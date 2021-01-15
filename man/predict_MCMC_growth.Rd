@@ -4,7 +4,7 @@
 \alias{predict_MCMC_growth}
 \title{Stochastic growth of MCMC fit}
 \usage{
-predict_MCMC_growth(MCMCfit, times, env_conditions, niter)
+predict_MCMC_growth(MCMCfit, times, env_conditions, niter, newpars = NULL)
 }
 \arguments{
 \item{MCMCfit}{An instance of \code{FitDynamicGrowthMCMC} or
@@ -17,6 +17,11 @@ during the experiment. It must have one column named 'time' with the
 storage time and as many columns as required with the environmental conditions.}
 
 \item{niter}{Number of iterations.}
+
+\item{newpars}{A named list defining new values for the some model parameters. 
+The name must be the identifier of a model already included in the model. 
+These parameters do not include variation, so defining a new value for a fitted
+parameters "fixes" it. \code{NULL} by default (no new parameters).}
 }
 \value{
 An instance of \code{\link{MCMCgrowth}}.
