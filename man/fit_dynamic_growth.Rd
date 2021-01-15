@@ -11,18 +11,22 @@ fit_dynamic_growth(
   known_pars,
   sec_model_names,
   ...,
-  check = TRUE
+  check = TRUE,
+  formula = logN ~ time
 )
 }
 \arguments{
 \item{fit_data}{Tibble with the data to use for model fit. It must
-contain a column named 'time' with the storage time and another named
-'logN' with the decimal logarithm of the observed population size.}
+contain a column with the elapsed time (named "time" by default) and another one
+with the decimal logarithm of the observed population size (named "logN" by default).
+Different column names can be specified using the "formula" argument.}
 
 \item{env_conditions}{Tibble with the (dynamic) environmental conditions
-during the experiment. It must have one column named 'time' with the
-storage time and as many columns as required with the environmental conditions.
-Note that only those defined in 'sec_model_names' will be considered for
+during the experiment. It must have one column with the
+elapsed time (named "time" by default) and as many columns as required with the 
+environmental conditions. A different column name can be specified using the 
+"formula" argument, although it must be the same one as in "fit_data".
+Note that only those defined in "sec_model_names" will be considered for
 the model fit.}
 
 \item{starting_point}{A named vector of starting values for the model parameters.
@@ -40,6 +44,9 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 \item{...}{Additional arguments passed to modFit.}
 
 \item{check}{Whether to check model parameters (TRUE by default).}
+
+\item{formula}{an object of class "formula" describing the x and y variables.
+\code{logN ~ time} as a default.}
 }
 \value{
 An instance of \code{\link{FitDynamicGrowth}}.
