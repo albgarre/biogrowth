@@ -30,6 +30,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #'
 #' @importFrom FME modFit
 #' @importFrom formula.tools lhs rhs get.vars
+#' @importFrom dplyr rename
 #'
 #' @param fit_data Tibble of data for the fit. It must have two columns, one with
 #' the elapsed time (\code{time} by default) and another one with the decimal logarithm
@@ -41,7 +42,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #' @param ... Additional arguments passed to \code{\link{modFit}}.
 #' @param check Whether to do some basic checks (TRUE by default).
 #' @param formula an object of class "formula" describing the x and y variables.
-#' \code{logN ~ time} as a default. Only formulas with 
+#' \code{logN ~ time} as a default.
 #'
 #' @return An instance of \code{\link{FitIsoGrowth}}.
 #'

@@ -31,7 +31,7 @@ defined using the \code{formula} argument.}
 \item{check}{Whether to do some basic checks (TRUE by default).}
 
 \item{formula}{an object of class "formula" describing the x and y variables.
-\code{logN ~ time} as a default. Only formulas with}
+\code{logN ~ time} as a default.}
 }
 \value{
 An instance of \code{\link{FitIsoGrowth}}.
