@@ -264,7 +264,8 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
 fit_MCMC_growth <- function(fit_data, env_conditions,
                             starting_point, known_pars,
                             sec_model_names, niter, ...,
-                            check = TRUE) {
+                            check = TRUE,
+                            formula = logN ~ time) {
 
     ## Check the model parameters
     
@@ -274,6 +275,24 @@ fit_MCMC_growth <- function(fit_data, env_conditions,
                              primary_pars = c("mu_opt", "N0", "Nmax", "Q0"))
         
     }
+    
+    ## Apply the formula
+    
+    if (length(get.vars(formula)) > 2) {
+        stop("Only formulas with 2 terms are supported.")
+    }
+    
+    y_col <- lhs(formula)
+    x_col <- rhs(formula)
+    
+    fit_data <- rename(fit_data, 
+                       time = x_col,
+                       logN = y_col
+    )
+    
+    env_conditions <- rename(env_conditions,
+                             time =  x_col)
+    
     
     ## Fit the model
     
