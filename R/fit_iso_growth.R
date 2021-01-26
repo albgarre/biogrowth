@@ -103,7 +103,7 @@ fit_isothermal_growth <- function(fit_data, model_name, starting_point,
     y_col <- lhs(formula)
     x_col <- rhs(formula)
     
-    fit_data <- rename(fit_data, 
+    fit_data <- select(fit_data, 
                        time = x_col,
                        logN = y_col
                        )
