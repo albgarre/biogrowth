@@ -67,3 +67,17 @@
 #'     3 columns: time (elapsed time), temperature (storage temperature) and pH (pH of the media).}
 #' }
 "multiple_experiments"
+
+#' Number of tractors in the Arab World according to the World Bank
+#' 
+#' A dataset showing the increase in tractors in the Arab World. It was retrieved
+#' from https://data.worldbank.org/indicator/AG.AGR.TRAC.NO?end=2009&start=1961&view=chart.
+#' 
+#' @format A tibble with 40 rows (each corresponding to one year) and 7 columns:
+#' \describe{
+#'     \item{year}{Year for the recording}
+#'     \item{tractors}{Number of tractors}
+#' }
+"arabian_tractors"
+
+
