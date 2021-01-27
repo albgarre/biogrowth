@@ -19,7 +19,7 @@
 #' @param secondary_models A nested list describing the secondary models.
 #' @param ... Additional arguments for \code{\link{ode}}.
 #' @param check Whether to check the validity of the models. \code{TRUE} by default.
-#' @param formula an object of class "formula" describing the x variable.
+#' @param formula An object of class "formula" describing the x variable.
 #' \code{. ~ time} as a default.
 #'
 #' @return An instance of \code{\link{DynamicGrowth}}.

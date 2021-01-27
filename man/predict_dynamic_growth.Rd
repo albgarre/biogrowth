@@ -32,7 +32,7 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 
-\item{formula}{an object of class "formula" describing the x variable.
+\item{formula}{An object of class "formula" describing the x variable.
 \code{. ~ time} as a default.}
 }
 \value{
