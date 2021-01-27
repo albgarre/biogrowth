@@ -9,7 +9,7 @@
 checks](https://cranchecks.info/badges/summary/badger)](https://cran.r-project.org/web/checks/check_results_badger.html)
 [![](https://www.r-pkg.org/badges/version/biogrowth?color=green)](https://cran.r-project.org/package=biogrowth)
 [![](http://cranlogs.r-pkg.org/badges/last-month/biogrowth?color=green)](https://cran.r-project.org/package=biogrowth)
-[![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- badges: end -->
 
 The goal of biogrowth is to ease the development of mathematical models
