@@ -78,7 +78,7 @@ sample.
 \item quantiles: Tibble with the limits of the credible intervals
  (5%, 10%, 50%, 90% and 95%) for each time point.
 \item model: Instance of \code{FitDynamicGrowthMCMC} used for predictions.
-\itme env_conditions: A tibble with the environmental conditions of the simulation.
+\item env_conditions: A tibble with the environmental conditions of the simulation.
 }
 }
 \section{Functions}{
