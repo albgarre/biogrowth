@@ -13,6 +13,7 @@ unit system to log10 for population size and ln(units)/[time] for the growth rat
 * Set the default binwidth of plot.TimeDistribution to NULL (geom_histogram picks it).
 * Added a new vignette about using predict_dynamic_growth() for static conditions.
 * Improved parameter validation for fit_secondary_growth.
+* Several improvements in the main vignette (new arguments, new functions, better descriptions...).
 
 # biogrowth 0.1.2
 
