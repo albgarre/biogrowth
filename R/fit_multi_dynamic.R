@@ -57,6 +57,8 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #' \code{conditions} is a tibble with one column giving the elapsed time (using the
 #' same name as \code{data}) and as many additional columns as environmental factors.
 #' The default column names can be changed with the formula argument. 
+#' @param formula an object of class "formula" describing the x and y variables.
+#' \code{logN ~ time} as a default.
 #'
 #' @importFrom FME modFit
 #' @importFrom formula.tools lhs rhs get.vars

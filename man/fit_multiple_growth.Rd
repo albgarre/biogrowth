@@ -33,6 +33,9 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \item{...}{additional arguments for \code{\link{modFit}}.}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
+
+\item{formula}{an object of class "formula" describing the x and y variables.
+\code{logN ~ time} as a default.}
 }
 \value{
 An instance of \code{\link{FitMultipleDynamicGrowth}}.
