@@ -190,13 +190,15 @@ fitted.FitDynamicGrowthMCMC <- function(object, ...) {
 #' 
 #' @param object an instance of \code{FitDynamicGrowthMCMC}.
 #' @param ... ignored
+#' @param times A numeric vector with the time points for the simulations. \code{NULL}
+#' by default (using the same time points as those for the simulation).
 #' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
 #' in \code{\link{predict_dynamic_growth}}. 
 #' If \code{NULL} (default), uses the same conditions as those for fitting.
 #' 
 #' @export
 #' 
-predict.FitDynamicGrowthMCMC <- function(object, newdata = NULL, ...) {
+predict.FitDynamicGrowthMCMC <- function(object, times=NULL, newdata = NULL, ...) {
     
     if (is.null(newdata)) {
         

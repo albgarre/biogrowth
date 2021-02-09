@@ -43,7 +43,7 @@
 
 \method{fitted}{FitDynamicGrowthMCMC}(object, ...)
 
-\method{predict}{FitDynamicGrowthMCMC}(object, newdata = NULL, ...)
+\method{predict}{FitDynamicGrowthMCMC}(object, times = NULL, newdata = NULL, ...)
 }
 \arguments{
 \item{x}{The object of class \code{FitDynamicGrowthMCMC} to plot.}
@@ -82,6 +82,9 @@ that condition is plotted in the secondary axis}
 \item{line_type2}{Same as lin_type, but for the environmental factor.}
 
 \item{object}{an instance of \code{FitDynamicGrowthMCMC}.}
+
+\item{times}{A numeric vector with the time points for the simulations. \code{NULL}
+by default (using the same time points as those for the simulation).}
 
 \item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
 in \code{\link{predict_dynamic_growth}}. 
