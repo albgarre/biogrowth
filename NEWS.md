@@ -1,3 +1,7 @@
+# biogrowth 0.2.1
+
+* Included a times argument to the predict methods of dynamic fitting functions.
+
 # biogrowth 0.2.0
 
 * Included the Richards and logistic growth models.
