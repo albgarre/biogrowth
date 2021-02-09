@@ -83,11 +83,11 @@ that condition is plotted in the secondary axis}
 
 \item{object}{an instance of \code{FitDynamicGrowth}.}
 
-\item{times}{a numeric vector of times for the predictions}
+\item{times}{A numeric vector with the time points for the simulations. \code{NULL}
+by default (using the same time points as those for the simulation).}
 
-\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})}
-
-\item{in}{\code{\link{predict_dynamic_growth}}. 
+\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
+in \code{\link{predict_dynamic_growth}}. 
 If \code{NULL} (default), uses the same conditions as those for fitting.}
 }
 \description{

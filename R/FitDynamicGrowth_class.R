@@ -185,9 +185,9 @@ fitted.FitDynamicGrowth <- function(object, ...) {
 #' 
 #' @param object an instance of \code{FitDynamicGrowth}.
 #' @param ... ignored
+#' @param times A numeric vector with the time points for the simulations. \code{NULL}
+#' by default (using the same time points as those for the simulation).
 #' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
-#' @param times a numeric vector of times for the predictions
-#' @param 
 #' in \code{\link{predict_dynamic_growth}}. 
 #' If \code{NULL} (default), uses the same conditions as those for fitting.
 #' 
