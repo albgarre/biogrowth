@@ -206,9 +206,13 @@ predict.FitDynamicGrowthMCMC <- function(object, times=NULL, newdata = NULL, ...
         
     }
     
+    if (is.null(times)) {
+        times <- object$data$time
+    }
+    
     
     pred <- predict_dynamic_growth(
-        object$data$time,
+        times,
         newdata,
         object$best_prediction$primary_pars,
         object$best_prediction$sec_models

@@ -44,7 +44,7 @@
 
 \method{fitted}{FitMultipleGrowthMCMC}(object, ...)
 
-\method{predict}{FitMultipleGrowthMCMC}(object, newdata = NULL, ...)
+\method{predict}{FitMultipleGrowthMCMC}(object, times = NULL, newdata = NULL, ...)
 }
 \arguments{
 \item{x}{an instance of FitMultipleGrowthMCMC.}
@@ -85,6 +85,9 @@ that condition is plotted in the secondary axis}
 \item{subplot_labels}{labels of the subplots according to \code{plot_grid}.}
 
 \item{object}{Instance of \code{FitMultipleGrowthMCMC}.}
+
+\item{times}{A numeric vector with the time points for the simulations. \code{NULL}
+by default (using the same time points as those for the simulation).}
 
 \item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
 in \code{\link{fit_multiple_growth}}. 

@@ -193,6 +193,8 @@ fitted.FitMultipleDynamicGrowth <- function(object, ...) {
 #'
 #' @param object Instance of \code{FitMultipleDynamicGrowth}.
 #' @param ... ignored
+#' @param times A numeric vector with the time points for the simulations. \code{NULL}
+#' by default (using the same time points as those for the simulation).
 #' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
 #' in \code{\link{fit_multiple_growth}}. 
 #' If \code{NULL} (default), uses the same conditions as those for fitting.
@@ -201,7 +203,7 @@ fitted.FitMultipleDynamicGrowth <- function(object, ...) {
 #'
 #' @export
 #'
-predict.FitMultipleDynamicGrowth <- function(object, newdata=NULL, ...) {
+predict.FitMultipleDynamicGrowth <- function(object, times=NULL, newdata=NULL, ...) {
     
     if (is.null(newdata)) {
         
@@ -211,7 +213,9 @@ predict.FitMultipleDynamicGrowth <- function(object, newdata=NULL, ...) {
     
     out <- lapply(1:length(newdata), function(i) {
         
-        times <- newdata[[i]]$data$time
+        if (is.null(times)) {
+            times <- newdata[[i]]$data$time
+        } 
         
         pred <- predict_dynamic_growth(
             times,
