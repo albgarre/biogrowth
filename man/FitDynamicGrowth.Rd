@@ -43,7 +43,7 @@
 
 \method{fitted}{FitDynamicGrowth}(object, ...)
 
-\method{predict}{FitDynamicGrowth}(object, newdata = NULL, ...)
+\method{predict}{FitDynamicGrowth}(object, times = NULL, newdata = NULL, ...)
 }
 \arguments{
 \item{x}{The object of class \code{FitDynamicGrowth} to plot.}
@@ -83,8 +83,11 @@ that condition is plotted in the secondary axis}
 
 \item{object}{an instance of \code{FitDynamicGrowth}.}
 
-\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
-in \code{\link{predict_dynamic_growth}}. 
+\item{times}{a numeric vector of times for the predictions}
+
+\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})}
+
+\item{in}{\code{\link{predict_dynamic_growth}}. 
 If \code{NULL} (default), uses the same conditions as those for fitting.}
 }
 \description{
