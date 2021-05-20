@@ -80,4 +80,29 @@
 #' }
 "arabian_tractors"
 
+#' Example of dynamic growth
+#' 
+#' A dataset to demonstrate the use of fit_dynamic_growth. The values of the 
+#' environmental conditions are described in conditions_pH_temperature.
+#' 
+#' @format A tibble with 20 rows and 2 columns:
+#' \describe{
+#'     \item{time}{elapsed time}
+#'     \item{logN}{decimal logarithm of the population size}
+#' }
+#' 
+"growth_pH_temperature"
+
+#' Conditions during a dynamic growth experiment
+#' 
+#' A dataset to demonstrate the use of fit_dynamic_growth. The observations 
+#' environmental conditions are described in conditions_pH_temperature.
+#' 
+#' @format A tibble with 4 rows and 3 columns:
+#' \describe{
+#'     \item{time}{elapsed time}
+#'     \item{temperature}{temperature}
+#'     \item{pH}{pH}
+#' }
+"conditions_pH_temperature"
 
