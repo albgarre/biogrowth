@@ -111,7 +111,7 @@ predict_stochastic_growth <- function(model_name, times, n_sims,
         new_col <- switch(transf,
                           original = par_sample[,i],
                           sqrt = par_sample[,i]^2,
-                          log = exp(par_sample[,i]),
+                          log = 10^par_sample[,i],
                           stop("Unknown scale:", transf)
         )
         
