@@ -74,8 +74,8 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
             geom_point() +
             geom_abline(slope = 1, intercept = 0, linetype = 2) +
             geom_smooth(method = "lm", se = FALSE, colour = "grey") +
-            xlab("Observed growth rate (same scale as fitting)") +
-            ylab("Predicted growth rate (same scale as fitting)") +
+            xlab("Observation (same scale as fitting)") +
+            ylab("Model (same scale as fitting)") +
             theme_cowplot()
         
         
