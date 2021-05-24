@@ -1,6 +1,9 @@
 # biogrowth 0.2.1
 
 * Included a times argument to the predict methods of dynamic fitting functions.
+* Changed the base of the log-parameter transformation to 10 in predict_stochastic_growth.
+* Changed the scale of plot.FitSecondaryGrowth.
+* Include 2 new datasets: growth_pH_temperature and conditions_pH_temperature.
 
 # biogrowth 0.2.0
 
