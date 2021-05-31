@@ -68,18 +68,30 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
     
     if (which == 1) { # Prediction vs observation
         
+        label_end <- switch(x$transformation,
+                         sq = "square root of the growth rate",
+                         log = "logarithm of the growth rate",
+                         none = "growth rate"
+        )
+
         p1 <- obs_data %>%
             mutate(predicted = .data$observed + .data$res) %>%
             ggplot(aes(x = .data$observed, y = .data$predicted)) +
             geom_point() +
             geom_abline(slope = 1, intercept = 0, linetype = 2) +
             geom_smooth(method = "lm", se = FALSE, colour = "grey") +
-            xlab("Observation (same scale as fitting)") +
-            ylab("Model (same scale as fitting)") +
+            xlab(paste("Observed", label_end)) +
+            ylab(paste("Fitted", label_end)) +
             theme_cowplot()
         
         
     } else if(which == 2) {  # Gamma curve
+        
+        ylabel <- switch(x$transformation,
+                         sq = "Square root of the growth rate",
+                         log = "Logarithm of the growth rate",
+                         none = "Growth rate"
+                         )
         
         p1 <- obs_data %>%
             mutate(predicted = .data$observed + .data$res) %>%
@@ -91,7 +103,7 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
             ggplot(aes(x = .data$value)) +
             geom_point(aes(y = .data$growth, colour = .data$point_type)) +
             facet_wrap("env_factor", scales = "free_x") +
-            ylab("Growth rate (same units as transformation") + xlab("") +
+            ylab(ylabel) + xlab("") +
             theme_bw() +
             theme(legend.title = element_blank())
         
