@@ -1070,7 +1070,7 @@ pars <- tribble(
     ~par, ~mean, ~sd, ~scale,
     "logN0", 0, .2, "original",
     "mu", 2, .3, "sqrt",
-    "lambda", 4, .4, "log",
+    "lambda", .5, .1, "log",
     "C", 6, .5, "original"
     )
 ```
@@ -1078,7 +1078,7 @@ pars <- tribble(
 For the time points, we will take 100 points uniformly distributed between 0 and 200:
 
 ```{r}
-my_times <- seq(0, 200, length = 100)
+my_times <- seq(0, 15, length = 100)
 ```
 
 For the example, we will set the number of simulations to 1000. Nevertheless, it is advisable to repeat the calculations for various number of simulations to ensure convergence.
@@ -1361,7 +1361,7 @@ In many cases, the elapsed time required to reach a critical population size is 
 For instance, we can use this function to get the distribution of times required to reach a population size of 4 log CFU/g based on the simulations we did before and saved in `stoc_growth`
 
 ```{r}
-time_distrib <- distribution_to_logcount(stoc_growth, 4)
+time_distrib <- distribution_to_logcount(stoc_growth, 3)
 ```
 
 This function returns an instance of `TimeDistribution` with 2 items:
@@ -1386,7 +1386,7 @@ In this plot, the vertical red line illustrates the median of the distribution a
 The width of the bins can be changed using the `bin_width` argument. 
 
 ```{r}
-plot(time_distrib, bin_width = 2)
+plot(time_distrib, bin_width = .5)
 ```
 
 
