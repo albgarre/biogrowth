@@ -47,6 +47,8 @@
 #' my_times <- seq(0, 30, length = 100)
 #' n_sims <- 3000
 #' 
+#' library(tibble)
+#' 
 #' pars <- tribble(
 #'     ~par, ~mean, ~sd, ~scale,
 #'     "logN0", 0, .2, "original",
