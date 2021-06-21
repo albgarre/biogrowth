@@ -5,6 +5,8 @@
 * Changed the scale of plot.FitSecondaryGrowth.
 * Include 2 new datasets: growth_pH_temperature and conditions_pH_temperature.
 * Updated the labels of plot.FitSecondaryGrowth, so now it shows the transformation explicityly.
+* Updated the example dataset conditions_pH_temperature to better show the models.
+* Fixed a bug in the example for predict_stochastic_growth
 
 # biogrowth 0.2.0
 
