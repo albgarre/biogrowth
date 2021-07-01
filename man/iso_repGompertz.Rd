@@ -2,6 +2,8 @@
 % Please edit documentation in R/predict_isothermal_growth.R
 \name{iso_repGompertz}
 \alias{iso_repGompertz}
+\alias{modGompertz}
+\alias{gompertz}
 \title{Reparameterized Gompertz model}
 \usage{
 iso_repGompertz(times, logN0, C, mu, lambda)

@@ -1,3 +1,7 @@
+# biogrowth 0.2.2
+
+* Added an alias to the mod-Gompertz function so ??modGompertz or ??gompertz finds it
+
 # biogrowth 0.2.1
 
 * Included a times argument to the predict methods of dynamic fitting functions.

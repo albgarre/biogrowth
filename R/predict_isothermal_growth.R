@@ -34,6 +34,8 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 #' @param C Difference between \code{logN0} and the maximum log-count.
 #'
 #' @return Numeric vector with the predicted microbial count.
+#' 
+#' @aliases modGompertz gompertz
 #'
 iso_repGompertz <- function(times, logN0, C, mu, lambda) {
     
