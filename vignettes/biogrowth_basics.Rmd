@@ -987,10 +987,12 @@ start <- list(mu_opt = .8, temperature_xopt = 30)
 
 ```
 
-Once every argument has been defined, we can call the `fit_multiple_growth()` function. 
+Once every argument has been defined, we can call the `fit_multiple_growth()` function. To aid convergence, we will define upper and lower limits for the parameter estimates (see the help page of `modFit`).
 
 ```{r}
-global_fit <- fit_multiple_growth(start, multiple_experiments, known, sec_names)
+global_fit <- fit_multiple_growth(start, multiple_experiments, known, sec_names,
+                                  lower = c(.5, 25),
+                                  upper = c(1, 33))
 ```
 
 This function does several validity checks of the model parameters (can be turned off passing `check=FALSE`), raising errors if there is any mismatch between the model definition and the requirements of the functions. If the fit was successful, it returns an instance of `FitMultipleDynamicGrowth` with several elements. 
