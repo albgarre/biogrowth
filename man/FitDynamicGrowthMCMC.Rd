@@ -2,6 +2,7 @@
 % Please edit documentation in R/FitDynamicGrowthMCMC_class.R
 \name{FitDynamicGrowthMCMC}
 \alias{FitDynamicGrowthMCMC}
+\alias{print.FitDynamicGrowthMCMC}
 \alias{plot.FitDynamicGrowthMCMC}
 \alias{summary.FitDynamicGrowthMCMC}
 \alias{residuals.FitDynamicGrowthMCMC}
@@ -12,6 +13,8 @@
 \alias{predict.FitDynamicGrowthMCMC}
 \title{FitDynamicGrowthMCMC class}
 \usage{
+\method{print}{FitDynamicGrowthMCMC}(x, ...)
+
 \method{plot}{FitDynamicGrowthMCMC}(
   x,
   y = NULL,
@@ -48,9 +51,9 @@
 \arguments{
 \item{x}{The object of class \code{FitDynamicGrowthMCMC} to plot.}
 
-\item{y}{ignored}
-
 \item{...}{ignored}
+
+\item{y}{ignored}
 
 \item{add_factor}{whether to plot also one environmental factor.
 If \code{NULL} (default), no environmenta factor is plotted. If set
@@ -108,6 +111,8 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.FitDynamicGrowthMCMC}: print of the model
+
 \item \code{plot.FitDynamicGrowthMCMC}: compares the model fitted against the data.
 
 \item \code{summary.FitDynamicGrowthMCMC}: statistical summary of the fit.

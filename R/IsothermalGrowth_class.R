@@ -16,6 +16,24 @@
 #'   
 NULL
 
+#' @describeIn IsothermalGrowth print of the model
+#' 
+#' @param x An instance of \code{IsothermalGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.IsothermalGrowth <- function(x, ...) {
+    
+    cat("Growth prediction based on primary models\n\n")
+    
+    cat(paste("Growth model:", x$model, "\n\n"))
+    
+    cat("Parameters of the primary model:\n")
+    print(unlist(x$pars))
+    
+}
+
 #' @describeIn IsothermalGrowth plot of the predicted growth curve.
 #'
 #' @param x The object of class \code{IsothermalGrowth} to plot.

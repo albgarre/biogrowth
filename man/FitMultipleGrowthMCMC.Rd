@@ -2,6 +2,7 @@
 % Please edit documentation in R/FitMultipleGrowthMCMC_class.R
 \name{FitMultipleGrowthMCMC}
 \alias{FitMultipleGrowthMCMC}
+\alias{print.FitMultipleGrowthMCMC}
 \alias{plot.FitMultipleGrowthMCMC}
 \alias{summary.FitMultipleGrowthMCMC}
 \alias{residuals.FitMultipleGrowthMCMC}
@@ -12,6 +13,8 @@
 \alias{predict.FitMultipleGrowthMCMC}
 \title{FitMultipleGrowthMCMC class}
 \usage{
+\method{print}{FitMultipleGrowthMCMC}(x, ...)
+
 \method{plot}{FitMultipleGrowthMCMC}(
   x,
   y = NULL,
@@ -49,9 +52,9 @@
 \arguments{
 \item{x}{an instance of FitMultipleGrowthMCMC.}
 
-\item{y}{ignored}
-
 \item{...}{ignored}
+
+\item{y}{ignored}
 
 \item{add_factor}{whether to plot also one environmental factor.
 If \code{NULL} (default), no environmental factor is plotted. If set
@@ -111,6 +114,8 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.FitMultipleGrowthMCMC}: print of the model
+
 \item \code{plot.FitMultipleGrowthMCMC}: comparison between the model fitted and the
 data.
 

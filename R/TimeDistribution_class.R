@@ -16,6 +16,37 @@
 #'   
 NULL
 
+#' @describeIn TimeDistribution print of the model
+#' 
+#' @param x An instance of \code{TimeDistribution}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.TimeDistribution <- function(x, ...) {
+    
+    cat("Distribution of the time required to reach a target population size\n\n")
+    
+    print(x$summary)
+    
+}
+
+#' @describeIn TimeDistribution summary of the model
+#' 
+#' @param object An instance of \code{TimeDistribution}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+summary.TimeDistribution <- function(object, ...) {
+
+    print(object$summary)
+    
+}
+
+
+
+
 #' @describeIn TimeDistribution plot of the distribution of the time to reach a 
 #' microbial count.
 #'

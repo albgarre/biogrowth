@@ -2,6 +2,7 @@
 % Please edit documentation in R/FitMultipleDynamicGrowth_class.R
 \name{FitMultipleDynamicGrowth}
 \alias{FitMultipleDynamicGrowth}
+\alias{print.FitMultipleDynamicGrowth}
 \alias{plot.FitMultipleDynamicGrowth}
 \alias{summary.FitMultipleDynamicGrowth}
 \alias{residuals.FitMultipleDynamicGrowth}
@@ -12,6 +13,8 @@
 \alias{predict.FitMultipleDynamicGrowth}
 \title{FitMultipleDynamicGrowth class}
 \usage{
+\method{print}{FitMultipleDynamicGrowth}(x, ...)
+
 \method{plot}{FitMultipleDynamicGrowth}(
   x,
   y = NULL,
@@ -49,9 +52,9 @@
 \arguments{
 \item{x}{an instance of FitMultipleDynamicGrowth.}
 
-\item{y}{ignored}
-
 \item{...}{ignored}
+
+\item{y}{ignored}
 
 \item{add_factor}{whether to plot also one environmental factor.
 If \code{NULL} (default), no environmental factor is plotted. If set
@@ -111,6 +114,8 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.FitMultipleDynamicGrowth}: print of the model
+
 \item \code{plot.FitMultipleDynamicGrowth}: comparison between the fitted model and
 the experimental data.
 

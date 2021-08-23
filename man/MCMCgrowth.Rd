@@ -2,9 +2,12 @@
 % Please edit documentation in R/MCMCgrowth_class.R
 \name{MCMCgrowth}
 \alias{MCMCgrowth}
+\alias{print.MCMCgrowth}
 \alias{plot.MCMCgrowth}
 \title{MCMCgrowth class}
 \usage{
+\method{print}{MCMCgrowth}(x, ...)
+
 \method{plot}{MCMCgrowth}(
   x,
   y = NULL,
@@ -28,9 +31,9 @@
 \arguments{
 \item{x}{The object of class \code{MCMCgrowth} to plot.}
 
-\item{y}{ignored}
-
 \item{...}{ignored.}
+
+\item{y}{ignored}
 
 \item{add_factor}{Includes the variation of one environmental factor in the plot.
 It must be one of the column names in x$env_conditions.}
@@ -83,6 +86,8 @@ sample.
 }
 \section{Functions}{
 \itemize{
+\item \code{print.MCMCgrowth}: print of the model
+
 \item \code{plot.MCMCgrowth}: plot of predicted growth (prediction band).
 }}
 

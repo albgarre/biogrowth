@@ -2,6 +2,7 @@
 % Please edit documentation in R/FitIsoGrowth_class.R
 \name{FitIsoGrowth}
 \alias{FitIsoGrowth}
+\alias{print.FitIsoGrowth}
 \alias{plot.FitIsoGrowth}
 \alias{summary.FitIsoGrowth}
 \alias{residuals.FitIsoGrowth}
@@ -12,6 +13,8 @@
 \alias{predict.FitIsoGrowth}
 \title{FitIsoGrowth class}
 \usage{
+\method{print}{FitIsoGrowth}(x, ...)
+
 \method{plot}{FitIsoGrowth}(
   x,
   y = NULL,
@@ -41,9 +44,9 @@
 \arguments{
 \item{x}{The object of class \code{FitIsoGrowth} to plot.}
 
-\item{y}{ignored}
-
 \item{...}{ignored}
+
+\item{y}{ignored}
 
 \item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}}
 
@@ -78,6 +81,8 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.FitIsoGrowth}: print of the model
+
 \item \code{plot.FitIsoGrowth}: compares the fitted model against the data.
 
 \item \code{summary.FitIsoGrowth}: statistical summary of the fit.

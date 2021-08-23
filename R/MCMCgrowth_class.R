@@ -22,6 +22,27 @@
 #'   
 NULL
 
+#' @describeIn MCMCgrowth print of the model
+#' 
+#' @param x An instance of \code{MCMCgrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.MCMCgrowth <- function(x, ...) {
+    
+    cat("Growth prediction under dynamic conditions with parameter uncertainty\n\n")
+    
+    
+    env <- names(x$env_conditions)
+    cat(paste("Environmental factors included:", paste(env, collapse = ", "), "\n\n"))
+    
+    cat("Simulations based on the following model:\n\n")
+    
+    print(x$model)
+
+}
+
 #' @describeIn MCMCgrowth plot of predicted growth (prediction band).
 #'
 #' @param x The object of class \code{MCMCgrowth} to plot.

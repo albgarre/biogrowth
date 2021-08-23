@@ -21,6 +21,34 @@
 #'   
 NULL
 
+#' @describeIn FitMultipleDynamicGrowth print of the model
+#' 
+#' @param x An instance of \code{FitMultipleDynamicGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.FitMultipleDynamicGrowth <- function(x, ...) {
+    
+    cat("Growth model fitted to various growth experiments\n\n")
+    
+    cat(paste("Number of experiments:", length(x$data), "\n\n"))
+    
+    env <- names(x$data[[1]]$conditions)
+    cat(paste("Environmental factors included:", paste(env, collapse = ", "), "\n\n"))
+    
+    cat("Parameters of the primary model:\n")
+    print(unlist(x$best_prediction[[1]]$primary_pars))
+    cat("\n")
+    
+    for (i in 1:length(x$best_prediction[[1]]$sec_models)) {
+        cat(paste("Secondary model for ", names(x$best_prediction[[1]]$sec_models)[i], ":\n", sep = ""))
+        print(unlist(x$best_prediction[[1]]$sec_models[[i]]))
+        cat("\n")
+    }
+    
+}
+
 #' @describeIn FitMultipleDynamicGrowth comparison between the fitted model and
 #' the experimental data.
 #'

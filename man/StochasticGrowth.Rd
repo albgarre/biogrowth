@@ -2,9 +2,12 @@
 % Please edit documentation in R/StochasticGrowth_class.R
 \name{StochasticGrowth}
 \alias{StochasticGrowth}
+\alias{print.StochasticGrowth}
 \alias{plot.StochasticGrowth}
 \title{StochasticGrowth class}
 \usage{
+\method{print}{StochasticGrowth}(x, ...)
+
 \method{plot}{StochasticGrowth}(
   x,
   y = NULL,
@@ -21,9 +24,9 @@
 \arguments{
 \item{x}{The object of class \code{StochasticGrowth} to plot.}
 
-\item{y}{ignored}
-
 \item{...}{ignored.}
+
+\item{y}{ignored}
 
 \item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}}
 
@@ -57,6 +60,8 @@ each time point.
 }
 \section{Functions}{
 \itemize{
+\item \code{print.StochasticGrowth}: print of the model
+
 \item \code{plot.StochasticGrowth}: Growth prediction (prediction band) considering
 parameter uncertainty.
 }}

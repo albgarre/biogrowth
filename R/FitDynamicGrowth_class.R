@@ -21,6 +21,33 @@
 NULL
 
 #' @describeIn FitDynamicGrowth comparison between the fitted model and the data.
+#' 
+#' 
+#' @param x An instance of \code{FitDynamicGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.FitDynamicGrowth <- function(x, ...) {
+    
+    cat("Growth model fitted to data under dynamic conditions\n\n")
+    
+    env <- names(x$env_conditions)
+    cat(paste("Environmental factors included:", paste(env, collapse = ", "), "\n\n"))
+    
+    cat("Parameters of the primary model:\n")
+    print(unlist(x$best_prediction$primary_pars))
+    cat("\n")
+    
+    for (i in 1:length(x$best_prediction$sec_models)) {
+        cat(paste("Secondary model for ", names(x$best_prediction$sec_models)[i], ":\n", sep = ""))
+        print(unlist(x$best_prediction$sec_models[[i]]))
+        cat("\n")
+    }
+    
+}
+
+#' @describeIn FitDynamicGrowth comparison between the fitted model and the data.
 #'
 #' @param x The object of class \code{FitDynamicGrowth} to plot.
 #' @param y ignored

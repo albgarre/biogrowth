@@ -20,6 +20,32 @@
 #'   
 NULL
 
+#' @describeIn DynamicGrowth print of the model
+#' 
+#' @param x An instance of \code{DynamicGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.DynamicGrowth <- function(x, ...) {
+    
+    cat("Growth prediction under dynamic conditions\n\n")
+    
+    env <- names(x$env_conditions)
+    cat(paste("Environmental factors included:", paste(env, collapse = ", "), "\n\n"))
+    
+    cat("Parameters of the primary model:\n")
+    print(unlist(x$primary_pars))
+    cat("\n")
+    
+    for (i in 1:length(x$sec_models)) {
+        cat(paste("Secondary model for ", names(x$sec_models)[i], ":\n", sep = ""))
+        print(unlist(x$sec_models[[i]]))
+        cat("\n")
+    }
+    
+}
+
 #' @describeIn DynamicGrowth predicted growth curve under dynamic conditions.
 #'
 #' @param x The object of class \code{DynamicGrowth} to plot.

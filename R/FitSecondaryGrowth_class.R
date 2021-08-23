@@ -19,6 +19,31 @@
 #'   
 NULL
 
+#' @describeIn FitSecondaryGrowth print of the model
+#' 
+#' @param x An instance of \code{FitSecondaryGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.FitSecondaryGrowth <- function(x, ...) {
+    
+    cat("Secondary model estimated from data\n\n")
+    
+    env <- names(x$secondary_model)
+    cat(paste("Environmental factors included:", paste(env, collapse = ", "), "\n\n"))
+    
+    cat(paste("mu_opt:", x$mu_opt_fit, "\n\n"))
+    
+
+    for (i in 1:length(x$secondary_model)) {
+        cat(paste("Secondary model for ", names(x$secondary_model)[i], ":\n", sep = ""))
+        print(unlist(x$secondary_model[[i]]))
+        cat("\n")
+    }
+    
+}
+
 #' @describeIn FitSecondaryGrowth plots to evaluate the goodness of the fit.
 #'
 #' @param x An instance of FitSecondaryGrowth.

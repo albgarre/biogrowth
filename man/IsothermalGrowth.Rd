@@ -2,17 +2,20 @@
 % Please edit documentation in R/IsothermalGrowth_class.R
 \name{IsothermalGrowth}
 \alias{IsothermalGrowth}
+\alias{print.IsothermalGrowth}
 \alias{plot.IsothermalGrowth}
 \title{IsothermalGrowth class}
 \usage{
+\method{print}{IsothermalGrowth}(x, ...)
+
 \method{plot}{IsothermalGrowth}(x, y = NULL, ..., line_col = "black", line_size = 1, line_type = "solid")
 }
 \arguments{
 \item{x}{The object of class \code{IsothermalGrowth} to plot.}
 
-\item{y}{ignored}
-
 \item{...}{ignored.}
+
+\item{y}{ignored}
 
 \item{line_col}{Aesthetic parameter to change the colour of the line,
 see: \code{\link{geom_line}}}
@@ -36,6 +39,8 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.IsothermalGrowth}: print of the model
+
 \item \code{plot.IsothermalGrowth}: plot of the predicted growth curve.
 }}
 

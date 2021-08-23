@@ -2,6 +2,7 @@
 % Please edit documentation in R/FitDynamicGrowth_class.R
 \name{FitDynamicGrowth}
 \alias{FitDynamicGrowth}
+\alias{print.FitDynamicGrowth}
 \alias{plot.FitDynamicGrowth}
 \alias{summary.FitDynamicGrowth}
 \alias{residuals.FitDynamicGrowth}
@@ -12,6 +13,8 @@
 \alias{predict.FitDynamicGrowth}
 \title{FitDynamicGrowth class}
 \usage{
+\method{print}{FitDynamicGrowth}(x, ...)
+
 \method{plot}{FitDynamicGrowth}(
   x,
   y = NULL,
@@ -48,9 +51,9 @@
 \arguments{
 \item{x}{The object of class \code{FitDynamicGrowth} to plot.}
 
-\item{y}{ignored}
-
 \item{...}{ignored}
+
+\item{y}{ignored}
 
 \item{add_factor}{whether to plot also one environmental factor.
 If \code{NULL} (default), no environmenta factor is plotted. If set
@@ -108,6 +111,8 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.FitDynamicGrowth}: comparison between the fitted model and the data.
+
 \item \code{plot.FitDynamicGrowth}: comparison between the fitted model and the data.
 
 \item \code{summary.FitDynamicGrowth}: statistical summary of the fit.

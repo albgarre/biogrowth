@@ -2,9 +2,12 @@
 % Please edit documentation in R/DynamicGrowth_class.R
 \name{DynamicGrowth}
 \alias{DynamicGrowth}
+\alias{print.DynamicGrowth}
 \alias{plot.DynamicGrowth}
 \title{DynamicGrowth class}
 \usage{
+\method{print}{DynamicGrowth}(x, ...)
+
 \method{plot}{DynamicGrowth}(
   x,
   y = NULL,
@@ -24,9 +27,9 @@
 \arguments{
 \item{x}{The object of class \code{DynamicGrowth} to plot.}
 
-\item{y}{ignored}
-
 \item{...}{additional arguments passed to \code{plot}.}
+
+\item{y}{ignored}
 
 \item{add_factor}{whether to plot also one environmental factor.
 If \code{NULL} (default), no environmental factor is plotted. If set
@@ -68,6 +71,8 @@ conditions.
 }
 \section{Functions}{
 \itemize{
+\item \code{print.DynamicGrowth}: print of the model
+
 \item \code{plot.DynamicGrowth}: predicted growth curve under dynamic conditions.
 }}
 

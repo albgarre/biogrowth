@@ -2,17 +2,25 @@
 % Please edit documentation in R/TimeDistribution_class.R
 \name{TimeDistribution}
 \alias{TimeDistribution}
+\alias{print.TimeDistribution}
+\alias{summary.TimeDistribution}
 \alias{plot.TimeDistribution}
 \title{TimeDistribution class}
 \usage{
+\method{print}{TimeDistribution}(x, ...)
+
+\method{summary}{TimeDistribution}(object, ...)
+
 \method{plot}{TimeDistribution}(x, y = NULL, ..., bin_width = NULL)
 }
 \arguments{
 \item{x}{The object of class \code{TimeDistribution} to plot.}
 
-\item{y}{ignored.}
-
 \item{...}{ignored.}
+
+\item{object}{An instance of \code{TimeDistribution}.}
+
+\item{y}{ignored.}
 
 \item{bin_width}{A number that specifies the width of a bin in the histogram, 
 see: \code{\link{geom_histogram}}. \code{NULL} by default.}
@@ -30,6 +38,10 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.TimeDistribution}: print of the model
+
+\item \code{summary.TimeDistribution}: summary of the model
+
 \item \code{plot.TimeDistribution}: plot of the distribution of the time to reach a 
 microbial count.
 }}

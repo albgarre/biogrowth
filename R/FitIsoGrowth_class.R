@@ -18,6 +18,24 @@
 #'   
 NULL
 
+#' @describeIn FitIsoGrowth print of the model
+#' 
+#' @param x An instance of \code{FitIsoGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.FitIsoGrowth <- function(x, ...) {
+    
+    cat("Primary growth model built from data\n\n")
+    
+    cat(paste("Growth model:", x$model, "\n\n"))
+    
+    cat("Model parameters:\n")
+    print(unlist(x$best_prediction$pars))
+    
+}
+
 #' @describeIn FitIsoGrowth compares the fitted model against the data.
 #'
 #' @param x The object of class \code{FitIsoGrowth} to plot.

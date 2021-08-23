@@ -21,6 +21,27 @@
 #'   
 NULL
 
+#' @describeIn StochasticGrowth print of the model
+#' 
+#' @param x An instance of \code{StochasticGrowth}.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+print.StochasticGrowth <- function(x, ...) {
+    
+    cat("Growth prediction based on primary models with uncertainty\n\n")
+    
+    cat(paste("Primary model:", x$model, "\n\n"))
+    
+    cat("Mean values of the model parameters:\n")
+    print(x$mus)
+    cat("\n")
+    cat("Variance-covariance matrix:\n")
+    print(x$sigma)
+
+}
+
 #' @describeIn StochasticGrowth Growth prediction (prediction band) considering
 #' parameter uncertainty.
 #'

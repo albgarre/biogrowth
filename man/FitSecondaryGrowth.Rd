@@ -2,6 +2,7 @@
 % Please edit documentation in R/FitSecondaryGrowth_class.R
 \name{FitSecondaryGrowth}
 \alias{FitSecondaryGrowth}
+\alias{print.FitSecondaryGrowth}
 \alias{plot.FitSecondaryGrowth}
 \alias{summary.FitSecondaryGrowth}
 \alias{residuals.FitSecondaryGrowth}
@@ -12,6 +13,8 @@
 \alias{predict.FitSecondaryGrowth}
 \title{FitSecondaryGrowth class}
 \usage{
+\method{print}{FitSecondaryGrowth}(x, ...)
+
 \method{plot}{FitSecondaryGrowth}(x, y = NULL, ..., which = 1, add_trend = FALSE)
 
 \method{summary}{FitSecondaryGrowth}(object, ...)
@@ -31,9 +34,9 @@
 \arguments{
 \item{x}{An instance of FitSecondaryGrowth.}
 
-\item{y}{ignored.}
-
 \item{...}{ignored}
+
+\item{y}{ignored.}
 
 \item{which}{A numeric with the type of plot. 1 for obs versus predicted (default),
 2 for gamma curve}
@@ -62,6 +65,8 @@ It is a subclass of list with the items:
 }
 \section{Functions}{
 \itemize{
+\item \code{print.FitSecondaryGrowth}: print of the model
+
 \item \code{plot.FitSecondaryGrowth}: plots to evaluate the goodness of the fit.
 
 \item \code{summary.FitSecondaryGrowth}: statistical summary of the fit.
