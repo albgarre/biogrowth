@@ -1,3 +1,7 @@
+# biogrowth 0.2.3
+
+* Included print methods for every class.
+
 # biogrowth 0.2.2
 
 * Added an alias to the mod-Gompertz function so ??modGompertz or ??gompertz finds it

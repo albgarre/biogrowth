@@ -1,12 +1,9 @@
-## Resubmission
-This is a resubmission. In this version I have:
-
-* Reduced the duration of the tests (175s according to winbuilder).
 
 ## Test environments
 * local R installation, R 3.5.3
 * ubuntu 20.04 (on travis-ci), R 3.5.3
 * win-builder (devel)
+* rhub
 
 ## R CMD check results
 
