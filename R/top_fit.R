@@ -13,8 +13,8 @@ fit_growth <- function(fit_data,
                        start,
                        known,
                        environment = "constant",
-                       algorithm = c("regression", "MCMC"),
-                       approach = c("single", "multiple"),
+                       algorithm = "regression",
+                       approach = "single",
                        env_conditions = NULL,
                        ..., 
                        check = TRUE,
@@ -62,6 +62,43 @@ fit_growth <- function(fit_data,
                               )
         
     } else if (environment == "dynamic") {  # Fitting both primary and secondary models
+        
+        ## Check the primary model has not been defined
+        
+        if (!is.null(model_keys$primary)) {
+            warning("model_keys$primary is ignored for dynamic fits")
+            model_keys$primary <- NULL
+        }
+        
+        
+        
+        if (algorithm == "regression" & approach == "single") {
+
+            fit_dynamic_growth(fit_data, env_conditions,
+                               start, known,
+                               unlist(model_keys),
+                               ...,
+                               check = check,
+                               formula = formula)
+            
+        } else if(algorithm == "MCMC" & approach == "single")  {
+            
+        } else if(algorithm == "regression" & approach == "global")  {
+            
+        } else if(algorithm == "MCMC" & approach == "global")  {
+            
+        } else {
+            
+            if (! (algorithm %in% c("MCMC", "regression")) ) {
+                stop("algorithm must be 'MCMC' or 'regression', got ", algorithm)
+            }
+            
+            if (! (approach %in% c("single", "global")) ) {
+                stop("approach must be 'single' or 'global', got ", approach)
+            }
+            
+        }
+        
         
     } else {
         

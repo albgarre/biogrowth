@@ -1,6 +1,7 @@
 
 
 #' Residuals of dynamic prediction
+#' 
 #'
 #' Function for calculating residuals of a dynamic prediction according
 #' to the requirements of [modFit()].
@@ -48,8 +49,14 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 }
 
 #' Fit dynamic growth models
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [fit_dynamic_growth()] has been superseded by the top-level
+#' function [fit_growth()], which provides a unified approach for growth modelling.
 #'
-#' Fits a growth model to a data obtained under dynamic conditions
+#' Nonetheless, it can still fit a growth model to data obtained under dynamic conditions
 #' using the one-step approach (non-linear regression).
 #'
 #' @param fit_data Tibble with the data to use for model fit. It must
