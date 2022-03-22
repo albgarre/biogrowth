@@ -4,16 +4,19 @@
 \alias{IsothermalGrowth}
 \alias{print.IsothermalGrowth}
 \alias{plot.IsothermalGrowth}
+\alias{coef.IsothermalGrowth}
 \title{IsothermalGrowth class}
 \usage{
 \method{print}{IsothermalGrowth}(x, ...)
 
 \method{plot}{IsothermalGrowth}(x, y = NULL, ..., line_col = "black", line_size = 1, line_type = "solid")
+
+\method{coef}{IsothermalGrowth}(object, ...)
 }
 \arguments{
-\item{x}{The object of class \code{IsothermalGrowth} to plot.}
+\item{x}{The object of class \link{IsothermalGrowth} to plot.}
 
-\item{...}{ignored.}
+\item{...}{ignored}
 
 \item{y}{ignored}
 
@@ -25,6 +28,8 @@ see: \code{\link[=geom_line]{geom_line()}}}
 
 \item{line_type}{Aesthetic parameter to change the type of the line,
 takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line()}}}
+
+\item{object}{an instance of \link{IsothermalGrowth}}
 }
 \description{
 The \code{IsothermalGrowth} class contains the results of a growth prediction
@@ -42,5 +47,7 @@ It is a subclass of list with the items:
 \item \code{print.IsothermalGrowth}: print of the model
 
 \item \code{plot.IsothermalGrowth}: plot of the predicted growth curve.
+
+\item \code{coef.IsothermalGrowth}: coefficients fo the model
 }}
 

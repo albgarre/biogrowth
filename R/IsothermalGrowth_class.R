@@ -36,7 +36,7 @@ print.IsothermalGrowth <- function(x, ...) {
 
 #' @describeIn IsothermalGrowth plot of the predicted growth curve.
 #'
-#' @param x The object of class `IsothermalGrowth` to plot.
+#' @param x The object of class [IsothermalGrowth] to plot.
 #' @param y ignored
 #' @param ... ignored.
 #' @param line_col Aesthetic parameter to change the colour of the line,
@@ -66,6 +66,18 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...,
     
 }
 
+#' @describeIn IsothermalGrowth coefficients fo the model
+#' 
+#' @param object an instance of [IsothermalGrowth]
+#' @param ... ignored
+#' 
+#' @export
+#' 
+coef.IsothermalGrowth <- function(object, ...) {
+    
+    unlist(object$pars)
+    
+}
 
 
 
