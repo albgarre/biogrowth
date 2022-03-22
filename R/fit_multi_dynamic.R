@@ -40,8 +40,14 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 }
 
 #' Fitting growth models to multiple dynamic experiments
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [fit_multiple_growth()] has been superseded by the top-level
+#' function [fit_growth()], which provides a unified approach for growth modelling.
 #'
-#' This functions enables to fit a growth model using a dataset comprised of
+#' But, if you so wish, this functions still enables fitting a growth model using a dataset comprised of
 #' several experiments with potentially different dynamic experimental conditions.
 #' Note that the definition of secondary models must comply with the
 #' `secondary_model_data` function.

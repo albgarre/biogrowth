@@ -26,6 +26,8 @@ fit_growth <- function(fit_data,
     
     ## This is just a top-level function. All the heavy lifting is still done in the superseded functions
     
+    # browser()
+    
     if (environment == "constant") {  # Fitting just a primary model
         
         ## Check the algorithm
@@ -125,6 +127,40 @@ fit_growth <- function(fit_data,
                             formula = formula)
             
         } else if(algorithm == "regression" & approach == "global")  {  # Global fitting by regression
+
+            ## Check whether niter was defined 
+            
+            if (check) {
+                
+                if(!is.null(niter)) {
+                    warning("argument niter is ignored for fitting under constant conditions")
+                }
+                
+            }
+            
+            ## Put the data together
+            
+            my_data <- names(fit_data) %>%
+                map(.,
+                    ~ list(
+                        data = fit_data[[.]],
+                        conditions = env_conditions[[.]]
+                    )
+                )
+            
+            names(my_data) <- names(fit_data)
+            
+            ## Fit the model
+            
+            fit_multiple_growth(
+                start,
+                my_data,
+                known,
+                unlist(model_keys),
+                ...,
+                check = check,
+                formula = formula
+            )
             
         } else if(algorithm == "MCMC" & approach == "global")  {  # Global fitting by MCMC
             

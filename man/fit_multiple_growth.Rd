@@ -41,7 +41,12 @@ environmental conditions and values the secondary model (see secondary_model_dat
 An instance of \code{\link[=FitMultipleDynamicGrowth]{FitMultipleDynamicGrowth()}}.
 }
 \description{
-This functions enables to fit a growth model using a dataset comprised of
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The function \code{\link[=fit_multiple_growth]{fit_multiple_growth()}} has been superseded by the top-level
+function \code{\link[=fit_growth]{fit_growth()}}, which provides a unified approach for growth modelling.
+
+But, if you so wish, this functions still enables fitting a growth model using a dataset comprised of
 several experiments with potentially different dynamic experimental conditions.
 Note that the definition of secondary models must comply with the
 \code{secondary_model_data} function.
