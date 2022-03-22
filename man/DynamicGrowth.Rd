@@ -4,6 +4,7 @@
 \alias{DynamicGrowth}
 \alias{print.DynamicGrowth}
 \alias{plot.DynamicGrowth}
+\alias{coef.DynamicGrowth}
 \title{DynamicGrowth class}
 \usage{
 \method{print}{DynamicGrowth}(x, ...)
@@ -23,11 +24,13 @@
   line_size2 = 1,
   line_type2 = "dashed"
 )
+
+\method{coef}{DynamicGrowth}(object, ...)
 }
 \arguments{
 \item{x}{The object of class \code{DynamicGrowth} to plot.}
 
-\item{...}{additional arguments passed to \code{plot}.}
+\item{...}{ignored}
 
 \item{y}{ignored}
 
@@ -53,6 +56,8 @@ that condition is plotted in the secondary axis}
 \item{line_size2}{Same as line_size, but for the environmental factor.}
 
 \item{line_type2}{Same as lin_type, but for the environmental factor.}
+
+\item{object}{an instance of \link{DynamicGrowth}}
 }
 \description{
 The \code{DynamicGrowth} class contains the results of a growth prediction
@@ -74,5 +79,7 @@ conditions.
 \item \code{print.DynamicGrowth}: print of the model
 
 \item \code{plot.DynamicGrowth}: predicted growth curve under dynamic conditions.
+
+\item \code{coef.DynamicGrowth}: coefficients of the model
 }}
 

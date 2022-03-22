@@ -136,3 +136,20 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
     p + theme_cowplot()
     
 }
+
+#' @describeIn DynamicGrowth coefficients of the model
+#' 
+#' @param object an instance of [DynamicGrowth]
+#' @param ... ignored
+#' 
+#' @export
+#' 
+coef.DynamicGrowth <- function(object, ...) {
+    
+    list(
+        primary = object$primary_pars,
+        secondary = object$sec_models
+        )
+    
+}
+

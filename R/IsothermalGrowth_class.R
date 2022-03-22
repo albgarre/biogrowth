@@ -66,7 +66,7 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...,
     
 }
 
-#' @describeIn IsothermalGrowth coefficients fo the model
+#' @describeIn IsothermalGrowth coefficients of the model
 #' 
 #' @param object an instance of [IsothermalGrowth]
 #' @param ... ignored

@@ -48,6 +48,6 @@ It is a subclass of list with the items:
 
 \item \code{plot.IsothermalGrowth}: plot of the predicted growth curve.
 
-\item \code{coef.IsothermalGrowth}: coefficients fo the model
+\item \code{coef.IsothermalGrowth}: coefficients of the model
 }}
 
