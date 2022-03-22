@@ -16,6 +16,7 @@ fit_growth <- function(fit_data,
                        algorithm = "regression",
                        approach = "single",
                        env_conditions = NULL,
+                       niter = NULL,
                        ..., 
                        check = TRUE,
                        logbase = c("natural", "10"),  # TODO
@@ -49,6 +50,14 @@ fit_growth <- function(fit_data,
             
         }
         
+        if (check) {
+            
+            if(!is.null(niter)) {
+                warning("argument niter is ignored for fitting under constant conditions")
+            }
+            
+        }
+        
         ## Extract the primary model
         
         my_model <- model_keys$primary
@@ -72,7 +81,19 @@ fit_growth <- function(fit_data,
         
         
         
-        if (algorithm == "regression" & approach == "single") {
+        if (algorithm == "regression" & approach == "single") {  # Dynamic fitting by regression
+            
+            ## Check whether niter was defined 
+            
+            if (check) {
+                
+                if(!is.null(niter)) {
+                    warning("argument niter is ignored for fitting under constant conditions")
+                }
+                
+            }
+            
+            ## Fit the model
 
             fit_dynamic_growth(fit_data, env_conditions,
                                start, known,
@@ -81,11 +102,31 @@ fit_growth <- function(fit_data,
                                check = check,
                                formula = formula)
             
-        } else if(algorithm == "MCMC" & approach == "single")  {
+        } else if(algorithm == "MCMC" & approach == "single")  {  # Dynamic fitting by MCMC
             
-        } else if(algorithm == "regression" & approach == "global")  {
+            ## Check whether niter was defined 
             
-        } else if(algorithm == "MCMC" & approach == "global")  {
+            if (check) {
+                
+                if(!is.null(niter)) {
+                    warning("argument niter is ignored for fitting under constant conditions")
+                }
+                
+            }
+            
+            ## Fit the model
+            
+            fit_MCMC_growth(fit_data, env_conditions,
+                            start, known,
+                            unlist(model_keys),
+                            niter,
+                            ...,
+                            check = check,
+                            formula = formula)
+            
+        } else if(algorithm == "regression" & approach == "global")  {  # Global fitting by regression
+            
+        } else if(algorithm == "MCMC" & approach == "global")  {  # Global fitting by MCMC
             
         } else {
             

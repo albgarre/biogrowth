@@ -55,7 +55,12 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 An instance of \code{\link[=FitDynamicGrowthMCMC]{FitDynamicGrowthMCMC()}}.
 }
 \description{
-Fits a growth model to a data obtained under dynamic conditions
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The function \code{\link[=fit_MCMC_growth]{fit_MCMC_growth()}} has been superseded by the top-level
+function \code{\link[=fit_growth]{fit_growth()}}, which provides a unified approach for growth modelling.
+
+But, it can still fit a growth model to a data obtained under dynamic conditions
 using the one-step approach (MCMC algorithm).
 }
 \examples{

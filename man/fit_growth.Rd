@@ -13,6 +13,7 @@ fit_growth(
   algorithm = "regression",
   approach = "single",
   env_conditions = NULL,
+  niter = NULL,
   ...,
   check = TRUE,
   logbase = c("natural", "10"),

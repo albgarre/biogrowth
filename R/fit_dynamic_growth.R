@@ -209,7 +209,13 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
 
 #' Fit growth models using MCMC
 #'
-#' Fits a growth model to a data obtained under dynamic conditions
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [fit_MCMC_growth()] has been superseded by the top-level
+#' function [fit_growth()], which provides a unified approach for growth modelling.
+#' 
+#' But, it can still fit a growth model to a data obtained under dynamic conditions
 #' using the one-step approach (MCMC algorithm).
 #'
 #' @inheritParams fit_dynamic_growth
