@@ -17,7 +17,7 @@ predict_dynamic_growth(
 \arguments{
 \item{times}{Numeric vector of storage times to make the predictions}
 
-\item{env_conditions}{Tibble describing the variation of the environmental
+\item{env_conditions}{Tibble (or data.frame) describing the variation of the environmental
 conditions during storage. It must have with the elapsed time (named \code{time}
 by default; can be changed with the "formula" argument),
 and as many additional columns as environmental factors.}
@@ -39,11 +39,15 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 An instance of \code{\link[=DynamicGrowth]{DynamicGrowth()}}.
 }
 \description{
-Predicts population growth under dynamic conditions based on the
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The function \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}} has been superseded by the top-level
+function \code{\link[=predict_growth]{predict_growth()}}, which provides a unified approach for growth modelling.
+
+Regardless on that, it can still predict population growth under dynamic conditions based on the
 Baranyi model (Baranyi and Roberts, 1994) and secondary models
 based on the gamma concept (Zwietering et al. 1992).
-}
-\details{
+
 Model predictions are done by linear interpolation of the environmental
 conditions defined in \code{env_conditions}.
 }

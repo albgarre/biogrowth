@@ -1,7 +1,13 @@
 
 #' Growth under dynamic conditions
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [predict_dynamic_growth()] has been superseded by the top-level
+#' function [predict_growth()], which provides a unified approach for growth modelling.
 #'
-#' Predicts population growth under dynamic conditions based on the
+#' Regardless on that, it can still predict population growth under dynamic conditions based on the
 #' Baranyi model (Baranyi and Roberts, 1994) and secondary models
 #' based on the gamma concept (Zwietering et al. 1992).
 #'
@@ -9,7 +15,7 @@
 #' conditions defined in `env_conditions`.
 #'
 #' @param times Numeric vector of storage times to make the predictions
-#' @param env_conditions Tibble describing the variation of the environmental
+#' @param env_conditions Tibble (or data.frame) describing the variation of the environmental
 #' conditions during storage. It must have with the elapsed time (named `time` 
 #' by default; can be changed with the "formula" argument), 
 #' and as many additional columns as environmental factors.
