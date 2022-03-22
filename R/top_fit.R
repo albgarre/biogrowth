@@ -80,9 +80,7 @@ fit_growth <- function(fit_data,
             warning("model_keys$primary is ignored for dynamic fits")
             model_keys$primary <- NULL
         }
-        
-        
-        
+
         if (algorithm == "regression" & approach == "single") {  # Dynamic fitting by regression
             
             ## Check whether niter was defined 
@@ -141,8 +139,7 @@ fit_growth <- function(fit_data,
             ## Put the data together
             
             my_data <- names(fit_data) %>%
-                map(.,
-                    ~ list(
+                map(~ list(
                         data = fit_data[[.]],
                         conditions = env_conditions[[.]]
                     )
@@ -163,6 +160,30 @@ fit_growth <- function(fit_data,
             )
             
         } else if(algorithm == "MCMC" & approach == "global")  {  # Global fitting by MCMC
+            
+            ## Put the data together
+            
+            my_data <- names(fit_data) %>%
+                map(~ list(
+                        data = fit_data[[.]],
+                        conditions = env_conditions[[.]]
+                    )
+                )
+            
+            names(my_data) <- names(fit_data)
+            
+            ## Fit the model
+            
+            fit_multiple_growth_MCMC(
+                start,
+                my_data,
+                known,
+                unlist(model_keys),
+                niter,
+                ...,
+                check = check,
+                formula = formula
+                )
             
         } else {
             

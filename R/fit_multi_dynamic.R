@@ -188,8 +188,14 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 
 
 #' Fitting growth models to multiple dynamic experiments using MCMC
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [fit_multiple_growth_MCMC()] has been superseded by the top-level
+#' function [fit_growth()], which provides a unified approach for growth modelling.
 #'
-#' This functions enables to fit a growth model using a dataset comprised of
+#' However, this functions can still be used to fit a growth model using a dataset comprised of
 #' several experiments with potentially different dynamic experimental conditions.
 #'
 #' @inheritParams fit_multiple_growth
