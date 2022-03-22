@@ -106,3 +106,29 @@
 #' }
 "conditions_pH_temperature"
 
+#' Population growth observed in several dynamic experiments
+#'
+#' This dataset is paired with [multiple_conditions] to illustrate the global
+#' fitting of [fit_growth()].
+#'
+#' @format A nested list with two elements, each one corresponding to one experiment.
+#' Each element is a data.frame with two columns:
+#' * time: elapsed time
+#' * logN: log10 of the microbial concentration
+#' 
+"multiple_counts"
+
+#' Environmental conditions during several dynamic experiments
+#'
+#' This dataset is paired with [multiple_counts] to illustrate the global
+#' fitting of [fit_growth()].
+#'
+#' @format A nested list with two elements, each one corresponding to one experiment.
+#' Each element is a data.frame with three columns:
+#' * time: elapsed time
+#' * temperature: observed temperature
+#' * pH: observed pH
+#' 
+"multiple_conditions"
+
+
