@@ -25,8 +25,15 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 
 
 #' Fit primary growth models
-#'
-#' Fits a primary growth model to data obtained under static environmental conditions.
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [fit_isothermal_growth()] has been superseded by the top-level
+#' function [fit_growth()], which provides a unified approach for growth modelling.
+#' 
+#' Nonetheless, it can still fit a primary growth model to data obtained under static 
+#' environmental conditions.
 #'
 #' @importFrom FME modFit
 #' @importFrom formula.tools lhs rhs get.vars

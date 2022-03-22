@@ -37,7 +37,13 @@ defined using the \code{formula} argument.}
 An instance of \code{\link[=FitIsoGrowth]{FitIsoGrowth()}}.
 }
 \description{
-Fits a primary growth model to data obtained under static environmental conditions.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The function \code{\link[=fit_isothermal_growth]{fit_isothermal_growth()}} has been superseded by the top-level
+function \code{\link[=fit_growth]{fit_growth()}}, which provides a unified approach for growth modelling.
+
+Nonetheless, it can still fit a primary growth model to data obtained under static
+environmental conditions.
 }
 \examples{
 
