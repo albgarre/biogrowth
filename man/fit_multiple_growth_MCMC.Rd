@@ -41,7 +41,7 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \code{logN ~ time} as a default.}
 }
 \value{
-An instance of \code{\link{FitMultipleGrowthMCMC}}.
+An instance of \code{\link[=FitMultipleGrowthMCMC]{FitMultipleGrowthMCMC()}}.
 }
 \description{
 This functions enables to fit a growth model using a dataset comprised of

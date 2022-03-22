@@ -3,7 +3,7 @@
 #' Residuals of dynamic prediction
 #'
 #' Function for calculating residuals of a dynamic prediction according
-#' to the requirements of \code{\link{modFit}}.
+#' to the requirements of [modFit()].
 #'
 #' @param this_p named vector of model parameters
 #' @param fit_data tibble with the data for the fit
@@ -13,7 +13,7 @@
 #' environmental conditions and values the secondary model (e.g. 'CPM').
 #' @param cost an instance of modCost to be combined (to fit multiple models).
 #'
-#' @return An instance of \code{\link{modCost}}.
+#' @return An instance of [modCost()].
 #'
 #' @importFrom FME modCost
 #'
@@ -65,19 +65,19 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #' the model fit.
 #' @param starting_point A named vector of starting values for the model parameters.
 #' Parameters for the primary model must be named in the usual way. Parameters for the
-#' secondary model are named as \code{env_factor}+'_'+\code{parameter}. For instance,
+#' secondary model are named as `env_factor`+'_'+`parameter`. For instance,
 #' the maximum growth temperature shall be named 'temperature_xmax'.
 #' @param known_pars A named vectors of known model parameters (i.e. not fitted). They
-#' must be named using the same convention as for \code{starting_point}.
+#' must be named using the same convention as for `starting_point`.
 #' @param sec_model_names A named character vector defining the secondary model for each
 #' environmental factor. The names define the factor and the value the type of model.
-#' Names must match columns in \code{fit_data} and \code{env_conditions}.
+#' Names must match columns in `fit_data` and `env_conditions`.
 #' @param ... Additional arguments passed to modFit.
 #' @param check Whether to check model parameters (TRUE by default).
 #' @param formula an object of class "formula" describing the x and y variables.
-#' \code{logN ~ time} as a default.
+#' `logN ~ time` as a default.
 #'
-#' @return An instance of \code{\link{FitDynamicGrowth}}.
+#' @return An instance of [FitDynamicGrowth()].
 #'
 #' @importFrom FME modFit
 #' @importFrom dplyr rename
@@ -209,7 +209,7 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
 #'
 #' @param niter number of iterations of the MCMC algorithm.
 #'
-#' @return An instance of \code{\link{FitDynamicGrowthMCMC}}.
+#' @return An instance of [FitDynamicGrowthMCMC()].
 #'
 #' @importFrom FME modMCMC
 #'

@@ -48,17 +48,17 @@
 
 \item{y}{ignored}
 
-\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}}
+\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link[=geom_line]{geom_line()}}}
 
-\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}}
+\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link[=geom_line]{geom_line()}}}
 
-\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}}
+\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line()}}}
 
-\item{point_col}{Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}}
+\item{point_col}{Aesthetic parameter to change the colour of the point geom, see: \code{\link[=geom_point]{geom_point()}}}
 
-\item{point_size}{Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}}
+\item{point_size}{Aesthetic parameter to change the size of the point geom, see: \code{\link[=geom_point]{geom_point()}}}
 
-\item{point_shape}{Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}}
+\item{point_shape}{Aesthetic parameter to change the shape of the point geom, see: \code{\link[=geom_point]{geom_point()}}}
 
 \item{object}{an instance of FitIsoGrowth}
 
@@ -67,17 +67,17 @@ If \code{NULL} (default), uses the same points as those used for fitting.}
 }
 \description{
 The \code{FitIsoGrowth} class contains a growth model fitted to data under
-static conditions. Its constructor is \code{\link{fit_isothermal_growth}}.
+static conditions. Its constructor is \code{\link[=fit_isothermal_growth]{fit_isothermal_growth()}}.
 
 It is a subclass of list with the items:
-     \itemize{
-         \item data: data used for model fitting
-         \item model: name of the primary inactivation model
-         \item starting_point: initial value of the model parameters
-         \item known: fixed model parameters
-         \item fit: object returned by \code{\link{modFit}}
-         \item best_prediction: model prediction for the model fitted.
-         }
+\itemize{
+\item data: data used for model fitting
+\item model: name of the primary inactivation model
+\item starting_point: initial value of the model parameters
+\item known: fixed model parameters
+\item fit: object returned by \code{\link[=modFit]{modFit()}}
+\item best_prediction: model prediction for the model fitted.
+}
 }
 \section{Functions}{
 \itemize{

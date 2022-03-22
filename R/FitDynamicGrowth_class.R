@@ -1,12 +1,12 @@
 #' FitDynamicGrowth class
 #' 
 #' @description 
-#' The \code{FitDynamicGrowth} class contains a model fitted based on growth data
-#' under dynamic conditions. Its constructor is \code{\link{fit_dynamic_growth}}.
+#' The `FitDynamicGrowth` class contains a model fitted based on growth data
+#' under dynamic conditions. Its constructor is [fit_dynamic_growth()].
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{
-#'          \item fit_results: the object returned by \code{modFit}.
+#'          \item fit_results: the object returned by `modFit`.
 #'          \item best_prediction: the model prediction for the fitted parameters.
 #'          \item env_conditions: environmental conditions for the fit.
 #'          \item data: data used for the fit.
@@ -23,7 +23,7 @@ NULL
 #' @describeIn FitDynamicGrowth comparison between the fitted model and the data.
 #' 
 #' 
-#' @param x An instance of \code{FitDynamicGrowth}.
+#' @param x An instance of `FitDynamicGrowth`.
 #' @param ... ignored
 #' 
 #' @export
@@ -49,22 +49,22 @@ print.FitDynamicGrowth <- function(x, ...) {
 
 #' @describeIn FitDynamicGrowth comparison between the fitted model and the data.
 #'
-#' @param x The object of class \code{FitDynamicGrowth} to plot.
+#' @param x The object of class `FitDynamicGrowth` to plot.
 #' @param y ignored
 #' @param ... ignored.
 #' @param add_factor whether to plot also one environmental factor.
-#' If \code{NULL} (default), no environmenta factor is plotted. If set
+#' If `NULL` (default), no environmenta factor is plotted. If set
 #' to one character string that matches one entry of x$env_conditions,
 #' that condition is plotted in the secondary axis
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
 #' @param label_y1 Label of the primary y-axis.
 #' @param label_y2 Label of the secondary y-axis.
-#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
-#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
-#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
-#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [geom_line()]
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: [geom_line()]
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: [geom_line()]
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: [geom_point()]
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: [geom_point()]
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: [geom_point()]
 #' @param line_col2 Same as lin_col, but for the environmental factor.
 #' @param line_size2 Same as line_size, but for the environmental factor.
 #' @param line_type2 Same as lin_type, but for the environmental factor.
@@ -140,7 +140,7 @@ residuals.FitDynamicGrowth <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowth vector of fitted parameters.
 #'
-#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param object an instance of `FitDynamicGrowth`.
 #' @param ... ignored
 #'
 #' @importFrom stats coef
@@ -156,7 +156,7 @@ coef.FitDynamicGrowth <- function(object, ...) {
 #' @describeIn FitDynamicGrowth (unscaled) variance-covariance matrix of the model,
 #' calculated as 1/(0.5*Hessian)
 #'
-#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param object an instance of `FitDynamicGrowth`.
 #' @param ... ignored
 #'
 #' @export
@@ -182,7 +182,7 @@ vcov.FitDynamicGrowth <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowth deviance of the model.
 #'
-#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param object an instance of `FitDynamicGrowth`.
 #' @param ... ignored
 #' 
 #' @importFrom stats deviance
@@ -197,7 +197,7 @@ deviance.FitDynamicGrowth <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowth fitted values.
 #' 
-#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param object an instance of `FitDynamicGrowth`.
 #' @param ... ignored
 #' 
 #' @export
@@ -210,13 +210,13 @@ fitted.FitDynamicGrowth <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowth model predictions.
 #' 
-#' @param object an instance of \code{FitDynamicGrowth}.
+#' @param object an instance of `FitDynamicGrowth`.
 #' @param ... ignored
-#' @param times A numeric vector with the time points for the simulations. \code{NULL}
+#' @param times A numeric vector with the time points for the simulations. `NULL`
 #' by default (using the same time points as those for the simulation).
-#' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
-#' in \code{\link{predict_dynamic_growth}}. 
-#' If \code{NULL} (default), uses the same conditions as those for fitting.
+#' @param newdata a tibble describing the environmental conditions (as `env_conditions`)
+#' in [predict_dynamic_growth()]. 
+#' If `NULL` (default), uses the same conditions as those for fitting.
 #' 
 #' @export
 #' 

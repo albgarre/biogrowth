@@ -7,8 +7,8 @@
 \format{
 A data frame with 30 rows and 2 variables:
 \describe{
-  \item{time}{elapsed time (h)}
-  \item{logN}{log population size (log10 CFU)}
+\item{time}{elapsed time (h)}
+\item{logN}{log population size (log10 CFU)}
 }
 }
 \usage{
@@ -16,6 +16,6 @@ example_dynamic_growth
 }
 \description{
 An example dataset illustrating the requirements of the
-\code{\link{fit_dynamic_growth}} function.
+\code{\link[=fit_dynamic_growth]{fit_dynamic_growth()}} function.
 }
 \keyword{datasets}

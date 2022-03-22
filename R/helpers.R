@@ -2,7 +2,7 @@
 #' Generates functions for linear interpolation of environmental conditions
 #'
 #' @param env_conditions A tibble describing the variation of the environmental
-#' conditions through the storage time. Must contain a column named \code{time}
+#' conditions through the storage time. Must contain a column named `time`
 #' and as many additional columns as environmental factors.
 #'
 #' @importFrom stats approxfun

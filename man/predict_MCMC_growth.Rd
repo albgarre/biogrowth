@@ -18,17 +18,17 @@ storage time and as many columns as required with the environmental conditions.}
 
 \item{niter}{Number of iterations.}
 
-\item{newpars}{A named list defining new values for the some model parameters. 
-The name must be the identifier of a model already included in the model. 
+\item{newpars}{A named list defining new values for the some model parameters.
+The name must be the identifier of a model already included in the model.
 These parameters do not include variation, so defining a new value for a fitted
 parameters "fixes" it. \code{NULL} by default (no new parameters).}
 }
 \value{
-An instance of \code{\link{MCMCgrowth}}.
+An instance of \code{\link[=MCMCgrowth]{MCMCgrowth()}}.
 }
 \description{
 Makes a stochastic prediction of microbial growth based on a growth model
-fitted using \code{\link{fit_MCMC_growth}} or \code{\link{fit_multiple_growth_MCMC}}.
+fitted using \code{\link[=fit_MCMC_growth]{fit_MCMC_growth()}} or \code{\link[=fit_multiple_growth_MCMC]{fit_multiple_growth_MCMC()}}.
 This function predicts growth curves for \code{niter} samples (with replacement)
 of the samples of the MCMC algorithm. Then, credible intervals are calculated based on the
 quantiles of the model predictions at each time point.

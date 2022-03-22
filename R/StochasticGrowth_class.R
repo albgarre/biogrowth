@@ -2,9 +2,9 @@
 #' StochasticGrowth class
 #' 
 #' @description 
-#' The \code{StochasticGrowth} class contains the results of a growth prediction
+#' The `StochasticGrowth` class contains the results of a growth prediction
 #' under isothermal conditions considering parameter unceratinty. Its constructor 
-#' is \code{\link{predict_stochastic_growth}}.
+#' is [predict_stochastic_growth()].
 #' 
 #' It is a subclass of list with the items:
 #' \itemize{
@@ -23,7 +23,7 @@ NULL
 
 #' @describeIn StochasticGrowth print of the model
 #' 
-#' @param x An instance of \code{StochasticGrowth}.
+#' @param x An instance of `StochasticGrowth`.
 #' @param ... ignored
 #' 
 #' @export
@@ -45,14 +45,14 @@ print.StochasticGrowth <- function(x, ...) {
 #' @describeIn StochasticGrowth Growth prediction (prediction band) considering
 #' parameter uncertainty.
 #'
-#' @param x The object of class \code{StochasticGrowth} to plot.
+#' @param x The object of class `StochasticGrowth` to plot.
 #' @param y ignored
 #' @param ... ignored.
-#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
-#' @param ribbon80_fill fill colour for the space between the 10th and 90th quantile, see: \code{\link{geom_ribbon}}
-#' @param ribbon90_fill fill colour for the space between the 5th and 95th quantile, see: \code{\link{geom_ribbon}}
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [geom_line()]
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: [geom_line()]
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: [geom_line()]
+#' @param ribbon80_fill fill colour for the space between the 10th and 90th quantile, see: [geom_ribbon()]
+#' @param ribbon90_fill fill colour for the space between the 5th and 95th quantile, see: [geom_ribbon()]
 #' @param alpha80 transparency of the ribbon aesthetic for the space between the 10th and 90th quantile. Takes a value between 0 (fully transparant) and 1 (fully opaque)
 #' @param alpha90 transparency of the ribbon aesthetic for the space between the 5th and 95th quantile. Takes a value between 0 (fully transparant) and 1 (fully opaque).
 #'

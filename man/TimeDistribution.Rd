@@ -22,13 +22,13 @@
 
 \item{y}{ignored.}
 
-\item{bin_width}{A number that specifies the width of a bin in the histogram, 
-see: \code{\link{geom_histogram}}. \code{NULL} by default.}
+\item{bin_width}{A number that specifies the width of a bin in the histogram,
+see: \code{\link[=geom_histogram]{geom_histogram()}}. \code{NULL} by default.}
 }
 \description{
 The \code{TimeDistribution} class contains an estimate of the probability
-distribution of the time to reach a given microbial count. 
-Its constructor is \code{\link{distribution_to_logcount}}.
+distribution of the time to reach a given microbial count.
+Its constructor is \code{\link[=distribution_to_logcount]{distribution_to_logcount()}}.
 
 It is a subclass of list with the items:
 \itemize{
@@ -42,7 +42,7 @@ It is a subclass of list with the items:
 
 \item \code{summary.TimeDistribution}: summary of the model
 
-\item \code{plot.TimeDistribution}: plot of the distribution of the time to reach a 
+\item \code{plot.TimeDistribution}: plot of the distribution of the time to reach a
 microbial count.
 }}
 

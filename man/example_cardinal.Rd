@@ -7,9 +7,9 @@
 \format{
 A data frame with 64 rows and 3 variables:
 \describe{
-  \item{temperature}{storage temperature (ºC)}
-  \item{pH}{pH of the media}
-  \item{mu}{specific growth rate (log10 CFU/h)}
+\item{temperature}{storage temperature (ºC)}
+\item{pH}{pH of the media}
+\item{mu}{specific growth rate (log10 CFU/h)}
 }
 }
 \usage{
@@ -17,6 +17,6 @@ example_cardinal
 }
 \description{
 An example dataset illustrating the requirements of the
-\code{\link{fit_secondary_growth}} function.
+\code{\link[=fit_secondary_growth]{fit_secondary_growth()}} function.
 }
 \keyword{datasets}

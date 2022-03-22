@@ -7,16 +7,16 @@
 \format{
 A tibble with 4 rows and 3 columns:
 \describe{
-    \item{time}{elapsed time}
-    \item{temperature}{temperature}
-    \item{pH}{pH}
+\item{time}{elapsed time}
+\item{temperature}{temperature}
+\item{pH}{pH}
 }
 }
 \usage{
 conditions_pH_temperature
 }
 \description{
-A dataset to demonstrate the use of fit_dynamic_growth. The observations 
+A dataset to demonstrate the use of fit_dynamic_growth. The observations
 environmental conditions are described in conditions_pH_temperature.
 }
 \keyword{datasets}

@@ -2,15 +2,15 @@
 #' Time to reach a given microbial count
 #'
 #' Returns the storage time required for the microbial count to
-#' reach \code{log_count} according to the predictions of \code{model}.
+#' reach `log_count` according to the predictions of `model`.
 #' Calculations are done using linear interpolation of the model predictions.
 #'
-#' @param model An instance of \code{IsothermalGrowth} or \code{DynamicGrowth}.
+#' @param model An instance of `IsothermalGrowth` or `DynamicGrowth`.
 #' @param log_count The target log microbial count.
 #'
 #' @importFrom stats approx
 #'
-#' @return The predicted time to reach \code{log_count}.
+#' @return The predicted time to reach `log_count`.
 #'
 #' @export
 #'
@@ -53,15 +53,15 @@ time_to_logcount <- function(model, log_count) {
 #' Distribution of times to reach a certain microbial count
 #'
 #' Returns the probability distribution of the storage time required for
-#' the microbial count to reach \code{log_count} according to the predictions of
-#' a stochastic \code{model}.
+#' the microbial count to reach `log_count` according to the predictions of
+#' a stochastic `model`.
 #' Calculations are done using linear interpolation of the individual
 #'  model predictions.
 #'
-#' @param model An instance of \code{StochasticGrowth} or \code{MCMCgrowth}.
+#' @param model An instance of `StochasticGrowth` or `MCMCgrowth`.
 #' @param log_count The target microbial count.
 #'
-#' @return An instance of \code{\link{TimeDistribution}}.
+#' @return An instance of [TimeDistribution()].
 #'
 #' @importFrom purrr map_dfr
 #' @importFrom dplyr %>% summarize

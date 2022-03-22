@@ -28,9 +28,9 @@ environmental conditions and values the secondary model (e.g. 'CPM').}
 \item{cost}{an instance of modCost to be combined (to fit multiple models).}
 }
 \value{
-An instance of \code{\link{modCost}}.
+An instance of \code{\link[=modCost]{modCost()}}.
 }
 \description{
 Function for calculating residuals of a dynamic prediction according
-to the requirements of \code{\link{modFit}}.
+to the requirements of \code{\link[=modFit]{modFit()}}.
 }

@@ -25,5 +25,5 @@ an instance of \code{modCost}.
 \description{
 Function for calculating residuals of dynamic predictions under
 different conditions for the same model parameters according
-to the requirements of \code{\link{modFit}}.
+to the requirements of \code{\link[=modFit]{modFit()}}.
 }

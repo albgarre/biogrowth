@@ -9,10 +9,10 @@ Q0_to_lambda(q0, mu)
 \arguments{
 \item{q0}{Initial value of the variable Q.}
 
-\item{mu}{Specific growth rate in the exponential phase (log10(units)/[time]).}
+\item{mu}{Specific growth rate in the exponential phase (log10(units)/\link{time}).}
 }
 \description{
-Convenience function to calculate the lag phase duration (lambda) of the 
+Convenience function to calculate the lag phase duration (lambda) of the
 Baranyi model from the
 maximum specific growth rate and the initial value of the variable Q.
 }

@@ -36,7 +36,7 @@ for each environmental factor.}
 model fitting. One of \code{sq} (square root; default), \code{log} (log-transform) or
 \code{none} (no transformation).}
 
-\item{...}{Additional arguments passed to \code{\link{modFit}}.}
+\item{...}{Additional arguments passed to \code{\link[=modFit]{modFit()}}.}
 
 \item{check}{Whether to do some basic checks (TRUE by default).}
 
@@ -44,7 +44,7 @@ model fitting. One of \code{sq} (square root; default), \code{log} (log-transfor
 right hand side must be ".". By default \code{mu ~ .}.}
 }
 \value{
-An instance of \code{\link{FitSecondaryGrowth}}.
+An instance of \code{\link[=FitSecondaryGrowth]{FitSecondaryGrowth()}}.
 }
 \description{
 Fits a secondary growth model to a set of growth rates obtained experimentally.

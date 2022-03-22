@@ -18,7 +18,7 @@ give the value of each environmental function for some storage time.}
 A vector of gamma factors (one per environmental factor).
 }
 \description{
-A helper function for \code{\link{predict_dynamic_growth}} that
+A helper function for \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}} that
 calculates the value of every gamma factor corresponding to some
 storage time.
 }

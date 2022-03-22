@@ -2,12 +2,12 @@
 #' FitDynamicGrowthMCMC class
 #' 
 #' @description 
-#' The \code{FitDynamicGrowthMCMC} a model fitted based on a dynamic growth experiment
-#' using an MCMC algorithm. Its constructor is \code{\link{fit_MCMC_growth}}.
+#' The `FitDynamicGrowthMCMC` a model fitted based on a dynamic growth experiment
+#' using an MCMC algorithm. Its constructor is [fit_MCMC_growth()].
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{
-#'          \item fit_results: the object returned by \code{modMCMC}.
+#'          \item fit_results: the object returned by `modMCMC`.
 #'          \item best_prediction: the model prediction for the fitted parameters.
 #'          \item env_conditions: environmental conditions for the fit.
 #'          \item data: data used for the fit.
@@ -23,7 +23,7 @@ NULL
 
 #' @describeIn FitDynamicGrowthMCMC print of the model
 #' 
-#' @param x An instance of \code{FitDynamicGrowthMCMC}.
+#' @param x An instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored
 #' 
 #' @export
@@ -49,22 +49,22 @@ print.FitDynamicGrowthMCMC <- function(x, ...) {
 
 #' @describeIn FitDynamicGrowthMCMC compares the model fitted against the data.
 #'
-#' @param x The object of class \code{FitDynamicGrowthMCMC} to plot.
+#' @param x The object of class `FitDynamicGrowthMCMC` to plot.
 #' @param y ignored
 #' @param ... ignored.
 #' @param add_factor whether to plot also one environmental factor.
-#' If \code{NULL} (default), no environmenta factor is plotted. If set
+#' If `NULL` (default), no environmenta factor is plotted. If set
 #' to one character string that matches one entry of x$env_conditions,
 #' that condition is plotted in the secondary axis
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
 #' @param label_y1 Label of the primary y-axis.
 #' @param label_y2 Label of the secondary y-axis.
-#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
-#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
-#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
-#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [geom_line()]
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: [geom_line()]
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: [geom_line()]
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: [geom_point()]
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: [geom_point()]
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: [geom_point()]
 #' @param line_col2 Same as lin_col, but for the environmental factor.
 #' @param line_size2 Same as line_size, but for the environmental factor.
 #' @param line_type2 Same as lin_type, but for the environmental factor.
@@ -114,7 +114,7 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 
 #' @describeIn FitDynamicGrowthMCMC statistical summary of the fit.
 #'
-#' @param object Instance of \code{FitDynamicGrowthMCMC}.
+#' @param object Instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @export
@@ -127,7 +127,7 @@ summary.FitDynamicGrowthMCMC <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowthMCMC model residuals.
 #'
-#' @param object Instance of \code{FitDynamicGrowthMCMC}.
+#' @param object Instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored.
 #'
 #' @importFrom dplyr select
@@ -147,7 +147,7 @@ residuals.FitDynamicGrowthMCMC <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowthMCMC vector of fitted model parameters.
 #'
-#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param object an instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @export
@@ -161,7 +161,7 @@ coef.FitDynamicGrowthMCMC <- function(object, ...) {
 #' @describeIn FitDynamicGrowthMCMC variance-covariance matrix of the model,
 #'  estimated as the variance of the samples from the Markov chain.
 #'
-#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param object an instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @importFrom stats cov
@@ -177,7 +177,7 @@ vcov.FitDynamicGrowthMCMC <- function(object, ...) {
 #' @describeIn FitDynamicGrowthMCMC deviance of the model, calculated as the sum
 #' of squared residuals for the parameter values resulting in the best fit.
 #'
-#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param object an instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @importFrom dplyr select
@@ -201,7 +201,7 @@ deviance.FitDynamicGrowthMCMC <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowthMCMC vector of fitted values.
 #' 
-#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param object an instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored
 #' 
 #' @export
@@ -214,13 +214,13 @@ fitted.FitDynamicGrowthMCMC <- function(object, ...) {
 
 #' @describeIn FitDynamicGrowthMCMC vector of model predictions.
 #' 
-#' @param object an instance of \code{FitDynamicGrowthMCMC}.
+#' @param object an instance of `FitDynamicGrowthMCMC`.
 #' @param ... ignored
-#' @param times A numeric vector with the time points for the simulations. \code{NULL}
+#' @param times A numeric vector with the time points for the simulations. `NULL`
 #' by default (using the same time points as those for the simulation).
-#' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
-#' in \code{\link{predict_dynamic_growth}}. 
-#' If \code{NULL} (default), uses the same conditions as those for fitting.
+#' @param newdata a tibble describing the environmental conditions (as `env_conditions`)
+#' in [predict_dynamic_growth()]. 
+#' If `NULL` (default), uses the same conditions as those for fitting.
 #' 
 #' @export
 #' 

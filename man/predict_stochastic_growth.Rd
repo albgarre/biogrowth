@@ -29,7 +29,7 @@ same order as in \code{pars}. An identity matrix by default
 \item{check}{Whether to do some tests. \code{FALSE} by default.}
 }
 \value{
-An instance of \code{\link{StochasticGrowth}}.
+An instance of \code{\link[=StochasticGrowth]{StochasticGrowth()}}.
 }
 \description{
 Stochastic simulation of microbial growth based on probability
@@ -40,14 +40,14 @@ distribution.
 \details{
 They are defined in the \code{pars} argument using a tibble with 4 columns:
 \itemize{
-    \item{par: identifier of the model parameter (according to \code{\link{primary_model_data}})},
-    \item{mean: mean value of the model parameter.},
-    \item{sd: standard deviation of the model parameter.},
-    \item{scale: scale at which the model parameter is defined. Valid values are
-    'original' (no transformation), 'sqrt' square root or 'log' log-scale. The
-    parameter sample is generated considering the parameter follows a marginal
-    normal distribution at this scale, and is later converted to the original scale
-    for calculations.}
+\item{par: identifier of the model parameter (according to \code{\link[=primary_model_data]{primary_model_data()}})},
+\item{mean: mean value of the model parameter.},
+\item{sd: standard deviation of the model parameter.},
+\item{scale: scale at which the model parameter is defined. Valid values are
+'original' (no transformation), 'sqrt' square root or 'log' log-scale. The
+parameter sample is generated considering the parameter follows a marginal
+normal distribution at this scale, and is later converted to the original scale
+for calculations.}
 }
 }
 \examples{

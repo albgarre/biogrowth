@@ -69,11 +69,11 @@ that condition is plotted in the secondary axis}
 
 \item{label_y2}{Label of the secondary y-axis.}
 
-\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}}
+\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link[=geom_line]{geom_line()}}}
 
-\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}}
+\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link[=geom_line]{geom_line()}}}
 
-\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}}
+\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line()}}}
 
 \item{line_col2}{Same as lin_col, but for the environmental factor.}
 
@@ -93,24 +93,24 @@ that condition is plotted in the secondary axis}
 by default (using the same time points as those for the simulation).}
 
 \item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
-in \code{\link{fit_multiple_growth}}. 
+in \code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.
 If \code{NULL} (default), uses the same conditions as those for fitting.}
 }
 \description{
 The \code{FitMultipleGrowthMCMC} class contains a model fitted to a set of dynamic
-experiments using an MCMC algorithm. Its constructor is 
-\code{\link{fit_multiple_growth_MCMC}}.
+experiments using an MCMC algorithm. Its constructor is
+\code{\link[=fit_multiple_growth_MCMC]{fit_multiple_growth_MCMC()}}.
 
 It is a subclass of list with the items:
-     \itemize{
-         \item fit_results: the object returned by \code{modFit}.
-         \item best_prediction: a list with the models predictions for each condition.
-         \item data: a list with the data used for the fit.
-         \item starting: starting values for model fitting
-         \item known: parameter values set as known.
-         \item sec_models: a named vector with the secondary model
-         for each environmental factor.
-         }
+\itemize{
+\item fit_results: the object returned by \code{modFit}.
+\item best_prediction: a list with the models predictions for each condition.
+\item data: a list with the data used for the fit.
+\item starting: starting values for model fitting
+\item known: parameter values set as known.
+\item sec_models: a named vector with the secondary model
+for each environmental factor.
+}
 }
 \section{Functions}{
 \itemize{
@@ -134,7 +134,7 @@ estimated as the variance of the samples from the Markov chain.
 squared residuals of the prediction with the lowest standard error.
 
 \item \code{fitted.FitMultipleGrowthMCMC}: fitted values of the model. They are returned
-as a tibble with 3 columns: time (storage time), exp (experiment 
+as a tibble with 3 columns: time (storage time), exp (experiment
 identifier) and fitted (fitted value).
 
 \item \code{predict.FitMultipleGrowthMCMC}: model predictions. They are returned as a tibble

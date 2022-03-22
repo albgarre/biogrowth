@@ -3,7 +3,7 @@
 #'
 #' Microbial growth model as defined in Baranyi and Roberts (1994). It has
 #' been implemented according to the requirements of
-#' \code{\link{ode}}. For consistency the function for isothermal growth,
+#' [ode()]. For consistency the function for isothermal growth,
 #' calculations are done considering mu is in log10 scale. In other words,
 #' it is multiplied by ln(10).
 #'
@@ -15,7 +15,7 @@
 #' @param sec_models named list of parameters of the secondary model
 #'
 #' @return A numeric vector of two components according to the requirements of
-#' \code{\link{ode}}.
+#' [ode()].
 #'
 dBaranyi <- function(time, state, pars, env_func, sec_models) {
 

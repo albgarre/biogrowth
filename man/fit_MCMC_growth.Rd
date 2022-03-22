@@ -24,8 +24,8 @@ Different column names can be specified using the "formula" argument.}
 
 \item{env_conditions}{Tibble with the (dynamic) environmental conditions
 during the experiment. It must have one column with the
-elapsed time (named "time" by default) and as many columns as required with the 
-environmental conditions. A different column name can be specified using the 
+elapsed time (named "time" by default) and as many columns as required with the
+environmental conditions. A different column name can be specified using the
 "formula" argument, although it must be the same one as in "fit_data".
 Note that only those defined in "sec_model_names" will be considered for
 the model fit.}
@@ -52,7 +52,7 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 \code{logN ~ time} as a default.}
 }
 \value{
-An instance of \code{\link{FitDynamicGrowthMCMC}}.
+An instance of \code{\link[=FitDynamicGrowthMCMC]{FitDynamicGrowthMCMC()}}.
 }
 \description{
 Fits a growth model to a data obtained under dynamic conditions

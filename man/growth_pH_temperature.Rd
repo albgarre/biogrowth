@@ -7,15 +7,15 @@
 \format{
 A tibble with 20 rows and 2 columns:
 \describe{
-    \item{time}{elapsed time}
-    \item{logN}{decimal logarithm of the population size}
+\item{time}{elapsed time}
+\item{logN}{decimal logarithm of the population size}
 }
 }
 \usage{
 growth_pH_temperature
 }
 \description{
-A dataset to demonstrate the use of fit_dynamic_growth. The values of the 
+A dataset to demonstrate the use of fit_dynamic_growth. The values of the
 environmental conditions are described in conditions_pH_temperature.
 }
 \keyword{datasets}

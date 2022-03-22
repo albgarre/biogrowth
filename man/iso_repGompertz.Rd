@@ -15,7 +15,7 @@ iso_repGompertz(times, logN0, C, mu, lambda)
 
 \item{C}{Difference between \code{logN0} and the maximum log-count.}
 
-\item{mu}{Maximum specific growth rate (in ln CFU/[t])}
+\item{mu}{Maximum specific growth rate (in ln CFU/\link{t})}
 
 \item{lambda}{Lag phase duration}
 }

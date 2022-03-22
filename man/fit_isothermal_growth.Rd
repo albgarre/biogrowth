@@ -26,7 +26,7 @@ defined using the \code{formula} argument.}
 
 \item{known_pars}{Named vector of known model parameters (not fitted).}
 
-\item{...}{Additional arguments passed to \code{\link{modFit}}.}
+\item{...}{Additional arguments passed to \code{\link[=modFit]{modFit()}}.}
 
 \item{check}{Whether to do some basic checks (TRUE by default).}
 
@@ -34,7 +34,7 @@ defined using the \code{formula} argument.}
 \code{logN ~ time} as a default.}
 }
 \value{
-An instance of \code{\link{FitIsoGrowth}}.
+An instance of \code{\link[=FitIsoGrowth]{FitIsoGrowth()}}.
 }
 \description{
 Fits a primary growth model to data obtained under static environmental conditions.

@@ -1,8 +1,8 @@
 #' FitIsoGrowth class
 #' 
 #' @description 
-#' The \code{FitIsoGrowth} class contains a growth model fitted to data under
-#' static conditions. Its constructor is \code{\link{fit_isothermal_growth}}.
+#' The `FitIsoGrowth` class contains a growth model fitted to data under
+#' static conditions. Its constructor is [fit_isothermal_growth()].
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{
@@ -10,7 +10,7 @@
 #'          \item model: name of the primary inactivation model
 #'          \item starting_point: initial value of the model parameters
 #'          \item known: fixed model parameters
-#'          \item fit: object returned by \code{\link{modFit}}
+#'          \item fit: object returned by [modFit()]
 #'          \item best_prediction: model prediction for the model fitted.
 #'          }
 #' 
@@ -20,7 +20,7 @@ NULL
 
 #' @describeIn FitIsoGrowth print of the model
 #' 
-#' @param x An instance of \code{FitIsoGrowth}.
+#' @param x An instance of `FitIsoGrowth`.
 #' @param ... ignored
 #' 
 #' @export
@@ -38,15 +38,15 @@ print.FitIsoGrowth <- function(x, ...) {
 
 #' @describeIn FitIsoGrowth compares the fitted model against the data.
 #'
-#' @param x The object of class \code{FitIsoGrowth} to plot.
+#' @param x The object of class `FitIsoGrowth` to plot.
 #' @param y ignored
 #' @param ... ignored.
-#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link{geom_line}}
-#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}
-#' @param point_col Aesthetic parameter to change the colour of the point geom, see: \code{\link{geom_point}}
-#' @param point_size Aesthetic parameter to change the size of the point geom, see: \code{\link{geom_point}}
-#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: \code{\link{geom_point}}
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [geom_line()]
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: [geom_line()]
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: [geom_line()]
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: [geom_point()]
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: [geom_point()]
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: [geom_point()]
 #'
 #' @export
 #'
@@ -77,7 +77,7 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
 
 #' @describeIn FitIsoGrowth statistical summary of the fit.
 #'
-#' @param object Instance of \code{FitIsoGrowth}.
+#' @param object Instance of `FitIsoGrowth`.
 #' @param ... ignored
 #'
 #' @export
@@ -90,7 +90,7 @@ summary.FitIsoGrowth <- function(object, ...) {
 
 #' @describeIn FitIsoGrowth vector of model residuals.
 #'
-#' @param object Instance of \code{FitIsoGrowth}.
+#' @param object Instance of `FitIsoGrowth`.
 #' @param ... ignored
 #'
 #' @importFrom stats residuals
@@ -103,7 +103,7 @@ residuals.FitIsoGrowth <- function(object, ...) {
 
 #' @describeIn FitIsoGrowth vector of fitted model parameters.
 #'
-#' @param object an instance of \code{FitIsoGrowth}.
+#' @param object an instance of `FitIsoGrowth`.
 #' @param ... ignored
 #'
 #' @importFrom stats coef
@@ -119,7 +119,7 @@ coef.FitIsoGrowth <- function(object, ...) {
 #' @describeIn FitIsoGrowth variance-covariance matrix of the model, estimated
 #' as 1/(0.5*Hessian)
 #'
-#' @param object an instance of \code{FitIsoGrowth}.
+#' @param object an instance of `FitIsoGrowth`.
 #' @param ... ignored
 #'
 #' @export
@@ -145,7 +145,7 @@ vcov.FitIsoGrowth <- function(object, ...) {
 
 #' @describeIn FitIsoGrowth deviance of the model.
 #'
-#' @param object an instance of \code{FitIsoGrowth}.
+#' @param object an instance of `FitIsoGrowth`.
 #' @param ... ignored
 #' 
 #' @importFrom stats deviance
@@ -160,7 +160,7 @@ deviance.FitIsoGrowth <- function(object, ...) {
 
 #' @describeIn FitIsoGrowth vector of fitted values.
 #' 
-#' @param object an instance of \code{FitIsoGrowth }.
+#' @param object an instance of `FitIsoGrowth `.
 #' @param ... ignored
 #' 
 #' @export
@@ -176,7 +176,7 @@ fitted.FitIsoGrowth <- function(object, ...) {
 #' @param object an instance of FitIsoGrowth
 #' @param ... ignored
 #' @param times numeric vector describing the time points for the prediction.
-#' If \code{NULL} (default), uses the same points as those used for fitting.
+#' If `NULL` (default), uses the same points as those used for fitting.
 #' 
 #' @export
 #' 

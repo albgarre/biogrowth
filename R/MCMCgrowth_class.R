@@ -2,10 +2,10 @@
 #' MCMCgrowth class
 #' 
 #' @description 
-#' The \code{MCMCgrowth} class contains the results of a growth prediction
+#' The `MCMCgrowth` class contains the results of a growth prediction
 #' consider parameter variability based on a model
-#' fitted using \code{\link{fit_MCMC_growth}} or 
-#' \code{\link{fit_multiple_growth_MCMC}}.
+#' fitted using [fit_MCMC_growth()] or 
+#' [fit_multiple_growth_MCMC()].
 #' 
 #' It is a subclass of list with items:
 #' \itemize{
@@ -14,7 +14,7 @@
 #' sample.
 #' \item quantiles: Tibble with the limits of the credible intervals
 #'  (5%, 10%, 50%, 90% and 95%) for each time point.
-#' \item model: Instance of \code{FitDynamicGrowthMCMC} used for predictions.
+#' \item model: Instance of `FitDynamicGrowthMCMC` used for predictions.
 #' \item env_conditions: A tibble with the environmental conditions of the simulation.
 #' }
 #' 
@@ -24,7 +24,7 @@ NULL
 
 #' @describeIn MCMCgrowth print of the model
 #' 
-#' @param x An instance of \code{MCMCgrowth}.
+#' @param x An instance of `MCMCgrowth`.
 #' @param ... ignored
 #' 
 #' @export
@@ -45,7 +45,7 @@ print.MCMCgrowth <- function(x, ...) {
 
 #' @describeIn MCMCgrowth plot of predicted growth (prediction band).
 #'
-#' @param x The object of class \code{MCMCgrowth} to plot.
+#' @param x The object of class `MCMCgrowth` to plot.
 #' @param y ignored
 #' @param ... ignored.
 #' @param add_factor Includes the variation of one environmental factor in the plot.
@@ -65,7 +65,7 @@ print.MCMCgrowth <- function(x, ...) {
 #' @param line_col2 colour of the line representing the environmental condition. "black"
 #' by default.
 #' @param line_size2 size of the line representing the environmental condition. 1 by default.
-#' @param ylims limits of the primary y-axis. \code{NULL} by default (let ggplot choose).
+#' @param ylims limits of the primary y-axis. `NULL` by default (let ggplot choose).
 #'
 #' @export
 #'

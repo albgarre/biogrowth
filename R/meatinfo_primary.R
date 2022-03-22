@@ -1,10 +1,10 @@
 
 #' Metainformation of primary growth models
 #'
-#' @param model_name The name of the model or \code{NULL} (default).
+#' @param model_name The name of the model or `NULL` (default).
 #'
 #' @return
-#' If model_name is \code{NULL}, returns a character string with the available models.
+#' If model_name is `NULL`, returns a character string with the available models.
 #' If is a valid identifier, it returns a list with metainformation about the model.
 #' If model_name name is not a valid identifier, raises an error.
 #'

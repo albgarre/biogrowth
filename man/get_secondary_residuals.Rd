@@ -30,5 +30,5 @@ model fitting. One of \code{sq} (square root), \code{log} (log-transform) or
 A numeric vector of residuals.
 }
 \description{
-Residual function for \code{\link{fit_secondary_growth}}.
+Residual function for \code{\link[=fit_secondary_growth]{fit_secondary_growth()}}.
 }

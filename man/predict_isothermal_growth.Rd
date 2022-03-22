@@ -16,9 +16,11 @@ predict_isothermal_growth(model_name, times, model_pars, check = TRUE)
 \item{check}{Whether to do basic checks (TRUE by default).}
 }
 \value{
-An instance of \code{\link{IsothermalGrowth}}.
+An instance of \code{\link[=IsothermalGrowth]{IsothermalGrowth()}}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
 Predicts population growth under static conditions using primary models.
 }
 \examples{

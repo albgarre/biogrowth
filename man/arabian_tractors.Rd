@@ -7,8 +7,8 @@
 \format{
 A tibble with 40 rows (each corresponding to one year) and 7 columns:
 \describe{
-    \item{year}{Year for the recording}
-    \item{tractors}{Number of tractors}
+\item{year}{Year for the recording}
+\item{tractors}{Number of tractors}
 }
 }
 \usage{

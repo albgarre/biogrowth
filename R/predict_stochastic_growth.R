@@ -6,9 +6,9 @@
 #' Monte Carlo simulation considering the parameters follow a multivariate normal
 #' distribution. 
 #' 
-#' They are defined in the \code{pars} argument using a tibble with 4 columns:
+#' They are defined in the `pars` argument using a tibble with 4 columns:
 #' \itemize{
-#'     \item{par: identifier of the model parameter (according to \code{\link{primary_model_data}})},
+#'     \item{par: identifier of the model parameter (according to [primary_model_data()])},
 #'     \item{mean: mean value of the model parameter.},
 #'     \item{sd: standard deviation of the model parameter.},
 #'     \item{scale: scale at which the model parameter is defined. Valid values are
@@ -23,11 +23,11 @@
 #' @param n_sims Number of simulations.
 #' @param pars A tibble describing the parameter uncertainty (see details).
 #' @param corr_matrix Correlation matrix of the model parameters. Defined in the
-#' same order as in \code{pars}. An identity matrix by default
+#' same order as in `pars`. An identity matrix by default
 #' (uncorrelated parameters).
-#' @param check Whether to do some tests. \code{FALSE} by default.
+#' @param check Whether to do some tests. `FALSE` by default.
 #'
-#' @return An instance of \code{\link{StochasticGrowth}}.
+#' @return An instance of [StochasticGrowth()].
 #'
 #' @importFrom MASS mvrnorm
 #' @importFrom dplyr mutate

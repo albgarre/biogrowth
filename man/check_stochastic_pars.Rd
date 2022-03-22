@@ -16,7 +16,7 @@ same order as in \code{pars}. An identity matrix by default
 (uncorrelated parameters).}
 }
 \description{
-Does several checks of the model parameters. Besides those by 
+Does several checks of the model parameters. Besides those by
 check_primary_pars, it checks that corr_matrix is square, that pars and
 corr_matrix have compatible dimensions, and that pars has the correct names.
 }

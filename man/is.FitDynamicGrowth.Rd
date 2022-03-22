@@ -11,7 +11,7 @@ is.FitDynamicGrowth(x)
 }
 \value{
 A boolean specifying whether \code{x} is of class
-        \code{FitDynamicGrowth}
+\code{FitDynamicGrowth}
 }
 \description{
 Tests if an object is of class \code{FitDynamicGrowth}.

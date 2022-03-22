@@ -2,13 +2,13 @@
 #' FitMultipleGrowthMCMC class
 #' 
 #' @description 
-#' The \code{FitMultipleGrowthMCMC} class contains a model fitted to a set of dynamic
+#' The `FitMultipleGrowthMCMC` class contains a model fitted to a set of dynamic
 #' experiments using an MCMC algorithm. Its constructor is 
-#' \code{\link{fit_multiple_growth_MCMC}}.
+#' [fit_multiple_growth_MCMC()].
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{
-#'          \item fit_results: the object returned by \code{modFit}.
+#'          \item fit_results: the object returned by `modFit`.
 #'          \item best_prediction: a list with the models predictions for each condition.
 #'          \item data: a list with the data used for the fit.
 #'          \item starting: starting values for model fitting
@@ -23,7 +23,7 @@ NULL
 
 #' @describeIn FitMultipleGrowthMCMC print of the model
 #' 
-#' @param x An instance of \code{FitMultipleGrowthMCMC}.
+#' @param x An instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
 #' 
 #' @export
@@ -95,7 +95,7 @@ plot.FitMultipleGrowthMCMC <- function(x, y=NULL, ...,
 
 #' @describeIn FitMultipleGrowthMCMC statistical summary of the fit.
 #'
-#' @param object instance of \code{FitMultipleGrowthMCMC}.
+#' @param object instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored.
 #'
 #' @export
@@ -110,7 +110,7 @@ summary.FitMultipleGrowthMCMC <- function(object, ...) {
 #' with 4 columns: time (storage time), logN (observed count),
 #' exp (name of the experiment) and res (residual).
 #'
-#' @param object Instance of \code{FitMultipleGrowthMCMC}.
+#' @param object Instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @importFrom dplyr bind_rows select
@@ -147,7 +147,7 @@ residuals.FitMultipleGrowthMCMC <- function(object, ...) {
 
 #' @describeIn FitMultipleGrowthMCMC vector of fitted model parameters.
 #'
-#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param object an instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @export
@@ -161,7 +161,7 @@ coef.FitMultipleGrowthMCMC <- function(object, ...) {
 #' @describeIn FitMultipleGrowthMCMC variance-covariance matrix of the model,
 #' estimated as the variance of the samples from the Markov chain.
 #'
-#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param object an instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @importFrom stats cov
@@ -177,7 +177,7 @@ vcov.FitMultipleGrowthMCMC <- function(object, ...) {
 #' @describeIn FitMultipleGrowthMCMC deviance of the model, calculated as the sum of
 #' squared residuals of the prediction with the lowest standard error.
 #'
-#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param object an instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
 #'
 #' @importFrom dplyr select
@@ -209,7 +209,7 @@ deviance.FitMultipleGrowthMCMC <- function(object, ...) {
 #' as a tibble with 3 columns: time (storage time), exp (experiment 
 #' identifier) and fitted (fitted value).
 #' 
-#' @param object an instance of \code{FitMultipleGrowthMCMC}.
+#' @param object an instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
 #' 
 #' @importFrom rlang .data
@@ -230,13 +230,13 @@ fitted.FitMultipleGrowthMCMC <- function(object, ...) {
 #' with 3 columns: time (storage time), logN (observed count),
 #' and exp (name of the experiment).
 #'
-#' @param object Instance of \code{FitMultipleGrowthMCMC}.
+#' @param object Instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
-#' @param times A numeric vector with the time points for the simulations. \code{NULL}
+#' @param times A numeric vector with the time points for the simulations. `NULL`
 #' by default (using the same time points as those for the simulation).
-#' @param newdata a tibble describing the environmental conditions (as \code{env_conditions})
-#' in \code{\link{fit_multiple_growth}}. 
-#' If \code{NULL} (default), uses the same conditions as those for fitting.
+#' @param newdata a tibble describing the environmental conditions (as `env_conditions`)
+#' in [fit_multiple_growth()]. 
+#' If `NULL` (default), uses the same conditions as those for fitting.
 #' 
 #' @importFrom dplyr bind_rows
 #'

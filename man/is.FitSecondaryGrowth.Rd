@@ -11,7 +11,7 @@ is.FitSecondaryGrowth(x)
 }
 \value{
 A boolean specifying whether \code{x} is of class
-        \code{FitSecondaryGrowth}
+\code{FitSecondaryGrowth}
 }
 \description{
 Tests if an object is of class \code{FitSecondaryGrowth}.

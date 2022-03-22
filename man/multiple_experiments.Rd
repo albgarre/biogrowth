@@ -9,10 +9,10 @@ A nested list with two elements. Each element
 corresponds to one experiment and is described by a list
 with two data frames:
 \describe{
-    \item{data}{a tibble describing the microbial counts. It has 2 columns:
-    time (elapsed time) and logN (logarithm of the microbial count)}.
-    \item{conditions}{a tibble describing the environmental conditions. It has
-    3 columns: time (elapsed time), temperature (storage temperature) and pH (pH of the media).}
+\item{data}{a tibble describing the microbial counts. It has 2 columns:
+time (elapsed time) and logN (logarithm of the microbial count)}.
+\item{conditions}{a tibble describing the environmental conditions. It has
+3 columns: time (elapsed time), temperature (storage temperature) and pH (pH of the media).}
 }
 }
 \usage{
@@ -20,7 +20,7 @@ multiple_experiments
 }
 \description{
 An example dataset illustrating the requirements of
-\code{\link{fit_multiple_growth}} and
-\code{\link{fit_multiple_growth_MCMC}}.
+\code{\link[=fit_multiple_growth]{fit_multiple_growth()}} and
+\code{\link[=fit_multiple_growth_MCMC]{fit_multiple_growth_MCMC()}}.
 }
 \keyword{datasets}

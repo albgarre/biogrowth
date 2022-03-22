@@ -7,16 +7,16 @@
 \format{
 A tibble with 21 rows and 2 columns:
 \describe{
-    \item{time}{elapsed time in hours.}
-    \item{logN}{observed population size (log CFU/g).}
+\item{time}{elapsed time in hours.}
+\item{logN}{observed population size (log CFU/g).}
 }
 }
 \usage{
 growth_salmonella
 }
 \description{
-An example dataset to illustrate \code{\link{fit_isothermal_growth}}. It
-describes the growth of Salmonella spp. in broth. It was retrieved from 
+An example dataset to illustrate \code{\link[=fit_isothermal_growth]{fit_isothermal_growth()}}. It
+describes the growth of Salmonella spp. in broth. It was retrieved from
 ComBase (ID: B092_10).
 }
 \keyword{datasets}

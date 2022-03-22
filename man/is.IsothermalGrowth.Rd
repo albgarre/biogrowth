@@ -11,7 +11,7 @@ is.IsothermalGrowth(x)
 }
 \value{
 A boolean specifying whether \code{x} is of class
-        \code{IsothermalGrowth}
+\code{IsothermalGrowth}
 }
 \description{
 Tests if an object is of class \code{IsothermalGrowth}.

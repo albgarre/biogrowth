@@ -18,8 +18,8 @@ predict_dynamic_growth(
 \item{times}{Numeric vector of storage times to make the predictions}
 
 \item{env_conditions}{Tibble describing the variation of the environmental
-conditions during storage. It must have with the elapsed time (named \code{time} 
-by default; can be changed with the "formula" argument), 
+conditions during storage. It must have with the elapsed time (named \code{time}
+by default; can be changed with the "formula" argument),
 and as many additional columns as environmental factors.}
 
 \item{primary_pars}{A named list defining the parameters of the primary model
@@ -28,7 +28,7 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 
 \item{secondary_models}{A nested list describing the secondary models.}
 
-\item{...}{Additional arguments for \code{\link{ode}}.}
+\item{...}{Additional arguments for \code{\link[=ode]{ode()}}.}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 
@@ -36,7 +36,7 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 \code{. ~ time} as a default.}
 }
 \value{
-An instance of \code{\link{DynamicGrowth}}.
+An instance of \code{\link[=DynamicGrowth]{DynamicGrowth()}}.
 }
 \description{
 Predicts population growth under dynamic conditions based on the

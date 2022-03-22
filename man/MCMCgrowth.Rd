@@ -70,8 +70,8 @@ by default.}
 \description{
 The \code{MCMCgrowth} class contains the results of a growth prediction
 consider parameter variability based on a model
-fitted using \code{\link{fit_MCMC_growth}} or 
-\code{\link{fit_multiple_growth_MCMC}}.
+fitted using \code{\link[=fit_MCMC_growth]{fit_MCMC_growth()}} or
+\code{\link[=fit_multiple_growth_MCMC]{fit_multiple_growth_MCMC()}}.
 
 It is a subclass of list with items:
 \itemize{
@@ -79,7 +79,7 @@ It is a subclass of list with items:
 \item simulations: Individual growth curves calculated based on the parameter
 sample.
 \item quantiles: Tibble with the limits of the credible intervals
- (5%, 10%, 50%, 90% and 95%) for each time point.
+(5\%, 10\%, 50\%, 90\% and 95\%) for each time point.
 \item model: Instance of \code{FitDynamicGrowthMCMC} used for predictions.
 \item env_conditions: A tibble with the environmental conditions of the simulation.
 }

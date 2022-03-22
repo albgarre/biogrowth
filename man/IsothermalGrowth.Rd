@@ -18,17 +18,17 @@
 \item{y}{ignored}
 
 \item{line_col}{Aesthetic parameter to change the colour of the line,
-see: \code{\link{geom_line}}}
+see: \code{\link[=geom_line]{geom_line()}}}
 
 \item{line_size}{Aesthetic parameter to change the thickness of the line,
-see: \code{\link{geom_line}}}
+see: \code{\link[=geom_line]{geom_line()}}}
 
 \item{line_type}{Aesthetic parameter to change the type of the line,
-takes numbers (1-6) or strings ("solid") see: \code{\link{geom_line}}}
+takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line()}}}
 }
 \description{
 The \code{IsothermalGrowth} class contains the results of a growth prediction
-under isothermal conditions. Its constructor is \code{\link{predict_isothermal_growth}}.
+under isothermal conditions. Its constructor is \code{\link[=predict_isothermal_growth]{predict_isothermal_growth()}}.
 
 It is a subclass of list with the items:
 \itemize{

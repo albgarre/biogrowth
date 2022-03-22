@@ -11,7 +11,7 @@ is.StochasticGrowth(x)
 }
 \value{
 A boolean specifying whether \code{x} is of class
-        \code{StochasticGrowth}
+\code{StochasticGrowth}
 }
 \description{
 Tests if an object is of class \code{StochasticGrowth}.

@@ -6,23 +6,23 @@
 #' based on the gamma concept (Zwietering et al. 1992).
 #'
 #' Model predictions are done by linear interpolation of the environmental
-#' conditions defined in \code{env_conditions}.
+#' conditions defined in `env_conditions`.
 #'
 #' @param times Numeric vector of storage times to make the predictions
 #' @param env_conditions Tibble describing the variation of the environmental
-#' conditions during storage. It must have with the elapsed time (named \code{time} 
+#' conditions during storage. It must have with the elapsed time (named `time` 
 #' by default; can be changed with the "formula" argument), 
 #' and as many additional columns as environmental factors.
 #' @param primary_pars A named list defining the parameters of the primary model
-#' and the initial values of the model variables. That is, with names \code{mu_opt},
-#' \code{Nmax}, \code{N0}, \code{Q0}.
+#' and the initial values of the model variables. That is, with names `mu_opt`,
+#' `Nmax`, `N0`, `Q0`.
 #' @param secondary_models A nested list describing the secondary models.
-#' @param ... Additional arguments for \code{\link{ode}}.
-#' @param check Whether to check the validity of the models. \code{TRUE} by default.
+#' @param ... Additional arguments for [ode()].
+#' @param check Whether to check the validity of the models. `TRUE` by default.
 #' @param formula An object of class "formula" describing the x variable.
-#' \code{. ~ time} as a default.
+#' `. ~ time` as a default.
 #'
-#' @return An instance of \code{\link{DynamicGrowth}}.
+#' @return An instance of [DynamicGrowth()].
 #'
 #' @importFrom deSolve ode
 #' @importFrom tibble as_tibble

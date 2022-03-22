@@ -12,14 +12,14 @@ distribution_to_logcount(model, log_count)
 \item{log_count}{The target microbial count.}
 }
 \value{
-An instance of \code{\link{TimeDistribution}}.
+An instance of \code{\link[=TimeDistribution]{TimeDistribution()}}.
 }
 \description{
 Returns the probability distribution of the storage time required for
 the microbial count to reach \code{log_count} according to the predictions of
 a stochastic \code{model}.
 Calculations are done using linear interpolation of the individual
- model predictions.
+model predictions.
 }
 \examples{
 \donttest{

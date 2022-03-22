@@ -11,7 +11,7 @@ is.FitDynamicGrowthMCMC(x)
 }
 \value{
 A boolean specifying whether \code{x} is of class
-        \code{FitDynamicGrowthMCMC}
+\code{FitDynamicGrowthMCMC}
 }
 \description{
 Tests if an object is of class \code{FitDynamicGrowthMCMC}.

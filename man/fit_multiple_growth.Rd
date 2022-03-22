@@ -30,7 +30,7 @@ The default column names can be changed with the formula argument.}
 \item{sec_model_names}{named character vector with names the
 environmental conditions and values the secondary model (see secondary_model_data).}
 
-\item{...}{additional arguments for \code{\link{modFit}}.}
+\item{...}{additional arguments for \code{\link[=modFit]{modFit()}}.}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 
@@ -38,13 +38,13 @@ environmental conditions and values the secondary model (see secondary_model_dat
 \code{logN ~ time} as a default.}
 }
 \value{
-An instance of \code{\link{FitMultipleDynamicGrowth}}.
+An instance of \code{\link[=FitMultipleDynamicGrowth]{FitMultipleDynamicGrowth()}}.
 }
 \description{
 This functions enables to fit a growth model using a dataset comprised of
 several experiments with potentially different dynamic experimental conditions.
 Note that the definition of secondary models must comply with the
-`secondary_model_data` function.
+\code{secondary_model_data} function.
 }
 \examples{
 \donttest{

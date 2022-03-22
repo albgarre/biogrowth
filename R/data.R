@@ -1,7 +1,7 @@
 
 #' Growth of Salmonella spp in broth
 #' 
-#' An example dataset to illustrate \code{\link{fit_isothermal_growth}}. It
+#' An example dataset to illustrate [fit_isothermal_growth()]. It
 #' describes the growth of Salmonella spp. in broth. It was retrieved from 
 #' ComBase (ID: B092_10).
 #' 
@@ -16,7 +16,7 @@
 #' Growth rates obtained for several growth experiments
 #'
 #' An example dataset illustrating the requirements of the
-#' \code{\link{fit_secondary_growth}} function.
+#' [fit_secondary_growth()] function.
 #'
 #' @format A data frame with 64 rows and 3 variables:
 #' \describe{
@@ -29,7 +29,7 @@
 #' Environmental conditions during a dynamic experiment
 #'
 #' An example dataset illustrating the requirements of the
-#' \code{\link{fit_dynamic_growth}} function.
+#' [fit_dynamic_growth()] function.
 #'
 #' @format A data frame with 3 rows and 3 variables:
 #' \describe{
@@ -42,7 +42,7 @@
 #' Microbial growth under dynamic conditions
 #'
 #' An example dataset illustrating the requirements of the
-#' \code{\link{fit_dynamic_growth}} function.
+#' [fit_dynamic_growth()] function.
 #'
 #' @format A data frame with 30 rows and 2 variables:
 #' \describe{
@@ -54,8 +54,8 @@
 #' A set of growth experiments under dynamic conditions
 #'
 #' An example dataset illustrating the requirements of
-#' \code{\link{fit_multiple_growth}} and
-#' \code{\link{fit_multiple_growth_MCMC}}.
+#' [fit_multiple_growth()] and
+#' [fit_multiple_growth_MCMC()].
 #'
 #' @format A nested list with two elements. Each element
 #' corresponds to one experiment and is described by a list

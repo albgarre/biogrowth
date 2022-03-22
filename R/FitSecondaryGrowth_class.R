@@ -2,17 +2,17 @@
 #' FitSecondaryGrowth class
 #' 
 #' @description 
-#' The \code{FitSecondaryGrowth} class contains a model fitted to a set of growth rates
+#' The `FitSecondaryGrowth` class contains a model fitted to a set of growth rates
 #' gathered under a variety of static conditions. 
-#' Its constructor is \code{\link{fit_secondary_growth}}.
+#' Its constructor is [fit_secondary_growth()].
 #' 
 #' It is a subclass of list with the items:
 #' \itemize{
-#' \item fit_results: object returned by \code{\link{modFit}}.
+#' \item fit_results: object returned by [modFit()].
 #' \item secondary_model: secondary model fitted to the data.
 #' \item mu_opt_fit: estimated growth rate under optimum conditions.
 #' \item data: data used for the fit.
-#' \item transformation: type of transformation of \code{mu} for the fit.
+#' \item transformation: type of transformation of `mu` for the fit.
 #' }
 #' 
 #' @name FitSecondaryGrowth
@@ -21,7 +21,7 @@ NULL
 
 #' @describeIn FitSecondaryGrowth print of the model
 #' 
-#' @param x An instance of \code{FitSecondaryGrowth}.
+#' @param x An instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #' 
 #' @export
@@ -145,7 +145,7 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
 
 #' @describeIn FitSecondaryGrowth statistical summary of the fit.
 #'
-#' @param object Instance of \code{FitSecondaryGrowth}.
+#' @param object Instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #'
 #' @export
@@ -158,7 +158,7 @@ summary.FitSecondaryGrowth <- function(object, ...) {
 
 #' @describeIn FitSecondaryGrowth vector of model residuals.
 #'
-#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param object an instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #'
 #' @importFrom stats residuals
@@ -171,7 +171,7 @@ residuals.FitSecondaryGrowth <- function(object, ...) {
 
 #' @describeIn FitSecondaryGrowth vector of fitted model parameters.
 #'
-#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param object an instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #'
 #' @importFrom stats coef
@@ -187,7 +187,7 @@ coef.FitSecondaryGrowth <- function(object, ...) {
 #' @describeIn FitSecondaryGrowth variance-covariance matrix of the model, estimated
 #' as 1/(0.5*Hessian)
 #'
-#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param object an instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #'
 #' @export
@@ -213,7 +213,7 @@ vcov.FitSecondaryGrowth <- function(object, ...) {
 
 #' @describeIn FitSecondaryGrowth deviance of the model.
 #'
-#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param object an instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #' 
 #' @importFrom stats deviance
@@ -231,7 +231,7 @@ deviance.FitSecondaryGrowth <- function(object, ...) {
 #' The fitted values are returned in the same scale as the one
 #' used for the fitting (sqrt, log or none).
 #' 
-#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param object an instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #' 
 #' @export
@@ -251,10 +251,10 @@ fitted.FitSecondaryGrowth <- function(object, ...) {
 
 #' @describeIn FitSecondaryGrowth vector of model predictions.
 #' 
-#' @param object an instance of \code{FitSecondaryGrowth}.
+#' @param object an instance of `FitSecondaryGrowth`.
 #' @param ... ignored
 #' @param newdata A tibble describing the environmental conditions as in
-#' \code{\link{fit_secondary_growth}}. If \code{NULL}, it uses the same
+#' [fit_secondary_growth()]. If `NULL`, it uses the same
 #' conditions as for model fitting (default).
 #' 
 #' @importFrom purrr map_chr

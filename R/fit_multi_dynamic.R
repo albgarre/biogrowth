@@ -4,18 +4,18 @@
 #'
 #' Function for calculating residuals of dynamic predictions under
 #' different conditions for the same model parameters according
-#' to the requirements of \code{\link{modFit}}.
+#' to the requirements of [modFit()].
 #'
 #' @param this_p named vector of model parameters
 #' @param known_pars named vector of known model parameters
 #' @param sec_model_names named character vector with names the
 #' environmental conditions and values the secondary model (see secondary_model_data).
 #' @param experiment_data a nested list with the experimental data. Each entry describes
-#' one experiment as a list with two elements: data and conditions. \code{data} is a tibble
-#' with two columns: time and logN. \code{conditions} is a tibble with one column named time
+#' one experiment as a list with two elements: data and conditions. `data` is a tibble
+#' with two columns: time and logN. `conditions` is a tibble with one column named time
 #' and as many additional columns as environmental factors.
 #'
-#' @return an instance of \code{modCost}.
+#' @return an instance of `modCost`.
 #'
 #' @importFrom FME modCost
 #'
@@ -48,24 +48,24 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #'
 #' @inheritParams get_multi_dyna_residuals
 #' @param starting_point a named vector of starting values for the model parameters.
-#' @param ... additional arguments for \code{\link{modFit}}.
-#' @param check Whether to check the validity of the models. \code{TRUE} by default.
+#' @param ... additional arguments for [modFit()].
+#' @param check Whether to check the validity of the models. `TRUE` by default.
 #' @param experiment_data a nested list with the experimental data. Each entry describes
-#' one experiment as a list with two elements: data and conditions. \code{data} is a tibble
+#' one experiment as a list with two elements: data and conditions. `data` is a tibble
 #' with a column giving the elapsed time (named "time" by default) and another one
 #' with the decimal logarithm of the population size (named "logN" by default).
-#' \code{conditions} is a tibble with one column giving the elapsed time (using the
-#' same name as \code{data}) and as many additional columns as environmental factors.
+#' `conditions` is a tibble with one column giving the elapsed time (using the
+#' same name as `data`) and as many additional columns as environmental factors.
 #' The default column names can be changed with the formula argument. 
 #' @param formula an object of class "formula" describing the x and y variables.
-#' \code{logN ~ time} as a default.
+#' `logN ~ time` as a default.
 #'
 #' @importFrom FME modFit
 #' @importFrom formula.tools lhs rhs get.vars
 #' @importFrom dplyr rename
 #' @importFrom formula.tools lhs rhs get.vars
 #' 
-#' @return An instance of \code{\link{FitMultipleDynamicGrowth}}.
+#' @return An instance of [FitMultipleDynamicGrowth()].
 #'
 #' @export
 #'
@@ -187,10 +187,10 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #' several experiments with potentially different dynamic experimental conditions.
 #'
 #' @inheritParams fit_multiple_growth
-#' @param ... additional arguments for \code{modMCMC} (e.g. upper and lower bounds).
+#' @param ... additional arguments for `modMCMC` (e.g. upper and lower bounds).
 #' @param niter number of samples of the MCMC algorithm.
 #'
-#' @return An instance of \code{\link{FitMultipleGrowthMCMC}}.
+#' @return An instance of [FitMultipleGrowthMCMC()].
 #'
 #' @export
 #'

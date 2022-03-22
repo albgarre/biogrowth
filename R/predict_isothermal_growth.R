@@ -31,7 +31,7 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 #' Reparameterized Gompertz growth model defined by Zwietering et al. (1990).
 #'
 #' @inheritParams iso_Baranyi
-#' @param C Difference between \code{logN0} and the maximum log-count.
+#' @param C Difference between `logN0` and the maximum log-count.
 #'
 #' @return Numeric vector with the predicted microbial count.
 #' 
@@ -101,7 +101,10 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 }
 
 #' Isothermal microbial growth
-#'
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
 #' Predicts population growth under static conditions using primary models.
 #'
 #' @param model_name Character defining the growth model.
@@ -109,7 +112,7 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 #' @param model_pars Named vector or list defining the values of the model parameters.
 #' @param check Whether to do basic checks (TRUE by default).
 #'
-#' @return An instance of \code{\link{IsothermalGrowth}}.
+#' @return An instance of [IsothermalGrowth()].
 #'
 #' @importFrom tibble tibble
 #'

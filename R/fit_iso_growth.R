@@ -6,7 +6,7 @@
 #' @param model_name character defining the primary growth model
 #' @param known_pars named vector of fixed model parameters
 #'
-#' @return An instance of \code{modCost}.
+#' @return An instance of `modCost`.
 #'
 #' @importFrom FME modCost
 #'
@@ -33,18 +33,18 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 #' @importFrom dplyr rename
 #'
 #' @param fit_data Tibble of data for the fit. It must have two columns, one with
-#' the elapsed time (\code{time} by default) and another one with the decimal logarithm
-#' of the populatoin size (\code{logN} by default). Different column names can be
-#' defined using the \code{formula} argument. 
+#' the elapsed time (`time` by default) and another one with the decimal logarithm
+#' of the populatoin size (`logN` by default). Different column names can be
+#' defined using the `formula` argument. 
 #' @param model_name Character defining the primary growth model
 #' @param starting_point Named vector of initial values for the model parameters.
 #' @param known_pars Named vector of known model parameters (not fitted).
-#' @param ... Additional arguments passed to \code{\link{modFit}}.
+#' @param ... Additional arguments passed to [modFit()].
 #' @param check Whether to do some basic checks (TRUE by default).
 #' @param formula an object of class "formula" describing the x and y variables.
-#' \code{logN ~ time} as a default.
+#' `logN ~ time` as a default.
 #'
-#' @return An instance of \code{\link{FitIsoGrowth}}.
+#' @return An instance of [FitIsoGrowth()].
 #'
 #' @export
 #'
