@@ -21,7 +21,11 @@ An instance of \code{\link[=IsothermalGrowth]{IsothermalGrowth()}}.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
-Predicts population growth under static conditions using primary models.
+The function \code{\link[=predict_isothermal_growth]{predict_isothermal_growth()}} has been superseded by the top-level
+function \code{\link[=predict_growth]{predict_growth()}}, which provides a unified approach for growth modelling.
+
+Regardless of that, it can still be used to predict population growth under static
+environmental conditions (i.e. using primary models).
 }
 \examples{
 ## Define the simulations parameters

@@ -105,7 +105,11 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 #' @description 
 #' `r lifecycle::badge("superseded")`
 #' 
-#' Predicts population growth under static conditions using primary models.
+#' The function [predict_isothermal_growth()] has been superseded by the top-level
+#' function [predict_growth()], which provides a unified approach for growth modelling.
+#' 
+#' Regardless of that, it can still be used to predict population growth under static 
+#' environmental conditions (i.e. using primary models).
 #'
 #' @param model_name Character defining the growth model.
 #' @param times Numeric vector of storage times for the predictions.
