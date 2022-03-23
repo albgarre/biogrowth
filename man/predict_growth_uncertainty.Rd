@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_stochastic_growth.R
 \name{predict_growth_uncertainty}
 \alias{predict_growth_uncertainty}
-\title{Isothermal growth with variability}
+\title{Isothermal growth with parameter uncertainty}
 \usage{
 predict_growth_uncertainty(
   model_name,
@@ -32,13 +32,16 @@ same order as in \code{pars}. An identity matrix by default
 An instance of \code{\link[=StochasticGrowth]{StochasticGrowth()}}.
 }
 \description{
-Stochastic simulation of microbial growth based on probability
-distributions of the parameters of the primary model. It is included by
-Monte Carlo simulation considering the parameters follow a multivariate normal
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Simulation of microbial growth considering uncertianty in the model parameters.
+Calculations are based on
+Monte Carlo simulations, considering the parameters follow a multivariate normal
 distribution.
 }
 \details{
-They are defined in the \code{pars} argument using a tibble with 4 columns:
+The distributions of the model parameters are
+defined in the \code{pars} argument using a tibble with 4 columns:
 \itemize{
 \item{par: identifier of the model parameter (according to \code{\link[=primary_model_data]{primary_model_data()}})},
 \item{mean: mean value of the model parameter.},
@@ -70,7 +73,7 @@ pars <- tribble(
 
 ## Calling the function
 
-stoc_growth <- predict_growth_uncertainty~(my_model, my_times, n_sims, pars)
+stoc_growth <- predict_growth_uncertainty(my_model, my_times, n_sims, pars)
 
 ## We can plot the results
 

@@ -35,14 +35,19 @@ predict_stochastic_growth <- function(model_name,
 }
 
 
-#' Isothermal growth with variability
+#' Isothermal growth with parameter uncertainty
+#' 
+#' @description
+#' `r lifecycle::badge("stable")`
 #'
-#' Stochastic simulation of microbial growth based on probability
-#' distributions of the parameters of the primary model. It is included by
-#' Monte Carlo simulation considering the parameters follow a multivariate normal
+#' Simulation of microbial growth considering uncertianty in the model parameters.
+#' Calculations are based on 
+#' Monte Carlo simulations, considering the parameters follow a multivariate normal
 #' distribution. 
 #' 
-#' They are defined in the `pars` argument using a tibble with 4 columns:
+#' @details
+#' The distributions of the model parameters are
+#' defined in the `pars` argument using a tibble with 4 columns:
 #' \itemize{
 #'     \item{par: identifier of the model parameter (according to [primary_model_data()])},
 #'     \item{mean: mean value of the model parameter.},
