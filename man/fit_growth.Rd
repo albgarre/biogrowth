@@ -266,6 +266,19 @@ MCMC_fit <- fit_growth(example_dynamic_growth,
 
 plot(MCMC_fit, add_factor = "aw")
 summary(MCMC_fit)
+
+## It can also make growth predictions including uncertainty
+
+uncertain_growth <- predictMCMC(MCMC_fit, 
+                                seq(0, 10, length = 1000),  
+                                example_env_conditions, 
+                                niter = 1000)
+
+## The instance of MCMCgrowth includes several nice S3 methods
+
+plot(uncertain_growth)
+print(uncertain_growth)
+
 }
 
 ## Example 4 - Fitting a unique model to several dynamic experiments --------
@@ -336,6 +349,20 @@ global_MCMC <- fit_growth(multiple_counts,
 plot(global_MCMC)
 summary(global_MCMC)
 print(global_MCMC)
+
+## It can also be used to make model predictions with parameter uncertainty
+
+uncertain_prediction <- predictMCMC(global_MCMC,
+                                    seq(0, 50, length = 1000), 
+                                    multiple_conditions[[1]], 
+                                    niter = 100
+                                    )
+
+## The instance of MCMCgrowth includes several nice S3 methods
+
+plot(uncertain_growth)
+print(uncertain_growth)
+
 }
 
 }

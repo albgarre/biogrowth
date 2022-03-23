@@ -27,7 +27,13 @@ parameters "fixes" it. \code{NULL} by default (no new parameters).}
 An instance of \code{\link[=MCMCgrowth]{MCMCgrowth()}}.
 }
 \description{
-Makes a stochastic prediction of microbial growth based on a growth model
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The function \code{\link[=predict_MCMC_growth]{predict_MCMC_growth()}} has been superseded by \code{\link[=predictMCMC]{predictMCMC()}}
+S3 methods of the relevant classes.
+
+Nonetheless, it can still make a prediction of microbial growth including
+parameter uncertainty based on a growth model
 fitted using \code{\link[=fit_MCMC_growth]{fit_MCMC_growth()}} or \code{\link[=fit_multiple_growth_MCMC]{fit_multiple_growth_MCMC()}}.
 This function predicts growth curves for \code{niter} samples (with replacement)
 of the samples of the MCMC algorithm. Then, credible intervals are calculated based on the

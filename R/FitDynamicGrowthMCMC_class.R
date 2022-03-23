@@ -259,5 +259,3 @@ predict.FitDynamicGrowthMCMC <- function(object, times=NULL, newdata = NULL, ...
 
 
 
-
-

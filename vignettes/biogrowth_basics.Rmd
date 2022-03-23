@@ -363,29 +363,28 @@ data("growth_salmonella")
 head(growth_salmonella)
 ```
 
-The dataset `multiple_experiments` simulates several growth experiments performed for the same microorganism under dynamic conditions that vary between experiments. It is a nested list with two elements, each describing a single experiment.
+The datasets `multiple_counts` and `multiple_conditions` simulate several growth 
+experiments performed for the same microorganism under dynamic conditions that
+vary between experiments. The observed microbial counts are included in
+`multiple_counts`, which is a list where each element includes the observations
+of one experiment with two columns: `time` (elapsed time) and `logN` the
+logarithm of the observed population size.
 
 ```{r}
-data("multiple_experiments")
+data("multiple_counts")
+head(multiple_counts[[1]])
 ```
 
-Each experiment is described using a list with two elements: `data` and `conditions`. The former is a tibble with two columns: `time` (the elapsed time) and `logN` the observed population size.
+
+Then, `multiple_conditions` describes the (dynamic) values of the environmental 
+conditions during the experiment. In this case, the experiment considers the
+effect of temperature and pH. This is reflected in each entry including a column,
+`time`, with the elapsed time and two additional columns: `pH` (observed pH) and
+`temperature` (observed temperature. )
 
 ```{r}
-head(multiple_experiments[[1]]$data)
-```
-
-Then, `conditions` is also a tibble with one column named `time` (elapsed time), one called `temperature` (the storage temperature) and another one called `pH` (the pH of the media).
-
-```{r}
-print(multiple_experiments[[1]]$conditions)
-```
-
-The second experiment is described using the same structure.
-
-```{r}
-head(multiple_experiments[[2]]$data)
-print(multiple_experiments[[2]]$conditions)
+data("multiple_conditions")
+head(multiple_conditions[[1]])
 ```
 
 The dataset `arabian_tractors` includes the number of agricultural tractors in the Arab World according to the World Bank. It is included to show the applicability of `fit_isothermal_growth` for data from other fields. 
@@ -394,6 +393,45 @@ The dataset `arabian_tractors` includes the number of agricultural tractors in t
 data("arabian_tractors")
 head(arabian_tractors)
 ```
+
+# Prediction of population growth
+
+The **biogrowth** package includes the `predict_growth` function as a top-level 
+interface for the growth predictions under either isothermal or dynamic conditions.
+The model predictions are based on 5 arguments:
+* `times`
+* `primary_model`
+* `environemnt`
+* `secondary_models`
+* `env_conditions`
+
+Furthermore, the function includes four additional arguments for miscelaneous topics:
+* `...`
+* `check`
+* `logbase`
+* `formula`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Deterministic modelling
 

@@ -1,7 +1,14 @@
 
 #' Stochastic growth of MCMC fit
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [predict_MCMC_growth()] has been superseded by [predictMCMC()]
+#' S3 methods of the relevant classes. 
 #'
-#' Makes a stochastic prediction of microbial growth based on a growth model
+#' Nonetheless, it can still make a prediction of microbial growth including
+#' parameter uncertainty based on a growth model
 #' fitted using [fit_MCMC_growth()] or [fit_multiple_growth_MCMC()].
 #' This function predicts growth curves for `niter` samples (with replacement)
 #' of the samples of the MCMC algorithm. Then, credible intervals are calculated based on the
@@ -87,9 +94,12 @@
 #' print(my_MCMC_prediction$quantiles)
 #' }
 #'
-predict_MCMC_growth <- function(MCMCfit, times, env_conditions, niter,
+predict_MCMC_growth <- function(MCMCfit, 
+                                times, 
+                                env_conditions, 
+                                niter,
                                 newpars = NULL) {
-
+    
     ## Extract the parameters
 
     par_sample <- MCMCfit$fit_results$pars %>%
