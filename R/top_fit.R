@@ -11,20 +11,92 @@
 #' environment conditions. 
 #' See below for details on the calculations.
 #' 
-#' @details 
-#' Models can be fitted using two different algorithms: regression (Levenberg-Marquardt
-#' algorithm) or an Adaptive Monte Carlo algorithm.
-#' 
-#' AA
-#' 
 #' @section Fitting under constant conditions:
-#' AA
+#' When environment="constant", the functions fits a primary growth model to the
+#' population size observed during an experiment. In this case, the data has to be
+#' a tibble (or data.frame) with two columns: 
+#' * time: the elapsed time
+#' * logN: the logarithm of the observed population size
+#' Nonetheless, the names of the columns can be modified with the formula argument.
+#' 
+#' The model equation is defined through the model_keys argument. It must include
+#' an entry named "primary" assigned to a model. Valid model keys can be retrieved
+#' calling [primary_model_data()].
+#' 
+#' The model is fitted by non-linear regression (using [modFit()]). This algorithm 
+#' needs initial guesses for every model parameter. This are defined as a named numeric
+#' vector. The names must be valid model keys, which can be retrieved using [primary_model_data()]
+#' (see example below). Apart from that, any model parameter can be fixed using the
+#' "known" argument. This is a named numeric vector, with the same convenctions as "start".
+#' 
 #' 
 #' @section Fitting under dynamic conditions to a single experiment:
-#' AA
+#' When environment="constant" and approach="single", a dynamic growth model combining
+#' the Baranyi primary growth model with the gamma approach for the effect of the environmental
+#' conditions on the growth rate is fitted to an experiment gathered under dynamic conditions.
+#' In this case, the data is similar to fitting under constant conditions: a 
+#' tibble (or data.frame) with two columns: 
+#' * time: the elapsed time
+#' * logN: the logarithm of the observed population size
+#' Note that these default names can be changed using the formula argument.
 #' 
-#' @section Fitting undery dynamic conditions to multiple experiments (global fitting):
-#' AA
+#' The values of the experimental conditions during the experiment are defined using
+#' the "env_conditions" argument. It is a tibble (or data.frame) with one column named ("time")
+#' defining the elapsed time. Note that this default name can be modified using the
+#' formula argument of the function. The tibble needs to have as many additional 
+#' columns as environmental conditions included in the model, providing the values 
+#' of the environmental conditions. 
+#' 
+#' The model equations are defined through the model_keys argument. It must be a named
+#' list where the names match the column names of "env_conditions" and the values
+#' are model keys. These can be retrieved using [secondary_model_data()].
+#' 
+#' The model can be fitted using regression ([modFit()]) or an adaptive Monte Carlo
+#' algorithm ([modMCMC()]). Both algorithms require initial guesses for every model
+#' parameter to fit. These are defined through the named numeric vector "start". Each
+#' parameter must be named as *factor*+"_"+*parameter*, where *factor* is the name of the 
+#' environmental factor defined in "model_keys". The *parameter* is a valid key
+#' that can be retrieved from [secondary_model_data()]. For instance, parameter Xmin for
+#' the factor temperature would be defined as "temperature_xmin". 
+#' 
+#' Note that the argument ... allows passing additional arguments to the fitting functions.
+#' 
+#' @section Fitting under dynamic conditions to multiple experiments (global fitting):
+#' When environment="constant" and approach="global", fit_growth tries to find the vector of model
+#' parameters that best describe the observations of several growth experiments.
+#' 
+#' The input requirements are very similar to the case when approach="single". The
+#' models (equations, initial guesses, known parameters, algorithms...) are identical.
+#' The only difference is that "fit_data" must be a list, where each element describes
+#' the results of an experiment (using the same conventions as when approach="single").
+#' In a similar fashion, "env_conditions" must be a list describing the values of the
+#' environmental factors during each experiment. Although it is not mandatory, it
+#' is recommended that the elements of both lists are named. Otherwise, the function
+#' assigns automatically-generated names, and matches them by order.#' 
+#' 
+#' @param fit_data observed microbial growth. The format varies depending on the type
+#' of model fit. See the relevant sections (and examples) below for details.
+#' @param model_keys a named list assigning equations for the primary and secondary
+#' models. See the relevant sections (and examples) below for details.
+#' @param start a named numeric vector assigning initial guesses to the model parameters
+#' to estimate from the data. See relevant section (and examples) below for details.
+#' @param known named numeric vector of fixed model parameters, using the same conventions
+#' as for "start".
+#' @param environment type of environment. Either "constant" (default) or "dynamic" (see below for details 
+#' on the calculations for each condition)
+#' @param algorithm either "regression" (default; Levenberg-Marquard algorithm) or "MCMC"
+#' (Adaptive Monte Carlo algorithm).
+#' @param approach approach for model fitting. Either "single" (the model is fitted to
+#' a unique experiment) or "global" (the model is fitted to several dynamic experiments).
+#' @param env_conditions Tibble describing the variation of the environmental
+#' conditions for dynamic experiments. See the relevant sections (and examples) below
+#' for details. Ignored for environment="constant".
+#' @param niter number of iterations of the MCMC algorithm. Ignored when algorithm!="MCMC".
+#' @param ... Additional arguments for [modFit()].
+#' @param check Whether to check the validity of the models. TRUE by default.
+#' @param logbase aa # TODO  
+#' @param formula An object of class "formula" defining the names of the x and y variables in 
+#' the data. `logN ~ time` as a default.
 #' 
 #' @return Depending on the type of data, the function will return an instance 
 #' of a different object:
@@ -51,14 +123,23 @@
 #' my_data <- data.frame(time = c(0, 25, 50, 75, 100), 
 #'                       logN = c(2, 2.5, 7, 8, 8))
 #'                       
+#' ## A list of model keys can be gathered from 
+#' 
+#' primary_model_data()
+#'                       
 #' ## The primary model is defined as a list
 #' 
 #' models <- list(primary = "Baranyi")
 #' 
+#' ## The keys of the model parameters can also be gathered from primary_model_data
+#' 
+#' primary_model_data("Baranyi")$pars
+#' 
 #' ## Any model parameter can be fixed
+#' 
 #' known <- c(mu = .2)
 #' 
-#' ## The remaning parameters need initial guesses 
+#' ## The remaining parameters need initial guesses 
 #' 
 #' start <- c(logNmax = 8, lambda = 25, logN0 = 2)
 #' 
@@ -83,9 +164,17 @@
 #' 
 #' data("example_env_conditions")
 #' 
+#' ## Valid keys for secondary models can be retrived from
+#' 
+#' secondary_model_data()
+#' 
 #' ## We need to assign a model equation (secondary model) to each environmental factor
 #' 
 #' sec_models <- list(temperature = "CPM", aw = "CPM")
+#' 
+#' ## The keys of the model parameters can be gathered from the same function
+#' 
+#' secondary_model_data("CPM")$pars
 #' 
 #' ## Any model parameter (of the primary or secondary models) can be fixed
 #' 
@@ -329,6 +418,11 @@ fit_growth <- function(fit_data,
             
             ## Put the data together
             
+            if (is.null(names(fit_data))) {  # In case the list were unnamed
+                names(fit_data) <- paste0("exp_", 1:length(fit_data))
+                names(env_conditions) <- paste0("exp_", 1:length(fit_data))
+            }
+            
             my_data <- names(fit_data) %>%
                 map(~ list(
                         data = fit_data[[.]],
@@ -353,6 +447,11 @@ fit_growth <- function(fit_data,
         } else if(algorithm == "MCMC" & approach == "global")  {  # Global fitting by MCMC
             
             ## Put the data together
+            
+            if (is.null(names(fit_data))) {  # In case the list were unnamed
+                names(fit_data) <- paste0("exp_", 1:length(fit_data))
+                names(env_conditions) <- paste0("exp_", 1:length(fit_data))
+            }
             
             my_data <- names(fit_data) %>%
                 map(~ list(
