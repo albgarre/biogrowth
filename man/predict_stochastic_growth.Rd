@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_stochastic_growth.R
 \name{predict_stochastic_growth}
 \alias{predict_stochastic_growth}
-\title{Isothermal growth with variability}
+\title{Deprecated isothermal growth with parameter uncertainty}
 \usage{
 predict_stochastic_growth(
   model_name,
@@ -28,65 +28,10 @@ same order as in \code{pars}. An identity matrix by default
 
 \item{check}{Whether to do some tests. \code{FALSE} by default.}
 }
-\value{
-An instance of \code{\link[=StochasticGrowth]{StochasticGrowth()}}.
-}
 \description{
-Stochastic simulation of microbial growth based on probability
-distributions of the parameters of the primary model. It is included by
-Monte Carlo simulation considering the parameters follow a multivariate normal
-distribution.
-}
-\details{
-They are defined in the \code{pars} argument using a tibble with 4 columns:
-\itemize{
-\item{par: identifier of the model parameter (according to \code{\link[=primary_model_data]{primary_model_data()}})},
-\item{mean: mean value of the model parameter.},
-\item{sd: standard deviation of the model parameter.},
-\item{scale: scale at which the model parameter is defined. Valid values are
-'original' (no transformation), 'sqrt' square root or 'log' log-scale. The
-parameter sample is generated considering the parameter follows a marginal
-normal distribution at this scale, and is later converted to the original scale
-for calculations.}
-}
-}
-\examples{
-\donttest{
-## Definition of the simulation settings
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-my_model <- "Baranyi"
-my_times <- seq(0, 30, length = 100)
-n_sims <- 3000
-
-library(tibble)
-
-pars <- tribble(
-    ~par, ~mean, ~sd, ~scale,
-    "logN0", 0, .2, "original",
-    "mu", 2, .3, "sqrt",
-    "lambda", 4, .4, "sqrt",
-    "logNmax", 6, .5, "original"
-)
-
-## Calling the function
-
-stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
-
-## We can plot the results
-
-plot(stoc_growth)
-
-## Adding parameter correlation
-
-my_cor <- matrix(c(1,   0,   0, 0,
-    0,   1, 0.7, 0,
-    0, 0.7,   1, 0,
-    0,   0,   0, 1),
-    nrow = 4)
-
-stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
-
-plot(stoc_growth2)
-}
-
+\code{\link[=predict_stochastic_growth]{predict_stochastic_growth()}} was renamed \code{\link[=predict_growth_uncertainty]{predict_growth_uncertainty()}} because
+the original function name may be misleading, as this is not a stochastic
+differential equation
 }

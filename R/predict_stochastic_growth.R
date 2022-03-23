@@ -1,4 +1,40 @@
 
+#' Deprecated isothermal growth with parameter uncertainty
+#' 
+#' @description 
+#' `r lifecycle::badge("deprecated")`
+#' 
+#' [predict_stochastic_growth()] was renamed [predict_growth_uncertainty()] because
+#' the original function name may be misleading, as this is not a stochastic
+#' differential equation
+#' 
+#' @inheritParams predict_growth_uncertainty
+#' 
+#' @importFrom lifecycle deprecate_warn
+#' @export
+#' 
+predict_stochastic_growth <- function(model_name, 
+                                      times, 
+                                      n_sims,
+                                      pars, 
+                                      corr_matrix = diag(nrow(pars)),
+                                      check = TRUE
+                                      ) {
+    
+    deprecate_warn("1.0.0", "predict_stochastic_growth()", 
+                   "predict_growth_uncertainty()")
+    
+    predict_growth_uncertainty(model_name, 
+                               times, 
+                               n_sims,
+                               pars, 
+                               corr_matrix,
+                               check
+                               )
+    
+}
+
+
 #' Isothermal growth with variability
 #'
 #' Stochastic simulation of microbial growth based on probability
@@ -59,7 +95,7 @@
 #' 
 #' ## Calling the function
 #' 
-#' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
+#' stoc_growth <- predict_growth_uncertainty(my_model, my_times, n_sims, pars)
 #'
 #' ## We can plot the results
 #'
@@ -73,12 +109,14 @@
 #'     0,   0,   0, 1),
 #'     nrow = 4)
 #'
-#' stoc_growth2 <- predict_stochastic_growth(my_model, my_times, n_sims, pars, my_cor)
+#' stoc_growth2 <- predict_growth_uncertainty(my_model, my_times, n_sims, pars, my_cor)
 #'
 #' plot(stoc_growth2)
 #' }
 #'
-predict_stochastic_growth <- function(model_name, times, n_sims,
+predict_growth_uncertainty <- function(model_name, 
+                                      times, 
+                                      n_sims,
                                       pars, 
                                       corr_matrix = diag(nrow(pars)),
                                       check = TRUE
