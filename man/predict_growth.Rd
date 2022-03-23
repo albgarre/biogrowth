@@ -133,7 +133,7 @@ my_model <- "modGompertz"  # we will use the modified-Gompertz
 
 ## The keys of the model parameters can also be obtained from primary_model_data()
 
-primary_model_data(my_model)
+primary_model_data(my_model)$pars
 
 ## We define the primary model as a list
 
