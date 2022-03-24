@@ -1,7 +1,13 @@
 
 #' Time to reach a given microbial count
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [time_to_logcount()] has been superseded by 
+#' function [time_to_size()], which provides a more general interface.
 #'
-#' Returns the storage time required for the microbial count to
+#' But it still returns the storage time required for the microbial count to
 #' reach `log_count` according to the predictions of `model`.
 #' Calculations are done using linear interpolation of the model predictions.
 #'
@@ -44,13 +50,19 @@ time_to_logcount <- function(model, log_count) {
         approx(model$simulation$logN, model$simulation$time,
                log_count, ties = "ordered")$y
     } else {
-        stop("Model not supported")
+        stop("Model type not supported: ", class(model))
     }
 
 }
 
 
 #' Distribution of times to reach a certain microbial count
+#' 
+#' @description 
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The function [distribution_to_logcount()] has been superseded by 
+#' function [time_to_size()], which provides more general interface.
 #'
 #' Returns the probability distribution of the storage time required for
 #' the microbial count to reach `log_count` according to the predictions of
@@ -116,7 +128,7 @@ distribution_to_logcount <- function(model, log_count) {
             )
 
     } else {
-        stop("Model not supported")
+        stop("Model type not supported: ", class(model))
     }
 
     my_summary <- time_dist %>%
@@ -134,6 +146,101 @@ distribution_to_logcount <- function(model, log_count) {
     out
 
 }
+
+#' Time for the population to reach a given size 
+#' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
+#' 
+#' Calculates the elapsed time required for the population to reach a given size
+#' (in log scale)
+#' 
+#' @details 
+#' The calculation method differs depending on the type of object passed. If the
+#' model contains a deterministic prediction ([IsothermalGrowth] or [DynamicGrowth]), 
+#' the time to reach the given population size is estimated by linear interpolation and
+#' the function a number. 
+#' 
+#' If, on the other hand, a stochastic prediction is passed ([StochasticGrowth],
+#' [MCMCgrowth]), the time to reach "size" is estimated for each Monte Carlo iteration.
+#' Then, the function returns an instance of [TimeDistribution], which contains
+#' the distribution of times.
+#' 
+#' @param model An instance of [IsothermalGrowth], [DynamicGrowth], [StochasticGrowth]
+#' or [MCMCgrowth]
+#' @param size Target population size (in log scale)
+#' 
+#' @return If "model" is [IsothermalGrowth] or [DynamicGrowth], a number. If "model"
+#' is [StochasticGrowth] or [MCMCgrowth], an instance of [TimeDistribution]
+#' 
+#' @export
+#' 
+time_to_size <- function(model, size, 
+                         # type = "discrete", 
+                         logbase = c("natural", "10")  # TODO
+                         ) {
+    
+    ## Just a top level function that calls the superseded functions
+    
+    my_class <- class(model)
+    
+    if ( my_class %in% c("IsothermalGrowth", "DynamicGrowth") ) {
+        
+        time_to_logcount(model, size)
+        
+    } else if ( my_class %in% c("StochasticGrowth", "MCMCgrowth") ) {
+        
+        distribution_to_logcount(model, size)
+        
+    } else {
+        
+        stop("Class not supported: ", my_class)
+        
+    }
+    
+}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

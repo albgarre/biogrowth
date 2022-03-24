@@ -15,7 +15,12 @@ time_to_logcount(model, log_count)
 The predicted time to reach \code{log_count}.
 }
 \description{
-Returns the storage time required for the microbial count to
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The function \code{\link[=time_to_logcount]{time_to_logcount()}} has been superseded by
+function \code{\link[=time_to_size]{time_to_size()}}, which provides a more general interface.
+
+But it still returns the storage time required for the microbial count to
 reach \code{log_count} according to the predictions of \code{model}.
 Calculations are done using linear interpolation of the model predictions.
 }
