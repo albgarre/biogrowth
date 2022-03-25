@@ -1,0 +1,86 @@
+---
+title: "Description of datasets"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Description of datasets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(biogrowth)
+```
+
+The **biogrowth** package includes several datasets to aid in the understanding of its functions.
+They can be loaded with a call to the function `data()` passing the name of the dataset as an argument.
+
+The dataset `example_cardinal` includes an example of the type of data used for estimating cardinal model parameters. It has three columns: temperature, pH and mu. The two first represent the storage conditions during several static growth experiments, whereas the latter is the specific growth rate observed in those experiments. This dataset is intended to be used for `fit_secondary_growth()`.
+
+```{r}
+data("example_cardinal")
+head(example_cardinal)
+```
+
+The datasets `example_dynamic_growth` and `example_env_conditions` describe a dynamic growth experiment, which can be used for the `fit_dynamic_growth()` function. The dataset `example_env_conditions` describes the experimental design; i.e. how the environmental factors vary during the experiment. It has three columns: time (the elapsed time), temperature (the storage temperature) and aw (the water activity). 
+
+```{r}
+data("example_env_conditions")
+head(example_env_conditions)
+```
+
+The dataset `example_dynamic_growth` illustrates the population size observed during 
+the experiment described by `example_env_conditions`. It has two columns: time 
+(the elapsed time) and logN (the decimal logarithm of the observed population size).
+
+```{r}
+data("example_dynamic_growth")
+head(example_dynamic_growth)
+```
+
+The dataset `growth_salmonella` contains the growth of *Salmonella spp.* in broth. It has
+been retrived from ComBase (ID: B092_10). It has two columns: time (elapsed time) and
+logN (the decimal logarithm of the observed population size).
+
+```{r}
+data("growth_salmonella")
+head(growth_salmonella)
+```
+
+The datasets `multiple_counts` and `multiple_conditions` simulate several growth 
+experiments performed for the same microorganism under dynamic conditions that
+vary between experiments. The observed microbial counts are included in
+`multiple_counts`, which is a list where each element includes the observations
+of one experiment with two columns: `time` (elapsed time) and `logN` the
+logarithm of the observed population size.
+
+```{r}
+data("multiple_counts")
+head(multiple_counts[[1]])
+```
+
+
+Then, `multiple_conditions` describes the (dynamic) values of the environmental 
+conditions during the experiment. In this case, the experiment considers the
+effect of temperature and pH. This is reflected in each entry including a column,
+`time`, with the elapsed time and two additional columns: `pH` (observed pH) and
+`temperature` (observed temperature. )
+
+```{r}
+data("multiple_conditions")
+head(multiple_conditions[[1]])
+```
+
+The dataset `arabian_tractors` includes the number of agricultural tractors in the Arab World according to the World Bank. It is included to show the applicability of `fit_isothermal_growth` for data from other fields. 
+
+```{r}
+data("arabian_tractors")
+head(arabian_tractors)
+```
+

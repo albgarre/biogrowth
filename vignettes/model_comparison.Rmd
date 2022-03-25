@@ -1,0 +1,57 @@
+---
+title: "Comparing growth models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comparing growth models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(biogrowth)
+```
+
+```{r}
+data("growth_salmonella")
+
+fit1 <- fit_growth(growth_salmonella, 
+                   list(primary = "Baranyi"), 
+                   start = c(lambda = 0, logNmax = 8, mu = .1, logN0 = 2), 
+                   known = c(),
+                   environment = "constant",
+                   )
+
+fit2 <- fit_growth(growth_salmonella, 
+                   list(primary = "Baranyi"), 
+                   start = c(logNmax = 8, mu = .1, logN0 = 2), 
+                   known = c(lambda = 0),
+                   environment = "constant",
+)
+
+
+fit3 <- fit_growth(growth_salmonella, 
+                   list(primary = "modGompertz"), 
+                   start = c(C = 8, mu = .1, logN0 = 2), 
+                   known = c(lambda = 0),
+                   environment = "constant",
+)
+
+aa <- compare_growth_fits(list(m1 = fit1, m2 = fit2, m3 = fit3))
+
+print(aa)
+
+plot(aa)
+plot(aa, type = 2)
+plot(aa, type = 3)
+
+summary(aa)
+coef(aa)
+```
+

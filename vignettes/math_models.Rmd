@@ -1,0 +1,324 @@
+---
+title: "Modelling approach"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Modelling approach}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(biogrowth)
+```
+
+## Population growth in predictive microbiology
+
+In predictive microbiology mathematical models are usually divided in *primary* 
+and *secondary* models (Perez-Rodriguez and Valero, 2012). Primary models 
+describe the variation of the population size against time. These models are largely
+empirical, so they have model parameters that depend on the environmental conditions. 
+A typical example is the relationship between the specific growth rate of microorganisms 
+and the storage  temperature. Predictive microbiology uses so-called, *secondary models* 
+to describe the relationship between the parameters of the primary model and the environmental 
+conditions.
+
+## Primary growth models included in biogrowth
+
+### Modified Gompertz model under static conditions
+
+Zwietering et al. (1990) proposed a reparameterization of the Gompertz model with more meaningful parameters parameters. This model predicts the population size $N(t)$ for storage time $t$ as a sigmoid using the following algebraic equation
+
+$$
+\log_{10} N(t) = \log_{10} N_0 + C \left( \exp \left( -\exp \left( 2.71 \frac{\mu}{C}(\lambda-t)+1 \right) \right) \right)
+$$
+
+where $N_0$ is the initial population size, $\mu$ is the maximum growth rate, $\lambda$ is the duration of the lag phase and $C$ is the difference between the initial population size and the maximum population size.
+
+### Logistic growth model
+
+The logistic growth model can be parameterized by the following equation (Zwietering et al. 1990)
+
+$$
+  \log_{10} N(t) = \log_{10} N_0 + \frac{C}{1 + \exp{ \left(\frac{4 \mu}{C}(\lambda - t)+2 \right) } }
+$$
+
+where $N_0$ is the initial population size, $\mu$ is the maximum growth rate, $\lambda$ is the duration of the lag phase and $C$ is the difference between the initial population size and the maximum population size.
+
+### Richards growth model
+
+The Richards growth model can be parameterized by the following equation (Zwietering et al. 1990)
+
+$$
+  \log_{10} N(t) = \log_{10} N_0 + C \left[1+\nu \cdot \exp{ \left(1 + \nu + \frac{\mu}{A}(1+\nu)^{1+1/\nu} (\lambda - t) \right)} \right]^{-1/\nu}
+$$
+
+where $N_0$ is the initial population size, $\mu$ is the maximum specific growth rate, $\lambda$ is the duration of the lag phase and $C$ is the difference between the initial population size and the maximum population size, and $\nu$ defines the sharpness of the transition between growth phases.
+
+
+### Baranyi model under dynamic conditions
+
+Baranyi and Roberts (1994) proposed a system of two differential equations to describe microbial growth:
+
+$$
+\frac{dN}{dt} = \frac{Q}{1+Q}\mu'\left(1 - \frac{N}{N_{max}} \right)N
+$$
+
+$$
+\frac{dQ}{dt}=\mu' \space Q
+$$
+
+Note that the maximum specific growth rate is written as $\mu'$. The reason for this
+is that **biogrowth** makes calculations in log10 scale for the population size. Therefore,
+for consistency with the equations for static conditions, we use a different notation 
+in these equations. Both parameters are related by the identity $\mu' = \mu \cdot \log(10)$.
+
+In the Baranyi model, the deviations with respect to exponential growth are justified based on two hypotheses. It introduces the variable $Q(t)$, which represents a theoretical substance that must be produced before the microorganism can enter the exponential growth phase. Hence, its initial value ($Q_0$) defines the lag phase duration (under static conditions) as $\lambda = \frac{\log (1+1/Q_{0})}{\mu}$. On the other hand, the stationary growth phase is defined by the logistic term $(1-N/N_{max})$, which reduces the growth rate as the microorganisms reach the maximum count.
+
+Note that the original paper by Baranyi and Roberts included an exponent, $m$, in the term defining the stationary growth phase. However, that term is usually set to 1 by convention in predictive microbiology and, consequently, has been omitted from **biogrowth**. Also, in its original paper the specific growth rate of $Q(t)$ was defined by a different parameter ($\nu$). However, because this variable does not correspond to any known substance, it is a convention in the field to set $\nu = \mu$.
+
+### Baranyi model under static conditions
+
+Oksuz and Buzrul (2020) calculated the solution of the Baranyi model for static conditions given by the following equation
+
+
+$$
+\log_{10} N = \log_{10} N_{max} + \log_{10}{ \frac{1 + \exp{ \left( \ln (10) \mu (t-\lambda) \right)} - \exp{- \ln (10) \mu \lambda}}
+  {\exp \left( \ln (10) \mu (t-\lambda) \right)- \exp{ \left( - \ln (10) \mu \lambda \right) + 10^{\log_{10} N_{max} - \log_{10} N_0}} } 
+  }
+$$
+
+where $N_0$ is the initial population size, $\mu$ is the maximum specific growth rate and $N_{max}$ is the maximum growth rate, and $\lambda$ is the lag phase. 
+
+### Trilinear model under static conditions
+
+Buchanan et al. (1997) proposed a trilinear model as a more simple approach to describe 
+the growth of microbial populations. This model is defined by the piece-wise equation. 
+
+The lag phase is defined considering that, as long as $t < \lambda$, there is no growth (i.e. $N = N_0$).
+
+$$
+\log_{10} N(t) = \log_{10} N_0; t \leq \lambda
+$$
+The exponential phase is described considering that during this phase, the specific growth rate is constant, with slope $\mu_{max}$.
+
+$$
+\log_{10} N(t) = \log_{10} N_0 + \mu(t-\lambda); t\in(\lambda,t_{max})
+$$
+
+Finally, the stationary phase is modeled considering that once $N$ reaches $N_{max}$, it remains constant.
+
+$$
+\log_{10} N(t) = \log_{10} N_{max}; t \geq t_{max}
+$$
+
+where $t_{max}$, defined is the time required for the population size to reach $N_{max}$ ($t_{max} = \left( \log_{10} N_{max} - \log_{10} N_0 \right)/\mu + \lambda $).
+
+### Gathering primary models metadata directly from biogrowth
+
+The **biogrowth** package includes the `primary_model_data()` function, which provides information about the primary models included in the package. It takes just one argument (`model_name`). By default, this argument is `NULL`, and the function returns the identifiers of the available models.
+
+```{r}
+primary_model_data()
+```
+
+If a model identifier is passed, it returns a list with mode meta-information.
+
+```{r}
+meta_info <- primary_model_data("Trilinear")
+```
+
+It includes the full reference
+
+```{r}
+meta_info$ref
+```
+
+or the identifiers of the model parameters
+
+```{r}
+meta_info$pars
+```
+
+## Secondary growth models included in biogrowth
+
+Although other approaches for secondary modeling exist in the literature, the **biogrowth** package uses the gamma approach proposed by Zwietering et al. (1992). This approach assumes that the effect of each environmental factor on the growth rate is multiplicative and independent. Hence, the specific growth rate ($\mu$) observed under a combination of environmental conditions ($X_1$, $X_2$,...,$X_n$) is the result of multiplying the value of $\mu$ observed under optimal conditions for growth ($\mu_{opt}$) times one *gamma factor* for each environmental factor ($\gamma(X_i)$). Because gamma factors represent growth rates under sub-optimal conditions, they must take values between 0 and 1. 
+
+Note that this approach does not consider interactions between the different terms. The reason for this is that, in the opinion of the authors, their implementation is still a research topic, without any model being broadly accepted. Therefore, the inclusion of interactions between terms is not in line with the philosophy of **biogrowth**, which aims at easing the application of broadly accepted modeling approaches.
+
+$$
+\mu = \mu_{opt} \cdot \gamma(X_1) \cdot \gamma(X_2) \cdot ... \cdot \gamma(X_n)
+$$
+
+### Gamma factors by Zwietering
+
+Zwietering et al. (1992) defined several functions for different environmental factors (temperature, pH and water activity). These functions can be generalized as
+
+$$
+\gamma(X) = \left( \frac{X-X_{min}}{X_{opt}-X_{min}} \right)^n
+$$
+
+where $X_min$ is the minimum value of $X$ enabling growth, $X_{opt}$ is the optimum value of $X$ for growth and $n$ is the order of the model. The latter parameter usually takes the values 1, 2 or 3, depending on the environmental factor, and the type of population studied.
+
+### Cardinal Parameter Model (CPM)
+
+Rosso et al. (1995) defined the following equation for gamma factors
+
+$$
+\gamma(X) = \frac{(X-X_{max})(X-X_{min})^n}
+{(X_{opt}-X_{min})^{n-1}( (X_{opt}-X_{min})(X-X_{opt}) - (X_{opt}-X_{max}) \cdot ((n-1)X_{opt} + X_{min}-n \cdot X) )}
+$$
+with $\gamma(X) = 0$ for $X \notin [X_{min}, X_{max}]$. In this equation, $X_{min}$, $X_{opt}$ and $X_{max}$ are the minimum, maximum and optimum values of $X$ for microbial growth (usually called *cardinal parameters*). The coefficient $n$ is the shape parameter of the cardinal model
+(usually being fixed to 1, 2 or 3, depending on the case studied).
+
+### (Adapted) Full Ratkowsky model
+
+The full Ratkowsky model (Ratkowsky et al., 1983) is an extension of the square-root model by Ratkowsky (Ratkowsky et al., 1982) that accounts for the decline of the growth rate for temperatures higher than the optimal one. It is described by the following equation
+
+$$
+\sqrt{\mu} = b \left( X-X_{min} \right) \left(1-e^{c(X-X_{max})} \right)
+$$
+The application of the gamma concept requires that every gamma function takes values between 0 and 1, whereas the full Ratkowsky model takes values between 0 and $\sqrt{\mu_{opt}}$. This can be adapted by defining a gamma function such as 
+
+$$
+\gamma_{Ratkowsky}= \left( \frac{\sqrt{\mu}}{ \sqrt{\mu_{opt}} } \right)^2
+$$
+
+For that, we need to know the value of $\sqrt{\mu_{opt}}$, which is not included as a parameter in the full Ratkowsky model. By setting the first derivative with respect to $X$ to 0 and solving, we get 
+
+$$
+X_{opt} = \frac{ W_n \left( e^{-cX_{min} +cX_{max} + 1} \right) + cX_{min} - 1 } {c}
+$$
+
+where $W_n$ is the Lambert-W function. Then, the maximum growth rate under optimal conditions is given by
+
+$$
+\sqrt{\mu_{opt}} = b \left( X_{opt}-X_{min} \right) \left(1-e^{c(X_{opt}-X_{max})} \right)
+$$
+
+and the gamma function for the Ratkowsky model can be calculated as 
+
+$$
+\gamma_{Ratkowsky}= \left( \frac{\sqrt{\mu}}{ \sqrt{\mu_{opt}} } \right)^2 =
+\left( \frac{ b \left( X-X_{min} \right) \left(1-e^{c(X-X_{max})} \right)} 
+{ b \left( X_{opt}-X_{min} \right) \left(1-e^{c(X_{opt}-X_{max})} \right)} \right)^2 =
+\left( \frac{ \left( X-X_{min} \right) \left(1-e^{c(X-X_{max})} \right)} 
+{\left( X_{opt}-X_{min} \right) \left(1-e^{c(X_{opt}-X_{max})} \right)} \right)^2 
+$$
+
+Note that parameter $b$ banishes after doing the division, so this model has 3 model parameters: $c$, $X_{min}$ and $X_{max}$.
+
+### Gathering meta data about secondary models directly from biogrowth
+
+The **biogrowth** package includes the `secondary_model_data()` function, which provides information about the secondary models it implements. It takes just one argument (`model_name`). By default, this argument is `NULL`, and the function returns the identifiers of the available models.
+
+```{r}
+secondary_model_data()
+```
+
+If, instead, one passes any valid model identifier, the function returns its meta-information.
+
+```{r}
+meta_info <- secondary_model_data("CPM")
+```
+
+This includes the full reference of the model
+
+```{r}
+meta_info$ref
+```
+
+or the identifiers of its model parameters
+
+```{r}
+meta_info$pars
+```
+
+## Unit system
+
+The functions in the **biogrowth** package make the calculations in log10 scale, as this is the common convention in predictive microbiology. This includes also the growth rate, which is defined within the package as the slope of the growth curve during the exponential phase when the plotted in log10 scale versus the elapsed time. Hence, the growth rate used in **biogrowth** ($\mu$), is related to the specific growth rate ($\mu'$) by the identity $\mu = \mu'/\ln(10)$.
+
+The following table summarizes the unit system used in **biogrowth** for each quantity.
+It also describes the identifier used by the functions for each variable/model parameter.
+
+Quantity | Identifier | Description | Unit
+-------- | ---------- | ----------- | ----
+$\log_{10} N$ | `logN` | Decimal logarithm of the population size. | log10(units)
+$\log_{10} N_0$ | `logN0` | Decimal logarithm of the initial population size. | log10(units)
+$N$ | `N` | Population size. | (units)
+$N_0$ | `N0` | Initial population size. | (units)
+$t$ | `t` | Elapsed time.| [time]
+$C$ | `C` | $\log_{10} N_{max} - \log_{10} N_0$.| log10(units)
+$\mu$ | `mu` | Especific growth rate.| log10(units)/[time]
+$\lambda$ | `lambda` | Duration of the lag phase. | [time]
+$\nu$ | `nu` | Sharpness of the transition between growth phases in the Richards model. | (-)
+$Q$ | `Q` | Variable of the Baranyi model describing the lag phase | (units)
+$Q_0$ | `Q0` | Initial value of $Q$. | (units)
+$X_{min}$ | `xmin` | Miminum value of $X$ enabling growth. | [X]
+$X_{opt}$ | `xopt` | Optimum value of $X$ for growth. | [X]
+$X_{max}$ | `xmax` | Maximum value of $X$ enabling growth. | [X]
+$n$ | `n` | Order of the secondary model. | (-)
+$\mu_{opt}$ | `mu_opt` | Value of $\mu$ under optimal environmental conditions for growth. | lot10(units)/[time]
+
+The package allows any unit to describe [time], although the user must be consistent
+in parameter input (e.g. always use hours). Then, predictions and fitted parameters are
+returned in the same unit system. Regarding population size, the term *(units)* refers
+to the unit used to measure the population size. For instance, in predictive 
+microbiology it would be *colony forming units* (CFU). It can also be a relative
+magnitude (e.g. CFU/g). 
+
+## Numerical methods
+
+The **biogrowth** package uses **FME** for model fitting and **deSolve** for estimating
+population growth under dynamic conditions. Namely, the differential equations required for dynamic calculations are solved using the `ode()` function from **deSolve**, which implements several numerical methods. Model fitting is done using the `modFit()` function from **FME** for linear regression and the `modMCMC()` function from the same package for MCMC fitting. The functions in **biogrowth** use the default settings of these functions, although this can changed using the `...` argument included in every relevant function.
+
+
+## References
+
+Baranyi, J., & Roberts, T. A. (1994). A dynamic approach to predicting bacterial growth in food. International Journal of Food Microbiology, 23(3–4), 277–294. https://doi.org/10.1016/0168-1605(94)90157-0
+
+Bates, D. M., & Watts, D. G. (2007). Nonlinear Regression Analysis and Its Applications (1 edition). Wiley-Interscience.
+
+Buchanan, R. L., Whiting, R. C., & Damert, W. C. (1997). When is simple good enough: A comparison of the Gompertz, Baranyi, and three-phase linear models for fitting bacterial growth curves. Food Microbiology, 14(4), 313–326. https://doi.org/10.1006/fmic.1997.0125
+
+Chang, W., Cheng, J., Allaire, J. J., Xie, Y., & McPherson, J. (2017). shiny: Web Application Framework for R. https://CRAN.R-project.org/package=shiny
+
+Chang, W., & Ribeiro, B. B. (2017). shinydashboard: Create Dashboards with “Shiny.” https://CRAN.R-project.org/package=shinydashboard
+
+Haario, H., Laine, M., Mira, A., & Saksman, E. (2006). DRAM: Efficient adaptive MCMC. Statistics and Computing, 16(4), 339–354. https://doi.org/10.1007/s11222-006-9438-0
+
+Hindmarsh, A. (1983). ODEPACK, A Systematized Collection of ODE Solvers , R. S. Stepleman et al. (Eds.), North-Holland, Amsterdam, (vol. 1 of ), pp. 55-64. IMACS Transactions on Scientific Computation, 1, 55–64.
+
+Moré, J. J. (1978). The Levenberg-Marquardt algorithm: Implementation and theory. In Numerical Analysis (pp. 105–116). Springer, Berlin, Heidelberg. https://doi.org/10.1007/BFb0067700
+
+Oksuz, H. B., & Buzrul, S. (2020). MONTE CARLO ANALYSIS FOR MICROBIAL GROWTH CURVES. Journal of Microbiology, Biotechnology and Food Sciences, 10(3), 418–423. https://doi.org/10.15414/jmbfs.2020.10.3.418-423
+
+
+Perez-Rodriguez, F., & Valero, A. (2012). Predictive Microbiology in Foods. Springer.
+
+Poschet, F., Geeraerd, A. H., Van Loey, A. M., Hendrickx, M. E., & Van Impe, J. F. (2005). Assessing the optimal experiment setup for first order kinetic studies by Monte Carlo analysis. Food Control, 16(10), 873–882. https://doi.org/10.1016/j.foodcont.2004.07.009
+
+Ratkowsky, D. A., Lowry, R. K., McMeekin, T. A., Stokes, A. N., & Chandler, R. E. (1983). Model for bacterial culture growth rate throughout the entire biokinetic temperature range. Journal of Bacteriology, 154(3), 1222–1226.
+
+Ratkowsky, D. A., Olley, J., McMeekin, T. A., & Ball, A. (1982). Relationship between temperature and growth rate of bacterial cultures. J Bacteriol, 149(1), 1–5.
+
+Rosso, L., Lobry, J. R., Bajard, S., & Flandrois, J. P. (1995). Convenient Model To Describe the Combined Effects of Temperature and pH on Microbial Growth. Applied and Environmental Microbiology, 61(2), 610–616.
+
+Soetaert, K., & Petzoldt, T. (2010). Inverse Modelling, Sensitivity and Monte Carlo Analysis in R Using Package FME. Journal of Statistical Software, 33(3). https://doi.org/10.18637/jss.v033.i03
+
+Soetaert, K., Petzoldt, T., & Setzer, R. W. (2010). Solving Differential Equations in R: Package deSolve. Journal of Statistical Software, 33(9). https://doi.org/10.18637/jss.v033.i09
+
+Tocino, A., & Ardanuy, R. (2002). Runge–Kutta methods for numerical solution of stochastic differential equations. Journal of Computational and Applied Mathematics, 138(2), 219–241. https://doi.org/10.1016/S0377-0427(01)00380-6
+
+Wijtzes, T., Rombouts, F. M., Kant-Muermans, M. L. T., van ’t Riet, K., & Zwietering, M. H. (2001). Development and validation of a combined temperature, water activity, pH model for bacterial growth rate of Lactobacillus curvatus. International Journal of Food Microbiology, 63(1–2), 57–64. https://doi.org/10.1016/S0168-1605(00)00401-3
+
+Zwietering, M. H., Jongenburger, I., Rombouts, F. M., & Riet, K. van ’t. (1990). Modeling of the Bacterial Growth Curve. Applied and Environmental Microbiology, 56(6), 1875–1881.
+
+Zwietering, Marcel H., Wijtzes, T., De Wit, J. C., & Riet, K. V. (1992). A Decision Support System for Prediction of the Microbial Spoilage in Foods. Journal of Food Protection, 55(12), 973–979. https://doi.org/10.4315/0362-028X-55.12.973
+
