@@ -41,7 +41,8 @@
 #' 
 #' 
 make_guess_primary <- function(fit_data, primary_model,
-                               logbase = c("log10", "natural")) {
+                               logbase = c("log10", "natural")  # TODO
+                               ) {
     
     ## Check that we know the model
     
@@ -98,8 +99,139 @@ make_guess_primary <- function(fit_data, primary_model,
 }
 
 
+#' Initial guesses for the secondary model of one factor
+#' 
+#' @param fit_data Tibble with the data used for the fit. It must have
+#' one column with the observed growth rate (named `mu` by default; can be
+#' changed using the "formula" argument) and as many columns
+#' as needed with the environmental factors.
+#' @param sec_model character defining the secondary model equation according
+#' to [secondary_model_data()]
+#' @param factor character defining the environmental factor
+#' 
+#' @importFrom dplyr filter select
+#' @importFrom rlang .data
+#' 
+#' 
+make_guess_factor <- function(fit_data, sec_model, factor,
+                                 logbase = c("log10", "natural")  # TODO
+                                 ) {
+    
+    ## Check that we know the model
+    
+    if ( ! (sec_model %in% secondary_model_data()) ) {
+        stop("Unkonwn model: ", sec_model)
+    }
+
+    
+    ## Extract to make life easier
+    
+    mu <- fit_data$mu
+    x <- fit_data[[factor]]
+    
+    if (is.null(x)) {
+        stop(factor, "not in fit_data")
+    }
+    
+    ## Guess for mu_opt
+    
+    mu_opt <- max(mu, na.rm = TRUE)
+    
+    ## guess for xopt
+    
+    xopt <- x[which(mu == mu_opt)]
+    
+    ## guess for xmin
+    
+    xmin <- min(x, na.rm = TRUE)
+    
+    ## guess for xmax
+    
+    xmax <- max(x, na.rm = TRUE)
+    
+    if (xmax == xopt) xmax <- xopt*1.2  # We don't want them to be equal
+    
+    ## guess for n
+    
+    n <- 2
+    
+    ## guess for c
+    
+    c <- (mu_opt - 0)/(xopt - xmin)
+    
+    ## Take the cardinal parameters
+    
+    out <- list(xopt = xopt, xmin = xmin, xmax = xmax, n = n, c = c)
+    
+    par_map <- tribble(
+        ~ par,  ~CPM, ~Zwietering, ~fullRatkowsky,
+        "xmin", TRUE, TRUE, TRUE,
+        "xopt", TRUE, TRUE, FALSE,
+        "xmax", TRUE, FALSE, TRUE,
+        "n", TRUE, TRUE, FALSE,
+        "c", FALSE, FALSE, TRUE
+    )
+    
+    my_pars <- par_map$par[par_map[[sec_model]]]
+    out <- out[my_pars]
+    
+    names(out) <- paste0(factor, "_", names(out))
+    
+    unlist(out)
+}
 
 
+#' Initial guesses for the parameters of a secondary model
+#' 
+#' @inheritParams fit_secondary_growth
+#' 
+#' @importFrom purrr imap flatten_dbl
+#'
+#' @export
+#' 
+#' @examples 
+#' 
+#' ## We can use the example dataset included in the package
+#' 
+#' data("example_cardinal")
+#' 
+#' ## We assign model equations to factors as usual
+#' 
+#' sec_model_names <- c(temperature = "Zwietering", pH = "fullRatkowsky")
+#' 
+#' ## We can then calculate the initial guesses
+#' 
+#' make_guess_secondary(example_cardinal, sec_model_names)
+#' 
+#' ## We can pass these parameters directly to fit_secondary_growth
+#' 
+#' fit_secondary_growth(example_cardinal, 
+#'                      make_guess_secondary(example_cardinal, sec_model_names), 
+#'                      c(), 
+#'                      sec_model_names)
+#' 
+make_guess_secondary <- function(fit_data, sec_model_names,
+                                 base = c("log10", "natural")  # TODO
+                                 ) {
+    
+    ## Guess for each factor
+    
+    out <- sec_model_names %>%
+        imap(~ make_guess_factor(fit_data, .x, .y)
+             ) %>%
+        flatten_dbl()
+    
+    ## Add the guess for mu_opt
+    
+    mu_opt <- max(fit_data$mu, na.rm = TRUE)
+    
+    out <- c(mu_opt = mu_opt, out)
+    
+    ## Return
+    
+    out
+    
+}
 
 
 
