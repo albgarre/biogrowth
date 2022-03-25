@@ -32,24 +32,3 @@ A \code{\link[=ggplot]{ggplot()}} comparing the model prediction against the dat
 Compares the prediction corresponding to a guess of the parameters of the primary
 model against experimental data
 }
-\examples{
-
-## We need some data
-
-my_data <- data.frame(time = 0:9,
-                      logN = c(2, 2.1, 1.8, 2.5, 3.1, 3.4, 4, 4.5, 4.8, 4.7)
-                      )
-                      
-## We can directly plot the comparison
-
-show_guess_primary(my_data, "modGompertz",
-                   c(logN0 = 1.5, mu = .8, lambda = 4, C = 3)
-                   )
-                   
-## It can be combined with the automatic initial guess
-
-show_guess_primary(my_data, "modGompertz",
-                   make_guess_primary(my_data, "modGompertz")
-                   )
-
-}

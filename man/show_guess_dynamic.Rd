@@ -2,7 +2,7 @@
 % Please edit documentation in R/initial_guesses.R
 \name{show_guess_dynamic}
 \alias{show_guess_dynamic}
-\title{AA}
+\title{Plot of the initial guess for growth under dynamic environmental conditions}
 \usage{
 show_guess_dynamic(
   fit_data,
@@ -13,6 +13,26 @@ show_guess_dynamic(
   formula = logN ~ time
 )
 }
+\arguments{
+\item{fit_data}{Tibble (or data.frame) of data for the fit. It must have two columns, one with
+the elapsed time (\code{time} by default) and another one with the decimal logarithm
+of the populatoin size (\code{logN} by default). Different column names can be
+defined using the \code{formula} argument.}
+
+\item{model_keys}{Named the equations of the secondary model as in \code{\link[=fit_growth]{fit_growth()}}}
+
+\item{guess}{Named vector with the initial guess of the model parameters as in \code{\link[=fit_growth]{fit_growth()}}}
+
+\item{env_conditions}{Tibble describing the variation of the environmental
+conditions for dynamic experiments. See \code{\link[=fit_growth]{fit_growth()}}.}
+
+\item{formula}{an object of class "formula" describing the x and y variables.
+\code{logN ~ time} as a default.}
+}
+\value{
+A \code{\link[=ggplot]{ggplot()}} comparing the model prediction against the data
+}
 \description{
-AA
+Compares the prediction corresponding to a guess of the parameters of the
+model against experimental data
 }

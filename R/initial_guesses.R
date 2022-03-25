@@ -249,27 +249,6 @@ make_guess_secondary <- function(fit_data, sec_model_names,
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
-#' @export
-#' 
-#' @examples 
-#' 
-#' ## We need some data
-#' 
-#' my_data <- data.frame(time = 0:9,
-#'                       logN = c(2, 2.1, 1.8, 2.5, 3.1, 3.4, 4, 4.5, 4.8, 4.7)
-#'                       )
-#'                       
-#' ## We can directly plot the comparison
-#' 
-#' show_guess_primary(my_data, "modGompertz",
-#'                    c(logN0 = 1.5, mu = .8, lambda = 4, C = 3)
-#'                    )
-#'                    
-#' ## It can be combined with the automatic initial guess
-#' 
-#' show_guess_primary(my_data, "modGompertz",
-#'                    make_guess_primary(my_data, "modGompertz")
-#'                    )
 #' 
 show_guess_primary <- function(fit_data, model, guess, 
                                logbase = c("natural", "10"),  # TODO
@@ -303,9 +282,23 @@ show_guess_primary <- function(fit_data, model, guess,
                    )
 }
 
-#' AA
+#' Plot of the initial guess for growth under dynamic environmental conditions
 #' 
-#' @export
+#' Compares the prediction corresponding to a guess of the parameters of the 
+#' model against experimental data
+#' 
+#' @param fit_data Tibble (or data.frame) of data for the fit. It must have two columns, one with
+#' the elapsed time (`time` by default) and another one with the decimal logarithm
+#' of the populatoin size (`logN` by default). Different column names can be
+#' defined using the `formula` argument. 
+#' @param model_keys Named the equations of the secondary model as in [fit_growth()]
+#' @param guess Named vector with the initial guess of the model parameters as in [fit_growth()]
+#' @param formula an object of class "formula" describing the x and y variables.
+#' `logN ~ time` as a default.
+#' @param env_conditions Tibble describing the variation of the environmental
+#' conditions for dynamic experiments. See [fit_growth()].
+#' 
+#' @return A [ggplot()] comparing the model prediction against the data
 #' 
 show_guess_dynamic <- function(fit_data, model_keys, guess,
                                env_conditions,
@@ -346,6 +339,109 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
         )
 }
 
+#' Compares an initial gues of the model parameters
+#' 
+#' Generates a plot comparing a set of data points against the model prediction
+#' corresponding to an initial guess of the model parameters
+#' 
+#' @param fit_data Tibble (or data.frame) of data for the fit. It must have two columns, one with
+#' the elapsed time (`time` by default) and another one with the decimal logarithm
+#' of the populatoin size (`logN` by default). Different column names can be
+#' defined using the `formula` argument. 
+#' @param model_keys Named the equations of the secondary model as in [fit_growth()]
+#' @param guess Named vector with the initial guess of the model parameters as in [fit_growth()]
+#' @param formula an object of class "formula" describing the x and y variables.
+#' `logN ~ time` as a default.
+#' @param env_conditions Tibble describing the variation of the environmental
+#' conditions for dynamic experiments. See [fit_growth()]. Ignored when `environment = "constant"`
+#' @param environment type of environment. Either "constant" (default) or "dynamic" (see below for details 
+#' on the calculations for each condition)
+#' 
+#' @return A [ggplot()] comparing the model prediction against the data
+#' 
+#' @export
+#' 
+#' @examples 
+#' 
+#' ## Examples under constant environmental conditions -------------------------
+#' 
+#' ## We need some data
+#' 
+#' my_data <- data.frame(time = 0:9,
+#'                       logN = c(2, 2.1, 1.8, 2.5, 3.1, 3.4, 4, 4.5, 4.8, 4.7)
+#'                       )
+#'                       
+#' ## We can directly plot the comparison for some values
+#' 
+#' check_growth_guess(my_data, list(primary = "modGompertz"),
+#'                    c(logN0 = 1.5, mu = .8, lambda = 4, C = 3)
+#'                    )
+#'                    
+#' ## Ot it can be combined with the automatic initial guess
+#' 
+#' check_growth_guess(my_data, list(primary = "modGompertz"),
+#'                    make_guess_primary(my_data, "modGompertz")
+#'                    )
+#'                    
+#' ## Examples under dynamic environmental conditions --------------------------
+#' 
+#' ## We will use the datasets included in the package
+#' 
+#' data("example_dynamic_growth")
+#' data("example_env_conditions")
+#' 
+#' ## Model equations are assigned as in fit_growth
+#' 
+#' sec_models <- list(temperature = "CPM", aw = "CPM")
+#' 
+#' ## Guesses of model parameters are also defined as in fit_growth
+#' 
+#' guess <- list(Nmax = 1e4, 
+#'               N0 = 1e0, Q0 = 1e-3,
+#'               mu_opt = 4, 
+#'               temperature_n = 1,
+#'               aw_xmax = 1, aw_xmin = .9, aw_n = 1,
+#'               temperature_xmin = 25, temperature_xopt = 35,
+#'               temperature_xmax = 40, aw_xopt = .95
+#'               )
+#'               
+#' ## We can now check our initial guess
+#' 
+#' check_growth_guess(example_dynamic_growth, sec_models, guess,
+#'                    "dynamic",
+#'                    example_env_conditions)
+#' 
+check_growth_guess <- function(fit_data, model_keys, guess,
+                              environment = "constant",
+                              env_conditions = NULL,
+                              logbase = c("natural", "10"),  # TODO
+                              formula = logN ~ time) {
+    
+    if (environment == "constant") {
+        
+        if (!is.null(env_conditions)) {
+            warning("env_conditions is ignored for constant environment")
+        }
+        
+        show_guess_primary(fit_data, model_keys$primary, guess, 
+                           logbase = logbase, formula = formula
+        ) 
+        
+    } else if (environment == "dynamic") {
+        
+        show_guess_dynamic(fit_data, model_keys, guess,
+                           env_conditions,
+                           logbase = logbase,
+                           formula = formula
+                           )
+        
+    } else {
+        
+        stop("environment must be 'constant' or 'dynamic', not ", environment)
+        
+    }
+    
+}
 
 
 
