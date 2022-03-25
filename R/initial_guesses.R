@@ -67,7 +67,7 @@ make_guess_primary <- function(fit_data, primary_model,
     
     tmax <- min(fit_data$time[which(fit_data$logN == logNmax)], na.rm = TRUE)
     
-    mu <- (logNmax - logN0)/(tmax - 0)
+    mu <- (logNmax - logN0)/(tmax - lambda)
     
     ## Guess for C
     
@@ -231,6 +231,75 @@ make_guess_secondary <- function(fit_data, sec_model_names,
     
     out
     
+}
+
+#' Plot of the initial guess for growth under constant environmental conditions
+#' 
+#' Compares the prediction corresponding to a guess of the parameters of the primary
+#' model against experimental data
+#' 
+#' @param fit_data Tibble (or data.frame) of data for the fit. It must have two columns, one with
+#' the elapsed time (`time` by default) and another one with the decimal logarithm
+#' of the populatoin size (`logN` by default). Different column names can be
+#' defined using the `formula` argument. 
+#' @param model_name Character defining the primary growth model as per [primary_model_data()] 
+#' @param guess Named vector with the initial guess of the model parameters
+#' @param formula an object of class "formula" describing the x and y variables.
+#' `logN ~ time` as a default.
+#' 
+#' @return A [ggplot()] comparing the model prediction against the data
+#' 
+#' @export
+#' 
+#' @examples 
+#' 
+#' ## We need some data
+#' 
+#' my_data <- data.frame(time = 0:9,
+#'                       logN = c(2, 2.1, 1.8, 2.5, 3.1, 3.4, 4, 4.5, 4.8, 4.7)
+#'                       )
+#'                       
+#' ## We can directly plot the comparison
+#' 
+#' show_guess_primary(my_data, "modGompertz",
+#'                    c(logN0 = 1.5, mu = .8, lambda = 4, C = 3)
+#'                    )
+#'                    
+#' ## It can be combined with the automatic initial guess
+#' 
+#' show_guess_primary(my_data, "modGompertz",
+#'                    make_guess_primary(my_data, "modGompertz")
+#'                    )
+#' 
+show_guess_primary <- function(fit_data, model, guess, 
+                               logbase = c("natural", "10"),  # TODO
+                               formula = logN ~ time
+                               ) {
+    
+    ## Build the time vector
+    
+    x_col <- rhs(formula)
+    y_col <- lhs(formula)
+    
+    my_time <- seq(0, max(fit_data[[x_col]], na.rm = TRUE), length = 1000)
+    
+    ## Build the model
+    
+    my_model <- as.list(guess)
+    my_model$model <- model
+    
+    ## Make the prediction
+    
+    my_prediction <- predict_growth(my_time, my_model, environment = "constant")
+    
+    ## Plot the prediction and add the data points
+    
+    plot(my_prediction) +
+        geom_point(aes(x = .data[[x_col]],
+                       y = .data[[y_col]]),
+                   data = fit_data,
+                   inherit.aes = FALSE
+                   )
 }
 
 
