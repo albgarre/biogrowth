@@ -198,6 +198,55 @@ predict.FitIsoGrowth <- function(object, times = NULL, ...) {
     
 }
 
+#' @describeIn FitIsoGrowth loglikelihood of the model
+#' 
+#' @param object an instance of FitIsoGrowth
+#' @param ... ignored
+#' 
+#' @export
+#' 
+logLik.FitIsoGrowth <- function(object, ...) {
+    
+    ## AIC without penalty
+    n <- nrow(object$data)
+    sigma <- sqrt(object$fit$ssr/object$fit$df.residual)
+    
+    lL <- - n/2*log(2*pi) -n/2 * log(sigma^2) - 1/2/sigma^2*object$fit$ssr
+    
+    lL
+    
+}
+
+#' @describeIn FitIsoGrowth Akaike Information Criterion
+#'
+#' @param object an instance of FitIsoGrowth
+#' @param ... ignored
+#' @param k penalty for the parameters (k=2 by default)
+#'
+#' @export
+#'
+AIC.FitIsoGrowth <- function(object, ..., k=2) {
+
+    ## Normal AIC
+    
+    p <- length(coef(object))
+    
+    lL <- logLik(object) 
+    
+    AIC <- 2*p - 2*lL
+
+    ## Calculate the penalty
+    
+    n <- nrow(object$data)
+
+    penalty <- (k*p^2 + k*p)/(n - p - 1)
+
+    ## Return
+
+    AIC + penalty
+
+}
+
 
 
 
