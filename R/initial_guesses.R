@@ -290,7 +290,8 @@ show_guess_primary <- function(fit_data, model, guess,
     
     ## Make the prediction
     
-    my_prediction <- predict_growth(my_time, my_model, environment = "constant")
+    my_prediction <- predict_growth(my_time, my_model, environment = "constant",
+                                    formula = formula)
     
     ## Plot the prediction and add the data points
     
@@ -300,6 +301,49 @@ show_guess_primary <- function(fit_data, model, guess,
                    data = fit_data,
                    inherit.aes = FALSE
                    )
+}
+
+#' AA
+#' 
+#' @export
+#' 
+show_guess_dynamic <- function(fit_data, model_keys, guess,
+                               env_conditions,
+                               logbase = c("natural", "10"),  # TODO
+                               formula = logN ~ time
+                               ) {
+
+    ## Build the parameters of the primary model
+    
+    my_primary <- extract_primary_pars(guess, c())
+    
+    ## Build the parameters of the secondary model
+    
+    my_secondary <- extract_secondary_pars(guess, c(), unlist(model_keys))
+    
+    ## Build the time vector
+    
+    x_col <- rhs(formula)
+    y_col <- lhs(formula)
+    
+    my_times <- seq(0, max(fit_data[[x_col]], na.rm = TRUE), length = 1000)
+    
+    ## Make the prediction
+
+    dynamic_prediction <- predict_growth(environment = "dynamic",
+                                         my_times, my_primary, my_secondary,
+                                         env_conditions,
+                                         formula = formula
+                                         )
+    
+    ## Make the plot
+    
+    plot(dynamic_prediction) +
+        geom_point(aes(x = .data[[x_col]],
+                       y = .data[[y_col]]),
+                   data = fit_data,
+                   inherit.aes = FALSE
+        )
 }
 
 
