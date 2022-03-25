@@ -11,6 +11,8 @@
 \alias{deviance.FitIsoGrowth}
 \alias{fitted.FitIsoGrowth}
 \alias{predict.FitIsoGrowth}
+\alias{logLik.FitIsoGrowth}
+\alias{AIC.FitIsoGrowth}
 \title{FitIsoGrowth class}
 \usage{
 \method{print}{FitIsoGrowth}(x, ...)
@@ -40,6 +42,10 @@
 \method{fitted}{FitIsoGrowth}(object, ...)
 
 \method{predict}{FitIsoGrowth}(object, times = NULL, ...)
+
+\method{logLik}{FitIsoGrowth}(object, ...)
+
+\method{AIC}{FitIsoGrowth}(object, ..., k = 2)
 }
 \arguments{
 \item{x}{The object of class \code{FitIsoGrowth} to plot.}
@@ -64,6 +70,8 @@
 
 \item{times}{numeric vector describing the time points for the prediction.
 If \code{NULL} (default), uses the same points as those used for fitting.}
+
+\item{k}{penalty for the parameters (k=2 by default)}
 }
 \description{
 The \code{FitIsoGrowth} class contains a growth model fitted to data under
@@ -99,5 +107,9 @@ as 1/(0.5*Hessian)
 \item \code{fitted.FitIsoGrowth}: vector of fitted values.
 
 \item \code{predict.FitIsoGrowth}: vector of model predictions.
+
+\item \code{logLik.FitIsoGrowth}: loglikelihood of the model
+
+\item \code{AIC.FitIsoGrowth}: Akaike Information Criterion
 }}
 
