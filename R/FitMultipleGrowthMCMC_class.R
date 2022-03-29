@@ -279,3 +279,54 @@ predict.FitMultipleGrowthMCMC <- function(object, times=NULL, newdata=NULL, ...)
     
 }
 
+#' @describeIn FitMultipleGrowthMCMC loglikelihood of the model
+#' 
+#' @param object an instance of FitMultipleGrowthMCMC
+#' @param ... ignored
+#' 
+#' @export
+#' 
+logLik.FitMultipleGrowthMCMC <- function(object, ...) {
+    
+    n <- object$data %>% map_dfr(~.$data) %>% nrow()
+    
+    df <- n - length(coef(object))
+    SS <- sum(residuals(object)$res^2)
+    
+    sigma <- sqrt(SS/df)
+    
+    lL <- - n/2*log(2*pi) -n/2 * log(sigma^2) - 1/2/sigma^2*SS
+    
+    lL
+    
+}
+
+#' @describeIn FitMultipleGrowthMCMC Akaike Information Criterion
+#'
+#' @param object an instance of FitMultipleGrowthMCMC
+#' @param ... ignored
+#' @param k penalty for the parameters (k=2 by default)
+#'
+#' @export
+#'
+AIC.FitMultipleGrowthMCMC <- function(object, ..., k=2) {
+    
+    ## Normal AIC
+    
+    p <- length(coef(object))
+    
+    lL <- logLik(object) 
+    
+    AIC <- 2*p - 2*lL
+    
+    ## Calculate the penalty
+    
+    n <- object$data %>% map_dfr(~.$data) %>% nrow()
+    
+    penalty <- (k*p^2 + k*p)/(n - p - 1)
+    
+    ## Return
+    
+    AIC + penalty
+    
+}

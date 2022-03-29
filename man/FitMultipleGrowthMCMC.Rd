@@ -11,6 +11,8 @@
 \alias{deviance.FitMultipleGrowthMCMC}
 \alias{fitted.FitMultipleGrowthMCMC}
 \alias{predict.FitMultipleGrowthMCMC}
+\alias{logLik.FitMultipleGrowthMCMC}
+\alias{AIC.FitMultipleGrowthMCMC}
 \alias{predictMCMC.FitMultipleGrowthMCMC}
 \title{FitMultipleGrowthMCMC class}
 \usage{
@@ -49,6 +51,10 @@
 \method{fitted}{FitMultipleGrowthMCMC}(object, ...)
 
 \method{predict}{FitMultipleGrowthMCMC}(object, times = NULL, newdata = NULL, ...)
+
+\method{logLik}{FitMultipleGrowthMCMC}(object, ...)
+
+\method{AIC}{FitMultipleGrowthMCMC}(object, ..., k = 2)
 
 \method{predictMCMC}{FitMultipleGrowthMCMC}(my_model, times, env_conditions, niter, newpars = NULL, ...)
 }
@@ -90,13 +96,15 @@ that condition is plotted in the secondary axis}
 
 \item{subplot_labels}{labels of the subplots according to \code{plot_grid}.}
 
-\item{object}{Instance of \code{FitMultipleGrowthMCMC}.}
+\item{object}{an instance of FitMultipleGrowthMCMC}
 
 \item{times}{Numeric vector of storage times for the predictions.}
 
 \item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
 in \code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.
 If \code{NULL} (default), uses the same conditions as those for fitting.}
+
+\item{k}{penalty for the parameters (k=2 by default)}
 
 \item{env_conditions}{Tibble with the (dynamic) environmental conditions
 during the experiment. It must have one column named 'time' with the
@@ -156,6 +164,10 @@ identifier) and fitted (fitted value).
 \item \code{predict.FitMultipleGrowthMCMC}: model predictions. They are returned as a tibble
 with 3 columns: time (storage time), logN (observed count),
 and exp (name of the experiment).
+
+\item \code{logLik.FitMultipleGrowthMCMC}: loglikelihood of the model
+
+\item \code{AIC.FitMultipleGrowthMCMC}: Akaike Information Criterion
 
 \item \code{predictMCMC.FitMultipleGrowthMCMC}: prediction including parameter uncertainty
 }}
