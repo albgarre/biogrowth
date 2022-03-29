@@ -42,15 +42,25 @@
 #'
 #'
 time_to_logcount <- function(model, log_count) {
+    
+    
 
     if (is.IsothermalGrowth(model)) {
+        
         approx(model$simulation$logN, model$simulation$time,
-               log_count, ties = "ordered")$y
+               log_count, 
+               ties = function(x) min(x, na.rm = TRUE))$y
+        
     } else if(is.DynamicGrowth(model)) {
+        
         approx(model$simulation$logN, model$simulation$time,
-               log_count, ties = "ordered")$y
+               log_count, 
+               ties = function(x) min(x, na.rm = TRUE))$y
+        
     } else {
+        
         stop("Model type not supported: ", class(model))
+        
     }
 
 }
