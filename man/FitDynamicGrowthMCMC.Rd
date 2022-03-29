@@ -11,6 +11,8 @@
 \alias{deviance.FitDynamicGrowthMCMC}
 \alias{fitted.FitDynamicGrowthMCMC}
 \alias{predict.FitDynamicGrowthMCMC}
+\alias{logLik.FitDynamicGrowthMCMC}
+\alias{AIC.FitDynamicGrowthMCMC}
 \alias{predictMCMC.FitDynamicGrowthMCMC}
 \title{FitDynamicGrowthMCMC class}
 \usage{
@@ -48,6 +50,10 @@
 \method{fitted}{FitDynamicGrowthMCMC}(object, ...)
 
 \method{predict}{FitDynamicGrowthMCMC}(object, times = NULL, newdata = NULL, ...)
+
+\method{logLik}{FitDynamicGrowthMCMC}(object, ...)
+
+\method{AIC}{FitDynamicGrowthMCMC}(object, ..., k = 2)
 
 \method{predictMCMC}{FitDynamicGrowthMCMC}(my_model, times, env_conditions, niter, newpars = NULL, ...)
 }
@@ -87,13 +93,15 @@ that condition is plotted in the secondary axis}
 
 \item{line_type2}{Same as lin_type, but for the environmental factor.}
 
-\item{object}{an instance of \code{FitDynamicGrowthMCMC}.}
+\item{object}{an instance of FitDynamicGrowthMCMC}
 
 \item{times}{Numeric vector of storage times for the predictions.}
 
 \item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
 in \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}}.
 If \code{NULL} (default), uses the same conditions as those for fitting.}
+
+\item{k}{penalty for the parameters (k=2 by default)}
 
 \item{env_conditions}{Tibble with the (dynamic) environmental conditions
 during the experiment. It must have one column named 'time' with the
@@ -146,6 +154,10 @@ of squared residuals for the parameter values resulting in the best fit.
 \item \code{fitted.FitDynamicGrowthMCMC}: vector of fitted values.
 
 \item \code{predict.FitDynamicGrowthMCMC}: vector of model predictions.
+
+\item \code{logLik.FitDynamicGrowthMCMC}: loglikelihood of the model
+
+\item \code{AIC.FitDynamicGrowthMCMC}: Akaike Information Criterion
 
 \item \code{predictMCMC.FitDynamicGrowthMCMC}: prediction including parameter uncertainty
 }}

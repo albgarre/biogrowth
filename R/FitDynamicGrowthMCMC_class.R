@@ -248,8 +248,58 @@ predict.FitDynamicGrowthMCMC <- function(object, times=NULL, newdata = NULL, ...
     
 }
 
+#' @describeIn FitDynamicGrowthMCMC loglikelihood of the model
+#' 
+#' @param object an instance of FitDynamicGrowthMCMC
+#' @param ... ignored
+#' 
+#' @export
+#' 
+logLik.FitDynamicGrowthMCMC <- function(object, ...) {
+    
+    ## AIC without penalty
+    n <- nrow(object$data)
+    SS <- min(object$fit_results$SS, na.rm = TRUE)
+    
+    df <- n - length(coef(object))
+    
+    sigma <- sqrt(SS/df)
+    
+    lL <- - n/2*log(2*pi) -n/2 * log(sigma^2) - 1/2/sigma^2*SS
+    
+    lL
+    
+}
 
-
+#' @describeIn FitDynamicGrowthMCMC Akaike Information Criterion
+#'
+#' @param object an instance of FitDynamicGrowthMCMC
+#' @param ... ignored
+#' @param k penalty for the parameters (k=2 by default)
+#'
+#' @export
+#'
+AIC.FitDynamicGrowthMCMC <- function(object, ..., k=2) {
+    
+    ## Normal AIC
+    
+    p <- length(coef(object))
+    
+    lL <- logLik(object) 
+    
+    AIC <- 2*p - 2*lL
+    
+    ## Calculate the penalty
+    
+    n <- nrow(object$data)
+    
+    penalty <- (k*p^2 + k*p)/(n - p - 1)
+    
+    ## Return
+    
+    AIC + penalty
+    
+}
 
 
 
