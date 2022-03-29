@@ -16,24 +16,36 @@ compare_growth_fits <- function(models) {
         stop("Every model must be of the same class")
     }
     
-    # if (is.FitIsoGrowth(models[[1]])) {
-
-        
+    ## Check if it is global or single
+    
+    if (is.FitMultipleDynamicGrowth(models[[1]]) | is.FitMultipleDynamicGrowthMCMC(models[[1]])) {
+        approach <- "global"
+    } else {
+        approach <- "single"
+    }
         
     ## Calculate residuals 
     
-    d <- as.data.frame(models[[1]]$data)
+    if (approach == "global") {
         
-    t <- seq(0, max(d$time, na.rm = TRUE), length = 1000)
-    
-    residuals <- models %>%
-        map(
-            ~ data.frame(time = t, 
-                         logN = predict(., times = t)
-                         )
+        residuals <- models %>% map(residuals)
+        
+    } else {
+        
+        d <- as.data.frame(models[[1]]$data)
+        
+        t <- seq(0, max(d$time, na.rm = TRUE), length = 1000)
+        
+        residuals <- models %>%
+            map(
+                ~ data.frame(time = t, 
+                             logN = predict(., times = t)
+                )
             ) %>%
-        map(~ modCost(model = ., obs = d)
-        )
+            map(~ modCost(model = ., obs = d)
+            )
+        
+    }
     
     ## Save the type of environment
     
@@ -56,15 +68,20 @@ compare_growth_fits <- function(models) {
     out <- list(models = models,
                 residuals = residuals,
                 environment = environment,
-                algorithm = algorithm)
+                algorithm = algorithm,
+                approach = approach)
 
-    class(out) <- c("GrowthComparison", class(out))
+    if (approach == "single") {
+        
+        class(out) <- c("GrowthComparison", class(out))
+        
+    } else {
+        
+        class(out) <- c("GlobalGrowthComparison", class(out))
+        
+    }
     
     return(out)
-        
-    # } else {
-    #     stop("Model type not supported")
-    # }
 
 }
 

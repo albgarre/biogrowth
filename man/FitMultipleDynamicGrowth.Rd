@@ -11,6 +11,8 @@
 \alias{deviance.FitMultipleDynamicGrowth}
 \alias{fitted.FitMultipleDynamicGrowth}
 \alias{predict.FitMultipleDynamicGrowth}
+\alias{logLik.FitMultipleDynamicGrowth}
+\alias{AIC.FitMultipleDynamicGrowth}
 \title{FitMultipleDynamicGrowth class}
 \usage{
 \method{print}{FitMultipleDynamicGrowth}(x, ...)
@@ -47,7 +49,11 @@
 
 \method{fitted}{FitMultipleDynamicGrowth}(object, ...)
 
-\method{predict}{FitMultipleDynamicGrowth}(object, times = NULL, newdata = NULL, ...)
+\method{predict}{FitMultipleDynamicGrowth}(object, env_conditions, times = NULL, ...)
+
+\method{logLik}{FitMultipleDynamicGrowth}(object, ...)
+
+\method{AIC}{FitMultipleDynamicGrowth}(object, ..., k = 2)
 }
 \arguments{
 \item{x}{an instance of FitMultipleDynamicGrowth.}
@@ -87,14 +93,15 @@ that condition is plotted in the secondary axis}
 
 \item{subplot_labels}{labels of the subplots according to \code{plot_grid}.}
 
-\item{object}{Instance of \code{FitMultipleDynamicGrowth}.}
+\item{object}{an instance of FitMultipleDynamicGrowth}
+
+\item{env_conditions}{a tibble describing the environmental conditions (as
+in \code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.}
 
 \item{times}{A numeric vector with the time points for the simulations. \code{NULL}
-by default (using the same time points as those for the simulation).}
+by default (using the same time points as the ones defined in \code{env_conditions}).}
 
-\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
-in \code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.
-If \code{NULL} (default), uses the same conditions as those for fitting.}
+\item{k}{penalty for the parameters (k=2 by default)}
 }
 \description{
 The \code{FitMultipleDynamicGrowth} class contains a model fitted to a set
@@ -139,5 +146,9 @@ identifier) and fitted (fitted value).
 \item \code{predict.FitMultipleDynamicGrowth}: model predictions. They are returned as
 a tibble with 3 columns: time (storage time), logN (observed count),
 and exp (name of the experiment).
+
+\item \code{logLik.FitMultipleDynamicGrowth}: loglikelihood of the model
+
+\item \code{AIC.FitMultipleDynamicGrowth}: Akaike Information Criterion
 }}
 
