@@ -249,7 +249,58 @@ predict.FitMultipleDynamicGrowth <- function(object, env_conditions, times=NULL,
 
 }
 
+#' @describeIn FitMultipleDynamicGrowth loglikelihood of the model
+#' 
+#' @param object an instance of FitMultipleDynamicGrowth
+#' @param ... ignored
+#' 
+#' @export
+#' 
+logLik.FitMultipleDynamicGrowth <- function(object, ...) {
+    
+    n <- object$data %>% map_dfr(~.$data) %>% nrow()
+    
+    df <- n - length(coef(object))
+    SS <- sum(residuals(object)$res^2)
+    
+    sigma <- sqrt(SS/df)
 
+    lL <- - n/2*log(2*pi) -n/2 * log(sigma^2) - 1/2/sigma^2*SS
+    
+    lL
+    
+}
+
+
+#' @describeIn FitMultipleDynamicGrowth Akaike Information Criterion
+#'
+#' @param object an instance of FitMultipleDynamicGrowth
+#' @param ... ignored
+#' @param k penalty for the parameters (k=2 by default)
+#'
+#' @export
+#'
+AIC.FitMultipleDynamicGrowth <- function(object, ..., k=2) {
+    
+    ## Normal AIC
+    
+    p <- length(coef(object))
+    
+    lL <- logLik(object) 
+    
+    AIC <- 2*p - 2*lL
+    
+    ## Calculate the penalty
+    
+    n <- object$data %>% map_dfr(~.$data) %>% nrow()
+    
+    penalty <- (k*p^2 + k*p)/(n - p - 1)
+    
+    ## Return
+    
+    AIC + penalty
+    
+}
 
 
 
