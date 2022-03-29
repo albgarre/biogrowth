@@ -2,10 +2,10 @@
 % Please edit documentation in R/model_comparison.R
 \name{compare_growth_fits}
 \alias{compare_growth_fits}
-\title{AA}
+\title{Comparison of growth fits}
 \usage{
 compare_growth_fits(models)
 }
 \description{
-AA
+Comparison of growth fits
 }

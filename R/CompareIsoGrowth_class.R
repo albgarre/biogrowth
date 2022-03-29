@@ -1,16 +1,16 @@
 
-#' ComparisonIsoGrowth class
+#' GrowthComparison class
 #' 
 #' @description 
-#' The `ComparisonIsoGrowth` class contains AA
+#' The `GrowthComparison` class contains AA
 #' 
-#' @name ComparisonIsoGrowth
+#' @name GrowthComparison
 #'   
 NULL
 
-#' @describeIn ComparisonIsoGrowth illustrations comparing the fitted models
+#' @describeIn GrowthComparison illustrations comparing the fitted models
 #' 
-#' @param x an instance of ComparisonIsoGrowth
+#' @param x an instance of GrowthComparison
 #' @param y ignored
 #' @param ... ignored
 #' @param type if type==1, the plot compares the model predictions. If type ==2,
@@ -23,7 +23,7 @@ NULL
 #' 
 #' @export
 #' 
-plot.ComparisonIsoGrowth <- function(x, y, ...,
+plot.GrowthComparison <- function(x, y, ...,
                                      type = 1,
                                      add_trend = TRUE) {
     
@@ -69,32 +69,53 @@ plot.ComparisonIsoGrowth <- function(x, y, ...,
     }
 }
 
-#' @describeIn ComparisonIsoGrowth table of parameter estimates
+#' @describeIn GrowthComparison table of parameter estimates
 #' 
-#' @param object an instance of ComparisonIsoGrowth
+#' @param object an instance of GrowthComparison
 #' @param ... ignored
 #' 
 #' @export
 #' 
-coef.ComparisonIsoGrowth <- function(object, ...) {
+coef.GrowthComparison <- function(object, ...) {
     
-    object$models %>%
-        map(~ summary(.)$par) %>%
-        map(~ as_tibble(., rownames = "parameter")) %>%
-        imap_dfr(~ mutate(.x, model = as.character(.y))
-        ) %>%
-        select("model", "parameter", estimate = "Estimate", std.err = "Std. Error")
-    
+    if (object$algorithm == "regression") {
+        
+        object$models %>%
+            map(~ summary(.)$par) %>%
+            map(~ as_tibble(., rownames = "parameter")) %>%
+            imap_dfr(~ mutate(.x, model = as.character(.y))
+            ) %>%
+            select("model", "parameter", estimate = "Estimate", std.err = "Std. Error")
+        
+    } else if (object$algorithm == "MCMC") {
+        
+        MCMC_fit %>% summary() %>% 
+            as_tibble(rownames = "index") %>% 
+            pivot_longer(-index) %>% 
+            pivot_wider(values_from = value, names_from = index)
+        
+        object$models %>%
+            map(~ summary(.)) %>%
+            map(~ as_tibble(., rownames = "index")) %>%
+            map(~ pivot_longer(., -index)) %>%
+            map(~ pivot_wider(., values_from = "value", names_from = "index")) %>%
+            imap_dfr(~ mutate(.x, model = .y)) %>%
+            select("model", parameter = "name", estimate = "mean", std.err = "sd")
+
+    } else {
+        stop("Something very bad happened here here")
+    }
+
 }
 
-#' @describeIn ComparisonIsoGrowth print of the model comparison
+#' @describeIn GrowthComparison print of the model comparison
 #' 
-#' @param x an instance of ComparisonIsoGrowth
+#' @param x an instance of GrowthComparison
 #' @param ... ignored
 #' 
 #' @export
 #' 
-print.ComparisonIsoGrowth <- function(x, ..) {
+print.GrowthComparison <- function(x, ..) {
     
     cat("Comparison between models fitted to data under isothermal conditions\n\n")
     
@@ -106,16 +127,16 @@ print.ComparisonIsoGrowth <- function(x, ..) {
 }
 
 
-#' @describeIn ComparisonIsoGrowth summary table for the comparison
+#' @describeIn GrowthComparison summary table for the comparison
 #' 
-#' @param object an instance of ComparisonIsoGrowth
+#' @param object an instance of GrowthComparison
 #' @param ... ignored
 #' 
 #' @importFrom dplyr arrange left_join
 #' 
 #' @export
 #' 
-summary.ComparisonIsoGrowth <- function(object, ...) {
+summary.GrowthComparison <- function(object, ...) {
     
     index_table <- object$models %>%
         imap_dfr(~ tibble(model = .y,
