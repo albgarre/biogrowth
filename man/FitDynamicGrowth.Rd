@@ -11,6 +11,8 @@
 \alias{deviance.FitDynamicGrowth}
 \alias{fitted.FitDynamicGrowth}
 \alias{predict.FitDynamicGrowth}
+\alias{logLik.FitDynamicGrowth}
+\alias{AIC.FitDynamicGrowth}
 \title{FitDynamicGrowth class}
 \usage{
 \method{print}{FitDynamicGrowth}(x, ...)
@@ -47,6 +49,10 @@
 \method{fitted}{FitDynamicGrowth}(object, ...)
 
 \method{predict}{FitDynamicGrowth}(object, times = NULL, newdata = NULL, ...)
+
+\method{logLik}{FitDynamicGrowth}(object, ...)
+
+\method{AIC}{FitDynamicGrowth}(object, ..., k = 2)
 }
 \arguments{
 \item{x}{The object of class \code{FitDynamicGrowth} to plot.}
@@ -84,7 +90,7 @@ that condition is plotted in the secondary axis}
 
 \item{line_type2}{Same as lin_type, but for the environmental factor.}
 
-\item{object}{an instance of \code{FitDynamicGrowth}.}
+\item{object}{an instance of FitDynamicGrowth}
 
 \item{times}{A numeric vector with the time points for the simulations. \code{NULL}
 by default (using the same time points as those for the simulation).}
@@ -92,6 +98,8 @@ by default (using the same time points as those for the simulation).}
 \item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
 in \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}}.
 If \code{NULL} (default), uses the same conditions as those for fitting.}
+
+\item{k}{penalty for the parameters (k=2 by default)}
 }
 \description{
 The \code{FitDynamicGrowth} class contains a model fitted based on growth data
@@ -129,5 +137,9 @@ calculated as 1/(0.5*Hessian)
 \item \code{fitted.FitDynamicGrowth}: fitted values.
 
 \item \code{predict.FitDynamicGrowth}: model predictions.
+
+\item \code{logLik.FitDynamicGrowth}: loglikelihood of the model
+
+\item \code{AIC.FitDynamicGrowth}: Akaike Information Criterion
 }}
 
