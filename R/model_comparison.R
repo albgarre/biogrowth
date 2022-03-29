@@ -141,6 +141,91 @@ compare_growth_fits <- function(models) {
 
 }
 
+#' Model comparison and selection for secondary growth models
+#' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
+#' 
+#' This function is a constructor for [SecondaryGrowthComparison]
+#' a class that provides several functions for model comparison and model selection
+#' for growth models fitted using [fit_secondary_growth()]. Please see the help pages for 
+#' [SecondaryGrowthComparison] for further details.
+#' 
+#' Although it is not necessary, we recommend passing the models as a named list,
+#' as these names will later be kept in plots and tables.
+#' 
+#' @param models a (we recommend named) list of models fitted using [fit_secondary_growth()]. 
+#' 
+#' @importFrom FME modCost
+#' 
+#' @export
+#' 
+#' @examples 
+#' 
+#' ## We first need to fit some models
+#' 
+#' data("example_cardinal")
+#' 
+#' sec_model_names <- c(temperature = "Zwietering", pH = "CPM")
+#' 
+#' known_pars <- list(mu_opt = 1.2, temperature_n = 1,
+#'                    pH_n = 2, pH_xmax = 6.8, pH_xmin = 5.2)
+#'                    
+#' my_start <- list(temperature_xmin = 5, temperature_xopt = 35,
+#'                  pH_xopt = 6.5)
+#'                  
+#' fit1 <- fit_secondary_growth(example_cardinal, my_start, known_pars, sec_model_names)
+#' 
+#' known_pars <- list(mu_opt = 1.2, temperature_n = 2,
+#'                    pH_n = 2, pH_xmax = 6.8, pH_xmin = 5.2)
+#'                    
+#'  fit2 <- fit_secondary_growth(example_cardinal, my_start, known_pars, sec_model_names)
+#'  
+#'  ## We can now pass the models to the constructor
+#' 
+#'  comparison <- compare_secondary_fits(list(`n=1` = fit1, 
+#'                                            `n=2` = fit2))
+#'                                            
+#'  ## The function includes several S3 methods for model selection and comparison
+#'  
+#'  print(comparison)
+#'  
+#'  plot(comparison)
+#'  plot(comparison, type = 2)
+#'  
+#'  ## The numerical indexes can be accessed using coef and summary
+#'  
+#'  coef(comparison)
+#'  summary(comparison)
+#'
+compare_secondary_fits <- function(models) {
+    
+    ## Check for model types
+    
+    model_type <- unique(map_chr(models, ~ class(.)[1]))
+    
+    if (length(model_type) > 1) {
+        stop("Every model mustb be of the same class")
+    }
+    
+    if (!is.FitSecondaryGrowth(models[[1]])) {
+        
+        stop("Only FitSecondaryGrowth is supported. Use compare_growth_fits for other model types.")
+        
+    }
+    
+    ## Return
+    
+    out <- list(models = models
+                )
+    
+    class(out) <- c("SecondaryGrowthComparison")
+    
+    return(out)
+    
+}
+
+
 
 
 
