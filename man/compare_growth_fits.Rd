@@ -2,10 +2,65 @@
 % Please edit documentation in R/model_comparison.R
 \name{compare_growth_fits}
 \alias{compare_growth_fits}
-\title{Comparison of growth fits}
+\title{Model comparison and selection for growth models}
 \usage{
 compare_growth_fits(models)
 }
+\arguments{
+\item{models}{a (we recommend named) list of models fitted using \code{\link[=fit_growth]{fit_growth()}}.
+Every model should be of the same class. Otherwise, some functions may give unexpected results.}
+}
 \description{
-Comparison of growth fits
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+This function is a constructor for \link{GrowthComparison} or \link{GlobalGrowthComparison},
+a class that provides several functions for model comparison and model selection
+for growth models fitted using \code{\link[=fit_growth]{fit_growth()}}. Please see the help pages for
+\link{GrowthComparison} or \link{GlobalGrowthComparison} for further details.
+
+Although it is not necessary, we recommend passing the models as a named list,
+as these names will later be kept in plots and tables.
+}
+\examples{
+
+## We fit 3 different models to an example dataset 
+data("growth_salmonella")
+
+fit1 <- fit_growth(growth_salmonella, 
+                   list(primary = "Baranyi"),
+                   start = c(lambda = 0, logNmax = 8, mu = .1, logN0 = 2),
+                   known = c(),
+                   environment = "constant",
+                   )
+                   
+fit2 <- fit_growth(growth_salmonella,
+                   list(primary = "Baranyi"),
+                   start = c(logNmax = 8, mu = .1, logN0 = 2),
+                   known = c(lambda = 0),
+                   environment = "constant",
+                   )
+                   
+fit3 <- fit_growth(growth_salmonella,
+                   list(primary = "modGompertz"),
+                   start = c(C = 8, mu = .1, logN0 = 2),
+                   known = c(lambda = 0),
+                   environment = "constant",
+                   )
+                   
+model_comparison <- compare_growth_fits(list(`Baranyi` = fit1, 
+                                             `Baranyi no lag` = fit2, 
+                                             `Gompertz no lag` = fit3))
+
+##  The instance of GrowthComparison has useful S3 methods
+
+print(model_comparison)
+plot(model_comparison)
+plot(model_comparison, type = 2)
+plot(model_comparison, type = 3)
+
+## The statistical indexes can be accessed through summary and coef
+
+summary(model_comparison)
+coef(model_comparison)
+
 }

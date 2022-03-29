@@ -2,7 +2,34 @@
 #' GrowthComparison class
 #' 
 #' @description 
-#' The `GrowthComparison` class contains AA
+#' The `GrowthComparison` class contains several functions for model comparison
+#' and model selection of growth models. It should not be instanced directly. Instead,
+#' it should be constructed using [compare_growth_fits()].
+#' 
+#' It includes two type of tools for model selection and comparison: statistical indexes
+#' and visual analyses. Please check the sections below for details.
+#' 
+#' Note that all these tools use the names defined in [compare_growth_fits()], so 
+#' we recommend passing a named list to that function.
+#' 
+#' @section Statistical indexes:
+#' `GrowthComparison` implements two S3 methods to obtain numerical values to facilitate
+#' model comparison and selection. 
+#' - the `coef` method returns a tibble with the values of the parameter estimates
+#' and their corresponding standard errors for each model. 
+#' - the `summary` returns a tibble with the AIC, number of degrees of freedom,
+#' mean error and root mean squared error for each model. 
+#' 
+#' @section Visual analyses:
+#' The S3 plot method can generate three types of plots:
+#' - when `type = 1`, the plot compares the fitted growth curves against the
+#' experimental data used to fit the model. 
+#' - when `type = 2`, the plot compares the parameter estimates using error bars, where
+#' the limits of the error bars are the expected value +/- one standard error. In case
+#' one model does not has some model parameter (i.e. either because it is not defined
+#' or because it was fixed), the parameter is not included in the plot.
+#' - when `type=3`, the plot shows the tendency of the residuals for each model. This
+#' plot can be used to detect deviations from independence.
 #' 
 #' @name GrowthComparison
 #'   
@@ -24,8 +51,8 @@ NULL
 #' @export
 #' 
 plot.GrowthComparison <- function(x, y, ...,
-                                     type = 1,
-                                     add_trend = TRUE) {
+                                  type = 1,
+                                  add_trend = TRUE) {
     
     if (type == 1) {  # Plot of the predictions
         
