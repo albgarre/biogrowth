@@ -50,7 +50,7 @@
 
 \method{fitted}{FitMultipleGrowthMCMC}(object, ...)
 
-\method{predict}{FitMultipleGrowthMCMC}(object, times = NULL, newdata = NULL, ...)
+\method{predict}{FitMultipleGrowthMCMC}(object, env_conditions, times = NULL, ...)
 
 \method{logLik}{FitMultipleGrowthMCMC}(object, ...)
 
@@ -98,17 +98,13 @@ that condition is plotted in the secondary axis}
 
 \item{object}{an instance of FitMultipleGrowthMCMC}
 
-\item{times}{Numeric vector of storage times for the predictions.}
-
-\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
-in \code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.
-If \code{NULL} (default), uses the same conditions as those for fitting.}
-
-\item{k}{penalty for the parameters (k=2 by default)}
-
 \item{env_conditions}{Tibble with the (dynamic) environmental conditions
 during the experiment. It must have one column named 'time' with the
 storage time and as many columns as required with the environmental conditions.}
+
+\item{times}{Numeric vector of storage times for the predictions.}
+
+\item{k}{penalty for the parameters (k=2 by default)}
 
 \item{niter}{Number of iterations.}
 
@@ -116,6 +112,10 @@ storage time and as many columns as required with the environmental conditions.}
 The name must be the identifier of a model already included in the model.
 These parameters do not include variation, so defining a new value for a fitted
 parameters "fixes" it. \code{NULL} by default (no new parameters).}
+
+\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
+in \code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.
+If \code{NULL} (default), uses the same conditions as those for fitting.}
 }
 \value{
 An instance of \code{\link[=MCMCgrowth]{MCMCgrowth()}}.

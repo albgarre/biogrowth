@@ -242,40 +242,24 @@ fitted.FitMultipleGrowthMCMC <- function(object, ...) {
 #'
 #' @export
 #'
-predict.FitMultipleGrowthMCMC <- function(object, times=NULL, newdata=NULL, ...) {
+predict.FitMultipleGrowthMCMC <- function(object, env_conditions, times=NULL, ...) {
     
-    if (is.null(newdata)) {
+    if (is.null(times)) {
         
-        newdata <- object$data
+        times <- env_conditions$time
         
     }
     
-    out <- lapply(1:length(newdata), function(i) {
-        
-        if (is.null(times)) {
-            times <- newdata[[i]]$data$time
-        } 
-        
-        pred <- predict_dynamic_growth(
-            times,
-            newdata[[i]]$conditions,
-            object$best_prediction[[1]]$primary_pars,
-            object$best_prediction[[1]]$sec_models
-        )
-        
-        exp_name <- names(newdata)[[i]]
-        
-        if (is.null(exp_name)) {
-            exp_name <- paste0("exp", i)
-        }
-        
-        tibble(time = times,
-               exp = exp_name,
-               logN = pred$simulation$logN)
-        
-    }) 
+    my_model <- object$best_prediction[[1]]  # Index does not matter, parameters are the same
     
-    bind_rows(out)
+    pred <- predict_dynamic_growth(
+        times,
+        env_conditions,
+        my_model$primary_pars,
+        my_model$sec_models
+    )
+    
+    pred$simulation$logN
     
 }
 
