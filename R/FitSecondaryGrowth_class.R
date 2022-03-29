@@ -281,6 +281,53 @@ predict.FitSecondaryGrowth <- function(object, newdata=NULL, ...) {
     
 }
 
+#' @describeIn FitSecondaryGrowth loglikelihood of the model
+#' 
+#' @param object an instance of FitSecondaryGrowth
+#' @param ... ignored
+#' 
+#' @export
+#' 
+logLik.FitSecondaryGrowth <- function(object, ...) {
+    
+    n <- nrow(object$data)
+    sigma <- sqrt(object$fit_results$ssr/object$fit_results$df.residual)
+    
+    lL <- - n/2*log(2*pi) -n/2 * log(sigma^2) - 1/2/sigma^2*object$fit_results$ssr
+    
+    lL
+    
+}
+
+#' @describeIn FitSecondaryGrowth Akaike Information Criterion
+#'
+#' @param object an instance of FitSecondaryGrowth
+#' @param ... ignored
+#' @param k penalty for the parameters (k=2 by default)
+#'
+#' @export
+#'
+AIC.FitSecondaryGrowth <- function(object, ..., k=2) {
+    
+    ## Normal AIC
+    
+    p <- length(coef(object))
+    
+    lL <- logLik(object) 
+    
+    AIC <- 2*p - 2*lL
+    
+    ## Calculate the penalty
+    
+    n <- nrow(object$data)
+    
+    penalty <- (k*p^2 + k*p)/(n - p - 1)
+    
+    ## Return
+    
+    AIC + penalty
+    
+}
 
 
 

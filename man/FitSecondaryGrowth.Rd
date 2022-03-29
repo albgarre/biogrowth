@@ -11,6 +11,8 @@
 \alias{deviance.FitSecondaryGrowth}
 \alias{fitted.FitSecondaryGrowth}
 \alias{predict.FitSecondaryGrowth}
+\alias{logLik.FitSecondaryGrowth}
+\alias{AIC.FitSecondaryGrowth}
 \title{FitSecondaryGrowth class}
 \usage{
 \method{print}{FitSecondaryGrowth}(x, ...)
@@ -30,6 +32,10 @@
 \method{fitted}{FitSecondaryGrowth}(object, ...)
 
 \method{predict}{FitSecondaryGrowth}(object, newdata = NULL, ...)
+
+\method{logLik}{FitSecondaryGrowth}(object, ...)
+
+\method{AIC}{FitSecondaryGrowth}(object, ..., k = 2)
 }
 \arguments{
 \item{x}{An instance of FitSecondaryGrowth.}
@@ -43,11 +49,13 @@
 
 \item{add_trend}{Whether to add a trend line (only for which=2)}
 
-\item{object}{an instance of \code{FitSecondaryGrowth}.}
+\item{object}{an instance of FitSecondaryGrowth}
 
 \item{newdata}{A tibble describing the environmental conditions as in
 \code{\link[=fit_secondary_growth]{fit_secondary_growth()}}. If \code{NULL}, it uses the same
 conditions as for model fitting (default).}
+
+\item{k}{penalty for the parameters (k=2 by default)}
 }
 \description{
 The \code{FitSecondaryGrowth} class contains a model fitted to a set of growth rates
@@ -86,5 +94,9 @@ The fitted values are returned in the same scale as the one
 used for the fitting (sqrt, log or none).
 
 \item \code{predict.FitSecondaryGrowth}: vector of model predictions.
+
+\item \code{logLik.FitSecondaryGrowth}: loglikelihood of the model
+
+\item \code{AIC.FitSecondaryGrowth}: Akaike Information Criterion
 }}
 
