@@ -128,8 +128,6 @@ summary.FitMultipleDynamicGrowth <- function(object, ...) {
 #'
 residuals.FitMultipleDynamicGrowth <- function(object, ...) {
     
-    residuals(object$fit_results)
-    
     object$data %>%
         map(~ .$data) %>%
         imap_dfr(~ mutate(.x, exp = .y)) %>%
@@ -222,50 +220,33 @@ fitted.FitMultipleDynamicGrowth <- function(object, ...) {
 #' @param object Instance of `FitMultipleDynamicGrowth`.
 #' @param ... ignored
 #' @param times A numeric vector with the time points for the simulations. `NULL`
-#' by default (using the same time points as those for the simulation).
-#' @param newdata a tibble describing the environmental conditions (as `env_conditions`)
+#' by default (using the same time points as the ones defined in `env_conditions`).
+#' @param env_conditions a tibble describing the environmental conditions (as
 #' in [fit_multiple_growth()]. 
-#' If `NULL` (default), uses the same conditions as those for fitting.
 #' 
 #' @importFrom dplyr bind_rows
 #'
 #' @export
 #'
-predict.FitMultipleDynamicGrowth <- function(object, times=NULL, newdata=NULL, ...) {
+predict.FitMultipleDynamicGrowth <- function(object, env_conditions, times=NULL, ...) {
     
-    if (is.null(newdata)) {
+    if (is.null(times)) {
         
-        newdata <- object$data
+        times <- env_conditions$time
         
     }
     
-    out <- lapply(1:length(newdata), function(i) {
-        
-        if (is.null(times)) {
-            times <- newdata[[i]]$data$time
-        } 
-        
-        pred <- predict_dynamic_growth(
-            times,
-            newdata[[i]]$conditions,
-            object$best_prediction[[1]]$primary_pars,
-            object$best_prediction[[1]]$sec_models
-        )
-        
-        exp_name <- names(newdata)[[i]]
-        
-        if (is.null(exp_name)) {
-            exp_name <- paste0("exp", i)
-        }
-        
-        tibble(time = times,
-               exp = exp_name,
-               logN = pred$simulation$logN)
-        
-    }) 
+    my_model <- object$best_prediction[[1]]  # Index does not matter, parameters are the same
     
-    bind_rows(out)
+    pred <- predict_dynamic_growth(
+        times,
+        env_conditions,
+        my_model$primary_pars,
+        my_model$sec_models
+    )
     
+    pred$simulation$logN
+
 }
 
 
