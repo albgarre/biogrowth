@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 library(biogrowth)
 ```
 
+## Isothermal fits
+
 ```{r}
 data("growth_salmonella")
 
@@ -54,4 +56,184 @@ plot(aa, type = 3)
 summary(aa)
 coef(aa)
 ```
+
+## Dynamic fits
+
+```{r}
+data("example_dynamic_growth")
+data("example_env_conditions")
+
+sec_models <- list(temperature = "CPM", aw = "CPM")
+
+known_pars <- list(Nmax = 1e4,  # Primary model
+                   N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+                   mu_opt = 4, # mu_opt of the gamma model
+                   temperature_n = 1,  # Secondary model for temperature
+                   aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
+)
+
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+                 temperature_xmax = 40, aw_xopt = .95)
+
+dynamic_fit <- fit_growth(example_dynamic_growth, 
+                          sec_models, 
+                          my_start, known_pars,
+                          environment = "dynamic",
+                          env_conditions = example_env_conditions
+) 
+
+plot(dynamic_fit, add_factor = "temperature")
+summary(dynamic_fit)
+
+##
+
+sec_models <- list(temperature = "Zwietering", aw = "CPM")
+
+known_pars <- list(Nmax = 1e4,  # Primary model
+                   N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+                   mu_opt = 4, # mu_opt of the gamma model
+                   temperature_n = 1,  # Secondary model for temperature
+                   aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
+)
+
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+                 aw_xopt = .95)
+
+dynamic_fit2 <- fit_growth(example_dynamic_growth, 
+                          sec_models, 
+                          my_start, known_pars,
+                          environment = "dynamic",
+                          env_conditions = example_env_conditions
+) 
+
+plot(dynamic_fit2, add_factor = "temperature")
+summary(dynamic_fit2)
+
+##
+
+aa <- compare_growth_fits(list(m1 = dynamic_fit, m2 = dynamic_fit2))
+
+print(aa)
+
+plot(aa)
+plot(aa, type = 2)
+plot(aa, type = 3)
+
+summary(aa)
+coef(aa)
+```
+
+
+```{r}
+data("example_dynamic_growth")
+data("example_env_conditions")
+
+sec_models <- list(temperature = "CPM", aw = "CPM")
+
+known_pars <- list(Nmax = 1e4,  # Primary model
+                   N0 = 1e0, Q0 = 1e-3,  # Initial values of the primary model
+                   mu_opt = 4, # mu_opt of the gamma model
+                   temperature_n = 1,  # Secondary model for temperature
+                   aw_xmax = 1, aw_xmin = .9, aw_n = 1  # Secondary model for water activity
+)
+
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+                 temperature_xmax = 40, aw_xopt = .95)
+
+
+set.seed(12421)
+MCMC_fit <- fit_growth(example_dynamic_growth, 
+                       sec_models, 
+                       my_start, known_pars,
+                       environment = "dynamic",
+                       env_conditions = example_env_conditions,
+                       algorithm = "MCMC",
+                       niter = 100
+) 
+
+sec_models <- list(temperature = "Zwietering", aw = "CPM")
+
+my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+                 aw_xopt = .95)
+
+MCMC_fit2 <- fit_growth(example_dynamic_growth, 
+                       sec_models, 
+                       my_start, known_pars,
+                       environment = "dynamic",
+                       env_conditions = example_env_conditions,
+                       algorithm = "MCMC",
+                       niter = 100
+) 
+
+aa <- compare_growth_fits(list(m1 = MCMC_fit, m2 = MCMC_fit2))
+
+print(aa)
+
+plot(aa)
+plot(aa, type = 2)
+plot(aa, type = 3)
+
+summary(aa)
+coef(aa)
+```
+
+## Global fit
+
+```{r}
+
+
+data("multiple_counts")
+data("multiple_conditions")
+
+sec_models <- list(temperature = "CPM", pH = "CPM")
+
+known_pars <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+                   temperature_n = 2, temperature_xmin = 20, 
+                   temperature_xmax = 35,
+                   pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+
+my_start <- list(mu_opt = .8, temperature_xopt = 30)
+
+global_fit <- fit_growth(multiple_counts, 
+                         sec_models, 
+                         my_start, 
+                         known_pars,
+                         environment = "dynamic",
+                         algorithm = "regression",
+                         approach = "global",
+                         env_conditions = multiple_conditions
+) 
+
+sec_models <- list(temperature = "CPM", pH = "CPM")
+
+known_pars <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+                   temperature_n = 1, temperature_xmin = 20, 
+                   temperature_xmax = 35,
+                   pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+
+my_start <- list(mu_opt = .8, temperature_xopt = 30)
+
+global_fit2 <- fit_growth(multiple_counts, 
+                         sec_models, 
+                         my_start, 
+                         known_pars,
+                         environment = "dynamic",
+                         algorithm = "regression",
+                         approach = "global",
+                         env_conditions = multiple_conditions
+) 
+
+aa <- compare_growth_fits(list(`n=2` = global_fit, `n=1` = global_fit2))
+
+print(aa)
+
+plot(aa)
+plot(aa, type = 2)
+plot(aa, type = 3)
+
+summary(aa)
+coef(aa)
+
+```
+
 
