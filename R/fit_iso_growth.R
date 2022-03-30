@@ -16,7 +16,10 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars) {
 
     pars <- c(this_p, known_pars)
 
-    predictions <- predict_isothermal_growth(model_name, times, as.list(pars), check=FALSE)
+    my_model <- as.list(pars)
+    my_model$model <- model_name
+    
+    predictions <- predict_growth(times, my_model, check = FALSE)
 
     modCost(model = as.data.frame(predictions$simulation),
             obs = as.data.frame(fit_data))
