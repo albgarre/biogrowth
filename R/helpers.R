@@ -116,11 +116,18 @@ extract_secondary_pars <- function(this_p, known_pars, sec_model_names) {
 #' be taken when using parameters obtained from other sources.
 #' 
 #' @param q0 Initial value of the variable Q.
-#' @param mu Specific growth rate in the exponential phase (log10(units)/[time]).
+#' @param mu Specific growth rate in the exponential phase.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
 #' @export
 #' 
-Q0_to_lambda <- function(q0, mu) {
+Q0_to_lambda <- function(q0, mu, logbase_mu = 10) {
+    
+    ## Apply the logbase transformation to mu
+    
+    mu <- mu/log(10, base = logbase_mu)
+    
     log10(1 +1/q0)/mu
 }
 
@@ -130,11 +137,18 @@ Q0_to_lambda <- function(q0, mu) {
 #' the duration of the lag phase
 #' 
 #' @param lambda Duration of the lag phase.
-#' @param mu Specific growth rate in the exponential phase (log10(units)/[time]).
+#' @param mu Specific growth rate in the exponential phase.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
 #' @export
 #' 
-lambda_to_Q0 <- function(lambda, mu) {
+lambda_to_Q0 <- function(lambda, mu, logbase_mu = 10) {
+    
+    ## Apply the logbase transformation to mu
+    
+    mu <- mu/log(10, base = logbase_mu)
+    
     1/(10^(mu*lambda) - 1)
 }
 

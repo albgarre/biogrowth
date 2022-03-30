@@ -16,7 +16,6 @@ fit_growth(
   niter = NULL,
   ...,
   check = TRUE,
-  logbase = c("natural", "10"),
   formula = logN ~ time
 )
 }
@@ -52,10 +51,10 @@ for details. Ignored for environment="constant".}
 
 \item{check}{Whether to check the validity of the models. TRUE by default.}
 
-\item{logbase}{aa # TODO}
-
 \item{formula}{An object of class "formula" defining the names of the x and y variables in
 the data. \code{logN ~ time} as a default.}
+
+\item{logbase}{aa # TODO}
 }
 \value{
 Depending on the type of data, the function will return an instance

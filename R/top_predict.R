@@ -80,7 +80,8 @@
 #' and as many additional columns as environmental factors. Ignored for "constant" environments.
 #' @param ... Additional arguments for [ode()].
 #' @param check Whether to check the validity of the models. `TRUE` by default.
-#' @param logbase aa # TODO  
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' @param formula An object of class "formula" describing the x variable for predictions 
 #' under dynamic conditions. `. ~ time` as a default.
 #' 
@@ -173,13 +174,14 @@ predict_growth <- function(times,
                            env_conditions = NULL,
                            ...,
                            check = TRUE,
-                           logbase = c("natural", "10"),  # TODO
+                           logbase_mu = 10,
                            formula = . ~ time
                            ) {
     
     ## This is just a top-level function. All the heavy lifting is still done in the superseded functions
     
     if (environment == "constant") {  # Predictions under constant environmental conditions
+
         
         ## Get the name of the primary model and remove it from the vector
         
@@ -194,6 +196,10 @@ predict_growth <- function(times,
             }
             
         }
+        
+        ## Apply the logbase transformation to mu
+        
+        my_pars$mu <- my_pars$mu/log(10, base = logbase_mu)
         
         ## Convert the parameters (to make both static and dynamic compatible)
         
@@ -274,7 +280,10 @@ predict_growth <- function(times,
             my_pars$lambda <- NULL
         }
         
+        ## Apply the logbase transformation to mu
         
+        my_pars$mu_opt <- my_pars$mu_opt/log(10, base = logbase_mu)
+
         ## And call the superseded function
         
         predict_dynamic_growth(times, 

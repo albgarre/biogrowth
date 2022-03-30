@@ -15,9 +15,16 @@
 #' @return Numeric vector with the predicted microbial count.
 #'
 iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
-
-    # mu <- mu/log(10)
-
+    
+    ## Comprobation using the "other" formulation  --> it does return the same
+    
+    # mu <- mu*log(10)  # This one is defined in a different scale
+    # 
+    # inside <- exp(-mu * times) + exp(-mu*lambda) - exp(-mu*times - mu*lambda)
+    # A <- times + 1/mu*log(inside)
+    # 
+    # logN <- logN0 + mu/log(10)*A - 1/log(10)*log(1 + (exp(mu*A) - 1)/(10^(logNmax - logN0)))
+    
     num <- 1 + exp(log(10)*mu*(times - lambda)) - exp(-log(10)*mu*lambda)
     den <- exp(log(10)*mu*(times-lambda)) - exp(-log(10)*mu*lambda) + 10^(logNmax - logN0)
     logN <- logNmax + log10(num/den)
@@ -40,8 +47,12 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
 iso_repGompertz <- function(times, logN0, C, mu, lambda) {
     
     # mu <- mu/log(10)
+    
+    exponent <- (mu/C)*exp(1)*(lambda - times) +1
+    
+    logN <- logN0 + C*exp( -exp( exponent ) )
 
-    logN <- logN0 + C*(exp(-exp( exp(1)*(mu/C)*(lambda-times)+1 )))
+    # logN <- logN0 + C*(exp(-exp( exp(1)*(mu/C)*(lambda-times)+1 )))
 
     logN
 

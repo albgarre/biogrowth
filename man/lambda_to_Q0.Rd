@@ -4,12 +4,15 @@
 \alias{lambda_to_Q0}
 \title{Q0 from lag phase duration}
 \usage{
-lambda_to_Q0(lambda, mu)
+lambda_to_Q0(lambda, mu, logbase_mu = 10)
 }
 \arguments{
 \item{lambda}{Duration of the lag phase.}
 
-\item{mu}{Specific growth rate in the exponential phase (log10(units)/\link{time}).}
+\item{mu}{Specific growth rate in the exponential phase.}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \description{
 Convenience function to calculate the value of Q0 for the Baranyi model from
