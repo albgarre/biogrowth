@@ -131,16 +131,8 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #'
 summary.FitDynamicGrowthMCMC <- function(object, ...) {
     
-    print(summary(object$fit_results))
-    
-    logbase <- object$logbase_mu
-    
-    if ( abs(logbase - exp(1)) < .1 ) {
-        logbase <- "e"
-    }
-    cat("\n")
-    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
-    
+    summary(object$fit_results)
+
 }
 
 #' @describeIn FitDynamicGrowthMCMC model residuals.

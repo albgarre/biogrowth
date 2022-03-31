@@ -131,16 +131,8 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
 #'
 summary.FitDynamicGrowth <- function(object, ...) {
     
-    print(summary(object$fit_results))
+    summary(object$fit_results)
 
-    logbase <- object$logbase_mu
-    
-    if ( abs(logbase - exp(1)) < .1 ) {
-        logbase <- "e"
-    }
-    cat("\n")
-    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
-    
 }
 
 #' @describeIn FitDynamicGrowth residuals of the model.

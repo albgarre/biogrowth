@@ -92,16 +92,8 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
 #'
 summary.FitIsoGrowth <- function(object, ...) {
     
-    print(summary(object$fit))
-    
-    logbase <- object$logbase_mu
-    
-    if ( abs(logbase - exp(1)) < .1 ) {
-        logbase <- "e"
-    }
-    cat("\n")
-    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
-    
+    summary(object$fit)
+
 }
 
 #' @describeIn FitIsoGrowth vector of model residuals.
