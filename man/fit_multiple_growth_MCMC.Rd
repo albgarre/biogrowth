@@ -12,7 +12,8 @@ fit_multiple_growth_MCMC(
   niter,
   ...,
   check = TRUE,
-  formula = logN ~ time
+  formula = logN ~ time,
+  logbase_mu = 10
 )
 }
 \arguments{

@@ -265,7 +265,8 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                                 known_pars, sec_model_names, niter,
                                 ..., check = TRUE,
-                                formula = logN ~ time) {
+                                formula = logN ~ time,
+                                logbase_mu = 10) {
 
     ## Check the model parameters
     
@@ -301,6 +302,7 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                      known_pars = unlist(known_pars),
                      sec_model_names = sec_model_names,
                      niter = niter,
+                     logbase_mu = logbase_mu,
                      ...)
 
     #- Output the results
@@ -315,10 +317,18 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
     best_predictions <- lapply(experiment_data, function(each_experiment) {
 
         times <- seq(0, max(each_experiment$data$time), length=100)
+        
+        best_prediction <- predict_growth(environment = "dynamic",
+                                          times,
+                                          as.list(primary_pars),
+                                          secondary_models,
+                                          each_experiment$conditions,
+                                          logbase_mu = logbase_mu 
+        )
 
-        best_prediction <- predict_dynamic_growth(times, each_experiment$conditions,
-                                                  as.list(primary_pars),
-                                                  secondary_models)
+        # best_prediction <- predict_dynamic_growth(times, each_experiment$conditions,
+        #                                           as.list(primary_pars),
+        #                                           secondary_models)
 
     })
 
@@ -329,7 +339,8 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                 data = experiment_data,
                 starting = starting_point,
                 known = known_pars,
-                sec_models = sec_model_names
+                sec_models = sec_model_names,
+                logbase_mu = logbase_mu
     )
 
     class(out) <- c("FitMultipleGrowthMCMC", class(out))

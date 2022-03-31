@@ -505,7 +505,8 @@ fit_growth <- function(fit_data,
                 niter,
                 ...,
                 check = check,
-                formula = formula
+                formula = formula,
+                logbase_mu = logbase_mu
                 )
             
         } else {
