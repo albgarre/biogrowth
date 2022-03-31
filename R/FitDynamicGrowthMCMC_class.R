@@ -131,10 +131,7 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #'
 summary.FitDynamicGrowthMCMC <- function(object, ...) {
     
-    out <- summary(object$fit)
-    out$logbase_mu <- object$logbase_mu
-    
-    out
+    summary(object$fit)
 
 }
 
