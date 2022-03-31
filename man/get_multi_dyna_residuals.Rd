@@ -4,7 +4,13 @@
 \alias{get_multi_dyna_residuals}
 \title{Residuals of multiple dynamic predictions}
 \usage{
-get_multi_dyna_residuals(this_p, experiment_data, known_pars, sec_model_names)
+get_multi_dyna_residuals(
+  this_p,
+  experiment_data,
+  known_pars,
+  sec_model_names,
+  logbase_mu = 10
+)
 }
 \arguments{
 \item{this_p}{named vector of model parameters}

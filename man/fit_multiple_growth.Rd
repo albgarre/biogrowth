@@ -11,7 +11,8 @@ fit_multiple_growth(
   sec_model_names,
   ...,
   check = TRUE,
-  formula = logN ~ time
+  formula = logN ~ time,
+  logbase_mu = 10
 )
 }
 \arguments{

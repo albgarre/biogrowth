@@ -41,6 +41,15 @@ print.FitMultipleDynamicGrowth <- function(x, ...) {
     print(unlist(x$best_prediction[[1]]$primary_pars))
     cat("\n")
     
+    logbase <- x$logbase_mu
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    
+    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
+    cat("\n\n")
+    
     for (i in 1:length(x$best_prediction[[1]]$sec_models)) {
         cat(paste("Secondary model for ", names(x$best_prediction[[1]]$sec_models)[i], ":\n", sep = ""))
         print(unlist(x$best_prediction[[1]]$sec_models[[i]]))
@@ -111,7 +120,10 @@ plot.FitMultipleDynamicGrowth <- function(x, y=NULL, ...,
 #'
 summary.FitMultipleDynamicGrowth <- function(object, ...) {
     
-    summary(object$fit_results)
+    out <- summary(object$fit)
+    out$logbase_mu <- object$logbase_mu
+    
+    out
     
 }
 
@@ -238,11 +250,19 @@ predict.FitMultipleDynamicGrowth <- function(object, env_conditions, times=NULL,
     
     my_model <- object$best_prediction[[1]]  # Index does not matter, parameters are the same
     
-    pred <- predict_dynamic_growth(
-        times,
-        env_conditions,
-        my_model$primary_pars,
-        my_model$sec_models
+    # pred <- predict_dynamic_growth(
+    #     times,
+    #     env_conditions,
+    #     my_model$primary_pars,
+    #     my_model$sec_models
+    # )
+    
+    pred <- predict_growth(environment = "dynamic",
+                           times,
+                           my_model$primary_pars,
+                           my_model$sec_models,
+                           env_conditions,
+                           logbase_mu = object$logbase_mu 
     )
     
     pred$simulation$logN

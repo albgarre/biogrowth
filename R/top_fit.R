@@ -473,7 +473,8 @@ fit_growth <- function(fit_data,
                 unlist(model_keys),
                 ...,
                 check = check,
-                formula = formula
+                formula = formula,
+                logbase_mu = logbase_mu
             )
             
         } else if(algorithm == "MCMC" & approach == "global")  {  # Global fitting by MCMC
