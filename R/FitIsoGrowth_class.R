@@ -92,7 +92,10 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
 #'
 summary.FitIsoGrowth <- function(object, ...) {
     
-    summary(object$fit)
+    out <- summary(object$fit)
+    out$logbase_mu <- object$logbase_mu
+    
+    out
 
 }
 

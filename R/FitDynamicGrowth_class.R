@@ -131,7 +131,10 @@ plot.FitDynamicGrowth <- function(x, y=NULL, ...,
 #'
 summary.FitDynamicGrowth <- function(object, ...) {
     
-    summary(object$fit_results)
+    out <- summary(object$fit)
+    out$logbase_mu <- object$logbase_mu
+    
+    out
 
 }
 
