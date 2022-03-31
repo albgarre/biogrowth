@@ -34,6 +34,14 @@ print.FitIsoGrowth <- function(x, ...) {
     cat("Model parameters:\n")
     print(unlist(x$best_prediction$pars))
     
+    logbase <- x$logbase_mu
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    cat("\n")
+    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
+    
 }
 
 #' @describeIn FitIsoGrowth compares the fitted model against the data.
@@ -84,7 +92,15 @@ plot.FitIsoGrowth <- function(x, y=NULL, ...,
 #'
 summary.FitIsoGrowth <- function(object, ...) {
     
-    summary(object$fit)
+    print(summary(object$fit))
+    
+    logbase <- object$logbase_mu
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    cat("\n")
+    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
     
 }
 
@@ -188,12 +204,21 @@ predict.FitIsoGrowth <- function(object, times = NULL, ...) {
         
     }
     
+    # browser()
     
-    pred <- predict_isothermal_growth(object$model,
-                                      times,
-                                      object$best_prediction$pars,
-                                      check=FALSE)
+    pars <- c(coef(object), object$known)
+    my_model <- as.list(pars)
+    my_model$model <- object$model
     
+    pred <- predict_growth(times, my_model, check = FALSE,
+                           logbase_mu = object$logbase_mu)
+    
+    
+    # pred <- predict_isothermal_growth(object$model,
+    #                                   times,
+    #                                   object$best_prediction$pars,
+    #                                   check=FALSE)
+    # 
     pred$simulation$logN
     
 }

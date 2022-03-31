@@ -336,7 +336,7 @@ fit_growth <- function(fit_data,
                        niter = NULL,
                        ..., 
                        check = TRUE,
-                       logbase = c("natural", "10"),  # TODO
+                       logbase_mu = 10,  # TODO
                        formula = logN ~ time
                        ) {
     
@@ -386,7 +386,8 @@ fit_growth <- function(fit_data,
         fit_isothermal_growth(fit_data, my_model, start, known,
                               ..., 
                               check = check,
-                              formula = formula
+                              formula = formula,
+                              logbase_mu = logbase_mu
                               )
         
     } else if (environment == "dynamic") {  # Fitting both primary and secondary models

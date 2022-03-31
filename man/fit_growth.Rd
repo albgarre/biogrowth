@@ -16,6 +16,7 @@ fit_growth(
   niter = NULL,
   ...,
   check = TRUE,
+  logbase_mu = 10,
   formula = logN ~ time
 )
 }

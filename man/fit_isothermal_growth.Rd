@@ -11,7 +11,8 @@ fit_isothermal_growth(
   known_pars,
   ...,
   check = TRUE,
-  formula = logN ~ time
+  formula = logN ~ time,
+  logbase_mu = 10
 )
 }
 \arguments{

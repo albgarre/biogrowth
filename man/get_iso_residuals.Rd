@@ -4,7 +4,7 @@
 \alias{get_iso_residuals}
 \title{Residuals of isothermal prediction}
 \usage{
-get_iso_residuals(this_p, fit_data, model_name, known_pars)
+get_iso_residuals(this_p, fit_data, model_name, known_pars, logbase_mu = 10)
 }
 \arguments{
 \item{this_p}{named vector of model parameters to fit}
