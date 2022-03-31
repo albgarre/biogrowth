@@ -10,7 +10,8 @@ get_dyna_residuals(
   env_conditions,
   known_pars,
   sec_model_names,
-  cost = NULL
+  cost = NULL,
+  logbase_mu = 10
 )
 }
 \arguments{
