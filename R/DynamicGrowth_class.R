@@ -38,6 +38,13 @@ print.DynamicGrowth <- function(x, ...) {
     print(unlist(x$primary_pars))
     cat("\n")
     
+    logbase <- x$logbase_mu
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    cat(paste0("Parameter mu defined in log-", logbase, " scale\n\n"))
+    
     for (i in 1:length(x$sec_models)) {
         cat(paste("Secondary model for ", names(x$sec_models)[i], ":\n", sep = ""))
         print(unlist(x$sec_models[[i]]))

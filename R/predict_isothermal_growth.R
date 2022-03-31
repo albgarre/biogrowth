@@ -149,7 +149,8 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 #' plot(static_prediction)
 #'
 #'
-predict_isothermal_growth <- function(model_name, times, model_pars, check = TRUE) {
+predict_isothermal_growth <- function(model_name, times, model_pars, check = TRUE,
+                                      logbase_mu = 10) {
 
     ## Check the model parameters
     
@@ -160,21 +161,27 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
         check_primary_pars(model_name, model_pars)
 
     }
+    
+    ## Apply the logbase transformation to mu
+    
+    simul_pars <- model_pars
+    
+    simul_pars$mu <- simul_pars$mu/log(10, base = logbase_mu)
 
     ## Calculate the prediction
 
     logN <- switch(model_name,
-           modGompertz = iso_repGompertz(times, model_pars$logN0, model_pars$C,
-                                         model_pars$mu, model_pars$lambda),
-           Baranyi = iso_Baranyi(times, model_pars$logN0, model_pars$mu,
-                                 model_pars$lambda, model_pars$logNmax),
-           Trilinear = trilinear_model(times, model_pars$logN0, model_pars$mu,
-                                       model_pars$lambda,model_pars$logNmax),
-           Logistic = logistic_model(times, model_pars$logN0, model_pars$mu,
-                                     model_pars$lambda, model_pars$C),
-           Richards = richards_model(times, model_pars$logN0, model_pars$mu,
-                                     model_pars$lambda, model_pars$C,
-                                     model_pars$nu),
+           modGompertz = iso_repGompertz(times, simul_pars$logN0, simul_pars$C,
+                                         simul_pars$mu, simul_pars$lambda),
+           Baranyi = iso_Baranyi(times, simul_pars$logN0, simul_pars$mu,
+                                 simul_pars$lambda, simul_pars$logNmax),
+           Trilinear = trilinear_model(times, simul_pars$logN0, simul_pars$mu,
+                                       simul_pars$lambda,simul_pars$logNmax),
+           Logistic = logistic_model(times, simul_pars$logN0, simul_pars$mu,
+                                     simul_pars$lambda, simul_pars$C),
+           Richards = richards_model(times, simul_pars$logN0, simul_pars$mu,
+                                     simul_pars$lambda, simul_pars$C,
+                                     simul_pars$nu),
            stop(paste("Unknown model:", model_name))
            )
 
@@ -184,7 +191,8 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
 
     out <- list(simulation = my_sim,
                 model = model_name,
-                pars = model_pars
+                pars = model_pars,
+                logbase_mu = logbase_mu
                 )
 
     class(out) <- c("IsothermalGrowth", class(out))

@@ -92,7 +92,8 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                                    secondary_models, 
                                    ...,
                                    check = TRUE,
-                                   formula = . ~ time) {
+                                   formula = . ~ time,
+                                   logbase_mu = 10) {
     
     ## Apply the formula
     
@@ -124,18 +125,24 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                              primary_pars = c("mu_opt", "N0", "Nmax", "Q0"))
         
     }
+    
+    ## Apply the logbase transformation to mu
+    
+    primary_pars_calc <- primary_pars
+    
+    primary_pars_calc$mu_opt <- primary_pars_calc$mu_opt/log(10, base = logbase_mu)
 
     ## Prepare stuff
 
     my_env <- approx_env(env_conditions)
 
-    yini <- c(Q = primary_pars$Q0,
-              N = primary_pars$N0
+    yini <- c(Q = primary_pars_calc$Q0,
+              N = primary_pars_calc$N0
               )
 
     ## Make the simulation
 
-    my_sim <- ode(yini, times, dBaranyi, primary_pars,
+    my_sim <- ode(yini, times, dBaranyi, primary_pars_calc,
                   env_func = my_env,
                   sec_models = secondary_models,
                   ...
@@ -163,7 +170,8 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                 gammas = as_tibble(gammas),
                 env_conditions = my_env,
                 primary_pars = primary_pars,
-                sec_models = secondary_models)
+                sec_models = secondary_models,
+                logbase_mu = logbase_mu)
 
     class(out) <- c("DynamicGrowth", class(out))
 

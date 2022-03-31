@@ -32,6 +32,14 @@ print.IsothermalGrowth <- function(x, ...) {
     cat("Parameters of the primary model:\n")
     print(unlist(x$pars))
     
+    logbase <- x$logbase_mu
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    cat("\n")
+    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
+    
 }
 
 #' @describeIn IsothermalGrowth plot of the predicted growth curve.

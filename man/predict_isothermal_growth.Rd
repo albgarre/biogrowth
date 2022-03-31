@@ -4,7 +4,13 @@
 \alias{predict_isothermal_growth}
 \title{Isothermal microbial growth}
 \usage{
-predict_isothermal_growth(model_name, times, model_pars, check = TRUE)
+predict_isothermal_growth(
+  model_name,
+  times,
+  model_pars,
+  check = TRUE,
+  logbase_mu = 10
+)
 }
 \arguments{
 \item{model_name}{Character defining the growth model.}

@@ -197,10 +197,6 @@ predict_growth <- function(times,
             
         }
         
-        ## Apply the logbase transformation to mu
-        
-        my_pars$mu <- my_pars$mu/log(10, base = logbase_mu)
-        
         ## Convert the parameters (to make both static and dynamic compatible)
         
         if( is.null(my_pars$logN0) ) {
@@ -237,7 +233,8 @@ predict_growth <- function(times,
         
         ## Call the superseded function
         
-        predict_isothermal_growth(my_model, times, my_pars, check = check)
+        predict_isothermal_growth(my_model, times, my_pars, check = check,
+                                  logbase_mu = logbase_mu)
         
     } else if(environment == "dynamic") {  # Prediction under dynamic environmental conditions
         
@@ -279,10 +276,6 @@ predict_growth <- function(times,
             my_pars$Q0 <- lambda_to_Q0(my_pars$lambda, my_pars$mu_opt)
             my_pars$lambda <- NULL
         }
-        
-        ## Apply the logbase transformation to mu
-        
-        my_pars$mu_opt <- my_pars$mu_opt/log(10, base = logbase_mu)
 
         ## And call the superseded function
         
@@ -292,6 +285,7 @@ predict_growth <- function(times,
                                secondary_models, 
                                check = check,
                                formula = formula,
+                               logbase_mu = logbase_mu,
                                ...)
         
         

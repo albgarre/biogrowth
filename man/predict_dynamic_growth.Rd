@@ -11,7 +11,8 @@ predict_dynamic_growth(
   secondary_models,
   ...,
   check = TRUE,
-  formula = . ~ time
+  formula = . ~ time,
+  logbase_mu = 10
 )
 }
 \arguments{
