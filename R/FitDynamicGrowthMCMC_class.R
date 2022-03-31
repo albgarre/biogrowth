@@ -39,6 +39,16 @@ print.FitDynamicGrowthMCMC <- function(x, ...) {
     print(unlist(x$best_prediction$primary_pars))
     cat("\n")
     
+    logbase <- x$logbase_mu
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    
+    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
+    cat("\n\n")
+    
+    
     for (i in 1:length(x$best_prediction$sec_models)) {
         cat(paste("Secondary model for ", names(x$best_prediction$sec_models)[i], ":\n", sep = ""))
         print(unlist(x$best_prediction$sec_models[[i]]))
@@ -121,7 +131,15 @@ plot.FitDynamicGrowthMCMC <- function(x, y=NULL, ...,
 #'
 summary.FitDynamicGrowthMCMC <- function(object, ...) {
     
-    summary(object$fit_results)
+    print(summary(object$fit_results))
+    
+    logbase <- object$logbase_mu
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    cat("\n")
+    cat(paste0("Parameter mu defined in log-", logbase, " scale"))
     
 }
 
@@ -237,11 +255,19 @@ predict.FitDynamicGrowthMCMC <- function(object, times=NULL, newdata = NULL, ...
     }
     
     
-    pred <- predict_dynamic_growth(
-        times,
-        newdata,
-        object$best_prediction$primary_pars,
-        object$best_prediction$sec_models
+    # pred <- predict_dynamic_growth(
+    #     times,
+    #     newdata,
+    #     object$best_prediction$primary_pars,
+    #     object$best_prediction$sec_models
+    # )
+    
+    pred <- predict_growth(environment = "dynamic",
+                           times,
+                           object$best_prediction$primary_pars,
+                           object$best_prediction$sec_models,
+                           newdata,
+                           logbase_mu = object$logbase_mu 
     )
     
     pred$simulation$logN
