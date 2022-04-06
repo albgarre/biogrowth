@@ -1,5 +1,5 @@
 ---
-title: "Using models with secondary models to predict growth under constant environmental conditions"
+title: "Using models based on secondary models to predict growth under constant environmental conditions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Using models with secondary models to predict growth under constant environmental conditions}
@@ -61,8 +61,7 @@ dynamic_prediction <- predict_growth(environment = "dynamic",
                                      my_times,
                                      my_primary,
                                      my_secondary,
-                                     my_conditions,
-                                     logbase_mu = exp(1))
+                                     my_conditions)
 
 ```
 
@@ -72,14 +71,13 @@ the predicted population size is identical to the one calculated using `predict_
 for the Baranyi model when $\mu = \mu_{opt}$ and $\lambda = \frac{ \ln \left(1 +1/Q_0 \right) }{\mu_{opt}}$.
 
 ```{r}
-lambda <- Q0_to_lambda(q0, mu_opt, logbase_mu = exp(1))
+lambda <- Q0_to_lambda(q0, mu_opt)
 
 primary_model <- list(model = "Baranyi", 
                       logN0 = 2, logNmax = 8, mu = mu_opt, lambda = lambda)
 
 
-static_prediction <- predict_growth(my_times, primary_model,
-                                    logbase_mu = exp(1))
+static_prediction <- predict_growth(my_times, primary_model)
 
 plot(static_prediction) +
     geom_line(aes(x = time, y = logN), linetype = 2, data = dynamic_prediction$simulation,
