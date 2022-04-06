@@ -153,7 +153,7 @@ plot.GlobalGrowthComparison <- function(x, y, ...,
             geom_line(aes(x = time, y = logN, colour = model)) +
             facet_wrap("experiment", scales = "free")
         
-        my_points <- aa$models[[1]]$data %>%
+        my_points <- x$models[[1]]$data %>%
             map(~ .$data) %>%
             imap_dfr(~ mutate(.x, experiment = .y)) %>%
             geom_point(aes(x = time, y = logN), data = ., inherit.aes = FALSE)
