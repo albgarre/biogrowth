@@ -22,8 +22,13 @@
 #' 
 #' @examples 
 #' 
-#' ## We fit 3 different models to an example dataset 
+#' ## Example 1 - Fitting under static environmental conditions ----------------
+#' 
+#' ## We will use the data on growth of Salmonella included in the package
+#' 
 #' data("growth_salmonella")
+#' 
+#' ## We will fit 3 different models to the data
 #' 
 #' fit1 <- fit_growth(growth_salmonella, 
 #'                    list(primary = "Baranyi"),
@@ -46,9 +51,15 @@
 #'                    environment = "constant",
 #'                    )
 #'                    
-#' model_comparison <- compare_growth_fits(list(`Baranyi` = fit1, 
-#'                                              `Baranyi no lag` = fit2, 
-#'                                              `Gompertz no lag` = fit3))
+#' ## We can now put them in a (preferably named) list
+#' 
+#' my_models <- list(`Baranyi` = fit1, 
+#'                   `Baranyi no lag` = fit2, 
+#'                   `Gompertz no lag` = fit3)
+#'                   
+#' ## And pass them to compare_growth_fits
+#'                    
+#' model_comparison <- compare_growth_fits(my_models)
 #' 
 #' ##  The instance of GrowthComparison has useful S3 methods
 #' 
@@ -62,6 +73,141 @@
 #' summary(model_comparison)
 #' coef(model_comparison)
 #' 
+#' ## Example 2 - Fitting under dynamic environmental conditions ---------------
+#' \donttest{
+#' 
+#' ## We will use one of the example datasets
+#' 
+#' data("example_dynamic_growth")
+#' data("example_env_conditions")
+#' 
+#' ## First model fitted
+#' 
+#' sec_models <- list(temperature = "CPM", aw = "CPM")
+#' 
+#' known_pars <- list(Nmax = 1e4, 
+#'                    N0 = 1e0, Q0 = 1e-3, 
+#'                    mu_opt = 4,
+#'                    temperature_n = 1,
+#'                    aw_xmax = 1, aw_xmin = .9, aw_n = 1 
+#'                    )
+#'                    
+#' my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+#'                  temperature_xmax = 40, aw_xopt = .95)
+#'                  
+#' dynamic_fit <- fit_growth(example_dynamic_growth,
+#'                           sec_models,
+#'                           my_start, known_pars,
+#'                           environment = "dynamic",
+#'                           env_conditions = example_env_conditions
+#'                           )
+#'                           
+#' ## Second model (different secondary model for temperature)
+#' 
+#' sec_models <- list(temperature = "Zwietering", aw = "CPM")
+#' 
+#' known_pars <- list(Nmax = 1e4, 
+#'                    N0 = 1e0, Q0 = 1e-3,
+#'                    mu_opt = 4,
+#'                    temperature_n = 1,
+#'                    aw_xmax = 1, aw_xmin = .9, aw_n = 1 
+#'                    )
+#'                    
+#' my_start <- list(temperature_xmin = 25, temperature_xopt = 35,
+#'                  aw_xopt = .95)
+#'                  
+#' dynamic_fit2 <- fit_growth(example_dynamic_growth,
+#'                            sec_models,
+#'                            my_start, known_pars,
+#'                            environment = "dynamic",
+#'                            env_conditions = example_env_conditions
+#'                            )
+#'                            
+#' ## Once both models have been fitted, we can call the function               
+#' 
+#' dynamic_comparison <- compare_growth_fits(list(m1 = dynamic_fit, m2 = dynamic_fit2))
+#' 
+#' ## Which also returns an instance of GrowthComparison with the same S3 methods
+#' 
+#' print(dynamic_comparison)
+#' plot(dynamic_comparison)
+#' plot(dynamic_comparison, type = 2)
+#' plot(dynamic_comparison, type = 3)
+#' 
+#' ## The statistical indexes can be accessed through summary and coef
+#' 
+#' summary(dynamic_comparison)
+#' coef(dynamic_comparison)
+#' }
+#' 
+#' ## Example 3 - Global fitting -----------------------------------------------
+#' \donttest{
+#' 
+#' ## We use the example data
+#' 
+#' data("multiple_counts")
+#' data("multiple_conditions")
+#' 
+#' ## We need to fit (at least) two models
+#' 
+#' sec_models <- list(temperature = "CPM", pH = "CPM")
+#' 
+#' known_pars <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+#'                    temperature_n = 2, temperature_xmin = 20, 
+#'                    temperature_xmax = 35,
+#'                    pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+#'                    
+#' my_start <- list(mu_opt = .8, temperature_xopt = 30)
+#' 
+#' global_fit <- fit_growth(multiple_counts, 
+#'                          sec_models, 
+#'                          my_start, 
+#'                          known_pars,
+#'                          environment = "dynamic",
+#'                          algorithm = "regression",
+#'                          approach = "global",
+#'                          env_conditions = multiple_conditions
+#'                          ) 
+#'                          
+#' sec_models <- list(temperature = "CPM", pH = "CPM")
+#' 
+#' known_pars <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+#'                    temperature_n = 1, temperature_xmin = 20, 
+#'                    temperature_xmax = 35,
+#'                    pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+#'                    
+#' my_start <- list(mu_opt = .8, temperature_xopt = 30)
+#' 
+#' global_fit2 <- fit_growth(multiple_counts, 
+#'                           sec_models, 
+#'                           my_start, 
+#'                           known_pars,
+#'                           environment = "dynamic",
+#'                           algorithm = "regression",
+#'                           approach = "global",
+#'                           env_conditions = multiple_conditions
+#'                           ) 
+#'                           
+#' ## We can now pass both models to the function as a (named) list
+#' 
+#' global_comparison <- compare_growth_fits(list(`n=2` = global_fit, 
+#'                                               `n=1` = global_fit2)
+#'                                               )
+#'                                               
+#' ## The residuals and model fits plots are divided by experiments
+#' 
+#' plot(global_comparison)
+#' plot(global_comparison, type = 3)
+#' 
+#' ## The remaining S3 methods are the same as before
+#' 
+#' print(global_comparison)
+#' plot(global_comparison, type = 2)
+#' summary(global_comparison)
+#' coef(global_comparison)
+#' 
+#' }
+#' 
 compare_growth_fits <- function(models) {
     
     ## Check for model types
@@ -69,7 +215,7 @@ compare_growth_fits <- function(models) {
     model_type <- unique(map_chr(models, ~ class(.)[1]))
     
     if (length(model_type) > 1) {
-        warning("Every model should be of the same class. You are entering untested territories.")
+        warning("Every model should be of the same class. You are entering untested territory...")
     }
     
     ## Check if it is global or single
