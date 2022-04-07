@@ -1,8 +1,8 @@
 ---
-title: "Using models based on secondary models to predict growth under constant environmental conditions"
+title: "Models based on secondary models to predict growth under constant environmental conditions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using models with secondary models to predict growth under constant environmental conditions}
+  %\VignetteIndexEntry{Models based on secondary models to predict growth under constant environmental conditions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
