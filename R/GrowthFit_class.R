@@ -2,6 +2,8 @@
 #' GrowthFit class
 #' 
 #' @description 
+#' `r lifecycle::badge("stable")`
+#' 
 #' The `GrowthFit` class contains a growth model fitted to data under
 #' static conditions. Its constructor is [fit_growth()].
 #' 
@@ -140,6 +142,9 @@ summary.GrowthFit <- function(object, ...) {
 #' @param ... ignored
 #' @param times numeric vector describing the time points for the prediction.
 #' If `NULL` (default), uses the same points as those used for fitting.
+#' @param env_conditions tibble describing the environmental conditions as in [fit_growth()].
+#' If `NULL` (default), uses the environmental condition of the fitting. Ignored
+#' if `environment="constant"`
 #' 
 #' @export
 #' 
@@ -211,7 +216,8 @@ residuals.GrowthFit <- function(object, ...) {
 }
 
 #' @describeIn GrowthFit variance-covariance matrix of the model, estimated
-#' as 1/(0.5*Hessian)
+#' as 1/(0.5*Hessian) for regression and as the variance-covariance of the draws
+#' for MCMC
 #'
 #' @param object an instance of [GrowthFit]
 #' @param ... ignored
@@ -250,8 +256,6 @@ vcov.GrowthFit <- function(object, ...) {
 #' @param ... ignored
 #' 
 #' @importFrom stats deviance
-#' @importFrom dplyr select
-#' @importFrom FME modCost
 #'
 #' @export
 #'
@@ -352,13 +356,25 @@ AIC.GrowthFit <- function(object, ..., k=2) {
 #' @param x The object of class [GrowthFit] to plot.
 #' @param y ignored
 #' @param ... ignored.
+#' @param add_factor whether to plot also one environmental factor.
+#' If `NULL` (default), no environmental factor is plotted. If set
+#' to one character string that matches one entry of x$env_conditions,
+#' that condition is plotted in the secondary axis. Ignored if `environment="constant"`
+#' @param ylims A two dimensional vector with the limits of the primary y-axis. 
+#' `NULL` by default
+#' @param label_y1 Label of the primary y-axis.
+#' @param label_y2 Label of the secondary y-axis. Ignored if `environment="constant"`
 #' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [geom_line()]
 #' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: [geom_line()]
 #' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: [geom_line()]
 #' @param point_col Aesthetic parameter to change the colour of the point geom, see: [geom_point()]
 #' @param point_size Aesthetic parameter to change the size of the point geom, see: [geom_point()]
 #' @param point_shape Aesthetic parameter to change the shape of the point geom, see: [geom_point()]
-#'
+#' @param line_col2 Same as lin_col, but for the environmental factor. Ignored if `environment="constant"`
+#' @param line_size2 Same as line_size, but for the environmental factor. Ignored if `environment="constant"`
+#' @param line_type2 Same as lin_type, but for the environmental factor. Ignored if `environment="constant"`
+#' @param label_x Label of the x-axis
+#' 
 #' @export
 #'
 #' @importFrom ggplot2 ggplot geom_point

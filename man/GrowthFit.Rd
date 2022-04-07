@@ -65,9 +65,18 @@
 \item{times}{numeric vector describing the time points for the prediction.
 If \code{NULL} (default), uses the same points as those used for fitting.}
 
+\item{env_conditions}{tibble describing the environmental conditions as in \code{\link[=fit_growth]{fit_growth()}}.
+If \code{NULL} (default), uses the environmental condition of the fitting. Ignored
+if \code{environment="constant"}}
+
 \item{k}{penalty for the parameters (k=2 by default)}
 
 \item{y}{ignored}
+
+\item{add_factor}{whether to plot also one environmental factor.
+If \code{NULL} (default), no environmental factor is plotted. If set
+to one character string that matches one entry of x$env_conditions,
+that condition is plotted in the secondary axis. Ignored if \code{environment="constant"}}
 
 \item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link[=geom_line]{geom_line()}}}
 
@@ -80,8 +89,25 @@ If \code{NULL} (default), uses the same points as those used for fitting.}
 \item{point_size}{Aesthetic parameter to change the size of the point geom, see: \code{\link[=geom_point]{geom_point()}}}
 
 \item{point_shape}{Aesthetic parameter to change the shape of the point geom, see: \code{\link[=geom_point]{geom_point()}}}
+
+\item{ylims}{A two dimensional vector with the limits of the primary y-axis.
+\code{NULL} by default}
+
+\item{label_y1}{Label of the primary y-axis.}
+
+\item{label_y2}{Label of the secondary y-axis. Ignored if \code{environment="constant"}}
+
+\item{label_x}{Label of the x-axis}
+
+\item{line_col2}{Same as lin_col, but for the environmental factor. Ignored if \code{environment="constant"}}
+
+\item{line_size2}{Same as line_size, but for the environmental factor. Ignored if \code{environment="constant"}}
+
+\item{line_type2}{Same as lin_type, but for the environmental factor. Ignored if \code{environment="constant"}}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 The \code{GrowthFit} class contains a growth model fitted to data under
 static conditions. Its constructor is \code{\link[=fit_growth]{fit_growth()}}.
 
@@ -117,7 +143,8 @@ fitting. \code{NULL} for \code{environment="constant"}
 \item \code{residuals.GrowthFit}: vector of model residuals.
 
 \item \code{vcov.GrowthFit}: variance-covariance matrix of the model, estimated
-as 1/(0.5*Hessian)
+as 1/(0.5*Hessian) for regression and as the variance-covariance of the draws
+for MCMC
 
 \item \code{deviance.GrowthFit}: deviance of the model.
 
