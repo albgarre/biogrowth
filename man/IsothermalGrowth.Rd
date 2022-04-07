@@ -32,8 +32,12 @@ takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line(
 \item{object}{an instance of \link{IsothermalGrowth}}
 }
 \description{
-The \code{IsothermalGrowth} class contains the results of a growth prediction
-under isothermal conditions. Its constructor is \code{\link[=predict_isothermal_growth]{predict_isothermal_growth()}}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The class \link{IsothermalGrowth} has been superseded by the top-level
+class \link{GrowthPrediction}, which provides a unified approach for growth modelling.
+
+Still, it is still returned if the superseded \code{\link[=predict_isothermal_growth]{predict_isothermal_growth()}} is called.
 
 It is a subclass of list with the items:
 \itemize{

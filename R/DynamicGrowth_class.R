@@ -2,8 +2,12 @@
 #' DynamicGrowth class
 #' 
 #' @description 
-#' The `DynamicGrowth` class contains the results of a growth prediction
-#' under dynamic conditions. Its constructor is [predict_dynamic_growth()].
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The class [DynamicGrowth] has been superseded by the top-level
+#' class [GrowthPrediction], which provides a unified approach for growth modelling.
+#' 
+#' Still, it is still returned if the superseded [predict_dynamic_growth()] is called.
 #' 
 #' A subclass of list with items:
 #' \itemize{

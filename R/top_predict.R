@@ -233,8 +233,27 @@ predict_growth <- function(times,
         
         ## Call the superseded function
         
-        predict_isothermal_growth(my_model, times, my_pars, check = check,
-                                  logbase_mu = logbase_mu)
+        out <- predict_isothermal_growth(my_model, times, my_pars, check = check,
+                                         logbase_mu = logbase_mu)
+        
+        ## Overwrite the class
+        
+        class(out) <- c("GrowthPrediction", "list")
+        
+        ## Adapt the attributes for the new class
+        
+        out$primary_model <- primary_model
+        out$environment <- "constant"
+        out$env_conditions <- NULL  # only for dynamic
+        out$sec_models <- NULL  # only for dynamic
+        out$gammas <- NULL  # only for dynamic
+        
+        out$model <- NULL  # superseded by primary_model
+        out$pars <- NULL  # superseded by primary_model
+        
+        ## Return
+        
+        out
         
     } else if(environment == "dynamic") {  # Prediction under dynamic environmental conditions
         
@@ -279,14 +298,29 @@ predict_growth <- function(times,
 
         ## And call the superseded function
         
-        predict_dynamic_growth(times, 
-                               env_conditions, 
-                               my_pars,
-                               secondary_models, 
-                               check = check,
-                               formula = formula,
-                               logbase_mu = logbase_mu,
-                               ...)
+        out <- predict_dynamic_growth(times, 
+                                      env_conditions, 
+                                      my_pars,
+                                      secondary_models, 
+                                      check = check,
+                                      formula = formula,
+                                      logbase_mu = logbase_mu,
+                                      ...)
+        
+        ## Overwrite the class
+        
+        class(out) <- c("GrowthPrediction", "list")
+        
+        ## Adjust the attributes for the new class
+        
+        out$primary_model <- primary_model
+        out$environment <- "dynamic"
+        
+        out$primary_pars <- NULL  # superseded by primary_model
+        
+        ## Return
+        
+        out
         
         
     } else {  # Wrong input

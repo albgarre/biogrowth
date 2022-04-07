@@ -2,8 +2,12 @@
 #' IsothermalGrowth class
 #' 
 #' @description 
-#' The `IsothermalGrowth` class contains the results of a growth prediction
-#' under isothermal conditions. Its constructor is [predict_isothermal_growth()].
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The class [IsothermalGrowth] has been superseded by the top-level
+#' class [GrowthPrediction], which provides a unified approach for growth modelling.
+#' 
+#' Still, it is still returned if the superseded [predict_isothermal_growth()] is called.
 #' 
 #' It is a subclass of list with the items:
 #' \itemize{

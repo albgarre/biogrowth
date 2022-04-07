@@ -60,8 +60,12 @@ that condition is plotted in the secondary axis}
 \item{object}{an instance of \link{DynamicGrowth}}
 }
 \description{
-The \code{DynamicGrowth} class contains the results of a growth prediction
-under dynamic conditions. Its constructor is \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The class \link{DynamicGrowth} has been superseded by the top-level
+class \link{GrowthPrediction}, which provides a unified approach for growth modelling.
+
+Still, it is still returned if the superseded \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}} is called.
 
 A subclass of list with items:
 \itemize{
