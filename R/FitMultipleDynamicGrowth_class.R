@@ -2,9 +2,12 @@
 #' FitMultipleDynamicGrowth class
 #' 
 #' @description 
-#' The `FitMultipleDynamicGrowth` class contains a model fitted to a set
-#' of experiments gathered under dynamic conditions. Its constructor is 
-#' [fit_multiple_growth()].
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The class [FitMultipleDynamicGrowth] has been superseded by the top-level
+#' class [GlobalGrowthFit], which provides a unified approach for growth modelling.
+#' 
+#' Still, it is still returned if the superseded [fit_multiple_growth()] is called.
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{
@@ -225,9 +228,7 @@ fitted.FitMultipleDynamicGrowth <- function(object, ...) {
     
 }
 
-#' @describeIn FitMultipleDynamicGrowth model predictions. They are returned as 
-#' a tibble with 3 columns: time (storage time), logN (observed count),
-#' and exp (name of the experiment).
+#' @describeIn FitMultipleDynamicGrowth vector of model predictions
 #'
 #' @param object Instance of `FitMultipleDynamicGrowth`.
 #' @param ... ignored

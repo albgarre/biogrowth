@@ -2,9 +2,12 @@
 #' FitMultipleGrowthMCMC class
 #' 
 #' @description 
-#' The `FitMultipleGrowthMCMC` class contains a model fitted to a set of dynamic
-#' experiments using an MCMC algorithm. Its constructor is 
-#' [fit_multiple_growth_MCMC()].
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The class [FitMultipleGrowthMCMC] has been superseded by the top-level
+#' class [GlobalGrowthFit], which provides a unified approach for growth modelling.
+#' 
+#' Still, it is still returned if the superseded [fit_multiple_growth_MCMC()] is called.
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{

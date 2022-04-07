@@ -5,7 +5,7 @@
 #' `r lifecycle::badge("stable")`
 #' 
 #' The `GrowthFit` class contains a growth model fitted to data under
-#' static conditions. Its constructor is [fit_growth()].
+#' static or dynamic conditions. Its constructor is [fit_growth()].
 #' 
 #' It is a subclass of list with the items:
 #' 
@@ -60,7 +60,7 @@ print.GrowthFit <- function(x, ...) {
         
     } else {
         
-        cat("Primary growth model fitted to data gathered under dynamic environmental conditions using ")
+        cat("Growth model fitted to data gathered under dynamic environmental conditions using ")
         cat(x$algorithm)
         cat("\n\n")
         

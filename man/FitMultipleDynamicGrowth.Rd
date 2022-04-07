@@ -104,9 +104,12 @@ by default (using the same time points as the ones defined in \code{env_conditio
 \item{k}{penalty for the parameters (k=2 by default)}
 }
 \description{
-The \code{FitMultipleDynamicGrowth} class contains a model fitted to a set
-of experiments gathered under dynamic conditions. Its constructor is
-\code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The class \link{FitMultipleDynamicGrowth} has been superseded by the top-level
+class \link{GlobalGrowthFit}, which provides a unified approach for growth modelling.
+
+Still, it is still returned if the superseded \code{\link[=fit_multiple_growth]{fit_multiple_growth()}} is called.
 
 It is a subclass of list with the items:
 \itemize{
@@ -143,9 +146,7 @@ estimated as 1/(0.5*Hessian).
 tibble with 3 columns: time (storage time), exp (experiment
 identifier) and fitted (fitted value).
 
-\item \code{predict.FitMultipleDynamicGrowth}: model predictions. They are returned as
-a tibble with 3 columns: time (storage time), logN (observed count),
-and exp (name of the experiment).
+\item \code{predict.FitMultipleDynamicGrowth}: vector of model predictions
 
 \item \code{logLik.FitMultipleDynamicGrowth}: loglikelihood of the model
 

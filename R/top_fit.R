@@ -525,7 +525,7 @@ fit_growth <- function(fit_data,
             
             ## Fit the model
             
-            fit_multiple_growth(
+            out <- fit_multiple_growth(
                 start,
                 my_data,
                 known,
@@ -534,7 +534,24 @@ fit_growth <- function(fit_data,
                 check = check,
                 formula = formula,
                 logbase_mu = logbase_mu
-            )
+                )
+            
+            ## Overwrite the class
+            
+            class(out) <- c("GlobalGrowthFit", "list")
+            
+            ## Adapt the attributes for the new class
+            
+            out$algorithm <- "regression"
+            out$start <- out$starting
+            out$primary_model <- "Baranyi"
+            out$niter <- NULL  # only for MCMC fits
+            
+            out$starting <- NULL  # superseded by start
+            
+            ## Return
+            
+            out
             
         } else if(algorithm == "MCMC" & approach == "global")  {  # Global fitting by MCMC
             
@@ -556,7 +573,7 @@ fit_growth <- function(fit_data,
             
             ## Fit the model
             
-            fit_multiple_growth_MCMC(
+            out <- fit_multiple_growth_MCMC(
                 start,
                 my_data,
                 known,
@@ -567,6 +584,23 @@ fit_growth <- function(fit_data,
                 formula = formula,
                 logbase_mu = logbase_mu
                 )
+            
+            ## Overwrite the class
+            
+            class(out) <- c("GlobalGrowthFit", "list")
+            
+            ## Adapt the attributes for the new class
+            
+            out$algorithm <- "MCMC"
+            out$start <- out$starting
+            out$primary_model <- "Baranyi"
+            out$niter <- niter
+            
+            out$starting <- NULL  # superseded by start
+            
+            ## Return
+            
+            out
             
         } else {
             

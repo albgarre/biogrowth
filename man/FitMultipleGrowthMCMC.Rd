@@ -121,9 +121,12 @@ If \code{NULL} (default), uses the same conditions as those for fitting.}
 An instance of \code{\link[=MCMCgrowth]{MCMCgrowth()}}.
 }
 \description{
-The \code{FitMultipleGrowthMCMC} class contains a model fitted to a set of dynamic
-experiments using an MCMC algorithm. Its constructor is
-\code{\link[=fit_multiple_growth_MCMC]{fit_multiple_growth_MCMC()}}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The class \link{FitMultipleGrowthMCMC} has been superseded by the top-level
+class \link{GlobalGrowthFit}, which provides a unified approach for growth modelling.
+
+Still, it is still returned if the superseded \code{\link[=fit_multiple_growth_MCMC]{fit_multiple_growth_MCMC()}} is called.
 
 It is a subclass of list with the items:
 \itemize{

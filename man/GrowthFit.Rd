@@ -109,7 +109,7 @@ that condition is plotted in the secondary axis. Ignored if \code{environment="c
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The \code{GrowthFit} class contains a growth model fitted to data under
-static conditions. Its constructor is \code{\link[=fit_growth]{fit_growth()}}.
+static or dynamic conditions. Its constructor is \code{\link[=fit_growth]{fit_growth()}}.
 
 It is a subclass of list with the items:
 \itemize{
