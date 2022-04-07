@@ -546,6 +546,7 @@ fit_growth <- function(fit_data,
             out$start <- out$starting
             out$primary_model <- "Baranyi"
             out$niter <- NULL  # only for MCMC fits
+            out$environment <- "dynamic"
             
             out$starting <- NULL  # superseded by start
             
@@ -595,6 +596,7 @@ fit_growth <- function(fit_data,
             out$start <- out$starting
             out$primary_model <- "Baranyi"
             out$niter <- niter
+            out$environment <- "dynamic"
             
             out$starting <- NULL  # superseded by start
             

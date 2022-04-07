@@ -210,6 +210,8 @@
 #' 
 compare_growth_fits <- function(models) {
     
+    # browser()
+    
     ## Check for model types
     
     model_type <- unique(map_chr(models, ~ class(.)[1]))
@@ -220,7 +222,7 @@ compare_growth_fits <- function(models) {
     
     ## Check if it is global or single
     
-    if (is.FitMultipleDynamicGrowth(models[[1]]) | is.FitMultipleDynamicGrowthMCMC(models[[1]])) {
+    if (is.GlobalGrowthFit(models[[1]])) {
         approach <- "global"
     } else {
         approach <- "single"
@@ -251,20 +253,12 @@ compare_growth_fits <- function(models) {
     
     ## Save the type of environment
     
-    if (is.FitIsoGrowth(models[[1]])) {
-        environment <- "static"
-    } else {
-        environment <- "dynamic"
-    }
+    environment <- models[[1]]$environment
     
     ## Save the type of algorithm
     
-    if (is.FitDynamicGrowthMCMC(models[[1]]) | is.FitMultipleDynamicGrowthMCMC(models[[1]])) {
-        algorithm <- "MCMC"
-    } else {
-        algorithm <- "regression"
-    }
-        
+    algorithm <- models[[1]]$algorithm
+
    ## Return
         
     out <- list(models = models,
