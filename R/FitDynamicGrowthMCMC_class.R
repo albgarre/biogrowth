@@ -2,8 +2,12 @@
 #' FitDynamicGrowthMCMC class
 #' 
 #' @description 
-#' The `FitDynamicGrowthMCMC` a model fitted based on a dynamic growth experiment
-#' using an MCMC algorithm. Its constructor is [fit_MCMC_growth()].
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The class [FitDynamicGrowthMCMC] has been superseded by the top-level
+#' class [GrowthFit], which provides a unified approach for growth modelling.
+#' 
+#' Still, it is still returned if the superseded [fit_MCMC_growth()] is called.
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{

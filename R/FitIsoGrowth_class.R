@@ -1,8 +1,12 @@
 #' FitIsoGrowth class
 #' 
 #' @description 
-#' The `FitIsoGrowth` class contains a growth model fitted to data under
-#' static conditions. Its constructor is [fit_isothermal_growth()].
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The class [FitIsoGrowth] has been superseded by the top-level
+#' class [GrowthFit], which provides a unified approach for growth modelling.
+#' 
+#' Still, it is still returned if the superseded [fit_isothermal_growth()] is called.
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{

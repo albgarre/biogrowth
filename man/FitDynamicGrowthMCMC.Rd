@@ -118,8 +118,12 @@ parameters "fixes" it. \code{NULL} by default (no new parameters).}
 An instance of \code{\link[=MCMCgrowth]{MCMCgrowth()}}.
 }
 \description{
-The \code{FitDynamicGrowthMCMC} a model fitted based on a dynamic growth experiment
-using an MCMC algorithm. Its constructor is \code{\link[=fit_MCMC_growth]{fit_MCMC_growth()}}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The class \link{FitDynamicGrowthMCMC} has been superseded by the top-level
+class \link{GrowthFit}, which provides a unified approach for growth modelling.
+
+Still, it is still returned if the superseded \code{\link[=fit_MCMC_growth]{fit_MCMC_growth()}} is called.
 
 It is a subclass of list with the items:
 \itemize{

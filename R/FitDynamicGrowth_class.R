@@ -1,8 +1,12 @@
 #' FitDynamicGrowth class
 #' 
 #' @description 
-#' The `FitDynamicGrowth` class contains a model fitted based on growth data
-#' under dynamic conditions. Its constructor is [fit_dynamic_growth()].
+#' `r lifecycle::badge("superseded")`
+#' 
+#' The class [FitDynamicGrowth] has been superseded by the top-level
+#' class [GrowthFit], which provides a unified approach for growth modelling.
+#' 
+#' Still, it is still returned if the superseded [fit_dynamic_growth()] is called.
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{

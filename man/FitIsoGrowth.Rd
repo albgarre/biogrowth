@@ -74,8 +74,12 @@ If \code{NULL} (default), uses the same points as those used for fitting.}
 \item{k}{penalty for the parameters (k=2 by default)}
 }
 \description{
-The \code{FitIsoGrowth} class contains a growth model fitted to data under
-static conditions. Its constructor is \code{\link[=fit_isothermal_growth]{fit_isothermal_growth()}}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+The class \link{FitIsoGrowth} has been superseded by the top-level
+class \link{GrowthFit}, which provides a unified approach for growth modelling.
+
+Still, it is still returned if the superseded \code{\link[=fit_isothermal_growth]{fit_isothermal_growth()}} is called.
 
 It is a subclass of list with the items:
 \itemize{
