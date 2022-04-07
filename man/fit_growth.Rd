@@ -365,4 +365,52 @@ print(uncertain_growth)
 
 }
 
+- environment: type of environment as in [fit_growth()]
+- algorithm: type of algorithm as in [fit_growth()]
+- data: data used for model fitting
+- start: initial guess of the model parameters
+- known: fixed model parameters
+- primary_model: a character describing the primary model
+- fit_results: an instance of modFit or modMCMC with the results of the fit
+- best_prediction: Instance of [GrowthPrediction] with the best growth fit
+- sec_models: a named vector with the secondary models assigned for each 
+environmental factor. `NULL` for `environment="constant"`
+- env_conditions: a tibble with the environmental conditions used for model
+fitting. `NULL` for `environment="constant"`
+- niter: number of iterations of the Markov chain. `NULL` if `algorithm != "MCMC"`
+- logbase_mu: base of the logarithm for the definition of parameter mu 
+(check the relevant vignette)
+
+- environment: type of environment as in [fit_growth()]
+- algorithm: type of algorithm as in [fit_growth()]
+- data: data used for model fitting
+- start: initial guess of the model parameters
+- known: fixed model parameters
+- primary_model: a character describing the primary model
+- fit_results: an instance of modFit or modMCMC with the results of the fit
+- best_prediction: Instance of [GrowthPrediction] with the best growth fit
+- sec_models: a named vector with the secondary models assigned for each 
+environmental factor. `NULL` for `environment="constant"`
+- env_conditions: a tibble with the environmental conditions used for model
+fitting. `NULL` for `environment="constant"`
+- niter: number of iterations of the Markov chain. `NULL` if `algorithm != "MCMC"`
+- logbase_mu: base of the logarithm for the definition of parameter mu 
+(check the relevant vignette)
+
+- environment: type of environment as in [fit_growth()]
+- algorithm: type of algorithm as in [fit_growth()]
+- data: data used for model fitting
+- start: initial guess of the model parameters
+- known: fixed model parameters
+- primary_model: a character describing the primary model
+- fit_results: an instance of modFit or modMCMC with the results of the fit
+- best_prediction: Instance of [GrowthPrediction] with the best growth fit
+- sec_models: a named vector with the secondary models assigned for each 
+environmental factor. `NULL` for `environment="constant"`
+- env_conditions: a tibble with the environmental conditions used for model
+fitting. `NULL` for `environment="constant"`
+- niter: number of iterations of the Markov chain. `NULL` if `algorithm != "MCMC"`
+- logbase_mu: base of the logarithm for the definition of parameter mu 
+(check the relevant vignette)
+
 }

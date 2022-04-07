@@ -383,12 +383,35 @@ fit_growth <- function(fit_data,
         
         ## Fit the model
 
-        fit_isothermal_growth(fit_data, my_model, start, known,
+        out <- fit_isothermal_growth(fit_data, my_model, start, known,
                               ..., 
                               check = check,
                               formula = formula,
                               logbase_mu = logbase_mu
                               )
+        
+        ## Overwrite the class
+        
+        class(out) <- c("GrowthFit", "list")
+        
+        ## Adapt the attributes for the new class
+
+        out$environment <- "constant"
+        out$algorithm <- "regression"
+        out$start <- out$starting_point
+        out$primary_model <- out$model
+        out$fit_results <- out$fit
+        out$sec_models <- NULL  # only for dynamic fits
+        out$env_conditions <- NULL  # only for dynamic fits
+        out$niter <- NULL  # only for MCMC fits
+        
+        out$model <- NULL  # superseded by primary_model
+        out$starting_point <- NULL  # superseded by start
+        out$fit <- NULL  # superseded by fit_results
+        
+        ## Return
+        
+        out
         
     } else if (environment == "dynamic") {  # Fitting both primary and secondary models
         
@@ -413,28 +436,64 @@ fit_growth <- function(fit_data,
             
             ## Fit the model
 
-            fit_dynamic_growth(fit_data, env_conditions,
-                               start, known,
-                               unlist(model_keys),
-                               ...,
-                               check = check,
-                               formula = formula,
-                               logbase_mu = logbase_mu
-                               )
+            out <- fit_dynamic_growth(fit_data, env_conditions,
+                                      start, known,
+                                      unlist(model_keys),
+                                      ...,
+                                      check = check,
+                                      formula = formula,
+                                      logbase_mu = logbase_mu
+                                      )
+            
+            ## Overwrite the class
+            
+            class(out) <- c("GrowthFit", "list")
+            
+            ## Adapt the attributes for the new class
+
+            out$environment <- "dynamic"
+            out$algorithm <- "regression"
+            out$start <- out$starting
+            out$primary_model <- "Baranyi"
+            out$niter <- NULL  # only for MCMC fits
+            
+            out$starting <- NULL  # superseded by start
+            
+            ## Return
+            
+            out
             
         } else if(algorithm == "MCMC" & approach == "single")  {  # Dynamic fitting by MCMC
             
             ## Fit the model
             
-            fit_MCMC_growth(fit_data, env_conditions,
-                            start, known,
-                            unlist(model_keys),
-                            niter,
-                            ...,
-                            check = check,
-                            formula = formula,
-                            logbase_mu = logbase_mu
-                            )
+            out <- fit_MCMC_growth(fit_data, env_conditions,
+                                   start, known,
+                                   unlist(model_keys),
+                                   niter,
+                                   ...,
+                                   check = check,
+                                   formula = formula,
+                                   logbase_mu = logbase_mu
+                                   )
+            
+            ## Overwrite the class
+            
+            class(out) <- c("GrowthFit", "list")
+            
+            ## Adapt the attributes for the new class
+
+            out$environment <- "dynamic"
+            out$algorithm <- "MCMC"
+            out$start <- out$starting
+            out$primary_model <- "Baranyi"
+            out$niter <- niter
+            
+            out$starting <- NULL  # superseded by start
+            
+            ## Return
+            
+            out
             
         } else if(algorithm == "regression" & approach == "global")  {  # Global fitting by regression
 

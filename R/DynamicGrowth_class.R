@@ -143,6 +143,9 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
                                                    name = label_y2))
         
         
+    } else {
+        p <- p + scale_y_continuous(limits = ylims,
+                                    name = label_y1)
     }
     
     p + theme_cowplot() + xlab(label_x)
