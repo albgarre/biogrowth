@@ -84,20 +84,20 @@ print(salmonella_models)
 
 `GrowthComparison` also includes an S3 plot method to evaluate the model fits. It can make three type of plots. The default one is a comparison between the fitted curves and the experimental data. Note that the model names in the legend are the sames as those defined in the input argument.
 
-```{r}
+```{r, fig.width=6}
 plot(salmonella_models)
 ```
 
 By passing, `type=2` to the plot function, the function instead compares the parameter estimates. In this plot, the dots show the estimated values and the error bars their associated standard errors. Note that different models have different model parameters (e.g. the modified Gompertz uses $C$ instead of $logN_{max}$), so some bars may be missing in some facets. The same happens if some model parameter was fixed prior to model fitting.
 
-```{r}
+```{r, fig.width=6}
 plot(salmonella_models, type = 2) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 The last type of plot is a plot of the residuals. This plot includes a trend line of the residuals (calculated using loess). Clear deviations of this trend line with respect to the horizontal dashed line (residual = 0) is often an indicator of a poor model fit.
 
-```{r}
+```{r, fig.width=6}
 plot(salmonella_models, type = 3)
 ```
 
@@ -169,25 +169,23 @@ global_fit2 <- fit_growth(multiple_counts,
 Then, we can call the function passing a (named) list with the models as only argument:
 
 ```{r}
-
 global_comparison <- compare_growth_fits(list(`n=2` = global_fit, `n=1` = global_fit2))
-
 ```
 
 This returns and instance of `GlobalGrowthComparison`. This function has the same S3 methods as `GrowthComparison`. The only difference is that the comparison of the growth curves is divided by facets for each experiment
 
-```{r}
+```{r, fig.width=6}
 plot(global_comparison)
 ```
 
 The same applies to the residuals plot
 
-```{r}
+```{r, fig.width=6}
 plot(global_comparison, type = 3)
 ```
 The rest, are exactly the same
 
-```{r}
+```{r, fig.width=6}
 print(global_comparison)
 plot(global_comparison, type = 2)
 summary(global_comparison)
@@ -235,7 +233,7 @@ secondary_comparison <- compare_secondary_fits(my_models)
 The function returns an instance of `SecondaryGrwothComparison`. It includes similar S3 methods as those defined for the other types of model fits. The main difference is that it cannot plot directly the fitted model against the data. The reason for that is that `fit_secondary_growth` can use an arbitrary number of dimensions (in the example: temperature and pH). Therefore, representing the predictions as a function of a unique factor is not simple.
 
 
-```{r}
+```{r, fig.width=6}
 print(secondary_comparison)
 
 plot(secondary_comparison)
