@@ -125,6 +125,7 @@ fitting. \code{NULL} for \code{environment="constant"}
 \item niter: number of iterations of the Markov chain. \code{NULL} if \code{algorithm != "MCMC"}
 \item logbase_mu: base of the logarithm for the definition of parameter mu
 (check the relevant vignette)
+\item environment: "dynamic". Always
 }
 }
 \section{Functions}{
