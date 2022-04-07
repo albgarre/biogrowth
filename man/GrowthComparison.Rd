@@ -12,7 +12,7 @@
 
 \method{coef}{GrowthComparison}(object, ...)
 
-\method{print}{GrowthComparison}(x, ..)
+\method{print}{GrowthComparison}(x, ...)
 
 \method{summary}{GrowthComparison}(object, ...)
 }

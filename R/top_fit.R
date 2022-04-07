@@ -98,17 +98,8 @@
 #' @param formula An object of class "formula" defining the names of the x and y variables in 
 #' the data. `logN ~ time` as a default.
 #' 
-#' @return Depending on the type of data, the function will return an instance 
-#' of a different object:
-#' * for environment="constant", an instance of [FitIsoGrowth],
-#' * for environment="dynamic", approach="single" and algorithm="regression",
-#' an instance of [FitDynamicGrowth],
-#' * for environment="dynamic", approach="single" and algorithm="MCMC",
-#' an instance of [FitDynamicGrowthMCMC],
-#' * for environment="dynamic", approach="global" and algorithm="regression",
-#' an instance of [FitMultipleDynamicGrowth],
-#' * for environment="dynamic", approach="global" and algorithm="MCMC",
-#' an instance of [FitMultipleDynamicGrowthMCMC].
+#' @return If `approach="single`, an instance of [GrowthFit]. If `approach="multiple"`,
+#' an instance of [GlobalGrowthFit]
 #' 
 #' Please check the help pages of each class for additional information.
 #' 

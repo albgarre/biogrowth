@@ -90,7 +90,7 @@ summary.SecondaryGrowthComparison <- function(object, ...) {
 #' 
 #' @export
 #' 
-print.SecondaryGrowthComparison <- function(x, ..) {
+print.SecondaryGrowthComparison <- function(x, ...) {
     
     cat("Comparison between secondary growth models fitted to a dataset of growth rates\n\n")
     

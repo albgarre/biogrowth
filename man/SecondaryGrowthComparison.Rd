@@ -12,7 +12,7 @@
 
 \method{summary}{SecondaryGrowthComparison}(object, ...)
 
-\method{print}{SecondaryGrowthComparison}(x, ..)
+\method{print}{SecondaryGrowthComparison}(x, ...)
 
 \method{plot}{SecondaryGrowthComparison}(x, y, ..., type = 1, add_trend = TRUE)
 }

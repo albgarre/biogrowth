@@ -12,7 +12,7 @@
 
 \method{summary}{GlobalGrowthComparison}(object, ...)
 
-\method{print}{GlobalGrowthComparison}(x, ..)
+\method{print}{GlobalGrowthComparison}(x, ...)
 
 \method{plot}{GlobalGrowthComparison}(x, y, ..., type = 1, add_trend = TRUE)
 }

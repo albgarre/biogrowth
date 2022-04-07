@@ -293,6 +293,8 @@ logLik.FitDynamicGrowth <- function(object, ...) {
 #' @param object an instance of FitDynamicGrowth
 #' @param ... ignored
 #' @param k penalty for the parameters (k=2 by default)
+#' 
+#' @importFrom stats logLik
 #'
 #' @export
 #'

@@ -58,19 +58,8 @@ the data. \code{logN ~ time} as a default.}
 \item{logbase}{aa # TODO}
 }
 \value{
-Depending on the type of data, the function will return an instance
-of a different object:
-\itemize{
-\item for environment="constant", an instance of \link{FitIsoGrowth},
-\item for environment="dynamic", approach="single" and algorithm="regression",
-an instance of \link{FitDynamicGrowth},
-\item for environment="dynamic", approach="single" and algorithm="MCMC",
-an instance of \link{FitDynamicGrowthMCMC},
-\item for environment="dynamic", approach="global" and algorithm="regression",
-an instance of \link{FitMultipleDynamicGrowth},
-\item for environment="dynamic", approach="global" and algorithm="MCMC",
-an instance of \link{FitMultipleDynamicGrowthMCMC}.
-}
+If \verb{approach="single}, an instance of \link{GrowthFit}. If \code{approach="multiple"},
+an instance of \link{GlobalGrowthFit}
 
 Please check the help pages of each class for additional information.
 }

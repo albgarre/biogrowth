@@ -142,7 +142,7 @@ coef.GrowthComparison <- function(object, ...) {
 #' 
 #' @export
 #' 
-print.GrowthComparison <- function(x, ..) {
+print.GrowthComparison <- function(x, ...) {
     
     cat("Comparison between models fitted to data under isothermal conditions\n\n")
     

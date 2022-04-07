@@ -114,7 +114,7 @@ summary.GlobalGrowthComparison <- function(object, ...) {
 #' 
 #' @export
 #' 
-print.GlobalGrowthComparison <- function(x, ..) {
+print.GlobalGrowthComparison <- function(x, ...) {
     
     cat("Comparison between models fitted using a global approach\n\n")
     
