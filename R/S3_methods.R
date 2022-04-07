@@ -132,6 +132,43 @@ is.FitMultipleDynamicGrowth <- function(x) inherits(x, "FitMultipleDynamicGrowth
 is.FitMultipleDynamicGrowthMCMC <- function(x) inherits(x, "FitMultipleGrowthMCMC")
 
 
+#' Test of GlobalGrowthFit object
+#'
+#' Tests if an object is of class [GlobalGrowthFit]
+#'
+#' @param x object to be checked.
+#'
+#' @return A boolean specifying whether `x` is of class GlobalGrowthFit
+#'
+#' @export
+#'
+is.GlobalGrowthFit <- function(x) inherits(x, "GlobalGrowthFit")
+
+#' Test of GrowthFit object
+#'
+#' Tests if an object is of class [GrowthFit]
+#'
+#' @param x object to be checked.
+#'
+#' @return A boolean specifying whether `x` is of class GrowthFit
+#'
+#' @export
+#'
+is.GrowthFit <- function(x) inherits(x, "GrowthFit")
+
+#' Test of GrowthPrediction object
+#'
+#' Tests if an object is of class [GrowthPrediction]
+#'
+#' @param x object to be checked.
+#'
+#' @return A boolean specifying whether `x` is of class GrowthPrediction
+#'
+#' @export
+#'
+is.GrowthPrediction <- function(x) inherits(x, "GrowthPrediction")
+
+
 
 
 
