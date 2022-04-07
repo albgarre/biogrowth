@@ -22,7 +22,8 @@
   line_type = "solid",
   line_col2 = "black",
   line_size2 = 1,
-  line_type2 = "dashed"
+  line_type2 = "dashed",
+  label_x = "time"
 )
 
 \method{coef}{DynamicGrowth}(object, ...)

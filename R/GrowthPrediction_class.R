@@ -83,11 +83,11 @@ print.GrowthPrediction <- function(x, ...) {
 #'
 #' @param x The object of class `GrowthPrediction` to plot.
 #' @param y ignored
-#' @param ... additional arguments passed to `plot`.
+#' @param ... ignored
 #' @param add_factor whether to plot also one environmental factor.
 #' If `NULL` (default), no environmental factor is plotted. If set
 #' to one character string that matches one entry of x$env_conditions,
-#' that condition is plotted in the secondary axis
+#' that condition is plotted in the secondary axis. Ignored for `environment="constant"`.
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
 #' @param label_y1 Label of the primary y-axis.
 #' @param label_y2 Label of the secondary y-axis.
@@ -97,6 +97,7 @@ print.GrowthPrediction <- function(x, ...) {
 #' @param line_col2 Same as lin_col, but for the environmental factor.
 #' @param line_size2 Same as line_size, but for the environmental factor.
 #' @param line_type2 Same as lin_type, but for the environmental factor.
+#' @param label_x Label of the x-axis.
 #'
 #' @export
 #'
@@ -110,7 +111,8 @@ plot.GrowthPrediction <- function(x, y=NULL, ...,
                                line_type = "solid",
                                line_col2 = "black",
                                line_size2 = 1,
-                               line_type2 = "dashed"
+                               line_type2 = "dashed",
+                               label_x = "time"
 ) {
     
     switch(x$environment,
@@ -118,7 +120,9 @@ plot.GrowthPrediction <- function(x, y=NULL, ...,
                                             line_col = line_col,
                                             line_size = line_size,
                                             line_type = line_type,
-                                            ...
+                                            ylims = ylims,
+                                            label_y = label_y1,
+                                            label_x = label_x
                                             ),
            dynamic = plot.DynamicGrowth(x,
                                         add_factor = add_factor,
@@ -130,7 +134,8 @@ plot.GrowthPrediction <- function(x, y=NULL, ...,
                                         line_type = line_type,
                                         line_col2 = line_col2,
                                         line_size2 = line_size2,
-                                        line_type2 = line_type2
+                                        line_type2 = line_type2,
+                                        label_x = label_x
                                         )
     )
     

@@ -9,7 +9,17 @@
 \usage{
 \method{print}{IsothermalGrowth}(x, ...)
 
-\method{plot}{IsothermalGrowth}(x, y = NULL, ..., line_col = "black", line_size = 1, line_type = "solid")
+\method{plot}{IsothermalGrowth}(
+  x,
+  y = NULL,
+  ...,
+  line_col = "black",
+  line_size = 1,
+  line_type = "solid",
+  ylims = NULL,
+  label_y = NULL,
+  label_x = "time"
+)
 
 \method{coef}{IsothermalGrowth}(object, ...)
 }

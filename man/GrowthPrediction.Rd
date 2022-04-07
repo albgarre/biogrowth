@@ -22,7 +22,8 @@
   line_type = "solid",
   line_col2 = "black",
   line_size2 = 1,
-  line_type2 = "dashed"
+  line_type2 = "dashed",
+  label_x = "time"
 )
 
 \method{coef}{GrowthPrediction}(object, ...)
@@ -37,7 +38,7 @@
 \item{add_factor}{whether to plot also one environmental factor.
 If \code{NULL} (default), no environmental factor is plotted. If set
 to one character string that matches one entry of x$env_conditions,
-that condition is plotted in the secondary axis}
+that condition is plotted in the secondary axis. Ignored for \code{environment="constant"}.}
 
 \item{ylims}{A two dimensional vector with the limits of the primary y-axis.}
 
@@ -56,6 +57,8 @@ that condition is plotted in the secondary axis}
 \item{line_size2}{Same as line_size, but for the environmental factor.}
 
 \item{line_type2}{Same as lin_type, but for the environmental factor.}
+
+\item{label_x}{Label of the x-axis.}
 
 \item{object}{an instance of \link{GrowthPrediction}}
 }

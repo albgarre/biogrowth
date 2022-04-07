@@ -92,7 +92,8 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
                                line_type = "solid",
                                line_col2 = "black",
                                line_size2 = 1,
-                               line_type2 = "dashed"
+                               line_type2 = "dashed",
+                               label_x = "time"
 ) {
     
     p <- ggplot(x$simulation) +
@@ -144,7 +145,7 @@ plot.DynamicGrowth <- function(x, y=NULL, ...,
         
     }
     
-    p + theme_cowplot()
+    p + theme_cowplot() + xlab(label_x)
     
 }
 

@@ -67,13 +67,19 @@ print.IsothermalGrowth <- function(x, ...) {
 plot.IsothermalGrowth <- function(x, y=NULL, ...,
                                   line_col = "black",
                                   line_size = 1,
-                                  line_type = "solid") {
+                                  line_type = "solid",
+                                  ylims = NULL,
+                                  label_y = NULL,
+                                  label_x = "time") {
     
     ggplot(x$simulation) +
         geom_line(aes(x = .data$time, y = .data$logN),
                   col = line_col,
                   size = line_size,
                   linetype = line_type) +
+        scale_y_continuous(limits = ylims,
+                           name = label_y) +
+        xlab(label_x) +
         theme_cowplot()
     
 }
