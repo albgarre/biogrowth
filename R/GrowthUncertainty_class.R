@@ -1,20 +1,12 @@
 
-#' StochasticGrowth class
-#' 
-#' FitIsoGrowth class
+#' GrowthUncertainty class
 #' 
 #' @description 
-#' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("stable")`
 #' 
-#' The class [StochasticGrowth] has been deprecated by
-#' class [GrowthUncertainty], which provides less misleading name.
-#' 
-#' Still, it is still returned if the deprecated [predict_stochastic_growth()] is called.
-#' 
-#' @description 
-#' The `StochasticGrowth` class contains the results of a growth prediction
-#' under isothermal conditions considering parameter unceratinty. Its constructor 
-#' is [predict_stochastic_growth()].
+#' The `GrowthUncertainty` class contains the results of a growth prediction
+#' under isothermal conditions considering parameter uncertainty. Its constructor 
+#' is [predict_growth_uncertainty()].
 #' 
 #' It is a subclass of list with the items:
 #' \itemize{
@@ -27,18 +19,18 @@
 #' \item sigma: Variance-covariance matrix used for the simulations.
 #' }
 #' 
-#' @name StochasticGrowth
+#' @name GrowthUncertainty
 #'   
 NULL
 
-#' @describeIn StochasticGrowth print of the model
+#' @describeIn GrowthUncertainty print of the model
 #' 
-#' @param x An instance of `StochasticGrowth`.
+#' @param x An instance of `GrowthUncertainty`.
 #' @param ... ignored
 #' 
 #' @export
 #' 
-print.StochasticGrowth <- function(x, ...) {
+print.GrowthUncertainty <- function(x, ...) {
     
     cat("Growth prediction based on primary models with uncertainty\n\n")
     
@@ -49,13 +41,13 @@ print.StochasticGrowth <- function(x, ...) {
     cat("\n")
     cat("Variance-covariance matrix:\n")
     print(x$sigma)
-
+    
 }
 
-#' @describeIn StochasticGrowth Growth prediction (prediction band) considering
+#' @describeIn GrowthUncertainty Growth prediction (prediction band) considering
 #' parameter uncertainty.
 #'
-#' @param x The object of class `StochasticGrowth` to plot.
+#' @param x The object of class `GrowthUncertainty` to plot.
 #' @param y ignored
 #' @param ... ignored.
 #' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [geom_line()]
@@ -72,7 +64,7 @@ print.StochasticGrowth <- function(x, ...) {
 #' @importFrom rlang .data
 #' @importFrom cowplot theme_cowplot
 #'
-plot.StochasticGrowth <- function(x, y=NULL, ...,
+plot.GrowthUncertainty <- function(x, y=NULL, ...,
                                   line_col = "black",
                                   line_size = 0.5,
                                   line_type = "solid",
@@ -94,5 +86,6 @@ plot.StochasticGrowth <- function(x, y=NULL, ...,
         theme_cowplot()
     
 }
+
 
 

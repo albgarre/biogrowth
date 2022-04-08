@@ -117,7 +117,18 @@ predict_stochastic_growth <- function(model_name,
 #' stoc_growth2 <- predict_growth_uncertainty(my_model, my_times, n_sims, pars, my_cor)
 #'
 #' plot(stoc_growth2)
+#' 
+#' ## The time_to_size function can calculate the median growth curve to reach a size
+#' 
+#' time_to_size(stoc_growth, 4)
+#' 
+#' ## Or the distribution of times
+#' 
+#' dist <- time_to_size(stoc_growth, 4, type = "distribution")
+#' plot(dist)
+#' 
 #' }
+#' 
 #'
 predict_growth_uncertainty <- function(model_name, 
                                       times, 
@@ -197,7 +208,7 @@ predict_growth_uncertainty <- function(model_name,
                 mus = mus,
                 sigma = cov_matrix)
 
-    class(out) <- c("StochasticGrowth", class(out))
+    class(out) <- c("GrowthUncertainty", class(out))
 
     out
 

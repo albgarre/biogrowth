@@ -168,6 +168,18 @@ is.GrowthFit <- function(x) inherits(x, "GrowthFit")
 #'
 is.GrowthPrediction <- function(x) inherits(x, "GrowthPrediction")
 
+#' Test of GrowthUncertainty object
+#'
+#' Tests if an object is of class [GrowthUncertainty]
+#'
+#' @param x object to be checked.
+#'
+#' @return A boolean specifying whether `x` is of class GrowthUncertainty
+#'
+#' @export
+#'
+is.GrowthUncertainty <- function(x) inherits(x, "GrowthUncertainty")
+
 
 
 
