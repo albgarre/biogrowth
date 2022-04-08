@@ -57,6 +57,10 @@ print.IsothermalGrowth <- function(x, ...) {
 #' see: [geom_line()]
 #' @param line_type Aesthetic parameter to change the type of the line,
 #' takes numbers (1-6) or strings ("solid") see: [geom_line()]
+#' @param label_x Title of the x-axis
+#' @param label_y Title of the y-axis
+#' @param ylims Two-dimensional numeric vector with the limits of the y-axis
+#' (or `NULL`, which is the default)
 #'
 #' @export
 #'

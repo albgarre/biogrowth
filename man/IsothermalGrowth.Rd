@@ -39,6 +39,13 @@ see: \code{\link[=geom_line]{geom_line()}}}
 \item{line_type}{Aesthetic parameter to change the type of the line,
 takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line()}}}
 
+\item{ylims}{Two-dimensional numeric vector with the limits of the y-axis
+(or \code{NULL}, which is the default)}
+
+\item{label_y}{Title of the y-axis}
+
+\item{label_x}{Title of the x-axis}
+
 \item{object}{an instance of \link{IsothermalGrowth}}
 }
 \description{

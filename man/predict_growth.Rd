@@ -197,5 +197,9 @@ plot(dynamic_prediction)
 plot(dynamic_prediction, add_factor = "pH")
 coef(dynamic_prediction)
 
+## The time_to_size function can predict the time to reach a population size
+
+time_to_size(my_prediction, 3)
+
 
 }

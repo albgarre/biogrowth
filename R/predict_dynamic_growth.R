@@ -27,6 +27,8 @@
 #' @param check Whether to check the validity of the models. `TRUE` by default.
 #' @param formula An object of class "formula" describing the x variable.
 #' `. ~ time` as a default.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #'
 #' @return An instance of [DynamicGrowth()].
 #'

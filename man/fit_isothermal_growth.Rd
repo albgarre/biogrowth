@@ -33,6 +33,9 @@ defined using the \code{formula} argument.}
 
 \item{formula}{an object of class "formula" describing the x and y variables.
 \code{logN ~ time} as a default.}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 An instance of \code{\link[=FitIsoGrowth]{FitIsoGrowth()}}.

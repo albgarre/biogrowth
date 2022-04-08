@@ -245,9 +245,9 @@ fitted.FitMultipleGrowthMCMC <- function(object, ...) {
 #' @param object Instance of `FitMultipleGrowthMCMC`.
 #' @param ... ignored
 #' @param times A numeric vector with the time points for the simulations. `NULL`
-#' by default (using the same time points as those for the simulation).
-#' @param newdata a tibble describing the environmental conditions (as `env_conditions`)
-#' in [fit_multiple_growth()]. 
+#' by default (using the same time points as those in `env_conditions`).
+#' @param env_conditions a tibble describing the environmental conditions (as 
+#' in [fit_multiple_growth()]). 
 #' If `NULL` (default), uses the same conditions as those for fitting.
 #' 
 #' @importFrom dplyr bind_rows

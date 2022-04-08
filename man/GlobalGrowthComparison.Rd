@@ -27,6 +27,9 @@
 
 \item{type}{if type==1, the plot compares the model predictions. If type ==2,
 the plot compares the parameter estimates. If type==3, the plot shows the residuals}
+
+\item{add_trend}{should a trend line of the residuals be added for type==3? \code{TRUE}
+by default}
 }
 \description{
 The \code{GlobalGrowthComparison} class contains several functions for model comparison

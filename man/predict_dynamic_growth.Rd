@@ -35,6 +35,9 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 
 \item{formula}{An object of class "formula" describing the x variable.
 \code{. ~ time} as a default.}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 An instance of \code{\link[=DynamicGrowth]{DynamicGrowth()}}.

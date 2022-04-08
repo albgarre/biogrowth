@@ -20,6 +20,9 @@ predict_isothermal_growth(
 \item{model_pars}{Named vector or list defining the values of the model parameters.}
 
 \item{check}{Whether to do basic checks (TRUE by default).}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 An instance of \code{\link[=IsothermalGrowth]{IsothermalGrowth()}}.

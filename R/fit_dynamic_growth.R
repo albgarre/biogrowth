@@ -13,6 +13,8 @@
 #' @param sec_model_names named character vector with names the
 #' environmental conditions and values the secondary model (e.g. 'CPM').
 #' @param cost an instance of modCost to be combined (to fit multiple models).
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #'
 #' @return An instance of [modCost()].
 #'
@@ -92,6 +94,8 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #' @param check Whether to check model parameters (TRUE by default).
 #' @param formula an object of class "formula" describing the x and y variables.
 #' `logN ~ time` as a default.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #'
 #' @return An instance of [FitDynamicGrowth()].
 #'

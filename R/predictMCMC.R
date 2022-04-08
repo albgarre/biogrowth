@@ -20,6 +20,7 @@ predictMCMC <- function(my_model,
 
 #' @describeIn FitDynamicGrowthMCMC prediction including parameter uncertainty
 #' 
+#' @param my_model An instance of [FitDynamicGrowthMCMC]
 #' @param times Numeric vector of storage times for the predictions.
 #' @param env_conditions Tibble with the (dynamic) environmental conditions
 #' during the experiment. It must have one column named 'time' with the
@@ -47,6 +48,7 @@ predictMCMC.FitDynamicGrowthMCMC <- function(my_model,
 
 #' @describeIn FitMultipleGrowthMCMC prediction including parameter uncertainty
 #' 
+#' @param my_model An instance of [FitMultipleGrowthMCMC]
 #' @param times Numeric vector of storage times for the predictions.
 #' @param env_conditions Tibble with the (dynamic) environmental conditions
 #' during the experiment. It must have one column named 'time' with the

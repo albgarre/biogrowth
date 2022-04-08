@@ -103,6 +103,8 @@ If \code{NULL} (default), uses the same conditions as those for fitting.}
 
 \item{k}{penalty for the parameters (k=2 by default)}
 
+\item{my_model}{An instance of \link{FitDynamicGrowthMCMC}}
+
 \item{env_conditions}{Tibble with the (dynamic) environmental conditions
 during the experiment. It must have one column named 'time' with the
 storage time and as many columns as required with the environmental conditions.}

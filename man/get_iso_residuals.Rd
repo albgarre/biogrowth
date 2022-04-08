@@ -14,6 +14,9 @@ get_iso_residuals(this_p, fit_data, model_name, known_pars, logbase_mu = 10)
 \item{model_name}{character defining the primary growth model}
 
 \item{known_pars}{named vector of fixed model parameters}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 An instance of \code{modCost}.

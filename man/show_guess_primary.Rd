@@ -6,7 +6,7 @@
 \usage{
 show_guess_primary(
   fit_data,
-  model,
+  model_name,
   guess,
   logbase_mu = 10,
   formula = logN ~ time
@@ -18,6 +18,8 @@ the elapsed time (\code{time} by default) and another one with the decimal logar
 of the populatoin size (\code{logN} by default). Different column names can be
 defined using the \code{formula} argument.}
 
+\item{model_name}{Character defining the primary growth model as per \code{\link[=primary_model_data]{primary_model_data()}}}
+
 \item{guess}{Named vector with the initial guess of the model parameters}
 
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
@@ -25,8 +27,6 @@ By default, 10 (i.e. log10). See vignette about units for details.}
 
 \item{formula}{an object of class "formula" describing the x and y variables.
 \code{logN ~ time} as a default.}
-
-\item{model_name}{Character defining the primary growth model as per \code{\link[=primary_model_data]{primary_model_data()}}}
 }
 \value{
 A \code{\link[=ggplot]{ggplot()}} comparing the model prediction against the data

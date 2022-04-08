@@ -4,7 +4,7 @@
 \alias{make_guess_factor}
 \title{Initial guesses for the secondary model of one factor}
 \usage{
-make_guess_factor(fit_data, sec_model, factor, logbase = c("log10", "natural"))
+make_guess_factor(fit_data, sec_model, factor)
 }
 \arguments{
 \item{fit_data}{Tibble with the data used for the fit. It must have

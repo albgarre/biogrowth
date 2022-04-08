@@ -24,6 +24,9 @@ and as many additional columns as environmental factors.}
 
 \item{sec_model_names}{named character vector with names the
 environmental conditions and values the secondary model (see secondary_model_data).}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 an instance of \code{modCost}.

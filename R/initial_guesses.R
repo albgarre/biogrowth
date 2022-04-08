@@ -9,6 +9,8 @@
 #' of the population size
 #' @param primary_model a string defining the equation of the primary model, 
 #' as defined in [primary_model_data()]
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
 #' @return A named numeric vector of initial guesses for the model parameters
 #' 
@@ -119,8 +121,7 @@ make_guess_primary <- function(fit_data, primary_model,
 #' @importFrom rlang .data
 #' 
 #' 
-make_guess_factor <- function(fit_data, sec_model, factor,
-                                 logbase = c("log10", "natural")  # TODO
+make_guess_factor <- function(fit_data, sec_model, factor
                                  ) {
     
     ## Check that we know the model
@@ -216,8 +217,7 @@ make_guess_factor <- function(fit_data, sec_model, factor,
 #'                      c(), 
 #'                      sec_model_names)
 #' 
-make_guess_secondary <- function(fit_data, sec_model_names,
-                                 base = c("log10", "natural")  # TODO
+make_guess_secondary <- function(fit_data, sec_model_names
                                  ) {
     
     ## Guess for each factor
@@ -304,7 +304,7 @@ make_guess_secondary <- function(fit_data, sec_model_names,
 #'                    )
 #' 
 #' 
-show_guess_primary <- function(fit_data, model, guess, 
+show_guess_primary <- function(fit_data, model_name, guess, 
                                logbase_mu = 10,
                                formula = logN ~ time
                                ) {
@@ -319,7 +319,7 @@ show_guess_primary <- function(fit_data, model, guess,
     ## Build the model
     
     my_model <- as.list(guess)
-    my_model$model <- model
+    my_model$model <- model_name
     
     ## Make the prediction
     

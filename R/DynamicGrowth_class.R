@@ -75,6 +75,7 @@ print.DynamicGrowth <- function(x, ...) {
 #' @param line_col2 Same as lin_col, but for the environmental factor.
 #' @param line_size2 Same as line_size, but for the environmental factor.
 #' @param line_type2 Same as lin_type, but for the environmental factor.
+#' @param label_x Label of the x-axis.
 #'
 #' @export
 #'

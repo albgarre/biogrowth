@@ -94,7 +94,8 @@
 #' @param niter number of iterations of the MCMC algorithm. Ignored when algorithm!="MCMC".
 #' @param ... Additional arguments for [modFit()].
 #' @param check Whether to check the validity of the models. TRUE by default.
-#' @param logbase aa # TODO  
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' @param formula An object of class "formula" defining the names of the x and y variables in 
 #' the data. `logN ~ time` as a default.
 #' 
@@ -144,6 +145,10 @@
 #' plot(primary_fit)
 #' coef(primary_fit)
 #' summary(primary_fit)
+#' 
+#' ## time_to_size can be used to calculate the time for some concentration
+#' 
+#' time_to_size(primary_fit, 4)
 #' 
 #' ## Example 2 - Fitting under dynamic conditions------------------------------
 #' 
@@ -195,6 +200,11 @@
 #' 
 #' plot(dynamic_fit, add_factor = "temperature")
 #' summary(dynamic_fit)
+#' 
+#' ## We can use time_to_size to calculate the time required to reach a given size
+#' 
+#' time_to_size(dynamic_fit, 3)
+#' 
 #' }
 #' 
 #' ## Example 3- Fitting under dynamic conditions using MCMC -------------------
@@ -217,6 +227,10 @@
 #' 
 #' plot(MCMC_fit, add_factor = "aw")
 #' summary(MCMC_fit)
+#' 
+#' ## We can use time_to_size to calculate the time required to reach a given size
+#' 
+#' time_to_size(MCMC_fit, 3)
 #' 
 #' ## It can also make growth predictions including uncertainty
 #' 
@@ -272,6 +286,11 @@
 #' plot(global_fit)
 #' summary(global_fit)
 #' print(global_fit)
+#' 
+#' ## We can use time_to_size to calculate the time to reach a given size
+#' 
+#' time_to_size(global_fit, 4.5)
+#' 
 #' }
 #' 
 #' ## Example 5 - MCMC fitting a unique model to several dynamic experiments ---
@@ -300,6 +319,10 @@
 #' plot(global_MCMC)
 #' summary(global_MCMC)
 #' print(global_MCMC)
+#' 
+#' ## We can use time_to_size to calculate the time to reach a given size
+#' 
+#' time_to_size(global_MCMC, 3)
 #' 
 #' ## It can also be used to make model predictions with parameter uncertainty
 #' 

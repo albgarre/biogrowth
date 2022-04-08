@@ -58,6 +58,8 @@ that condition is plotted in the secondary axis}
 
 \item{line_type2}{Same as lin_type, but for the environmental factor.}
 
+\item{label_x}{Label of the x-axis.}
+
 \item{object}{an instance of \link{DynamicGrowth}}
 }
 \description{

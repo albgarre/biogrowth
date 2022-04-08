@@ -13,6 +13,9 @@ of the population size}
 
 \item{primary_model}{a string defining the equation of the primary model,
 as defined in \code{\link[=primary_model_data]{primary_model_data()}}}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 A named numeric vector of initial guesses for the model parameters

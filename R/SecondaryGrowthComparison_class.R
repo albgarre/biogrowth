@@ -109,6 +109,8 @@ print.SecondaryGrowthComparison <- function(x, ...) {
 #' @param ... ignored
 #' @param type if type==1, the plot compares the model predictions. If type ==2,
 #' the plot compares the parameter estimates.
+#' @param add_trend should a trend line of the residuals be added for type==3? `TRUE`
+#' by default
 #' 
 #' @importFrom tibble tibble
 #' @importFrom purrr imap_dfr

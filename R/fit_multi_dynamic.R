@@ -14,6 +14,8 @@
 #' one experiment as a list with two elements: data and conditions. `data` is a tibble
 #' with two columns: time and logN. `conditions` is a tibble with one column named time
 #' and as many additional columns as environmental factors.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #'
 #' @return an instance of `modCost`.
 #'
@@ -68,6 +70,8 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #' The default column names can be changed with the formula argument. 
 #' @param formula an object of class "formula" describing the x and y variables.
 #' `logN ~ time` as a default.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #'
 #' @importFrom FME modFit
 #' @importFrom formula.tools lhs rhs get.vars
@@ -215,7 +219,7 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #' several experiments with potentially different dynamic experimental conditions.
 #'
 #' @inheritParams fit_multiple_growth
-#' @param ... additional arguments for `modMCMC` (e.g. upper and lower bounds).
+#' @param ... additional arguments for [modMCMC] (e.g. upper and lower bounds).
 #' @param niter number of samples of the MCMC algorithm.
 #'
 #' @return An instance of [FitMultipleGrowthMCMC()].

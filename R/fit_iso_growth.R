@@ -5,6 +5,8 @@
 #' @param fit_data tibble with the data for the fit
 #' @param model_name character defining the primary growth model
 #' @param known_pars named vector of fixed model parameters
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #'
 #' @return An instance of `modCost`.
 #'
@@ -55,6 +57,8 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars,
 #' @param check Whether to do some basic checks (TRUE by default).
 #' @param formula an object of class "formula" describing the x and y variables.
 #' `logN ~ time` as a default.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #'
 #' @return An instance of [FitIsoGrowth()].
 #'

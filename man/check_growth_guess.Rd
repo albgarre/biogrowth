@@ -10,7 +10,7 @@ check_growth_guess(
   guess,
   environment = "constant",
   env_conditions = NULL,
-  logbase = c("natural", "10"),
+  logbase_mu = 10,
   formula = logN ~ time
 )
 }
@@ -29,6 +29,9 @@ on the calculations for each condition)}
 
 \item{env_conditions}{Tibble describing the variation of the environmental
 conditions for dynamic experiments. See \code{\link[=fit_growth]{fit_growth()}}. Ignored when \code{environment = "constant"}}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 
 \item{formula}{an object of class "formula" describing the x and y variables.
 \code{logN ~ time} as a default.}

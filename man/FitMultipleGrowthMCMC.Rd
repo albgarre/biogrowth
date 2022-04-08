@@ -106,16 +106,14 @@ storage time and as many columns as required with the environmental conditions.}
 
 \item{k}{penalty for the parameters (k=2 by default)}
 
+\item{my_model}{An instance of \link{FitMultipleGrowthMCMC}}
+
 \item{niter}{Number of iterations.}
 
 \item{newpars}{A named list defining new values for the some model parameters.
 The name must be the identifier of a model already included in the model.
 These parameters do not include variation, so defining a new value for a fitted
 parameters "fixes" it. \code{NULL} by default (no new parameters).}
-
-\item{newdata}{a tibble describing the environmental conditions (as \code{env_conditions})
-in \code{\link[=fit_multiple_growth]{fit_multiple_growth()}}.
-If \code{NULL} (default), uses the same conditions as those for fitting.}
 }
 \value{
 An instance of \code{\link[=MCMCgrowth]{MCMCgrowth()}}.
