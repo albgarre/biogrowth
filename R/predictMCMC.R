@@ -18,6 +18,70 @@ predictMCMC <- function(my_model,
     UseMethod("predictMCMC", my_model)
 }
 
+#' @describeIn GrowthFit prediction including parameter uncertainty
+#' 
+#' @param my_model An instance of [GrowthFit]
+#' @param times Numeric vector of storage times for the predictions.
+#' @param env_conditions Tibble with the (dynamic) environmental conditions
+#' during the experiment. It must have one column named 'time' with the
+#' storage time and as many columns as required with the environmental conditions.
+#' @param niter Number of iterations.
+#' @param newpars A named list defining new values for the some model parameters. 
+#' The name must be the identifier of a model already included in the model. 
+#' These parameters do not include variation, so defining a new value for a fitted
+#' parameters "fixes" it. `NULL` by default (no new parameters).
+#'
+#' @return An instance of [MCMCgrowth].
+#' 
+#' @export
+#' 
+predictMCMC.GrowthFit <- function(my_model,
+                                  times, 
+                                  env_conditions, 
+                                  niter,
+                                  newpars = NULL,
+                                  ...) {
+    
+    if (my_model$algorithm != "MCMC") {
+        stop("predictMCMC is only compatible with MCMC fits")
+    }
+    
+    predict_MCMC_growth(my_model, times, env_conditions, niter, newpars = newpars)
+    
+}
+
+#' @describeIn GlobalGrowthFit prediction including parameter uncertainty
+#' 
+#' @param my_model An instance of [GlobalGrowthFit]
+#' @param times Numeric vector of storage times for the predictions.
+#' @param env_conditions Tibble with the (dynamic) environmental conditions
+#' during the experiment. It must have one column named 'time' with the
+#' storage time and as many columns as required with the environmental conditions.
+#' @param niter Number of iterations.
+#' @param newpars A named list defining new values for the some model parameters. 
+#' The name must be the identifier of a model already included in the model. 
+#' These parameters do not include variation, so defining a new value for a fitted
+#' parameters "fixes" it. `NULL` by default (no new parameters).
+#'
+#' @return An instance of [MCMCgrowth].
+#' 
+#' @export
+#' 
+predictMCMC.GlobalGrowthFit <- function(my_model,
+                                  times, 
+                                  env_conditions, 
+                                  niter,
+                                  newpars = NULL,
+                                  ...) {
+    
+    if (my_model$algorithm != "MCMC") {
+        stop("predictMCMC is only compatible with MCMC fits")
+    }
+    
+    predict_MCMC_growth(my_model, times, env_conditions, niter, newpars = newpars)
+    
+}
+
 #' @describeIn FitDynamicGrowthMCMC prediction including parameter uncertainty
 #' 
 #' @param my_model An instance of [FitDynamicGrowthMCMC]
