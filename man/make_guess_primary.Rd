@@ -4,7 +4,7 @@
 \alias{make_guess_primary}
 \title{Initial guesses for fitting primary growth models}
 \usage{
-make_guess_primary(fit_data, primary_model, logbase = c("log10", "natural"))
+make_guess_primary(fit_data, primary_model, logbase_mu = 10)
 }
 \arguments{
 \item{fit_data}{the experimental data. A tibble (or data.frame) with a column
@@ -44,5 +44,9 @@ fit_growth(my_data,
 
 make_guess_primary(my_data, "Baranyi")
 
+## It can express mu in other logbases 
+
+make_guess_primary(my_data, "Baranyi", logbase_mu = exp(1))  # natural
+make_guess_primary(my_data, "Baranyi", logbase_mu = 2)  # base2
 
 }

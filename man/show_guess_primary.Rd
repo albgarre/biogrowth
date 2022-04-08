@@ -8,7 +8,7 @@ show_guess_primary(
   fit_data,
   model,
   guess,
-  logbase = c("natural", "10"),
+  logbase_mu = 10,
   formula = logN ~ time
 )
 }
@@ -19,6 +19,9 @@ of the populatoin size (\code{logN} by default). Different column names can be
 defined using the \code{formula} argument.}
 
 \item{guess}{Named vector with the initial guess of the model parameters}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, 10 (i.e. log10). See vignette about units for details.}
 
 \item{formula}{an object of class "formula" describing the x and y variables.
 \code{logN ~ time} as a default.}
@@ -31,4 +34,50 @@ A \code{\link[=ggplot]{ggplot()}} comparing the model prediction against the dat
 \description{
 Compares the prediction corresponding to a guess of the parameters of the primary
 model against experimental data
+}
+\examples{
+## An example of experimental data
+
+my_data <- data.frame(time = 0:9, 
+                      logN = c(2, 2.1, 1.8, 2.5, 3.1, 3.4, 4, 4.5, 4.8, 4.7))
+                      
+## We just need to pass the data and the model parameters
+
+show_guess_primary(my_data,
+                   "Baranyi",
+                   c(logN0 = 2, mu = .5, logNmax = 6, lambda = 4)
+                   )
+                   
+## It can be combined with make_guess_primary
+
+show_guess_primary(my_data,
+                   "Logistic",
+                   make_guess_primary(my_data, "Logistic")
+                   )
+                   
+## It accepts different logbases for mu
+
+show_guess_primary(my_data,
+                   "Baranyi",
+                   c(logN0 = 2, mu = .5, logNmax = 6, lambda = 4),
+                   logbase_mu = exp(1)
+                   )
+                   
+## When combining it with make_guess_primary, carefull to use the same logbase 
+
+show_guess_primary(my_data,
+                   "Logistic",
+                   make_guess_primary(my_data, "Logistic"),
+                   logbase_mu = exp(1)  # Different base
+                   )
+                   
+show_guess_primary(my_data,
+                   "Logistic",
+                   make_guess_primary(my_data, "Logistic", 
+                                      logbase_mu = exp(1)
+                                      ),  # same base
+                   logbase_mu = exp(1) 
+                   )
+
+
 }

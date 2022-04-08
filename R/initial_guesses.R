@@ -39,9 +39,13 @@
 #' 
 #' make_guess_primary(my_data, "Baranyi")
 #' 
+#' ## It can express mu in other logbases 
+#' 
+#' make_guess_primary(my_data, "Baranyi", logbase_mu = exp(1))  # natural
+#' make_guess_primary(my_data, "Baranyi", logbase_mu = 2)  # base2
 #' 
 make_guess_primary <- function(fit_data, primary_model,
-                               logbase = c("log10", "natural")  # TODO
+                               logbase_mu = 10
                                ) {
     
     ## Check that we know the model
@@ -68,6 +72,8 @@ make_guess_primary <- function(fit_data, primary_model,
     tmax <- min(fit_data$time[which(fit_data$logN == logNmax)], na.rm = TRUE)
     
     mu <- (logNmax - logN0)/(tmax - lambda)
+    
+    mu <- mu*log(10, base = logbase_mu)  # convert to base 10
     
     ## Guess for C
     
@@ -246,12 +252,60 @@ make_guess_secondary <- function(fit_data, sec_model_names,
 #' @param guess Named vector with the initial guess of the model parameters
 #' @param formula an object of class "formula" describing the x and y variables.
 #' `logN ~ time` as a default.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
+#' @export
+#' 
+#' @examples 
+#' ## An example of experimental data
+#' 
+#' my_data <- data.frame(time = 0:9, 
+#'                       logN = c(2, 2.1, 1.8, 2.5, 3.1, 3.4, 4, 4.5, 4.8, 4.7))
+#'                       
+#' ## We just need to pass the data and the model parameters
+#' 
+#' show_guess_primary(my_data,
+#'                    "Baranyi",
+#'                    c(logN0 = 2, mu = .5, logNmax = 6, lambda = 4)
+#'                    )
+#'                    
+#' ## It can be combined with make_guess_primary
+#' 
+#' show_guess_primary(my_data,
+#'                    "Logistic",
+#'                    make_guess_primary(my_data, "Logistic")
+#'                    )
+#'                    
+#' ## It accepts different logbases for mu
+#' 
+#' show_guess_primary(my_data,
+#'                    "Baranyi",
+#'                    c(logN0 = 2, mu = .5, logNmax = 6, lambda = 4),
+#'                    logbase_mu = exp(1)
+#'                    )
+#'                    
+#' ## When combining it with make_guess_primary, carefull to use the same logbase 
+#' 
+#' show_guess_primary(my_data,
+#'                    "Logistic",
+#'                    make_guess_primary(my_data, "Logistic"),
+#'                    logbase_mu = exp(1)  # Different base
+#'                    )
+#'                    
+#' show_guess_primary(my_data,
+#'                    "Logistic",
+#'                    make_guess_primary(my_data, "Logistic", 
+#'                                       logbase_mu = exp(1)
+#'                                       ),  # same base
+#'                    logbase_mu = exp(1) 
+#'                    )
+#' 
 #' 
 show_guess_primary <- function(fit_data, model, guess, 
-                               logbase = c("natural", "10"),  # TODO
+                               logbase_mu = 10,
                                formula = logN ~ time
                                ) {
     
@@ -270,7 +324,8 @@ show_guess_primary <- function(fit_data, model, guess,
     ## Make the prediction
     
     my_prediction <- predict_growth(my_time, my_model, environment = "constant",
-                                    formula = formula)
+                                    formula = formula,
+                                    logbase_mu = logbase_mu)
     
     ## Plot the prediction and add the data points
     
@@ -297,12 +352,14 @@ show_guess_primary <- function(fit_data, model, guess,
 #' `logN ~ time` as a default.
 #' @param env_conditions Tibble describing the variation of the environmental
 #' conditions for dynamic experiments. See [fit_growth()].
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
 show_guess_dynamic <- function(fit_data, model_keys, guess,
                                env_conditions,
-                               logbase = c("natural", "10"),  # TODO
+                               logbase_mu = 10,
                                formula = logN ~ time
                                ) {
 
@@ -326,7 +383,8 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
     dynamic_prediction <- predict_growth(environment = "dynamic",
                                          my_times, my_primary, my_secondary,
                                          env_conditions,
-                                         formula = formula
+                                         formula = formula,
+                                         logbase_mu = logbase_mu
                                          )
     
     ## Make the plot
@@ -356,6 +414,8 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
 #' conditions for dynamic experiments. See [fit_growth()]. Ignored when `environment = "constant"`
 #' @param environment type of environment. Either "constant" (default) or "dynamic" (see below for details 
 #' on the calculations for each condition)
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
@@ -414,7 +474,7 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
 check_growth_guess <- function(fit_data, model_keys, guess,
                               environment = "constant",
                               env_conditions = NULL,
-                              logbase = c("natural", "10"),  # TODO
+                              logbase_mu = 10,
                               formula = logN ~ time) {
     
     if (environment == "constant") {
@@ -424,14 +484,15 @@ check_growth_guess <- function(fit_data, model_keys, guess,
         }
         
         show_guess_primary(fit_data, model_keys$primary, guess, 
-                           logbase = logbase, formula = formula
+                           logbase_mu = logbase_mu, 
+                           formula = formula
         ) 
         
     } else if (environment == "dynamic") {
         
         show_guess_dynamic(fit_data, model_keys, guess,
                            env_conditions,
-                           logbase = logbase,
+                           logbase_mu = logbase_mu,
                            formula = formula
                            )
         
