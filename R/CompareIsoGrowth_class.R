@@ -37,7 +37,7 @@ NULL
 
 #' @describeIn GrowthComparison illustrations comparing the fitted models
 #' 
-#' @param x an instance of GrowthComparison
+#' @param x an instance of [GrowthComparison]
 #' @param y ignored
 #' @param ... ignored
 #' @param type if type==1, the plot compares the model predictions. If type ==2,
@@ -45,7 +45,7 @@ NULL
 #' 
 #' @importFrom tibble tibble
 #' @importFrom purrr imap_dfr
-#' @importFrom ggplot2 ggplot geom_line geom_point aes geom_errorbar facet_wrap geom_hline
+#' @importFrom ggplot2 ggplot geom_line geom_point aes_string geom_errorbar facet_wrap geom_hline
 #' @importFrom dplyr select
 #' 
 #' @export
@@ -66,15 +66,16 @@ plot.GrowthComparison <- function(x, y, ...,
             imap_dfr(~ mutate(.x, model = as.character(.y))
             ) %>%
             ggplot() +
-            geom_line(aes(x = time, y = logN, colour = model)) +
-            geom_point(aes(x = time, y = logN), data = d)
+            geom_line(aes_string(x = "time", y = "logN", colour = "model")) +
+            geom_point(aes_string(x = "time", y = "logN"), data = d)
         
     } else if (type == 2) {  # Plot of the parameter estimates
         
         coef(x) %>%
-            ggplot(aes(x = model, y = estimate)) +
+            ggplot(aes_string(x = "model", y = "estimate")) +
             geom_point() +
-            geom_errorbar(aes(ymin = estimate - std.err, ymax = estimate + std.err)) +
+            geom_errorbar(aes_string(ymin = "estimate - std.err", 
+                                     ymax = "estimate + std.err")) +
             facet_wrap("parameter", scales = "free_y")
         
     } else if (type == 3) {  # Plot of the residuals
@@ -82,11 +83,11 @@ plot.GrowthComparison <- function(x, y, ...,
         p <- x$residuals %>%
             map(~ .$residuals) %>%
             imap_dfr(~ mutate(.x, model = as.character(.y))) %>%
-            ggplot(aes(x = x, y = res, colour = model)) +
+            ggplot(aes_string(x = "x", y = "res", colour = "model")) +
             geom_point()
         
         if (add_trend) {
-            p <- p + geom_smooth(se = FALSE)
+            p <- p + geom_smooth(se = FALSE, method = "loess")
         }
         
         p + geom_hline(yintercept = 0, linetype = 2)
@@ -98,8 +99,10 @@ plot.GrowthComparison <- function(x, y, ...,
 
 #' @describeIn GrowthComparison table of parameter estimates
 #' 
-#' @param object an instance of GrowthComparison
+#' @param object an instance of [GrowthComparison]
 #' @param ... ignored
+#' 
+#' @importFrom tidyr pivot_wider
 #' 
 #' @export
 #' 
@@ -116,15 +119,15 @@ coef.GrowthComparison <- function(object, ...) {
         
     } else if (object$algorithm == "MCMC") {
         
-        MCMC_fit %>% summary() %>%
+        object %>% summary() %>%
             as_tibble(rownames = "index") %>%
-            pivot_longer(-index) %>%
-            pivot_wider(values_from = value, names_from = index)
+            pivot_longer(-"index") %>%
+            pivot_wider(values_from = "value", names_from = "index")
 
         object$models %>%
             map(~ summary(.)) %>%
             map(~ as_tibble(., rownames = "index")) %>%
-            map(~ pivot_longer(., -index)) %>%
+            map(~ pivot_longer(., -"index")) %>%
             map(~ pivot_wider(., values_from = "value", names_from = "index")) %>%
             imap_dfr(~ mutate(.x, model = .y)) %>%
             select("model", parameter = "name", estimate = "mean", std.err = "sd")
@@ -137,7 +140,7 @@ coef.GrowthComparison <- function(object, ...) {
 
 #' @describeIn GrowthComparison print of the model comparison
 #' 
-#' @param x an instance of GrowthComparison
+#' @param x an instance of [GrowthComparison]
 #' @param ... ignored
 #' 
 #' @export
@@ -156,7 +159,7 @@ print.GrowthComparison <- function(x, ...) {
 
 #' @describeIn GrowthComparison summary table for the comparison
 #' 
-#' @param object an instance of GrowthComparison
+#' @param object an instance of [GrowthComparison]
 #' @param ... ignored
 #' 
 #' @importFrom dplyr arrange left_join

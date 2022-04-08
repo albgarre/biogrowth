@@ -43,6 +43,8 @@ NULL
 #' @param object an instance of GlobalGrowthComparison
 #' @param ... ignored
 #' 
+#' @importFrom tidyr pivot_longer pivot_wider
+#' 
 #' @export
 #' 
 coef.GlobalGrowthComparison <- function(object, ...) {
@@ -58,15 +60,15 @@ coef.GlobalGrowthComparison <- function(object, ...) {
         
     } else if (object$algorithm == "MCMC") {
         
-        MCMC_fit %>% summary() %>%
+        object %>% summary() %>%
             as_tibble(rownames = "index") %>%
-            pivot_longer(-index) %>%
-            pivot_wider(values_from = value, names_from = index)
+            pivot_longer(-"index") %>%
+            pivot_wider(values_from = "value", names_from = "index")
 
         object$models %>%
             map(~ summary(.)) %>%
             map(~ as_tibble(., rownames = "index")) %>%
-            map(~ pivot_longer(., -index)) %>%
+            map(~ pivot_longer(., -"index")) %>%
             map(~ pivot_wider(., values_from = "value", names_from = "index")) %>%
             imap_dfr(~ mutate(.x, model = .y)) %>%
             select("model", parameter = "name", estimate = "mean", std.err = "sd")
@@ -95,7 +97,6 @@ summary.GlobalGrowthComparison <- function(object, ...) {
                           df = .x$fit$df.residual))
     
     res_table <- object$residuals %>%
-        # map(~ .$residuals) %>%
         map(~ mutate(., res2 = res^2)) %>%
         map(~ summarize(.,
                         ME = mean(res),
@@ -136,7 +137,7 @@ print.GlobalGrowthComparison <- function(x, ...) {
 #' 
 #' @importFrom tibble tibble
 #' @importFrom purrr imap_dfr
-#' @importFrom ggplot2 ggplot geom_line geom_point aes geom_errorbar facet_wrap geom_hline
+#' @importFrom ggplot2 ggplot geom_line geom_point aes_string geom_errorbar facet_wrap geom_hline
 #' @importFrom dplyr select
 #' 
 #' @export
@@ -151,34 +152,42 @@ plot.GlobalGrowthComparison <- function(x, y, ...,
             map(get_all_predictions) %>%
             imap_dfr(~ mutate(.x, model = as.character(.y))) %>%
             ggplot() +
-            geom_line(aes(x = time, y = logN, colour = model)) +
+            geom_line(aes_string(x = "time", y = "logN", colour = "model")) +
             facet_wrap("experiment", scales = "free")
         
-        my_points <- x$models[[1]]$data %>%
+        d <- x$models[[1]]$data %>%
             map(~ .$data) %>%
-            imap_dfr(~ mutate(.x, experiment = .y)) %>%
-            geom_point(aes(x = time, y = logN), data = ., inherit.aes = FALSE)
+            imap_dfr(~ mutate(.x, experiment = .y))
+        
+        my_points <- geom_point(aes_string(x = "time", y = "logN"), 
+                                data = d, inherit.aes = FALSE)
+        
+        # my_points <- x$models[[1]]$data %>%
+        #     map(~ .$data) %>%
+        #     imap_dfr(~ mutate(.x, experiment = .y)) %>%
+        #     geom_point(aes_string(x = "time", y = "logN"), data = ., inherit.aes = FALSE)
         
         p + my_points
     
     } else if (type == 2) {  # Plot of the parameter estimates
         
         coef(x) %>%
-            ggplot(aes(x = model, y = estimate)) +
+            ggplot(aes_string(x = "model", y = "estimate")) +
             geom_point() +
-            geom_errorbar(aes(ymin = estimate - std.err, ymax = estimate + std.err)) +
+            geom_errorbar(aes_string(ymin = "estimate - std.err", 
+                                     ymax = "estimate + std.err")) +
             facet_wrap("parameter", scales = "free_y")
         
     } else if (type == 3) {  # Plot of the residuals
         
         p <- x$residuals %>%
             imap_dfr(~ mutate(.x, model = as.character(.y))) %>%
-            ggplot(aes(x = time, y = res, colour = model)) +
+            ggplot(aes_string(x = "time", y = "res", colour = "model")) +
             geom_point() +
             facet_wrap("exp")
 
         if (add_trend) {
-            p <- p + geom_smooth(se = FALSE)
+            p <- p + geom_smooth(se = FALSE, method = "loess")
         }
         
         p + geom_hline(yintercept = 0, linetype = 2)

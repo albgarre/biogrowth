@@ -17,7 +17,7 @@
 \method{summary}{GrowthComparison}(object, ...)
 }
 \arguments{
-\item{x}{an instance of GrowthComparison}
+\item{x}{an instance of \link{GrowthComparison}}
 
 \item{y}{ignored}
 
@@ -26,7 +26,7 @@
 \item{type}{if type==1, the plot compares the model predictions. If type ==2,
 the plot compares the parameter estimates. If type==3, the plot shows the residuals}
 
-\item{object}{an instance of GrowthComparison}
+\item{object}{an instance of \link{GrowthComparison}}
 }
 \description{
 The \code{GrowthComparison} class contains several functions for model comparison
