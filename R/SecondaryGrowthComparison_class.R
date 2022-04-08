@@ -59,6 +59,7 @@ coef.SecondaryGrowthComparison <- function(object, ...) {
 #' @param ... ignored
 #' 
 #' @importFrom dplyr arrange left_join
+#' @importFrom stats AIC
 #' 
 #' @export
 #' 
@@ -111,7 +112,7 @@ print.SecondaryGrowthComparison <- function(x, ...) {
 #' 
 #' @importFrom tibble tibble
 #' @importFrom purrr imap_dfr
-#' @importFrom ggplot2 ggplot geom_line geom_point aes geom_errorbar facet_wrap geom_hline
+#' @importFrom ggplot2 ggplot geom_line geom_point aes_string geom_errorbar facet_wrap geom_hline
 #' @importFrom dplyr select
 #' 
 #' @export
@@ -126,30 +127,18 @@ plot.SecondaryGrowthComparison <- function(x, y, ...,
             map(~plot(.)) %>%
             map(~.$data) %>%
             imap_dfr(~ mutate(.x, model = .y)) %>%
-            ggplot(aes(x = observed, y = predicted, colour = model)) +
+            ggplot(aes_string(x = "observed", y = "predicted", colour = "model")) +
             geom_point() +
             geom_smooth(method = "lm", se=FALSE) +
             geom_abline(slope = 1, intercept = 0, linetype = 2)
         
-        # d <- x$models[[1]]$data
-        # 
-        # x$models %>%
-        #     map(~ tibble(time = seq(0, max(d$time, na.rm = TRUE), length =1000),
-        #                  logN = predict(., times = time)
-        #     )
-        #     ) %>%
-        #     imap_dfr(~ mutate(.x, model = as.character(.y))
-        #     ) %>%
-        #     ggplot() +
-        #     geom_line(aes(x = time, y = logN, colour = model)) +
-        #     geom_point(aes(x = time, y = logN), data = d)
-        
     } else if (type == 2) {  # Plot of the parameter estimates
         
         coef(x) %>%
-            ggplot(aes(x = model, y = estimate)) +
+            ggplot(aes_string(x = "model", y = "estimate")) +
             geom_point() +
-            geom_errorbar(aes(ymin = estimate - std.err, ymax = estimate + std.err)) +
+            geom_errorbar(aes_string(ymin = "estimate - std.err", 
+                                     ymax = "estimate + std.err")) +
             facet_wrap("parameter", scales = "free_y")
         
     } else {

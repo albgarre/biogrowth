@@ -83,6 +83,7 @@ coef.GlobalGrowthComparison <- function(object, ...) {
 #' @param ... ignored
 #' 
 #' @importFrom dplyr arrange left_join
+#' @importFrom stats AIC
 #' 
 #' @export
 #' 
