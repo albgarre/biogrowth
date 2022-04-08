@@ -20,7 +20,7 @@ library(badger)
 
 
 <!-- badges: start -->
-`r badge_cran_checks("badger")`
+`r badge_cran_checks("biogrowth")`
 `r badge_cran_release("biogrowth", "green")`
 `r badge_cran_download("biogrowth", "last-month", "green")`
 `r badge_lifecycle("maturing", "blue")`

@@ -6,10 +6,10 @@
 <!-- badges: start -->
 
 [![CRAN
-checks](https://cranchecks.info/badges/summary/badger)](https://cran.r-project.org/web/checks/check_results_badger.html)
+checks](https://cranchecks.info/badges/summary/biogrowth)](https://cran.r-project.org/web/checks/check_results_biogrowth.html)
 [![](https://www.r-pkg.org/badges/version/biogrowth?color=green)](https://cran.r-project.org/package=biogrowth)
 [![](http://cranlogs.r-pkg.org/badges/last-month/biogrowth?color=green)](https://cran.r-project.org/package=biogrowth)
-[![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
 The goal of biogrowth is to ease the development of mathematical models
@@ -69,10 +69,10 @@ conditions considering parameter uncertainty.
 ``` r
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
-#> ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
-#> ✓ tibble  3.0.4     ✓ dplyr   1.0.2
-#> ✓ tidyr   1.1.2     ✓ stringr 1.4.0
-#> ✓ readr   1.4.0     ✓ forcats 0.5.0
+#> ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+#> ✓ tibble  3.1.6     ✓ dplyr   1.0.8
+#> ✓ tidyr   1.2.0     ✓ stringr 1.4.0
+#> ✓ readr   2.1.2     ✓ forcats 0.5.0
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
@@ -92,6 +92,10 @@ pars <- tribble(
 )
 
 stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
+#> Warning: `predict_stochastic_growth()` was deprecated in biogrowth 1.0.0.
+#> Please use `predict_growth_uncertainty()` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 
 plot(stoc_growth)
 ```
