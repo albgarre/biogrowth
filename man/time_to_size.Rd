@@ -4,7 +4,7 @@
 \alias{time_to_size}
 \title{Time for the population to reach a given size}
 \usage{
-time_to_size(model, size, logbase = c("natural", "10"))
+time_to_size(model, size, type = "discrete")
 }
 \arguments{
 \item{model}{An instance of \link{IsothermalGrowth}, \link{DynamicGrowth}, \link{StochasticGrowth}
@@ -32,4 +32,82 @@ If, on the other hand, a stochastic prediction is passed (\link{StochasticGrowth
 \link{MCMCgrowth}), the time to reach "size" is estimated for each Monte Carlo iteration.
 Then, the function returns an instance of \link{TimeDistribution}, which contains
 the distribution of times.
+}
+\examples{
+
+## Example 1 - Growth predictions -------------------------------------------
+
+## The model is defined as usual with predict_growth
+
+my_model <- list(model = "modGompertz", logN0 = 0, C = 6, mu = .2, lambda = 20)
+
+my_time <- seq(0, 100, length = 1000)  # Vector of time points for the calculations
+
+my_prediction <- predict_growth(my_time, my_model, environment = "constant")
+
+plot(my_prediction)
+
+## We just have to pass the model and the size (in log10)
+
+time_to_size(my_prediction, 3)
+
+## If the size is not reached, it returns NA
+
+time_to_size(my_prediction, 8)
+
+## Example 2 - Model fit ----------------------------------------------------
+
+my_data <- data.frame(time = c(0, 25, 50, 75, 100), 
+                      logN = c(2, 2.5, 7, 8, 8))
+                      
+models <- list(primary = "Baranyi")
+
+known <- c(mu = .2)
+
+start <- c(logNmax = 8, lambda = 25, logN0 = 2)
+
+primary_fit <- fit_growth(my_data, models, start, known,
+                          environment = "constant",
+                          )
+                          
+plot(primary_fit)
+
+time_to_size(primary_fit, 4)
+
+## Example 3 - Global fitting -----------------------------------------------
+
+## We need a model first
+
+data("multiple_counts")
+data("multiple_conditions")
+
+sec_models <- list(temperature = "CPM", pH = "CPM")
+
+known_pars <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
+                   temperature_n = 2, temperature_xmin = 20, 
+                   temperature_xmax = 35,
+                   pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
+                   
+my_start <- list(mu_opt = .8, temperature_xopt = 30)
+
+global_fit <- fit_growth(multiple_counts, 
+                         sec_models, 
+                         my_start, 
+                         known_pars,
+                         environment = "dynamic",
+                         algorithm = "regression",
+                         approach = "global",
+                         env_conditions = multiple_conditions
+                         ) 
+                         
+plot(global_fit)
+
+## The function calculates the time for each experiment
+
+time_to_size(global_fit, 3)
+
+## It returns NA for the particular experiment if the size is not reached
+
+time_to_size(global_fit, 4.5)
+
 }
