@@ -282,6 +282,11 @@ uncertain_growth <- predictMCMC(MCMC_fit,
 plot(uncertain_growth)
 print(uncertain_growth)
 
+## time_to_size can calculate the time to reach some count
+
+time_to_size(uncertain_growth, 2)
+time_to_size(uncertain_growth, 2, type = "distribution")
+
 }
 
 ## Example 4 - Fitting a unique model to several dynamic experiments --------
@@ -374,6 +379,11 @@ uncertain_prediction <- predictMCMC(global_MCMC,
 
 plot(uncertain_growth)
 print(uncertain_growth)
+
+## time_to_size can calculate the time to reach some count
+
+time_to_size(uncertain_growth, 2)
+time_to_size(uncertain_growth, 2, type = "distribution")
 
 }
 

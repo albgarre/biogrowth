@@ -301,7 +301,12 @@ time_to_size <- function(model,
             approx(x = d$q50, y = d$time, size,  # Interpolate the median
                    ties = function(x) min(x, na.rm = TRUE))$y
             
-        } else if (is.MCMCgrowth(model)) {  # TODO: update this?
+        } else if (is.MCMCgrowth(model)) { 
+            
+            d <- model$quantiles
+            
+            approx(x = d$q50, y = d$time, size,  # Interpolate the median
+                   ties = function(x) min(x, na.rm = TRUE))$y
             
         } else {
             stop("Model type not supported for discrete calculations: ", class(model))
@@ -309,14 +314,19 @@ time_to_size <- function(model,
         
     } else if (type == "distribution") {  # Calculation of the distribution ----
         
-        if (is.GrowthUncertainty(model)) {
+        if (is.GrowthUncertainty(model)) {  # Predictions with parameter uncertainty
             
             time_dist <- split(model$simulations, model$simulations$iter) %>%
                 map_dfr(~ approx(.$logN, .$time, size, 
                                  ties = function(x) min(x, na.rm = TRUE))
                 )
             
-        } else if (is.MCMCgrowth(model)) {  # TODO
+        } else if (is.MCMCgrowth(model)) {
+            
+            time_dist <- split(model$simulations, model$simulations$sim) %>%
+                map_dfr(~ approx(.$logN, .$time, size, 
+                                 ties = function(x) min(x, na.rm = TRUE))
+                )
             
         } else {
             stop("Model type not supported for calculating distributions: ", class(model))
