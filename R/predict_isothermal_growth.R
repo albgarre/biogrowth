@@ -152,7 +152,7 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 #'
 #'
 predict_isothermal_growth <- function(model_name, times, model_pars, check = TRUE,
-                                      logbase_mu = 10) {
+                                      logbase_mu = 10, logbase_logN = 10) {
 
     ## Check the model parameters
     
@@ -169,6 +169,12 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
     simul_pars <- model_pars
     
     simul_pars$mu <- simul_pars$mu/log(10, base = logbase_mu)
+    
+    ## Convert logN0, C and logNmax to log10
+    
+    simul_pars$C <- simul_pars$C*log10(logbase_logN)
+    simul_pars$logN0 <- simul_pars$logN0*log10(logbase_logN)
+    simul_pars$logNmax <- simul_pars$logNmax*log10(logbase_logN)
 
     ## Calculate the prediction
 
@@ -186,6 +192,10 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
                                      simul_pars$nu),
            stop(paste("Unknown model:", model_name))
            )
+    
+    ## Convert logN to logbase_logN
+    
+    logN <- logN/log10(logbase_logN)
 
     ## Prepare the output
 
@@ -194,7 +204,8 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
     out <- list(simulation = my_sim,
                 model = model_name,
                 pars = model_pars,
-                logbase_mu = logbase_mu
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN
                 )
 
     class(out) <- c("IsothermalGrowth", class(out))

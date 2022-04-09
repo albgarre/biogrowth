@@ -19,6 +19,7 @@
 #' `NULL` if `environment="constant"`.
 #' - gammas: a tibble describing the variation of the gamma factors through the experiment.
 #' - logbase_mu: the log-base for the definition of parameter mu (see the relevant vignette)
+#' - logbase_logN: the log-base for the definition of the logarithm of the population size
 #' 
 #' @name GrowthPrediction
 #'   
@@ -51,6 +52,14 @@ print.GrowthPrediction <- function(x, ...) {
         cat("\n")
         cat(paste0("Parameter mu defined in log-", logbase, " scale"))
         
+        logbase <- x$logbase_logN
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat("\n")
+        cat(paste0("Population size defined in log-", logbase, " scale\n"))
+        
     } else if (x$environment == "dynamic") {
         
         cat("Growth prediction under dynamic environmental conditions\n\n")
@@ -67,7 +76,15 @@ print.GrowthPrediction <- function(x, ...) {
         if ( abs(logbase - exp(1)) < .1 ) {
             logbase <- "e"
         }
-        cat(paste0("Parameter mu defined in log-", logbase, " scale\n\n"))
+        cat(paste0("Parameter mu defined in log-", logbase, " scale\n"))
+        
+        logbase <- x$logbase_logN
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat("\n")
+        cat(paste0("Population size defined in log-", logbase, " scale\n\n"))
         
         for (i in 1:length(x$sec_models)) {
             cat(paste("Secondary model for ", names(x$sec_models)[i], ":\n", sep = ""))
@@ -104,7 +121,7 @@ print.GrowthPrediction <- function(x, ...) {
 plot.GrowthPrediction <- function(x, y=NULL, ...,
                                add_factor = NULL,
                                ylims = NULL,
-                               label_y1 = "logN",
+                               label_y1 = NULL,
                                label_y2 = add_factor,
                                line_col = "black",
                                line_size = 1,
@@ -114,6 +131,20 @@ plot.GrowthPrediction <- function(x, y=NULL, ...,
                                line_type2 = "dashed",
                                label_x = "time"
 ) {
+    
+    ## Get the label for the y-axis
+    
+    logbase <- x$logbase_logN
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    
+    if (is.null(label_y1)) {
+        label_y1 <- paste0("logN (in log-", logbase, ")")
+    } else {
+        label_y1 <- label_y1
+    }
     
     switch(x$environment,
            constant = plot.IsothermalGrowth(x,

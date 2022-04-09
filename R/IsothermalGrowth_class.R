@@ -75,7 +75,7 @@ plot.IsothermalGrowth <- function(x, y=NULL, ...,
                                   ylims = NULL,
                                   label_y = NULL,
                                   label_x = "time") {
-    
+
     ggplot(x$simulation) +
         geom_line(aes(x = .data$time, y = .data$logN),
                   col = line_col,

@@ -9,7 +9,8 @@ predict_isothermal_growth(
   times,
   model_pars,
   check = TRUE,
-  logbase_mu = 10
+  logbase_mu = 10,
+  logbase_logN = 10
 )
 }
 \arguments{

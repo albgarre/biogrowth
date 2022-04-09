@@ -11,8 +11,9 @@ predict_dynamic_growth(
   secondary_models,
   ...,
   check = TRUE,
-  formula = . ~ time,
-  logbase_mu = 10
+  logbase_logN = 10,
+  logbase_mu = logbase_logN,
+  formula = . ~ time
 )
 }
 \arguments{
@@ -33,11 +34,11 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 
-\item{formula}{An object of class "formula" describing the x variable.
-\code{. ~ time} as a default.}
-
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
 By default, 10 (i.e. log10). See vignette about units for details.}
+
+\item{formula}{An object of class "formula" describing the x variable.
+\code{. ~ time} as a default.}
 }
 \value{
 An instance of \code{\link[=DynamicGrowth]{DynamicGrowth()}}.

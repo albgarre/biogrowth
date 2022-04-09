@@ -178,7 +178,8 @@ predict_growth <- function(times,
                            env_conditions = NULL,
                            ...,
                            check = TRUE,
-                           logbase_mu = 10,
+                           logbase_mu = logbase_logN,
+                           logbase_logN = 10,
                            formula = . ~ time
                            ) {
     
@@ -204,12 +205,12 @@ predict_growth <- function(times,
         ## Convert the parameters (to make both static and dynamic compatible)
         
         if( is.null(my_pars$logN0) ) {
-            my_pars$logN0 <- log10(my_pars$N0)
+            my_pars$logN0 <- log(my_pars$N0, base = logbase_logN)
             my_pars$N0 <- NULL
         }
         
         if( is.null(my_pars$logNmax) & is.null(my_pars$C) ) {
-            my_pars$logNmax <- log10(my_pars$Nmax)
+            my_pars$logNmax <- log(my_pars$Nmax, base = logbase_logN)
             my_pars$Nmax <- NULL
         }
         
@@ -219,7 +220,8 @@ predict_growth <- function(times,
         }
         
         if( is.null(my_pars$lambda) ) {
-            my_pars$lambda <- Q0_to_lambda(my_pars$Q0, my_pars$mu)
+            my_pars$lambda <- Q0_to_lambda(my_pars$Q0, my_pars$mu,
+                                           logbase_mu = logbase_mu)
             my_pars$Q0 <- NULL
         }
         
@@ -238,7 +240,8 @@ predict_growth <- function(times,
         ## Call the superseded function
         
         out <- predict_isothermal_growth(my_model, times, my_pars, check = check,
-                                         logbase_mu = logbase_mu)
+                                         logbase_mu = logbase_mu,
+                                         logbase_logN = logbase_logN)
         
         ## Overwrite the class
         
@@ -281,12 +284,12 @@ predict_growth <- function(times,
         my_pars$model <- NULL
         
         if( is.null(my_pars$N0) ) {
-            my_pars$N0 <- 10^my_pars$logN0
+            my_pars$N0 <- logbase_logN^my_pars$logN0
             my_pars$logN0 <- NULL
         }
         
         if( is.null(my_pars$Nmax)) {
-            my_pars$Nmax <- 10^my_pars$logNmax
+            my_pars$Nmax <- logbase_logN^my_pars$logNmax
             my_pars$logNmax <- NULL
         }
         
@@ -296,7 +299,9 @@ predict_growth <- function(times,
         }
         
         if( is.null(my_pars$Q0) ) {
-            my_pars$Q0 <- lambda_to_Q0(my_pars$lambda, my_pars$mu_opt)
+            my_pars$Q0 <- lambda_to_Q0(my_pars$lambda, my_pars$mu_opt,
+                                       logbase_mu = logbase_mu
+                                       )  
             my_pars$lambda <- NULL
         }
 
@@ -309,6 +314,7 @@ predict_growth <- function(times,
                                       check = check,
                                       formula = formula,
                                       logbase_mu = logbase_mu,
+                                      logbase_logN = logbase_logN,
                                       ...)
         
         ## Overwrite the class

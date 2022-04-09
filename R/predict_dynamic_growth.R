@@ -94,8 +94,10 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                                    secondary_models, 
                                    ...,
                                    check = TRUE,
-                                   formula = . ~ time,
-                                   logbase_mu = 10) {
+                                   logbase_logN = 10,
+                                   logbase_mu = logbase_logN,
+                                   formula = . ~ time
+                                   ) {
     
     ## Apply the formula
     
@@ -151,7 +153,7 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
     ) %>%
         as.data.frame() %>%
         as_tibble() %>%
-        mutate(logN = log10(.data$N))
+        mutate(logN = log(.data$N, base = logbase_logN))
 
     ## Calculate the gammas
 
@@ -173,7 +175,8 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                 env_conditions = my_env,
                 primary_pars = primary_pars,
                 sec_models = secondary_models,
-                logbase_mu = logbase_mu)
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN)
 
     class(out) <- c("DynamicGrowth", class(out))
 
