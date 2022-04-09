@@ -96,6 +96,78 @@ $$
 
 where $N_0$ is the initial population size, $\mu$ is the maximum specific growth rate and $N_{max}$ is the maximum growth rate, and $\lambda$ is the lag phase. 
 
+#### Relationship between Q0 and the lag phase duration
+
+In the Baranyi model, the duration of the lag phase is determined by the initial value of the ideal substance $Q(t)$, $Q_0$. Disregarding the stationary phase, the Baranyi model becomes
+
+$$
+\frac{dN}{dt} = \frac{Q(t)}{1+Q(t)}\cdot \mu \cdot N(t) \\
+\frac{dQ}{dt} = \mu \cdot Q(t)
+$$
+
+where $\mu$ is in natural logarithmic scale. Considering that $\mu$ is constant (e.g. in constant environmental conditions), the second ODE is the usual exponential growth
+
+$$
+Q(t) = Q_0 e^{\mu \cdot t}
+$$
+
+So, the first differential equation becomes
+
+$$
+\frac{dN}{dt} = \frac{Q_0 e^{\mu \cdot t}}{1+Q_0 e^{\mu \cdot t}}\cdot \mu \cdot N(t)
+$$
+For convenience, we can convert it to natural logarithm
+
+$$
+\frac{1}{N} \frac{dN}{dt} = \frac{d}{dt} \ln N = \frac{Q_0 e^{\mu \cdot t}}{1+Q_0 e^{\mu \cdot t}}\cdot \mu
+$$
+
+This equation also has an analytical solution
+
+$$
+\ln N = \ln N_0 + \ln \left( Q_0 e^{\mu t} + 1 \right) - \ln \left( Q_0 + 1\right)
+$$
+
+In the exponential phase (i.e. outside of the lag phase), $t>>$. Then, $Q_0 e^{\mu t} >> 1$ and the equation becomes
+
+$$
+\ln N = \ln N_0 + \ln \left( Q_0 e^{\mu t} \right) - \ln \left( Q_0 + 1\right)
+$$
+
+This can be rearranged as
+
+$$
+\ln N/N_0 = \ln Q_0 + \mu \cdot t - \ln \left(Q_0 + 1 \right)
+$$
+
+This is the equation of a line tangent to the growth curve in the exponential phase. The lag phase duration is defined as the point where this line cuts the horizontal $\ln N = \ln N_0$; i.e. $\ln N/N_0 = 0$. Then, the lag phase duration ($\lambda$) is the solution of:
+
+$$
+\ln Q_0 + \mu \cdot \lambda - \ln \left(Q_0 + 1 \right) = 0
+$$
+
+That is,
+
+$$
+\mu \cdot \lambda = \ln \left(Q_0 + 1 \right) - \ln Q_0 = \ln \frac{Q_0 + 1}{Q_0}
+$$
+
+Ergo, the lag phase is given by
+
+$$
+\lambda = \frac{1}{\mu} \cdot \ln \left(1 + 1/Q_0 \right)
+$$
+
+and $Q_0$ is calculated from $\lambda$ by
+
+$$
+Q_0 = \frac{1}{e^{\mu\lambda} - 1}
+$$
+
+where $\mu$ is defined in natural (i.e. exp(1)) scale.
+
+The package includes the functions `Q0_to_lambda` and `lambda_to_Q0` to perform these operations. Please check the vignette *Models based on secondary models to predict growth under constant environmental conditions* for some critical points when using them.
+
 ### Trilinear model under static conditions
 
 Buchanan et al. (1997) proposed a trilinear model as a more simple approach to describe 
