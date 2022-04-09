@@ -124,11 +124,13 @@ extract_secondary_pars <- function(this_p, known_pars, sec_model_names) {
 #' 
 Q0_to_lambda <- function(q0, mu, logbase_mu = 10) {
     
-    ## Apply the logbase transformation to mu
+    ## Convert mu to base e
     
-    mu <- mu/log(10, base = logbase_mu)
+    mu <- mu*log(logbase_mu)
     
-    log10(1 +1/q0)/mu
+    ## Make the calculation
+    
+    log(1 +1/q0)/mu
 }
 
 #' Q0 from lag phase duration
@@ -145,11 +147,13 @@ Q0_to_lambda <- function(q0, mu, logbase_mu = 10) {
 #' 
 lambda_to_Q0 <- function(lambda, mu, logbase_mu = 10) {
     
-    ## Apply the logbase transformation to mu
+    ## Convert mu to base e
     
-    mu <- mu/log(10, base = logbase_mu)
+    mu <- mu*log(logbase_mu)
     
-    1/(10^(mu*lambda) - 1)
+    ## Make the calculation
+    
+    1/(exp(mu*lambda) - 1)
 }
 
 
