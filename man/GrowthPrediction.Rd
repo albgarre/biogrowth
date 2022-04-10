@@ -80,6 +80,7 @@ environmental conditions. \code{NULL} if \code{environment="constant"}.
 \code{NULL} if \code{environment="constant"}.
 \item gammas: a tibble describing the variation of the gamma factors through the experiment.
 \item logbase_mu: the log-base for the definition of parameter mu (see the relevant vignette)
+\item logbase_logN: the log-base for the definition of the logarithm of the population size
 }
 }
 \section{Functions}{
