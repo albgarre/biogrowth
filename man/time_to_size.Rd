@@ -4,17 +4,17 @@
 \alias{time_to_size}
 \title{Time for the population to reach a given size}
 \usage{
-time_to_size(model, size, type = "discrete")
+time_to_size(model, size, type = "discrete", logbase_logN = NULL)
 }
 \arguments{
-\item{model}{An instance of \link{IsothermalGrowth}, \link{DynamicGrowth}, \link{StochasticGrowth}
-or \link{MCMCgrowth}}
+\item{model}{An instance of \link{GrowthPrediction}, \link{GrowthFit}, \link{GlobalGrowthFit},
+\link{GrowthUncertainty} or \link{MCMCgrowth}.}
 
 \item{size}{Target population size (in log scale)}
 }
 \value{
-If "model" is \link{IsothermalGrowth} or \link{DynamicGrowth}, a number. If "model"
-is \link{StochasticGrowth} or \link{MCMCgrowth}, an instance of \link{TimeDistribution}
+If  \code{type="discrete"}, a number. If \code{type="distribution"}, an instance of
+\link{TimeDistribution}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -54,6 +54,13 @@ time_to_size(my_prediction, 3)
 ## If the size is not reached, it returns NA
 
 time_to_size(my_prediction, 8)
+
+## By default, it considers the population size is defined in the same log-base
+## as the prediction. But that can be changed using logbase_logN
+
+time_to_size(my_prediction, 3)
+time_to_size(my_prediction, 3, logbase_logN = 10)
+time_to_size(my_prediction, log(100), logbase_logN = exp(1))
 
 ## Example 2 - Model fit ----------------------------------------------------
 

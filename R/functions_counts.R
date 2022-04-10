@@ -176,14 +176,14 @@ distribution_to_logcount <- function(model, log_count) {
 #' Then, the function returns an instance of [TimeDistribution], which contains
 #' the distribution of times.
 #' 
-#' @param model An instance of [IsothermalGrowth], [DynamicGrowth], [StochasticGrowth]
-#' or [MCMCgrowth]
+#' @param model An instance of [GrowthPrediction], [GrowthFit], [GlobalGrowthFit],
+#' [GrowthUncertainty] or [MCMCgrowth].
 #' @param size Target population size (in log scale)
 #' 
 #' @importFrom purrr map_dbl
 #' 
-#' @return If "model" is [IsothermalGrowth] or [DynamicGrowth], a number. If "model"
-#' is [StochasticGrowth] or [MCMCgrowth], an instance of [TimeDistribution]
+#' @return If  `type="discrete"`, a number. If `type="distribution"`, an instance of 
+#' [TimeDistribution].
 #' 
 #' @export
 #' 
@@ -208,6 +208,13 @@ distribution_to_logcount <- function(model, log_count) {
 #' ## If the size is not reached, it returns NA
 #' 
 #' time_to_size(my_prediction, 8)
+#' 
+#' ## By default, it considers the population size is defined in the same log-base
+#' ## as the prediction. But that can be changed using logbase_logN
+#' 
+#' time_to_size(my_prediction, 3)
+#' time_to_size(my_prediction, 3, logbase_logN = 10)
+#' time_to_size(my_prediction, log(100), logbase_logN = exp(1))
 #' 
 #' ## Example 2 - Model fit ----------------------------------------------------
 #' 
@@ -266,8 +273,17 @@ distribution_to_logcount <- function(model, log_count) {
 #' 
 time_to_size <- function(model, 
                          size, 
-                         type = "discrete"
+                         type = "discrete",
+                         logbase_logN = NULL
                          ) {
+    
+    ## Convert the size to the right scale if not NULL
+    
+    if (!is.null(logbase_logN)) {
+        
+        size <- size/log(model$logbase_logN, base = logbase_logN)
+        
+    }
     
     if (type == "discrete") {  # Calculation of a discrete time ----------------
         
