@@ -12,8 +12,9 @@ fit_dynamic_growth(
   sec_model_names,
   ...,
   check = TRUE,
-  formula = logN ~ time,
-  logbase_mu = 10
+  logbase_mu = logbase_logN,
+  logbase_logN = 10,
+  formula = logN ~ time
 )
 }
 \arguments{
@@ -46,11 +47,11 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 
 \item{check}{Whether to check model parameters (TRUE by default).}
 
-\item{formula}{an object of class "formula" describing the x and y variables.
-\code{logN ~ time} as a default.}
-
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
 By default, 10 (i.e. log10). See vignette about units for details.}
+
+\item{formula}{an object of class "formula" describing the x and y variables.
+\code{logN ~ time} as a default.}
 }
 \value{
 An instance of \code{\link[=FitDynamicGrowth]{FitDynamicGrowth()}}.

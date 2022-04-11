@@ -23,7 +23,8 @@
 #'
 get_multi_dyna_residuals <- function(this_p, experiment_data,
                                      known_pars, sec_model_names,
-                                     logbase_mu = 10) {
+                                     logbase_mu = logbase_logN,
+                                     logbase_logN = 10) {
 
     old_cost <- NULL
 
@@ -33,7 +34,8 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
                                           each_experiment$conditions,
                                           unlist(known_pars), sec_model_names,
                                           cost = old_cost,
-                                          logbase_mu = logbase_mu
+                                          logbase_mu = logbase_mu,
+                                          logbase_logN = logbase_logN
                                           )
 
             old_cost <- my_cost
@@ -123,7 +125,8 @@ fit_multiple_growth <- function(starting_point, experiment_data,
                                 known_pars, sec_model_names,
                                 ..., check = TRUE,
                                 formula = logN ~ time,
-                                logbase_mu = 10
+                                logbase_mu = logbase_logN,
+                                logbase_logN = 10
                                 ) {
     
     ## Check the model parameters
@@ -160,6 +163,7 @@ fit_multiple_growth <- function(starting_point, experiment_data,
                      known_pars = unlist(known_pars),
                      sec_model_names = sec_model_names,
                      logbase_mu = logbase_mu,
+                     logbase_logN = logbase_logN,
                      ...)
 
     #- Output the results
@@ -180,7 +184,8 @@ fit_multiple_growth <- function(starting_point, experiment_data,
                                           as.list(primary_pars),
                                           secondary_models,
                                           each_experiment$conditions,
-                                          logbase_mu = logbase_mu 
+                                          logbase_mu = logbase_mu,
+                                          logbase_logN = logbase_logN
         )
 
         # best_prediction <- predict_dynamic_growth(times, each_experiment$conditions,
@@ -198,7 +203,8 @@ fit_multiple_growth <- function(starting_point, experiment_data,
                 starting = starting_point,
                 known = known_pars,
                 sec_models = sec_model_names,
-                logbase_mu = logbase_mu
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN
     )
 
     class(out) <- c("FitMultipleDynamicGrowth", class(out))
@@ -268,9 +274,12 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #'
 fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                                 known_pars, sec_model_names, niter,
-                                ..., check = TRUE,
+                                ..., 
+                                check = TRUE,
                                 formula = logN ~ time,
-                                logbase_mu = 10) {
+                                logbase_mu = logbase_logN,
+                                logbase_logN = 10
+                                ) {
 
     ## Check the model parameters
     
@@ -307,6 +316,7 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                      sec_model_names = sec_model_names,
                      niter = niter,
                      logbase_mu = logbase_mu,
+                     logbase_logN = logbase_logN,
                      ...)
 
     #- Output the results
@@ -327,7 +337,8 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                                           as.list(primary_pars),
                                           secondary_models,
                                           each_experiment$conditions,
-                                          logbase_mu = logbase_mu 
+                                          logbase_mu = logbase_mu,
+                                          logbase_logN = logbase_logN
         )
 
         # best_prediction <- predict_dynamic_growth(times, each_experiment$conditions,
@@ -344,7 +355,8 @@ fit_multiple_growth_MCMC <- function(starting_point, experiment_data,
                 starting = starting_point,
                 known = known_pars,
                 sec_models = sec_model_names,
-                logbase_mu = logbase_mu
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN
     )
 
     class(out) <- c("FitMultipleGrowthMCMC", class(out))

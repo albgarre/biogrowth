@@ -466,7 +466,8 @@ fit_growth <- function(fit_data,
                                       ...,
                                       check = check,
                                       formula = formula,
-                                      logbase_mu = logbase_mu
+                                      logbase_mu = logbase_mu,
+                                      logbase_logN = logbase_logN
                                       )
             
             ## Overwrite the class
@@ -498,7 +499,8 @@ fit_growth <- function(fit_data,
                                    ...,
                                    check = check,
                                    formula = formula,
-                                   logbase_mu = logbase_mu
+                                   logbase_mu = logbase_mu,
+                                   logbase_logN = logbase_logN
                                    )
             
             ## Overwrite the class
@@ -557,7 +559,8 @@ fit_growth <- function(fit_data,
                 ...,
                 check = check,
                 formula = formula,
-                logbase_mu = logbase_mu
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN
                 )
             
             ## Overwrite the class
@@ -607,7 +610,8 @@ fit_growth <- function(fit_data,
                 ...,
                 check = check,
                 formula = formula,
-                logbase_mu = logbase_mu
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN
                 )
             
             ## Overwrite the class

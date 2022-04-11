@@ -23,7 +23,8 @@
 get_dyna_residuals <- function(this_p, fit_data, env_conditions,
                                known_pars, sec_model_names,
                                cost = NULL,
-                               logbase_mu = 10
+                               logbase_mu = logbase_logN,
+                               logbase_logN = 10 
                                ) {
 
     ## Build the parameters of the primary model
@@ -47,7 +48,8 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
                                  as.list(primary_pars),
                                  secondary_models,
                                  env_conditions,
-                                 logbase_mu = logbase_mu 
+                                 logbase_mu = logbase_mu,
+                                 logbase_logN = logbase_logN
     )
 
     ## Calculate residuals
@@ -152,8 +154,9 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
                                starting_point, known_pars,
                                sec_model_names, ...,
                                check=TRUE,
-                               formula = logN ~ time,
-                               logbase_mu = 10
+                               logbase_mu = logbase_logN,
+                               logbase_logN = 10,
+                               formula = logN ~ time
                                ) {
     
     ## Check the model parameters
@@ -190,6 +193,7 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
                      known_pars = unlist(known_pars),
                      sec_model_names = sec_model_names,
                      logbase_mu = logbase_mu,
+                     logbase_logN = logbase_logN,
                      ...)
 
     #- Output the results
@@ -214,7 +218,8 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
                                  as.list(primary_pars),
                                  secondary_models,
                                  env_conditions,
-                                 logbase_mu = logbase_mu 
+                                 logbase_mu = logbase_mu ,
+                                 logbase_logN = logbase_logN
     )
 
     out <- list(fit_results = my_fit,
@@ -224,7 +229,8 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
                 starting = starting_point,
                 known = known_pars,
                 sec_models = sec_model_names,
-                logbase_mu = logbase_mu
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN
                 )
 
     class(out) <- c("FitDynamicGrowth", class(out))
@@ -304,7 +310,8 @@ fit_MCMC_growth <- function(fit_data, env_conditions,
                             sec_model_names, niter, ...,
                             check = TRUE,
                             formula = logN ~ time,
-                            logbase_mu = 10
+                            logbase_mu = logbase_logN,
+                            logbase_logN = 10
                             ) {
 
     ## Check the model parameters
@@ -343,6 +350,7 @@ fit_MCMC_growth <- function(fit_data, env_conditions,
                      sec_model_names = sec_model_names,
                      niter = niter,
                      logbase_mu = logbase_mu,
+                     logbase_logN = logbase_logN,
                      ...)
 
     #- Output the results
@@ -367,7 +375,8 @@ fit_MCMC_growth <- function(fit_data, env_conditions,
                                       as.list(primary_pars),
                                       secondary_models,
                                       env_conditions,
-                                      logbase_mu = logbase_mu 
+                                      logbase_mu = logbase_mu,
+                                      logbase_logN = logbase_logN
     )
 
     out <- list(fit_results = my_fit,
@@ -377,7 +386,8 @@ fit_MCMC_growth <- function(fit_data, env_conditions,
                 starting = starting_point,
                 known = known_pars,
                 sec_models = sec_model_names,
-                logbase_mu = logbase_mu
+                logbase_mu = logbase_mu,
+                logbase_logN = logbase_logN
     )
 
     class(out) <- c("FitDynamicGrowthMCMC", class(out))

@@ -13,7 +13,8 @@ fit_multiple_growth_MCMC(
   ...,
   check = TRUE,
   formula = logN ~ time,
-  logbase_mu = 10
+  logbase_mu = logbase_logN,
+  logbase_logN = 10
 )
 }
 \arguments{

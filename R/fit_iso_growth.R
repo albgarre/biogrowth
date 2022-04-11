@@ -14,7 +14,7 @@
 #'
 get_iso_residuals <- function(this_p, fit_data, model_name, known_pars,
                               logbase_mu = logbase_logN,
-                              logbase_logN = 10  # TODO
+                              logbase_logN = 10 
                               ) {
     
     # browser()

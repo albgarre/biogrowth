@@ -9,7 +9,8 @@ get_multi_dyna_residuals(
   experiment_data,
   known_pars,
   sec_model_names,
-  logbase_mu = 10
+  logbase_mu = logbase_logN,
+  logbase_logN = 10
 )
 }
 \arguments{

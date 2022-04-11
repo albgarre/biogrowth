@@ -43,7 +43,7 @@
   add_factor = NULL,
   ylims = NULL,
   label_x = "time",
-  label_y1 = "logN",
+  label_y1 = NULL,
   label_y2 = add_factor,
   line_col = "black",
   line_size = 1,

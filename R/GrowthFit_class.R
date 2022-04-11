@@ -98,6 +98,13 @@ print.GrowthFit <- function(x, ...) {
         cat(paste0("Parameter mu defined in log-", logbase, " scale"))
         cat("\n")
         
+        logbase <- x$logbase_logN
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat(paste0("Population size defined in log-", logbase, " scale\n"))
+        
     }
     
     

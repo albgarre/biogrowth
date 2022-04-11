@@ -11,7 +11,8 @@ get_dyna_residuals(
   known_pars,
   sec_model_names,
   cost = NULL,
-  logbase_mu = 10
+  logbase_mu = logbase_logN,
+  logbase_logN = 10
 )
 }
 \arguments{

@@ -72,6 +72,15 @@ print.GlobalGrowthFit <- function(x, ...) {
     
     cat(paste0("Parameter mu defined in log-", logbase, " scale"))
     cat("\n")
+    
+    logbase <- x$logbase_logN
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    
+    cat(paste0("Population size defined in log-", logbase, " scale"))
+    cat("\n")
 
 }
 
@@ -109,6 +118,7 @@ summary.GlobalGrowthFit <- function(object, ...) {
     
     if (object$algorithm != "MCMC") {  # The summary of MCMC is a data.frame, so this would add a column
         out$logbase_mu <- object$logbase_mu
+        out$logbase_logN <- object$logbase_logN
     }
     
     out
@@ -143,7 +153,8 @@ predict.GlobalGrowthFit <- function(object, env_conditions, times=NULL, ...) {
                            my_model$primary_model,
                            my_model$sec_models,
                            env_conditions,
-                           logbase_mu = object$logbase_mu 
+                           logbase_mu = object$logbase_mu ,
+                           logbase_logN = object$logbase_logN
                            )
     
     pred$simulation$logN
@@ -340,7 +351,7 @@ plot.GlobalGrowthFit <- function(x, y=NULL, ...,
                                           add_factor = NULL,
                                           ylims = NULL,
                                           label_x = "time",
-                                          label_y1 = "logN",
+                                          label_y1 = NULL,
                                           label_y2 = add_factor,
                                           line_col = "black",
                                           line_size = 1,
@@ -352,7 +363,7 @@ plot.GlobalGrowthFit <- function(x, y=NULL, ...,
                                           point_shape = 16,
                                           subplot_labels = "AUTO"
 ) {
-    
+
     my_plots <- lapply(1:length(x$data), function(i) {
         
         this_d <- x$data[[i]]$data
