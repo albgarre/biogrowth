@@ -278,6 +278,16 @@ predict_growth <- function(times,
             
         }
         
+        ## Check that times starts at 0. Give a warning otherwise
+        
+        if (min(times) != 0) {
+            warning(paste("times does not start at t=0.",
+                          "Be mindful that the calculation assumes that the first value of times indicates the initial time for the simulation (i.e., the time point where N = N0)",
+                          "If this is not what you intend, just pass c(0, times)."
+                          )
+                    )
+        }
+        
         ## Convert the parameters of the primary model (to make both static and dynamic compatible)
         
         my_pars <- primary_model

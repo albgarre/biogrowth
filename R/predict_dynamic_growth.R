@@ -98,7 +98,6 @@ predict_dynamic_growth <- function(times, env_conditions, primary_pars,
                                    logbase_mu = logbase_logN,
                                    formula = . ~ time
                                    ) {
-    
     ## Apply the formula
     
     x_col <- rhs(formula)
