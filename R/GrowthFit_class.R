@@ -56,7 +56,14 @@ print.GrowthFit <- function(x, ...) {
             logbase <- "e"
         }
         cat("\n")
-        cat(paste0("Parameter mu defined in log-", logbase, " scale"))
+        cat(paste0("Parameter mu defined in log-", logbase, " scale\n"))
+        
+        logbase <- x$logbase_logN
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat(paste0("Population size defined in log-", logbase, " scale\n"))
         
     } else {
         
@@ -130,6 +137,7 @@ summary.GrowthFit <- function(object, ...) {
     
     if (object$algorithm != "MCMC") {  # The summary of MCMC is a data.frame, so this would add a column
         out$logbase_mu <- object$logbase_mu
+        out$logbase_logN <- object$logbase_logN
     }
     
     out
@@ -163,7 +171,8 @@ predict.GrowthFit <- function(object, times = NULL, env_conditions = NULL, ...) 
         my_model$model <- object$primary_model
         
         pred <- predict_growth(times, my_model, check = FALSE,
-                               logbase_mu = object$logbase_mu)
+                               logbase_mu = object$logbase_mu,
+                               logbase_logN = object$logbase_logN)
         
         pred$simulation$logN
         
@@ -180,7 +189,8 @@ predict.GrowthFit <- function(object, times = NULL, env_conditions = NULL, ...) 
                                object$best_prediction$primary_model,
                                object$best_prediction$sec_models,
                                env_conditions,
-                               logbase_mu = object$logbase_mu 
+                               logbase_mu = object$logbase_mu,
+                               logbase_logN = object$logbase_logN
         )
         
         pred$simulation$logN
@@ -393,12 +403,26 @@ plot.GrowthFit <- function(x, y=NULL, ...,
                            point_size = 3,
                            point_shape = 16,
                            ylims = NULL,
-                           label_y1 = "logN",
+                           label_y1 = NULL,
                            label_y2 = add_factor,
                            label_x = "time",
                            line_col2 = "black",
                            line_size2 = 1,
                            line_type2 = "dashed") {
+    
+    ## Get the label for the y-axis
+    
+    logbase <- x$logbase_logN
+    
+    if ( abs(logbase - exp(1)) < .1 ) {
+        logbase <- "e"
+    }
+    
+    if (is.null(label_y1)) {
+        label_y1 <- paste0("logN (in log-", logbase, ")")
+    } else {
+        label_y1 <- label_y1
+    }
     
     if (x$environment == "constant") {
         

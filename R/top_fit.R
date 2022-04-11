@@ -360,15 +360,14 @@ fit_growth <- function(fit_data,
                        niter = NULL,
                        ..., 
                        check = TRUE,
-                       logbase_mu = 10,  # TODO
+                       logbase_mu = logbase_logN,
+                       logbase_logN = 10,  # TODO
                        formula = logN ~ time
                        ) {
     
     
     ## This is just a top-level function. All the heavy lifting is still done in the superseded functions
-    
-    # browser()
-    
+
     if (environment == "constant") {  # Fitting just a primary model
         
         ## Check the algorithm
@@ -411,7 +410,8 @@ fit_growth <- function(fit_data,
                               ..., 
                               check = check,
                               formula = formula,
-                              logbase_mu = logbase_mu
+                              logbase_mu = logbase_mu,
+                              logbase_logN = logbase_logN
                               )
         
         ## Overwrite the class

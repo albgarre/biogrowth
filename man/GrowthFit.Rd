@@ -48,7 +48,7 @@
   point_size = 3,
   point_shape = 16,
   ylims = NULL,
-  label_y1 = "logN",
+  label_y1 = NULL,
   label_y2 = add_factor,
   label_x = "time",
   line_col2 = "black",
