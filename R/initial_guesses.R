@@ -357,6 +357,8 @@ show_guess_primary <- function(fit_data, model_name, guess,
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
+#' @export
+#' 
 show_guess_dynamic <- function(fit_data, model_keys, guess,
                                env_conditions,
                                logbase_mu = 10,
