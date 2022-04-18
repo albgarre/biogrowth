@@ -1,7 +1,7 @@
 
 #' Generic for calculating predictions with uncertainty from fits
 #' 
-#' @param my_model Fit object
+#' @param model Fit object
 #' @param times see specific methods for each class
 #' @param env_conditions see specific methods for each class
 #' @param niter see specific methods for each class
@@ -9,18 +9,18 @@
 #' 
 #' @export
 #' 
-predictMCMC <- function(my_model,
+predictMCMC <- function(model,
                         times, 
                         env_conditions, 
                         niter,
                         newpars = NULL,
                         ...) {
-    UseMethod("predictMCMC", my_model)
+    UseMethod("predictMCMC", model)
 }
 
 #' @describeIn GrowthFit prediction including parameter uncertainty
 #' 
-#' @param my_model An instance of [GrowthFit]
+#' @param model An instance of [GrowthFit]
 #' @param times Numeric vector of storage times for the predictions.
 #' @param env_conditions Tibble with the (dynamic) environmental conditions
 #' during the experiment. It must have one column named 'time' with the
@@ -35,24 +35,24 @@ predictMCMC <- function(my_model,
 #' 
 #' @export
 #' 
-predictMCMC.GrowthFit <- function(my_model,
+predictMCMC.GrowthFit <- function(model,
                                   times, 
                                   env_conditions, 
                                   niter,
                                   newpars = NULL,
                                   ...) {
     
-    if (my_model$algorithm != "MCMC") {
+    if (model$algorithm != "MCMC") {
         stop("predictMCMC is only compatible with MCMC fits")
     }
     
-    predict_MCMC_growth(my_model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
     
 }
 
 #' @describeIn GlobalGrowthFit prediction including parameter uncertainty
 #' 
-#' @param my_model An instance of [GlobalGrowthFit]
+#' @param model An instance of [GlobalGrowthFit]
 #' @param times Numeric vector of storage times for the predictions.
 #' @param env_conditions Tibble with the (dynamic) environmental conditions
 #' during the experiment. It must have one column named 'time' with the
@@ -67,24 +67,24 @@ predictMCMC.GrowthFit <- function(my_model,
 #' 
 #' @export
 #' 
-predictMCMC.GlobalGrowthFit <- function(my_model,
+predictMCMC.GlobalGrowthFit <- function(model,
                                   times, 
                                   env_conditions, 
                                   niter,
                                   newpars = NULL,
                                   ...) {
     
-    if (my_model$algorithm != "MCMC") {
+    if (model$algorithm != "MCMC") {
         stop("predictMCMC is only compatible with MCMC fits")
     }
     
-    predict_MCMC_growth(my_model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
     
 }
 
 #' @describeIn FitDynamicGrowthMCMC prediction including parameter uncertainty
 #' 
-#' @param my_model An instance of [FitDynamicGrowthMCMC]
+#' @param model An instance of [FitDynamicGrowthMCMC]
 #' @param times Numeric vector of storage times for the predictions.
 #' @param env_conditions Tibble with the (dynamic) environmental conditions
 #' during the experiment. It must have one column named 'time' with the
@@ -99,20 +99,20 @@ predictMCMC.GlobalGrowthFit <- function(my_model,
 #' 
 #' @export
 #' 
-predictMCMC.FitDynamicGrowthMCMC <- function(my_model,
+predictMCMC.FitDynamicGrowthMCMC <- function(model,
                                              times, 
                                              env_conditions, 
                                              niter,
                                              newpars = NULL,
                                              ...) {
     
-    predict_MCMC_growth(my_model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
     
 }
 
 #' @describeIn FitMultipleGrowthMCMC prediction including parameter uncertainty
 #' 
-#' @param my_model An instance of [FitMultipleGrowthMCMC]
+#' @param model An instance of [FitMultipleGrowthMCMC]
 #' @param times Numeric vector of storage times for the predictions.
 #' @param env_conditions Tibble with the (dynamic) environmental conditions
 #' during the experiment. It must have one column named 'time' with the
@@ -127,13 +127,13 @@ predictMCMC.FitDynamicGrowthMCMC <- function(my_model,
 #' 
 #' @export
 #' 
-predictMCMC.FitMultipleGrowthMCMC <- function(my_model,
+predictMCMC.FitMultipleGrowthMCMC <- function(model,
                                               times, 
                                               env_conditions, 
                                               niter,
                                               newpars = NULL,
                                               ...) {
     
-    predict_MCMC_growth(my_model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
     
 }

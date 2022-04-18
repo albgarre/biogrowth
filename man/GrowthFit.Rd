@@ -56,7 +56,7 @@
   line_type2 = "dashed"
 )
 
-\method{predictMCMC}{GrowthFit}(my_model, times, env_conditions, niter, newpars = NULL, ...)
+\method{predictMCMC}{GrowthFit}(model, times, env_conditions, niter, newpars = NULL, ...)
 }
 \arguments{
 \item{x}{The object of class \link{GrowthFit} to plot.}
@@ -107,7 +107,7 @@ that condition is plotted in the secondary axis. Ignored if \code{environment="c
 
 \item{line_type2}{Same as lin_type, but for the environmental factor. Ignored if \code{environment="constant"}}
 
-\item{my_model}{An instance of \link{GrowthFit}}
+\item{model}{An instance of \link{GrowthFit}}
 
 \item{niter}{Number of iterations.}
 

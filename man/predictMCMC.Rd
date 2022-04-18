@@ -4,10 +4,10 @@
 \alias{predictMCMC}
 \title{Generic for calculating predictions with uncertainty from fits}
 \usage{
-predictMCMC(my_model, times, env_conditions, niter, newpars = NULL, ...)
+predictMCMC(model, times, env_conditions, niter, newpars = NULL, ...)
 }
 \arguments{
-\item{my_model}{Fit object}
+\item{model}{Fit object}
 
 \item{times}{see specific methods for each class}
 

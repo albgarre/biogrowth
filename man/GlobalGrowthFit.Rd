@@ -56,7 +56,7 @@
   subplot_labels = "AUTO"
 )
 
-\method{predictMCMC}{GlobalGrowthFit}(my_model, times, env_conditions, niter, newpars = NULL, ...)
+\method{predictMCMC}{GlobalGrowthFit}(model, times, env_conditions, niter, newpars = NULL, ...)
 }
 \arguments{
 \item{x}{an instance of GlobalGrowthFit}
@@ -106,7 +106,7 @@ that condition is plotted in the secondary axis}
 
 \item{subplot_labels}{labels of the subplots according to \code{plot_grid}.}
 
-\item{my_model}{An instance of \link{GlobalGrowthFit}}
+\item{model}{An instance of \link{GlobalGrowthFit}}
 
 \item{niter}{Number of iterations.}
 

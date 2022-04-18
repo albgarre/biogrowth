@@ -56,7 +56,7 @@
 
 \method{AIC}{FitMultipleGrowthMCMC}(object, ..., k = 2)
 
-\method{predictMCMC}{FitMultipleGrowthMCMC}(my_model, times, env_conditions, niter, newpars = NULL, ...)
+\method{predictMCMC}{FitMultipleGrowthMCMC}(model, times, env_conditions, niter, newpars = NULL, ...)
 }
 \arguments{
 \item{x}{an instance of FitMultipleGrowthMCMC.}
@@ -106,7 +106,7 @@ storage time and as many columns as required with the environmental conditions.}
 
 \item{k}{penalty for the parameters (k=2 by default)}
 
-\item{my_model}{An instance of \link{FitMultipleGrowthMCMC}}
+\item{model}{An instance of \link{FitMultipleGrowthMCMC}}
 
 \item{niter}{Number of iterations.}
 
