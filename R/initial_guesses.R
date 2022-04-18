@@ -257,8 +257,6 @@ make_guess_secondary <- function(fit_data, sec_model_names
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
-#' @export
-#' 
 #' @examples 
 #' ## An example of experimental data
 #' 
@@ -357,7 +355,6 @@ show_guess_primary <- function(fit_data, model_name, guess,
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
-#' @export
 #' 
 show_guess_dynamic <- function(fit_data, model_keys, guess,
                                env_conditions,
@@ -419,6 +416,9 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
 #' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
+#' @importFrom purrr map2
+#' @importFrom cowplot plot_grid
+#' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
 #' @export
@@ -476,6 +476,7 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
 check_growth_guess <- function(fit_data, model_keys, guess,
                               environment = "constant",
                               env_conditions = NULL,
+                              approach = "single",
                               logbase_mu = 10,
                               formula = logN ~ time) {
     
@@ -492,11 +493,32 @@ check_growth_guess <- function(fit_data, model_keys, guess,
         
     } else if (environment == "dynamic") {
         
-        show_guess_dynamic(fit_data, model_keys, guess,
-                           env_conditions,
-                           logbase_mu = logbase_mu,
-                           formula = formula
-                           )
+        if (approach == "single") {
+            
+            show_guess_dynamic(fit_data, model_keys, guess,
+                               env_conditions,
+                               logbase_mu = logbase_mu,
+                               formula = formula
+            )
+            
+        } else if (approach == "global") {
+
+            # browser()
+            
+            out <- map2(fit_data, env_conditions,
+                 ~ show_guess_dynamic(.x, 
+                                      model_keys, 
+                                      guess,
+                                      .y,
+                                      logbase_mu = logbase_mu,
+                                      formula = formula)
+                 )
+            
+            plot_grid(plotlist = out, labels = names(fit_data))
+            
+        } else {
+            stop("approach must be 'single' or 'global', got ", approach)
+        }
         
     } else {
         

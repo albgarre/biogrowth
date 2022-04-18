@@ -10,6 +10,7 @@ check_growth_guess(
   guess,
   environment = "constant",
   env_conditions = NULL,
+  approach = "single",
   logbase_mu = 10,
   formula = logN ~ time
 )
