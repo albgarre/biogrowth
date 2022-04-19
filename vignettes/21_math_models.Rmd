@@ -312,38 +312,26 @@ or the identifiers of its model parameters
 meta_info$pars
 ```
 
-## Unit system
+## Summary of the model parameters
 
-The functions in the **biogrowth** package make the calculations in log10 scale, as this is the common convention in predictive microbiology. This includes also the growth rate, which is defined within the package as the slope of the growth curve during the exponential phase when the plotted in log10 scale versus the elapsed time. Hence, the growth rate used in **biogrowth** ($\mu$), is related to the specific growth rate ($\mu'$) by the identity $\mu = \mu'/\ln(10)$.
-
-The following table summarizes the unit system used in **biogrowth** for each quantity.
-It also describes the identifier used by the functions for each variable/model parameter.
-
-Quantity | Identifier | Description | Unit
--------- | ---------- | ----------- | ----
-$\log_{10} N$ | `logN` | Decimal logarithm of the population size. | log10(units)
-$\log_{10} N_0$ | `logN0` | Decimal logarithm of the initial population size. | log10(units)
-$N$ | `N` | Population size. | (units)
-$N_0$ | `N0` | Initial population size. | (units)
-$t$ | `t` | Elapsed time.| [time]
-$C$ | `C` | $\log_{10} N_{max} - \log_{10} N_0$.| log10(units)
-$\mu$ | `mu` | Especific growth rate.| log10(units)/[time]
-$\lambda$ | `lambda` | Duration of the lag phase. | [time]
-$\nu$ | `nu` | Sharpness of the transition between growth phases in the Richards model. | (-)
-$Q$ | `Q` | Variable of the Baranyi model describing the lag phase | (units)
-$Q_0$ | `Q0` | Initial value of $Q$. | (units)
-$X_{min}$ | `xmin` | Miminum value of $X$ enabling growth. | [X]
-$X_{opt}$ | `xopt` | Optimum value of $X$ for growth. | [X]
-$X_{max}$ | `xmax` | Maximum value of $X$ enabling growth. | [X]
-$n$ | `n` | Order of the secondary model. | (-)
-$\mu_{opt}$ | `mu_opt` | Value of $\mu$ under optimal environmental conditions for growth. | lot10(units)/[time]
-
-The package allows any unit to describe [time], although the user must be consistent
-in parameter input (e.g. always use hours). Then, predictions and fitted parameters are
-returned in the same unit system. Regarding population size, the term *(units)* refers
-to the unit used to measure the population size. For instance, in predictive 
-microbiology it would be *colony forming units* (CFU). It can also be a relative
-magnitude (e.g. CFU/g). 
+Quantity | Identifier | Description
+-------- | ---------- | -----------
+$\log_{10} N$ | `logN` | Decimal logarithm of the population size.
+$\log_{10} N_0$ | `logN0` | Decimal logarithm of the initial population size.
+$N$ | `N` | Population size.
+$N_0$ | `N0` | Initial population size.
+$t$ | `t` | Elapsed time.
+$C$ | `C` | $\log_{10} N_{max} - \log_{10} N_0$.
+$\mu$ | `mu` | Specific growth rate.
+$\lambda$ | `lambda` | Duration of the lag phase.
+$\nu$ | `nu` | Sharpness of the transition between growth phases in the Richards model. 
+$Q$ | `Q` | Variable of the Baranyi model describing the lag phase
+$Q_0$ | `Q0` | Initial value of $Q$. 
+$X_{min}$ | `xmin` | Minimum value of $X$ enabling growth. 
+$X_{opt}$ | `xopt` | Optimum value of $X$ for growth. 
+$X_{max}$ | `xmax` | Maximum value of $X$ enabling growth. 
+$n$ | `n` | Order of the secondary model. 
+$\mu_{opt}$ | `mu_opt` | Value of $\mu$ under optimal environmental conditions for growth.
 
 ## Numerical methods
 
