@@ -14,7 +14,9 @@
 #' environmental conditions and values the secondary model (e.g. 'CPM').
 #' @param cost an instance of modCost to be combined (to fit multiple models).
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
-#' By default, 10 (i.e. log10). See vignette about units for details. 
+#' By default, the same as logbase_logN. See vignette about units for details. 
+#' @param logbase_logN Base of the logarithm for the population size. By default,
+#' 10 (i.e. log10). See vignette about units for details.
 #'
 #' @return An instance of [modCost()].
 #'
@@ -97,7 +99,9 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #' @param formula an object of class "formula" describing the x and y variables.
 #' `logN ~ time` as a default.
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
-#' By default, 10 (i.e. log10). See vignette about units for details. 
+#' By default, the same as logbase_logN. See vignette about units for details. 
+#' @param logbase_logN Base of the logarithm for the population size. By default,
+#' 10 (i.e. log10). See vignette about units for details.
 #'
 #' @return An instance of [FitDynamicGrowth()].
 #'
@@ -252,6 +256,8 @@ fit_dynamic_growth <- function(fit_data, env_conditions,
 #' @inheritParams fit_dynamic_growth
 #'
 #' @param niter number of iterations of the MCMC algorithm.
+#' @param logbase_logN Base of the logarithm for the population size. By default,
+#' 10 (i.e. log10). See vignette about units for details.
 #'
 #' @return An instance of [FitDynamicGrowthMCMC()].
 #'

@@ -31,6 +31,8 @@ on the calculations for each condition)}
 \item{env_conditions}{Tibble describing the variation of the environmental
 conditions for dynamic experiments. See \code{\link[=fit_growth]{fit_growth()}}. Ignored when \code{environment = "constant"}}
 
+\item{approach}{whether "single" (default) or "global". Please see \code{\link[=fit_growth]{fit_growth()}} for details.``}
+
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
 By default, 10 (i.e. log10). See vignette about units for details.}
 

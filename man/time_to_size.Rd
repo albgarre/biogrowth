@@ -11,6 +11,11 @@ time_to_size(model, size, type = "discrete", logbase_logN = NULL)
 \link{GrowthUncertainty} or \link{MCMCgrowth}.}
 
 \item{size}{Target population size (in log scale)}
+
+\item{type}{Tye of calculation, either "discrete" (default) or "distribution"}
+
+\item{logbase_logN}{Base of the logarithm for the population size. By default,
+10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 If  \code{type="discrete"}, a number. If \code{type="distribution"}, an instance of
@@ -23,15 +28,11 @@ Calculates the elapsed time required for the population to reach a given size
 (in log scale)
 }
 \details{
-The calculation method differs depending on the type of object passed. If the
-model contains a deterministic prediction (\link{IsothermalGrowth} or \link{DynamicGrowth}),
-the time to reach the given population size is estimated by linear interpolation and
-the function a number.
-
-If, on the other hand, a stochastic prediction is passed (\link{StochasticGrowth},
-\link{MCMCgrowth}), the time to reach "size" is estimated for each Monte Carlo iteration.
-Then, the function returns an instance of \link{TimeDistribution}, which contains
-the distribution of times.
+The calculation method differs depending on the value of \code{type}. If \code{type="discrete"}
+(default), the function calculates by linear interpolation a discrete time to
+reach the target population size. If \code{type="distribution"}, this calculation
+is repeated several times, generating a distribution of the time. Note that this
+is only possible for instances of \link{GrowthUncertainty} or \link{MCMCgrowth}.
 }
 \examples{
 

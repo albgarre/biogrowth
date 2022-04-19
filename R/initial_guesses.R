@@ -257,50 +257,6 @@ make_guess_secondary <- function(fit_data, sec_model_names
 #' 
 #' @return A [ggplot()] comparing the model prediction against the data
 #' 
-#' @examples 
-#' ## An example of experimental data
-#' 
-#' my_data <- data.frame(time = 0:9, 
-#'                       logN = c(2, 2.1, 1.8, 2.5, 3.1, 3.4, 4, 4.5, 4.8, 4.7))
-#'                       
-#' ## We just need to pass the data and the model parameters
-#' 
-#' show_guess_primary(my_data,
-#'                    "Baranyi",
-#'                    c(logN0 = 2, mu = .5, logNmax = 6, lambda = 4)
-#'                    )
-#'                    
-#' ## It can be combined with make_guess_primary
-#' 
-#' show_guess_primary(my_data,
-#'                    "Logistic",
-#'                    make_guess_primary(my_data, "Logistic")
-#'                    )
-#'                    
-#' ## It accepts different logbases for mu
-#' 
-#' show_guess_primary(my_data,
-#'                    "Baranyi",
-#'                    c(logN0 = 2, mu = .5, logNmax = 6, lambda = 4),
-#'                    logbase_mu = exp(1)
-#'                    )
-#'                    
-#' ## When combining it with make_guess_primary, carefull to use the same logbase 
-#' 
-#' show_guess_primary(my_data,
-#'                    "Logistic",
-#'                    make_guess_primary(my_data, "Logistic"),
-#'                    logbase_mu = exp(1)  # Different base
-#'                    )
-#'                    
-#' show_guess_primary(my_data,
-#'                    "Logistic",
-#'                    make_guess_primary(my_data, "Logistic", 
-#'                                       logbase_mu = exp(1)
-#'                                       ),  # same base
-#'                    logbase_mu = exp(1) 
-#'                    )
-#' 
 #' 
 show_guess_primary <- function(fit_data, model_name, guess, 
                                logbase_mu = 10,
@@ -415,6 +371,7 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
 #' on the calculations for each condition)
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
 #' By default, 10 (i.e. log10). See vignette about units for details. 
+#' @param approach whether "single" (default) or "global". Please see [fit_growth()] for details.``
 #' 
 #' @importFrom purrr map2
 #' @importFrom cowplot plot_grid

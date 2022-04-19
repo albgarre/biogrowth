@@ -56,7 +56,7 @@
   line_type2 = "dashed"
 )
 
-\method{predictMCMC}{GrowthFit}(model, times, env_conditions, niter, newpars = NULL, ...)
+\method{predictMCMC}{GrowthFit}(model, times, env_conditions, niter, newpars = NULL)
 }
 \arguments{
 \item{x}{The object of class \link{GrowthFit} to plot.}

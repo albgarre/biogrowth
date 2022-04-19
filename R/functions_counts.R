@@ -166,19 +166,18 @@ distribution_to_logcount <- function(model, log_count) {
 #' (in log scale)
 #' 
 #' @details 
-#' The calculation method differs depending on the type of object passed. If the
-#' model contains a deterministic prediction ([IsothermalGrowth] or [DynamicGrowth]), 
-#' the time to reach the given population size is estimated by linear interpolation and
-#' the function a number. 
-#' 
-#' If, on the other hand, a stochastic prediction is passed ([StochasticGrowth],
-#' [MCMCgrowth]), the time to reach "size" is estimated for each Monte Carlo iteration.
-#' Then, the function returns an instance of [TimeDistribution], which contains
-#' the distribution of times.
+#' The calculation method differs depending on the value of `type`. If `type="discrete"`
+#' (default), the function calculates by linear interpolation a discrete time to 
+#' reach the target population size. If `type="distribution"`, this calculation
+#' is repeated several times, generating a distribution of the time. Note that this
+#' is only possible for instances of [GrowthUncertainty] or [MCMCgrowth].
 #' 
 #' @param model An instance of [GrowthPrediction], [GrowthFit], [GlobalGrowthFit],
 #' [GrowthUncertainty] or [MCMCgrowth].
 #' @param size Target population size (in log scale)
+#' @param logbase_logN Base of the logarithm for the population size. By default,
+#' 10 (i.e. log10). See vignette about units for details.
+#' @param type Tye of calculation, either "discrete" (default) or "distribution"
 #' 
 #' @importFrom purrr map_dbl
 #' 

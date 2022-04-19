@@ -56,7 +56,7 @@
 
 \method{AIC}{FitMultipleGrowthMCMC}(object, ..., k = 2)
 
-\method{predictMCMC}{FitMultipleGrowthMCMC}(model, times, env_conditions, niter, newpars = NULL, ...)
+\method{predictMCMC}{FitMultipleGrowthMCMC}(model, times, env_conditions, niter, newpars = NULL)
 }
 \arguments{
 \item{x}{an instance of FitMultipleGrowthMCMC.}

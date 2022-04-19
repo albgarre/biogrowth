@@ -127,7 +127,9 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 #' @param model_pars Named vector or list defining the values of the model parameters.
 #' @param check Whether to do basic checks (TRUE by default).
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
-#' By default, 10 (i.e. log10). See vignette about units for details. 
+#' By default, the same as logbase_logN. See vignette about units for details. 
+#' @param logbase_logN Base of the logarithm for the population size. By default,
+#' 10 (i.e. log10). See vignette about units for details.
 #'
 #' @return An instance of [IsothermalGrowth()].
 #'

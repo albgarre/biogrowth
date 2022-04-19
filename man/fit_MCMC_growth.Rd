@@ -54,7 +54,10 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 \code{logN ~ time} as a default.}
 
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
-By default, 10 (i.e. log10). See vignette about units for details.}
+By default, the same as logbase_logN. See vignette about units for details.}
+
+\item{logbase_logN}{Base of the logarithm for the population size. By default,
+10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 An instance of \code{\link[=FitDynamicGrowthMCMC]{FitDynamicGrowthMCMC()}}.

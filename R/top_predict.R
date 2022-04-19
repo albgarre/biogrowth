@@ -81,7 +81,9 @@
 #' @param ... Additional arguments for [ode()].
 #' @param check Whether to check the validity of the models. `TRUE` by default.
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
-#' By default, 10 (i.e. log10). See vignette about units for details. 
+#' By default, the same as logbase_logN. See vignette about units for details. 
+#' @param logbase_logN Base of the logarithm for the population size. By default,
+#' 10 (i.e. log10). See vignette about units for details.
 #' @param formula An object of class "formula" describing the x variable for predictions 
 #' under dynamic conditions. `. ~ time` as a default.
 #' 

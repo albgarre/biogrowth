@@ -56,7 +56,7 @@
   subplot_labels = "AUTO"
 )
 
-\method{predictMCMC}{GlobalGrowthFit}(model, times, env_conditions, niter, newpars = NULL, ...)
+\method{predictMCMC}{GlobalGrowthFit}(model, times, env_conditions, niter, newpars = NULL)
 }
 \arguments{
 \item{x}{an instance of GlobalGrowthFit}

@@ -55,7 +55,7 @@
 
 \method{AIC}{FitDynamicGrowthMCMC}(object, ..., k = 2)
 
-\method{predictMCMC}{FitDynamicGrowthMCMC}(model, times, env_conditions, niter, newpars = NULL, ...)
+\method{predictMCMC}{FitDynamicGrowthMCMC}(model, times, env_conditions, niter, newpars = NULL)
 }
 \arguments{
 \item{x}{The object of class \code{FitDynamicGrowthMCMC} to plot.}

@@ -13,8 +13,8 @@ predictMCMC <- function(model,
                         times, 
                         env_conditions, 
                         niter,
-                        newpars = NULL,
-                        ...) {
+                        newpars = NULL
+                        ) {
     UseMethod("predictMCMC", model)
 }
 
@@ -39,8 +39,8 @@ predictMCMC.GrowthFit <- function(model,
                                   times, 
                                   env_conditions, 
                                   niter,
-                                  newpars = NULL,
-                                  ...) {
+                                  newpars = NULL
+                                  ) {
     
     if (model$algorithm != "MCMC") {
         stop("predictMCMC is only compatible with MCMC fits")
@@ -71,8 +71,8 @@ predictMCMC.GlobalGrowthFit <- function(model,
                                   times, 
                                   env_conditions, 
                                   niter,
-                                  newpars = NULL,
-                                  ...) {
+                                  newpars = NULL
+                                  ) {
     
     if (model$algorithm != "MCMC") {
         stop("predictMCMC is only compatible with MCMC fits")
@@ -103,8 +103,8 @@ predictMCMC.FitDynamicGrowthMCMC <- function(model,
                                              times, 
                                              env_conditions, 
                                              niter,
-                                             newpars = NULL,
-                                             ...) {
+                                             newpars = NULL
+                                             ) {
     
     predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
     
@@ -131,8 +131,8 @@ predictMCMC.FitMultipleGrowthMCMC <- function(model,
                                               times, 
                                               env_conditions, 
                                               niter,
-                                              newpars = NULL,
-                                              ...) {
+                                              newpars = NULL
+                                              ) {
     
     predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
     

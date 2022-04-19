@@ -48,7 +48,10 @@ Names must match columns in \code{fit_data} and \code{env_conditions}.}
 \item{check}{Whether to check model parameters (TRUE by default).}
 
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
-By default, 10 (i.e. log10). See vignette about units for details.}
+By default, the same as logbase_logN. See vignette about units for details.}
+
+\item{logbase_logN}{Base of the logarithm for the population size. By default,
+10 (i.e. log10). See vignette about units for details.}
 
 \item{formula}{an object of class "formula" describing the x and y variables.
 \code{logN ~ time} as a default.}
