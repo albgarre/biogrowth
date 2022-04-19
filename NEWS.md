@@ -1,3 +1,23 @@
+# biogrowth 1.0.0
+
+* added a biogrowth-package help page
+* updated the roxygen2 documentation to markdown style
+* implemented predict_growth as an overall function for growth predictions
+* implemented fit_growth as an overall function for growth fitting
+* implemented time_to_size as an overall function for calculating the time to reach a given population size
+* included lifecycle badges for every exported function
+* renamed stochastic_growth to predict_growth_uncertainty
+* implemented functions to calculate guesses for primary and secondary models
+* implemented functions to show initial guesses of growth models
+* implemented logLik and AIC calculations for model fits
+* implemented functions for model comparison/selection
+* reimplemented the predict method for global fits for something that makes more sense (it now returns a vector)
+* fixed a bug in time_to_logcount for trilinear model. It was messing up the calculation in the horizontal parts
+* included arguments logbase_mu and logbase_logN to deal with different unit systems
+* created new vignettes with a more "chapter-like" style
+* updated the README file
+
+
 # biogrowth 0.2.3
 
 * Included print methods for every class.
