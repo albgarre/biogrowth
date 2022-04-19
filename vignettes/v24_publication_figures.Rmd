@@ -2,7 +2,7 @@
 title: "Advanced plotting options in biogrowth"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Advanced plotting options in biogrowth`}
+  %\VignetteIndexEntry{Advanced plotting options in biogrowth}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
