@@ -1,8 +1,8 @@
 ---
-title: "Models based on secondary models to predict growth under constant environmental conditions"
+title: "Modelling constant environmental conditions using secondary models"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Models based on secondary models to predict growth under constant environmental conditions}
+  %\VignetteIndexEntry{Modelling constant environmental conditions using secondary models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,10 +20,7 @@ library(tidyverse)
 library(cowplot)
 ```
 
-
-The argument `environment` within the `predict_growth()` function can take two values: "constant" or "dynamic". In the first case, the function only takes a `primary_model` (indeed, passing a `secondary_model` will return a warning). The logic for this is that the secondary model describes how the environmental conditions affect the kinetic parameters of the primary model (the growth rate). Therefore, the minimum model to describe growth under static conditions is the one that only includes a primary model.
-
-However, the function can still predict microbial growth under isothermal conditions using `environment="dynamic"`. This can be useful in situations were the environmental conditions are constant, but the response of the population is described using secondary models. 
+The **biogrowth** package implements two modeling approaches. The first one is based on the use of primary growth models to describe the relationship between the population size and the elapsed time. The second one, expands the primary model considering the effect of changes in the experimental conditions on the specific growth rate (parameter $\mu$). This is reflected in the argument `environment` of `predict_growth()` (and also `fit_growth()`), which can take two values: "constant" or "dynamic". In the first case, the function only takes a `primary_model` (indeed, passing a `secondary_model` will return a warning). The logic for this is that the secondary model describes how the environmental conditions affect the kinetic parameters of the primary model (the growth rate). Therefore, the minimum model to describe growth under static conditions is the one that only includes a primary model. Nonetheless, the function can still predict microbial growth under isothermal conditions using `environment="dynamic"`. This can be useful in situations were the environmental conditions are constant, but the response of the population is described using secondary models. 
 
 To show this, let's define an environmental profile where we only consider a constant temperature of 35ºC.
 
@@ -67,8 +64,7 @@ dynamic_prediction <- predict_growth(environment = "dynamic",
 
 
 Because the temperature during the simulation equals the cardinal parameter $X_{opt}$, 
-the predicted population size is identical to the one calculated using `predict_growth` with `environment="constant"`
-for the Baranyi model when $\mu = \mu_{opt}$ and $\lambda = \frac{ \ln \left(1 +1/Q_0 \right) }{\mu_{opt}}$.
+the predicted population size is identical to the one calculated using `predict_growth` with `environment="constant"` for the Baranyi model (calculations for `environment="dynamic"` are always based on the Baranyi model) when $\mu = \mu_{opt}$ and $\lambda = \frac{ \ln \left(1 +1/Q_0 \right) }{\mu_{opt}}$.
 
 ```{r}
 lambda <- Q0_to_lambda(q0, mu_opt)
@@ -80,12 +76,13 @@ primary_model <- list(model = "Baranyi",
 static_prediction <- predict_growth(my_times, primary_model)
 
 plot(static_prediction) +
-    geom_line(aes(x = time, y = logN), linetype = 2, data = dynamic_prediction$simulation,
+    geom_line(aes(x = time, y = logN), linetype = 2, 
+              data = dynamic_prediction$simulation,
               colour = "green")
 
 ```
 
-The advantages of using a model including a secondary model for modelling growth under
+The advantages of using a model including a secondary model for modeling growth under
 constant environmental conditions are evident when simulations are made for several temperatures.
 Using `environment="constant"` would require a calculation of the value of $\mu$
 for each temperature separately. Because the relationship between $\mu$ and temperature

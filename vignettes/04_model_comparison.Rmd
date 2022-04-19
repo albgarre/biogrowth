@@ -183,6 +183,7 @@ The same applies to the residuals plot
 ```{r, fig.width=6}
 plot(global_comparison, type = 3)
 ```
+
 The rest, are exactly the same
 
 ```{r, fig.width=6}
