@@ -2,7 +2,7 @@
 % Please edit documentation in R/initial_guesses.R
 \name{check_growth_guess}
 \alias{check_growth_guess}
-\title{Compares an initial gues of the model parameters}
+\title{Visual check of an initial guess of the model parameters}
 \usage{
 check_growth_guess(
   fit_data,
@@ -43,6 +43,8 @@ By default, 10 (i.e. log10). See vignette about units for details.}
 A \code{\link[=ggplot]{ggplot()}} comparing the model prediction against the data
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Generates a plot comparing a set of data points against the model prediction
 corresponding to an initial guess of the model parameters
 }

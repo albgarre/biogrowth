@@ -15,5 +15,9 @@ If is a valid identifier, it returns a list with metainformation about the model
 If model_name name is not a valid identifier, raises an error.
 }
 \description{
-Metainformation of primary growth models
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Provides different types of meta-data about the primary growth models included
+in biogrowth. This information is the basis of the automatic checks, and can also
+help in the definition of models for \code{\link[=predict_growth]{predict_growth()}} and \code{\link[=fit_growth]{fit_growth()}}.
 }

@@ -15,11 +15,12 @@ Q0_to_lambda(q0, mu, logbase_mu = 10)
 By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Convenience function to calculate the lag phase duration (lambda) of the
 Baranyi model from the
 maximum specific growth rate and the initial value of the variable Q.
-}
-\details{
+
 Note that this function uses the unit system of biogrowth (i.e. log10). Care must
 be taken when using parameters obtained from other sources.
 }

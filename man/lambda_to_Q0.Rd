@@ -15,6 +15,8 @@ lambda_to_Q0(lambda, mu, logbase_mu = 10)
 By default, 10 (i.e. log10). See vignette about units for details.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Convenience function to calculate the value of Q0 for the Baranyi model from
 the duration of the lag phase
 }

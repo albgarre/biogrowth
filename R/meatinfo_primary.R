@@ -1,5 +1,12 @@
 
 #' Metainformation of primary growth models
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
+#' 
+#' Provides different types of meta-data about the primary growth models included
+#' in biogrowth. This information is the basis of the automatic checks, and can also
+#' help in the definition of models for [predict_growth()] and [fit_growth()].
 #'
 #' @param model_name The name of the model or `NULL` (default).
 #'

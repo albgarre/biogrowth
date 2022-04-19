@@ -47,6 +47,8 @@ right hand side must be ".". By default \code{mu ~ .}.}
 An instance of \code{\link[=FitSecondaryGrowth]{FitSecondaryGrowth()}}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Fits a secondary growth model to a set of growth rates obtained experimentally.
 Modelling is done according to the gamma concept proposed by Zwietering (1992)
 and cardinal parameter models.

@@ -108,6 +108,9 @@ extract_secondary_pars <- function(this_p, known_pars, sec_model_names) {
 
 #' Lag phase duration from Q0
 #' 
+#' @description 
+#' `r lifecycle::badge("stable")`
+#' 
 #' Convenience function to calculate the lag phase duration (lambda) of the 
 #' Baranyi model from the
 #' maximum specific growth rate and the initial value of the variable Q.
@@ -134,6 +137,9 @@ Q0_to_lambda <- function(q0, mu, logbase_mu = 10) {
 }
 
 #' Q0 from lag phase duration
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
 #' 
 #' Convenience function to calculate the value of Q0 for the Baranyi model from
 #' the duration of the lag phase

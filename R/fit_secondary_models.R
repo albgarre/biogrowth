@@ -103,6 +103,9 @@ get_secondary_residuals <- function(this_p, my_data,
 
 #' Fit secondary growth models
 #'
+#' @description 
+#' `r lifecycle::badge("stable")`
+#' 
 #' Fits a secondary growth model to a set of growth rates obtained experimentally.
 #' Modelling is done according to the gamma concept proposed by Zwietering (1992)
 #' and cardinal parameter models.

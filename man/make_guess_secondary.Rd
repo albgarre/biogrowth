@@ -16,7 +16,11 @@ as needed with the environmental factors.}
 for each environmental factor.}
 }
 \description{
-Initial guesses for the parameters of a secondary model
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+Uses some heuristic rules to generate an initial guess of the model parameters
+of secondary growth models that can be used for model fitting with
+\code{\link[=fit_secondary_growth]{fit_secondary_growth()}}.
 }
 \examples{
 

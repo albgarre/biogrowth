@@ -21,8 +21,10 @@ By default, 10 (i.e. log10). See vignette about units for details.}
 A named numeric vector of initial guesses for the model parameters
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 The function uses some heuristics to provide initial guesses for the parameters
-of the growth model selected.
+of the growth model selected that can be used with \code{\link[=fit_growth]{fit_growth()}}.
 }
 \examples{
 

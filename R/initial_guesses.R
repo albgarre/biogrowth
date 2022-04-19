@@ -1,8 +1,11 @@
 
 #' Initial guesses for fitting primary growth models
 #' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
+#' 
 #' The function uses some heuristics to provide initial guesses for the parameters
-#' of the growth model selected.
+#' of the growth model selected that can be used with [fit_growth()].
 #' 
 #' @param fit_data the experimental data. A tibble (or data.frame) with a column
 #' named `time` with the elapsed time and one called `logN` with the logarithm
@@ -190,6 +193,14 @@ make_guess_factor <- function(fit_data, sec_model, factor
 
 #' Initial guesses for the parameters of a secondary model
 #' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
+#' 
+#' Uses some heuristic rules to generate an initial guess of the model parameters
+#' of secondary growth models that can be used for model fitting with
+#' [fit_secondary_growth()].
+#' 
+#' 
 #' @inheritParams fit_secondary_growth
 #' 
 #' @importFrom purrr imap flatten_dbl
@@ -352,7 +363,10 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
         )
 }
 
-#' Compares an initial gues of the model parameters
+#' Visual check of an initial guess of the model parameters
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
 #' 
 #' Generates a plot comparing a set of data points against the model prediction
 #' corresponding to an initial guess of the model parameters
