@@ -210,14 +210,14 @@ plot(stoc_growth,
 We use the result of ` predict_stochastic_growth()` stored in `stoc_growth` from the example above. 
 
 ```{r}
-time_distrib <- distribution_to_logcount(stoc_growth, 4)
+# time_distrib <- distribution_to_logcount(stoc_growth, 4)
 ```
 
   
 The prediction of times to reach a specified count is shown in a histogram. We can adjust the binwidth of the histogram by setting the `bin_width` argument. In this example values between 1 and 3 would be representative.
 
 ```{r}
-plot(time_distrib, bin_width = 2)
+# plot(time_distrib, bin_width = 2)
 ```
   
 ## Combining plots into subplots
