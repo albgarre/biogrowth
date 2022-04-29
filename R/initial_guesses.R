@@ -14,6 +14,8 @@
 #' as defined in [primary_model_data()]
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
 #' By default, 10 (i.e. log10). See vignette about units for details. 
+#' @param formula an object of class "formula" describing the x and y variables.
+#' `logN ~ time` as a default.
 #' 
 #' @return A named numeric vector of initial guesses for the model parameters
 #' 
@@ -50,7 +52,8 @@
 #' make_guess_primary(my_data, "Baranyi", logbase_mu = 2)  # base2
 #' 
 make_guess_primary <- function(fit_data, primary_model,
-                               logbase_mu = 10
+                               logbase_mu = 10,
+                               formula = logN ~ time
                                ) {
     
     ## Check that we know the model
@@ -58,6 +61,20 @@ make_guess_primary <- function(fit_data, primary_model,
     if ( ! (primary_model %in% primary_model_data()) ) {
         stop("Unkonwn model: ", primary_model)
     }
+    
+    ## Apply the formula
+    
+    if (length(get.vars(formula)) > 2) {
+        stop("Only formulas with 2 terms are supported.")
+    }
+    
+    y_col <- lhs(formula)
+    x_col <- rhs(formula)
+    
+    fit_data <- select(fit_data, 
+                       time = x_col,
+                       logN = y_col
+    )
     
     ## Guess for logN0
     

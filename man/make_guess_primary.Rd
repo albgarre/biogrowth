@@ -4,7 +4,12 @@
 \alias{make_guess_primary}
 \title{Initial guesses for fitting primary growth models}
 \usage{
-make_guess_primary(fit_data, primary_model, logbase_mu = 10)
+make_guess_primary(
+  fit_data,
+  primary_model,
+  logbase_mu = 10,
+  formula = logN ~ time
+)
 }
 \arguments{
 \item{fit_data}{the experimental data. A tibble (or data.frame) with a column
@@ -16,6 +21,9 @@ as defined in \code{\link[=primary_model_data]{primary_model_data()}}}
 
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
 By default, 10 (i.e. log10). See vignette about units for details.}
+
+\item{formula}{an object of class "formula" describing the x and y variables.
+\code{logN ~ time} as a default.}
 }
 \value{
 A named numeric vector of initial guesses for the model parameters
