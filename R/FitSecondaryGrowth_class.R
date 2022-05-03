@@ -67,29 +67,26 @@ print.FitSecondaryGrowth <- function(x, ...) {
 plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE) {
     
     obs_data <- x$data
+    
+    ## Select only the environmental factors (otherwise, which=2 would make a facet for each)
+ 
+    env_factors <- names(x$secondary_model)
+    
+    obs_data <- x$data %>%
+        select(matches(env_factors))
+    
+    obs_data$observed <- switch(
+        x$transformation,
+        sq = x$data$sq_mu,
+        none = x$data$mu,
+        log = x$data$log_mu
+    )
+    
+    ## Add a column with the residuals
+    
     obs_data$res <- residuals(x)
     
-    ## Convert according to transformation
-    
-    obs_data <- if (x$transformation == "sq") {
-        
-        obs_data %>%
-            select(-"log_mu", -"mu") %>%
-            rename(observed = "sq_mu")
-        
-    } else if (x$transformation == "none") {
-        
-        obs_data %>%
-            select(-"log_mu", -"sq_mu") %>%
-            rename(observed = "mu")
-        
-    } else if (x$transformation == "log") {
-        
-        obs_data %>%
-            select(-"sq_mu", "mu") %>%
-            rename(observed = "mu")
-        
-    }
+    ## Plotting
     
     if (which == 1) { # Prediction vs observation
         
