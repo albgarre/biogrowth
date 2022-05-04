@@ -25,6 +25,8 @@
 #' The name must be the identifier of a model already included in the model. 
 #' These parameters do not include variation, so defining a new value for a fitted
 #' parameters "fixes" it. `NULL` by default (no new parameters).
+#' @param formula A formula stating the column named defining the elapsed time in 
+#' `env_conditions`. By default, . ~ time.
 #'
 #' @return An instance of [MCMCgrowth()].
 #'
@@ -98,8 +100,9 @@ predict_MCMC_growth <- function(MCMCfit,
                                 times, 
                                 env_conditions, 
                                 niter,
-                                newpars = NULL) {
-    
+                                newpars = NULL,
+                                formula = . ~ time) {
+
     ## Extract the parameters
 
     par_sample <- MCMCfit$fit_results$pars %>%
@@ -153,7 +156,8 @@ predict_MCMC_growth <- function(MCMCfit,
     simulations <- map2(primary_pars, secondary_models,
                         ~ predict_dynamic_growth(times, env_conditions,
                                                  as.list(.x),
-                                                 .y)
+                                                 .y,
+                                                 formula = formula)
                         ) %>%
         map(~.$simulation) %>%
         imap_dfr(~ mutate(.x, sim = .y))

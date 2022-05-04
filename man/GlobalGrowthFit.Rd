@@ -56,7 +56,14 @@
   subplot_labels = "AUTO"
 )
 
-\method{predictMCMC}{GlobalGrowthFit}(model, times, env_conditions, niter, newpars = NULL)
+\method{predictMCMC}{GlobalGrowthFit}(
+  model,
+  times,
+  env_conditions,
+  niter,
+  newpars = NULL,
+  formula = . ~ time
+)
 }
 \arguments{
 \item{x}{an instance of GlobalGrowthFit}
@@ -114,6 +121,9 @@ that condition is plotted in the secondary axis}
 The name must be the identifier of a model already included in the model.
 These parameters do not include variation, so defining a new value for a fitted
 parameters "fixes" it. \code{NULL} by default (no new parameters).}
+
+\item{formula}{A formula stating the column named defining the elapsed time in
+\code{env_conditions}. By default, . ~ time.}
 }
 \value{
 An instance of \link{MCMCgrowth}.

@@ -4,7 +4,14 @@
 \alias{predictMCMC}
 \title{Generic for calculating predictions with uncertainty from fits}
 \usage{
-predictMCMC(model, times, env_conditions, niter, newpars = NULL)
+predictMCMC(
+  model,
+  times,
+  env_conditions,
+  niter,
+  newpars = NULL,
+  formula = . ~ time
+)
 }
 \arguments{
 \item{model}{Fit object}
@@ -16,6 +23,9 @@ predictMCMC(model, times, env_conditions, niter, newpars = NULL)
 \item{niter}{see specific methods for each class}
 
 \item{newpars}{see specific methods for each class}
+
+\item{formula}{A formula stating the column named defining the elapsed time in
+\code{env_conditions}. By default, . ~ time.}
 }
 \description{
 Generic for calculating predictions with uncertainty from fits

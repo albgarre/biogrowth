@@ -6,6 +6,8 @@
 #' @param env_conditions see specific methods for each class
 #' @param niter see specific methods for each class
 #' @param newpars see specific methods for each class
+#' @param formula A formula stating the column named defining the elapsed time in 
+#' `env_conditions`. By default, . ~ time.
 #' 
 #' @export
 #' 
@@ -13,7 +15,8 @@ predictMCMC <- function(model,
                         times, 
                         env_conditions, 
                         niter,
-                        newpars = NULL
+                        newpars = NULL,
+                        formula = . ~ time
                         ) {
     UseMethod("predictMCMC", model)
 }
@@ -30,6 +33,8 @@ predictMCMC <- function(model,
 #' The name must be the identifier of a model already included in the model. 
 #' These parameters do not include variation, so defining a new value for a fitted
 #' parameters "fixes" it. `NULL` by default (no new parameters).
+#' @param formula A formula stating the column named defining the elapsed time in 
+#' `env_conditions`. By default, . ~ time.
 #'
 #' @return An instance of [MCMCgrowth].
 #' 
@@ -39,14 +44,16 @@ predictMCMC.GrowthFit <- function(model,
                                   times, 
                                   env_conditions, 
                                   niter,
-                                  newpars = NULL
+                                  newpars = NULL,
+                                  formula = . ~ time
                                   ) {
     
     if (model$algorithm != "MCMC") {
         stop("predictMCMC is only compatible with MCMC fits")
     }
     
-    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars,
+                        formula = formula)
     
 }
 
@@ -62,6 +69,8 @@ predictMCMC.GrowthFit <- function(model,
 #' The name must be the identifier of a model already included in the model. 
 #' These parameters do not include variation, so defining a new value for a fitted
 #' parameters "fixes" it. `NULL` by default (no new parameters).
+#' @param formula A formula stating the column named defining the elapsed time in 
+#' `env_conditions`. By default, . ~ time.
 #'
 #' @return An instance of [MCMCgrowth].
 #' 
@@ -71,14 +80,16 @@ predictMCMC.GlobalGrowthFit <- function(model,
                                   times, 
                                   env_conditions, 
                                   niter,
-                                  newpars = NULL
+                                  newpars = NULL,
+                                  formula = . ~ time
                                   ) {
     
     if (model$algorithm != "MCMC") {
         stop("predictMCMC is only compatible with MCMC fits")
     }
     
-    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars,
+                        formula = formula)
     
 }
 
@@ -94,6 +105,8 @@ predictMCMC.GlobalGrowthFit <- function(model,
 #' The name must be the identifier of a model already included in the model. 
 #' These parameters do not include variation, so defining a new value for a fitted
 #' parameters "fixes" it. `NULL` by default (no new parameters).
+#' @param formula A formula stating the column named defining the elapsed time in 
+#' `env_conditions`. By default, . ~ time.
 #'
 #' @return An instance of [MCMCgrowth()].
 #' 
@@ -103,10 +116,12 @@ predictMCMC.FitDynamicGrowthMCMC <- function(model,
                                              times, 
                                              env_conditions, 
                                              niter,
-                                             newpars = NULL
+                                             newpars = NULL,
+                                             formula = . ~ time
                                              ) {
     
-    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars,
+                        formula = formula)
     
 }
 
@@ -122,6 +137,8 @@ predictMCMC.FitDynamicGrowthMCMC <- function(model,
 #' The name must be the identifier of a model already included in the model. 
 #' These parameters do not include variation, so defining a new value for a fitted
 #' parameters "fixes" it. `NULL` by default (no new parameters).
+#' @param formula A formula stating the column named defining the elapsed time in 
+#' `env_conditions`. By default, . ~ time.
 #'
 #' @return An instance of [MCMCgrowth()].
 #' 
@@ -131,9 +148,11 @@ predictMCMC.FitMultipleGrowthMCMC <- function(model,
                                               times, 
                                               env_conditions, 
                                               niter,
-                                              newpars = NULL
+                                              newpars = NULL,
+                                              formula = . ~ time
                                               ) {
     
-    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars)
+    predict_MCMC_growth(model, times, env_conditions, niter, newpars = newpars,
+                        formula = formula)
     
 }
