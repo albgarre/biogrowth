@@ -88,5 +88,6 @@ plot(fit_cardinal)
 
 plot(fit_cardinal, which = 2)
 plot(fit_cardinal, which = 2, add_trend = TRUE)
+plot(fit_cardinal, which = 2, add_segment = TRUE)
 
 }

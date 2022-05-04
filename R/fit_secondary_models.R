@@ -174,6 +174,7 @@ get_secondary_residuals <- function(this_p, my_data,
 #'
 #' plot(fit_cardinal, which = 2)
 #' plot(fit_cardinal, which = 2, add_trend = TRUE)
+#' plot(fit_cardinal, which = 2, add_segment = TRUE)
 #'
 fit_secondary_growth <- function(fit_data, starting_point,
                                  known_pars, sec_model_names,

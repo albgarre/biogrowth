@@ -17,7 +17,7 @@
 \usage{
 \method{print}{FitSecondaryGrowth}(x, ...)
 
-\method{plot}{FitSecondaryGrowth}(x, y = NULL, ..., which = 1, add_trend = FALSE)
+\method{plot}{FitSecondaryGrowth}(x, y = NULL, ..., which = 1, add_trend = FALSE, add_segment = FALSE)
 
 \method{summary}{FitSecondaryGrowth}(object, ...)
 
@@ -48,6 +48,8 @@
 2 for gamma curve}
 
 \item{add_trend}{Whether to add a trend line (only for which=2)}
+
+\item{add_segment}{Whether to join the observed and fitted points (only for which=2)}
 
 \item{object}{an instance of FitSecondaryGrowth}
 

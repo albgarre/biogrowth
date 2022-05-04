@@ -52,19 +52,24 @@ print.FitSecondaryGrowth <- function(x, ...) {
 #' @param which A numeric with the type of plot. 1 for obs versus predicted (default),
 #' 2 for gamma curve
 #' @param add_trend Whether to add a trend line (only for which=2)
+#' @param add_segment Whether to join the observed and fitted points (only for which=2)
 #'
 #' @importFrom purrr %>%
 #' @importFrom rlang .data
 #' @importFrom dplyr mutate select rename
 #' @importFrom ggplot2 ggplot geom_point geom_abline geom_smooth xlab ylab
 #' @importFrom cowplot theme_cowplot
-#' @importFrom ggplot2 theme_bw element_blank facet_wrap theme
+#' @importFrom ggplot2 theme_bw element_blank facet_wrap theme geom_segment
 #' @importFrom tidyr pivot_longer
 #' @importFrom stats residuals
+#' 
 #'
 #' @export
 #'
-plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE) {
+plot.FitSecondaryGrowth <- function(x, y=NULL, ..., 
+                                    which = 1, 
+                                    add_trend = FALSE,
+                                    add_segment = FALSE) {
     
     obs_data <- x$data
     
@@ -115,28 +120,38 @@ plot.FitSecondaryGrowth <- function(x, y=NULL, ..., which = 1, add_trend = FALSE
                          none = "Growth rate"
                          )
         
-        p1 <- obs_data %>%
+      p1 <- obs_data %>%
             mutate(predicted = .data$observed + .data$res) %>%
             select(-"res") %>%
             pivot_longer(-c("observed", "predicted"),
                          names_to = "env_factor", values_to = "value") %>%
-            pivot_longer(-c("env_factor", "value"),
-                         names_to = "point_type", values_to = "growth") %>%
             ggplot(aes(x = .data$value)) +
-            geom_point(aes(y = .data$growth, colour = .data$point_type)) +
-            facet_wrap("env_factor", scales = "free_x") +
-            ylab(ylabel) + xlab("") +
-            theme_bw() +
-            theme(legend.title = element_blank())
+            geom_point(aes(y = .data$predicted)) +
+            geom_point(aes(y = .data$observed), colour = "darkgrey") 
         
-        if (isTRUE(add_trend)) {
-            p1 <- p1 + geom_smooth(aes(y = .data$growth, colour = .data$point_type))
+        if (add_segment) {
+        
+            p1 <- p1 +
+                geom_segment(aes(xend = .data$value, y = .data$observed, yend = .data$predicted), colour = "darkgrey")
+                 
         }
+        
+        
+        if (add_trend) {
+            p1 <- p1 +
+                geom_smooth(aes(y = .data$predicted), colour = "black") + 
+                geom_smooth(aes(y = .data$observed), colour = "darkgrey")
+        }
+        
+        p1 <- p1 + 
+            facet_wrap("env_factor", scales = "free_x") + 
+            xlab("") + 
+            ylab(ylabel) +
+            theme_bw()
         
     }
     
     p1
-    
     
 }
 
