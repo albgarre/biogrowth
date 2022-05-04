@@ -331,17 +331,55 @@ time_to_size <- function(model,
         
         if (is.GrowthUncertainty(model)) {  # Predictions with parameter uncertainty
             
-            time_dist <- split(model$simulations, model$simulations$iter) %>%
-                map_dfr(~ approx(.$logN, .$time, size, 
-                                 ties = function(x) min(x, na.rm = TRUE))
-                )
+            time_dist <- lapply(split(model$simulations, model$simulations$iter),
+                   function(x) {
+                       
+                       unique_vals <- unique(x$logN)
+                       
+                       if (length(unique_vals < 2)) {
+                           
+                           approx(x$logN, x$time, size, method = "constant",
+                                  ties = function(x) min(x, na.rm = TRUE)
+                                  )
+                           
+                       } else {
+                           
+                           approx(x$logN, x$time, size, method = "linear",
+                                  ties = function(x) min(x, na.rm = TRUE)
+                           )
+                           
+                       }
+                       
+                       
+                   }
+                   ) %>%
+                bind_rows()
             
         } else if (is.MCMCgrowth(model)) {
             
-            time_dist <- split(model$simulations, model$simulations$sim) %>%
-                map_dfr(~ approx(.$logN, .$time, size, 
-                                 ties = function(x) min(x, na.rm = TRUE))
-                )
+            time_dist <- lapply(split(model$simulations, model$simulations$sim),
+                   function(x) {
+                       
+                       unique_vals <- unique(x$logN)
+                       
+                       if (length(unique_vals < 2)) {
+                           
+                           approx(x$logN, x$time, size, method = "constant",
+                                  ties = function(x) min(x, na.rm = TRUE)
+                           )
+                           
+                       } else {
+                           
+                           approx(x$logN, x$time, size, method = "linear",
+                                  ties = function(x) min(x, na.rm = TRUE)
+                           )
+                           
+                       }
+                       
+                       
+                   }
+            ) %>%
+                bind_rows()
             
         } else {
             stop("Model type not supported for calculating distributions: ", class(model))
