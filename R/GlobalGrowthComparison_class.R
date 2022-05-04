@@ -169,7 +169,7 @@ plot.GlobalGrowthComparison <- function(x, y, ...,
         #     imap_dfr(~ mutate(.x, experiment = .y)) %>%
         #     geom_point(aes_string(x = "time", y = "logN"), data = ., inherit.aes = FALSE)
         
-        p + my_points
+        p + my_points + theme_bw()
     
     } else if (type == 2) {  # Plot of the parameter estimates
         
@@ -178,7 +178,8 @@ plot.GlobalGrowthComparison <- function(x, y, ...,
             geom_point() +
             geom_errorbar(aes_string(ymin = "estimate - std.err", 
                                      ymax = "estimate + std.err")) +
-            facet_wrap("parameter", scales = "free_y")
+            facet_wrap("parameter", scales = "free_y") +
+            theme_bw()
         
     } else if (type == 3) {  # Plot of the residuals
         
@@ -192,7 +193,7 @@ plot.GlobalGrowthComparison <- function(x, y, ...,
             p <- p + geom_smooth(se = FALSE, method = "loess")
         }
         
-        p + geom_hline(yintercept = 0, linetype = 2)
+        p + geom_hline(yintercept = 0, linetype = 2) + theme_bw()
         
     } else {
         stop("type must be 1, 2 or 3, got ", type )

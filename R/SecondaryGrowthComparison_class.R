@@ -132,7 +132,8 @@ plot.SecondaryGrowthComparison <- function(x, y, ...,
             ggplot(aes_string(x = "observed", y = "predicted", colour = "model")) +
             geom_point() +
             geom_smooth(method = "lm", se=FALSE) +
-            geom_abline(slope = 1, intercept = 0, linetype = 2)
+            geom_abline(slope = 1, intercept = 0, linetype = 2) +
+            theme_cowplot()
         
     } else if (type == 2) {  # Plot of the parameter estimates
         
@@ -141,7 +142,8 @@ plot.SecondaryGrowthComparison <- function(x, y, ...,
             geom_point() +
             geom_errorbar(aes_string(ymin = "estimate - std.err", 
                                      ymax = "estimate + std.err")) +
-            facet_wrap("parameter", scales = "free_y")
+            facet_wrap("parameter", scales = "free_y") +
+            theme_bw()
         
     } else {
         stop("type must be 1 or 2, got ", type )

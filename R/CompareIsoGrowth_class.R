@@ -69,7 +69,8 @@ plot.GrowthComparison <- function(x, y, ...,
             ) %>%
             ggplot() +
             geom_line(aes_string(x = "time", y = "logN", colour = "model")) +
-            geom_point(aes_string(x = "time", y = "logN"), data = d)
+            geom_point(aes_string(x = "time", y = "logN"), data = d) +
+            theme_cowplot()
         
     } else if (type == 2) {  # Plot of the parameter estimates
         
@@ -78,7 +79,8 @@ plot.GrowthComparison <- function(x, y, ...,
             geom_point() +
             geom_errorbar(aes_string(ymin = "estimate - std.err", 
                                      ymax = "estimate + std.err")) +
-            facet_wrap("parameter", scales = "free_y")
+            facet_wrap("parameter", scales = "free_y") +
+            theme_bw()
         
     } else if (type == 3) {  # Plot of the residuals
         
@@ -92,7 +94,7 @@ plot.GrowthComparison <- function(x, y, ...,
             p <- p + geom_smooth(se = FALSE, method = "loess")
         }
         
-        p + geom_hline(yintercept = 0, linetype = 2)
+        p + geom_hline(yintercept = 0, linetype = 2) + theme_cowplot()
         
     } else {
         stop("type must be 1, 2 or 3, got ", type )
