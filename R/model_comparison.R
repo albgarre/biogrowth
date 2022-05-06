@@ -286,10 +286,10 @@ compare_growth_fits <- function(models) {
 #' @description 
 #' `r lifecycle::badge("experimental")`
 #' 
-#' This function is a constructor for [SecondaryGrowthComparison]
+#' This function is a constructor for [SecondaryComparison]
 #' a class that provides several functions for model comparison and model selection
 #' for growth models fitted using [fit_secondary_growth()]. Please see the help pages for 
-#' [SecondaryGrowthComparison] for further details.
+#' [SecondaryComparison] for further details.
 #' 
 #' Although it is not necessary, we recommend passing the models as a named list,
 #' as these names will later be kept in plots and tables.
@@ -359,7 +359,7 @@ compare_secondary_fits <- function(models) {
     out <- list(models = models
                 )
     
-    class(out) <- c("SecondaryGrowthComparison")
+    class(out) <- c("SecondaryComparison")
     
     return(out)
     

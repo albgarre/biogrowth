@@ -12,10 +12,10 @@ compare_secondary_fits(models)
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This function is a constructor for \link{SecondaryGrowthComparison}
+This function is a constructor for \link{SecondaryComparison}
 a class that provides several functions for model comparison and model selection
 for growth models fitted using \code{\link[=fit_secondary_growth]{fit_secondary_growth()}}. Please see the help pages for
-\link{SecondaryGrowthComparison} for further details.
+\link{SecondaryComparison} for further details.
 
 Although it is not necessary, we recommend passing the models as a named list,
 as these names will later be kept in plots and tables.

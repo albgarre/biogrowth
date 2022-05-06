@@ -1,8 +1,8 @@
 
-#' SecondaryGrowthComparison class
+#' SecondaryComparison class
 #' 
 #' @description 
-#' The `SecondaryGrowthComparison` class contains several functions for model comparison
+#' The `SecondaryComparison` class contains several functions for model comparison
 #' and model selection of growth models. It should not be instanced directly. Instead,
 #' it should be constructed using [compare_secondary_fits()].
 #' 
@@ -13,7 +13,7 @@
 #' we recommend passing a named list to that function.
 #' 
 #' @section Statistical indexes:
-#' `SecondaryGrowthComparison` implements two S3 methods to obtain numerical values to facilitate
+#' `SecondaryComparison` implements two S3 methods to obtain numerical values to facilitate
 #' model comparison and selection. 
 #' - the `coef` method returns a tibble with the values of the parameter estimates
 #' and their corresponding standard errors for each model. 
@@ -30,18 +30,18 @@
 #' one model does not has some model parameter (i.e. either because it is not defined
 #' or because it was fixed), the parameter is not included in the plot.
 #' 
-#' @name SecondaryGrowthComparison
+#' @name SecondaryComparison
 #'   
 NULL
 
-#' @describeIn SecondaryGrowthComparison table of parameter estimates
+#' @describeIn SecondaryComparison table of parameter estimates
 #' 
-#' @param object an instance of SecondaryGrowthComparison
+#' @param object an instance of SecondaryComparison
 #' @param ... ignored
 #' 
 #' @export
 #' 
-coef.SecondaryGrowthComparison <- function(object, ...) {
+coef.SecondaryComparison <- function(object, ...) {
     
     object$models %>%
         map(~ summary(.)$par) %>%
@@ -53,9 +53,9 @@ coef.SecondaryGrowthComparison <- function(object, ...) {
     
 }
 
-#' @describeIn SecondaryGrowthComparison summary table for the comparison
+#' @describeIn SecondaryComparison summary table for the comparison
 #' 
-#' @param object an instance of SecondaryGrowthComparison
+#' @param object an instance of SecondaryComparison
 #' @param ... ignored
 #' 
 #' @importFrom dplyr arrange left_join
@@ -63,7 +63,7 @@ coef.SecondaryGrowthComparison <- function(object, ...) {
 #' 
 #' @export
 #' 
-summary.SecondaryGrowthComparison <- function(object, ...) {
+summary.SecondaryComparison <- function(object, ...) {
     
     index_table <- object$models %>%
         imap_dfr(~ tibble(model = .y,
@@ -84,14 +84,14 @@ summary.SecondaryGrowthComparison <- function(object, ...) {
     
 }
 
-#' @describeIn SecondaryGrowthComparison print of the model comparison
+#' @describeIn SecondaryComparison print of the model comparison
 #' 
-#' @param x an instance of SecondaryGrowthComparison
+#' @param x an instance of SecondaryComparison
 #' @param ... ignored
 #' 
 #' @export
 #' 
-print.SecondaryGrowthComparison <- function(x, ...) {
+print.SecondaryComparison <- function(x, ...) {
     
     cat("Comparison between secondary growth models fitted to a dataset of growth rates\n\n")
     
@@ -102,9 +102,9 @@ print.SecondaryGrowthComparison <- function(x, ...) {
     
 }
 
-#' @describeIn SecondaryGrowthComparison illustrations comparing the fitted models
+#' @describeIn SecondaryComparison illustrations comparing the fitted models
 #' 
-#' @param x an instance of SecondaryGrowthComparison
+#' @param x an instance of SecondaryComparison
 #' @param y ignored
 #' @param ... ignored
 #' @param type if type==1, the plot compares the model predictions. If type ==2,
@@ -119,7 +119,7 @@ print.SecondaryGrowthComparison <- function(x, ...) {
 #' 
 #' @export
 #' 
-plot.SecondaryGrowthComparison <- function(x, y, ...,
+plot.SecondaryComparison <- function(x, y, ...,
                                   type = 1,
                                   add_trend = TRUE) {
     
