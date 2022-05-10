@@ -96,6 +96,85 @@ print.GrowthPrediction <- function(x, ...) {
 
 }
 
+#' @describeIn GrowthPrediction summary of the model
+#' 
+#' @param object An instance of `GrowthPrediction`.
+#' @param ... ignored
+#' 
+#' @export
+#' 
+summary.GrowthPrediction <- function(object, ...) {
+    
+    
+    if (object$environment == "constant") {
+        
+        cat("Growth prediction based on primary models\n\n")
+        
+        cat(paste("Growth model:", object$primary_model$model, "\n\n"))
+        
+        cat("Parameters of the primary model:\n")
+        print(coef(object))
+        
+        logbase <- object$logbase_mu
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat("\n")
+        cat(paste0("Parameter mu defined in log-", logbase, " scale"))
+        
+        logbase <- object$logbase_logN
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat("\n")
+        cat(paste0("Population size defined in log-", logbase, " scale\n"))
+        
+        cat("\n")
+        cat(paste0("Maximum elapsed time: ", max(object$simulation$time, na.rm=TRUE), "\n"))
+        cat(paste0("Maximum population size: ", max(object$simulation$logN, na.rm=TRUE), "\n"))
+        
+    } else if (object$environment == "dynamic") {
+        
+        cat("Growth prediction under dynamic environmental conditions\n\n")
+        
+        env <- names(object$env_conditions)
+        cat(paste("Environmental factors included:", paste(env, collapse = ", "), "\n\n"))
+        
+        cat("Parameters of the Baranyi primary model:\n")
+        print(unlist(object$primary_model))
+        cat("\n")
+        
+        logbase <- object$logbase_mu
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat(paste0("Parameter mu defined in log-", logbase, " scale\n"))
+        
+        logbase <- object$logbase_logN
+        
+        if ( abs(logbase - exp(1)) < .1 ) {
+            logbase <- "e"
+        }
+        cat("\n")
+        cat(paste0("Population size defined in log-", logbase, " scale\n\n"))
+        
+        for (i in 1:length(object$sec_models)) {
+            cat(paste("Secondary model for ", names(object$sec_models)[i], ":\n", sep = ""))
+            print(unlist(object$sec_models[[i]]))
+            cat("\n")
+        }
+        
+        cat("\n")
+        cat(paste0("Maximum elapsed time: ", max(object$simulation$time, na.rm=TRUE), "\n"))
+        cat(paste0("Maximum population size: ", max(object$simulation$logN, na.rm=TRUE), "\n"))
+        
+    }
+    
+}
+
 #' @describeIn GrowthPrediction predicted growth curve.
 #'
 #' @param x The object of class `GrowthPrediction` to plot.

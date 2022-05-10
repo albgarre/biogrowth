@@ -3,11 +3,14 @@
 \name{GrowthPrediction}
 \alias{GrowthPrediction}
 \alias{print.GrowthPrediction}
+\alias{summary.GrowthPrediction}
 \alias{plot.GrowthPrediction}
 \alias{coef.GrowthPrediction}
 \title{GrowthPrediction class}
 \usage{
 \method{print}{GrowthPrediction}(x, ...)
+
+\method{summary}{GrowthPrediction}(object, ...)
 
 \method{plot}{GrowthPrediction}(
   x,
@@ -32,6 +35,8 @@
 \item{x}{The object of class \code{GrowthPrediction} to plot.}
 
 \item{...}{ignored}
+
+\item{object}{an instance of \link{GrowthPrediction}}
 
 \item{y}{ignored}
 
@@ -59,8 +64,6 @@ that condition is plotted in the secondary axis. Ignored for \code{environment="
 \item{line_type2}{Same as lin_type, but for the environmental factor.}
 
 \item{label_x}{Label of the x-axis.}
-
-\item{object}{an instance of \link{GrowthPrediction}}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
@@ -86,6 +89,8 @@ environmental conditions. \code{NULL} if \code{environment="constant"}.
 \section{Functions}{
 \itemize{
 \item \code{print.GrowthPrediction}: print of the model
+
+\item \code{summary.GrowthPrediction}: summary of the model
 
 \item \code{plot.GrowthPrediction}: predicted growth curve.
 
