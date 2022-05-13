@@ -26,7 +26,7 @@
 #' experimental data used to fit the model. 
 #' - when `type = 2`, the plot compares the parameter estimates using error bars, where
 #' the limits of the error bars are the expected value +/- one standard error. In case
-#' one model does not has some model parameter (i.e. either because it is not defined
+#' one model does not have some model parameter (i.e. either because it is not defined
 #' or because it was fixed), the parameter is not included in the plot.
 #' - when `type=3`, the plot shows the tendency of the residuals for each model. This
 #' plot can be used to detect deviations from independence.
