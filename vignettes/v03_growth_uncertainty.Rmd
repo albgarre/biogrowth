@@ -20,7 +20,7 @@ library(biogrowth)
 library(tidyverse)
 ```
 
-In most situations, growth predictions are surrounded by different sources of uncertainty and variability. For this reason, discrete growth predictions (i.e. growth curves) can be, in some cases, misleading. Consequently, **biogrowth** includes several functions to calculate growth predictions according for parameter uncertainty. Namely, it can account for the uncertainty of parameter estimates of primary growth models defined manually using `predict_growth_uncertainty()`. Also, it can include the uncertainty of a model fitted using a Monte Carlo algorithm with the `predictMCMC()` method. 
+In most situations, growth predictions are surrounded by different sources of uncertainty and variability. For this reason, discrete growth predictions (i.e. growth curves) can be, in some cases, misleading. Consequently, **biogrowth** includes several functions to calculate growth predictions accounting for parameter uncertainty. Namely, it can account for the uncertainty of parameter estimates of primary growth models defined manually using `predict_growth_uncertainty()`. Also, it can include the uncertainty of a model fitted using a Monte Carlo algorithm with the `predictMCMC()` method. 
 
 ## Growth predictions with uncertainty using `predict_growth_uncertainty()`
 
@@ -62,7 +62,7 @@ pars <- tribble(
 ```
 
 For the time points, we will take 100 points uniformly distributed between 0 and 200:
-
+#COMMENT, this is between 0 and 15. Not 200
 ```{r}
 my_times <- seq(0, 15, length = 100)
 ```
@@ -79,7 +79,7 @@ Once the arguments have been defined, we can call the `predict_growth_uncertaint
 unc_growth <- predict_growth_uncertainty(my_model, my_times, n_sims, pars)
 ```
 
-Before doing any calculations, `predict_growth_uncertainty()` makes several consistency checks of the model parameters (this can be turned off by passing `check=FALSE`). It  returns an instance of `GrowthUncertainty` with the results of the simulation. It implements several S3 method to facilitate the interpretation of the model simulations. The `print` method provides an overview of the simulation setting.
+Before doing any calculations, `predict_growth_uncertainty()` makes several consistency checks of the model parameters (this can be turned off by passing `check=FALSE`). It  returns an instance of `GrowthUncertainty` with the results of the simulation. It implements several S3 methods to facilitate the interpretation of the model simulations. The `print` method provides an overview of the simulation setting.
 
 ```{r}
 print(unc_growth)
@@ -173,7 +173,7 @@ global_MCMC <- fit_growth(multiple_counts,
                          algorithm = "MCMC",
                          approach = "global",
                          env_conditions = multiple_conditions,
-                         niter = 100,
+                         niter = 10000,
                          lower = c(.2, 29),  # lower limits of the model parameters
                          upper = c(.8, 34)  # upper limits of the model parameters
                          ) 
