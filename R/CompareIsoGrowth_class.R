@@ -137,7 +137,7 @@ coef.GrowthComparison <- function(object, ...) {
             select("model", parameter = "name", estimate = "mean", std.err = "sd")
 
     } else {
-        stop("Something very bad happened here here")
+        stop("Something very bad happened here")
     }
 
 }
