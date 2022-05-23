@@ -20,7 +20,11 @@ library(biogrowth)
 library(tidyverse)
 ```
 
-In most situations, the model parameters of growth models cannot be known before hand. Instead, they must be estimated from experimental data. For this reason, model fitting is a central part of modeling the growth of populations. The **biogrowth** package can fit growth models from four different types of data:
+In most situations, the model parameters of growth models cannot be known beforehand. Instead, they must be estimated from experimental data. For this reason, model fitting is a central part of modeling the growth of populations. The **biogrowth** package can fit growth models from four different types of data:
+
+#COMMENT "it can fit primary growth models" does not really relate to the kind of data. Suggestion: can fit four types of models:
+#COMMENT Primary growth models
+#COMMENT Both primary... 
 
 * it can fit primary growth models 
 * it can fit both primary and secondary models from a single experiment under dynamic environmental conditions
@@ -33,15 +37,15 @@ This vignette describes the two functions that **biogrowth** implements for this
 
 Since version 1.0.0, **biogrowth** includes the `fit_growth()` function that provides a top-level interface for fitting primary (and secondary) growth models from experimental data. This function includes several arguments to describe the fitting approach, the model equations and the experimental data, as well as other factors of the model fitting. 
 
-The type of model to fit is defined in the `environment` argument. If `environment="constant"` (default), the function only fits a primary growth model to the data. On the other hand, if `environment="dynamic"`, the model fits both primary and secondary models according to the gamma approach. In this case, the function can fit the growth model either to a single inactivation experiment or to several ones (with different environmental conditions). This behavior is controlled by argument `approach`. 
+The type of model to fit is defined in the `environment` argument. If `environment="constant"` (default), the function only fits a primary growth model to the data. On the other hand, if `environment="dynamic"`, the model fits both primary and secondary models according to the gamma approach. In this case, the function can fit the growth model either to a single growth experiment or to several ones (with different environmental conditions). This behavior is controlled by argument `approach`. 
 
-Once the fitting approach has been defined, the model equations are defined through the `model_keys` argument, and the experimental data through `fit_data`. In the case of model fitted under dynamic environmental conditions, these are defined through `env_conditions`.
+Once the fitting approach has been defined, the model equations are defined through the `model_keys` argument, and the experimental data through `fit_data`. Models fitted under dynamic environmental conditions are defined through `env_conditions`.
 
-Model fitting is done through the **FME** package. This package includes two functions for model fitting: `modFit()` that uses (non-linear) regression, and `modMCMC()` that uses an adaptive Monte Carlo algorithm. The function `fit_growth()` allows a selection of either approach using the `algorithm` argument. If the MC algorithm is selected, the number of iterations is defined through `niter`. Both algorithms need initial guesses for every model parameter. These can be defined through the `start` argument. The **biogrowth** package includes several functions to aid in the definition of starting guesses of the model parameters, which will be described below. Furthermore, `fit_growth()` allows fixing any model parameter with the `known` argument. Lastly, additional arguments can be passed to either `modFit()` or `modMCMC()` with the `...` argument.
+Model fitting is done through the **FME** package. This package includes two functions for model fitting: `modFit()` that uses (non-linear) regression, and `modMCMC()` that uses an adaptive Monte Carlo algorithm. The function `fit_growth()` allows the selection of a fitting approach using the `algorithm` argument. If the MC algorithm is selected, the number of iterations is defined through `niter`. Both algorithms need initial guesses for every model parameter. These can be defined through the `start` argument. The **biogrowth** package includes several functions to aid in the definition of starting guesses of the model parameters, which will be described below. Furthermore, `fit_growth()` allows fixing any model parameter with the `known` argument. Lastly, additional arguments can be passed to either `modFit()` or `modMCMC()` with the `...` argument.
 
 Apart from that, the function includes several checks of the model definition. These can be turned off setting `check=FALSE`. 
 
-As well as `predict_growth()`, `fit_growth()` can make the calculations in different log-bases for both the population size and parameter $\mu$ using the arguments `logbase_mu` and `logbase_logN`. The reader is referred to the specific vignette dedicated to this topic for details on the units definition and the interpretation.
+Both `predict_growth()` and `fit_growth()` can make the calculations in different log-bases for both the population size and parameter $\mu$ using the arguments `logbase_mu` and `logbase_logN`. The reader is referred to the specific vignette dedicated to this topic for details on the units definition and the interpretation.
 
 Finally, the `formula` argument maps the elapsed time and the population size to the column names in the data. By default, `formula = logN ~ time`, meaning that the elapsed time is named `time` and the population size is named `logN` in the data. 
 
@@ -137,7 +141,7 @@ check_growth_guess(
 
 ```
 
-From the plot, it can be observed that the initial guess is already quite close to the experimental data. 
+From the plot, we can see that the initial guess is already quite close to the experimental data. 
 
 The last argument to be defined is `known`, which allows fixing any model parameter to a given value. This argument is also a named list with the same conventions as `start`. In a first example, we will define it as an empty vector, indicating that no model parameter is fixed (i.e. every one is estimated from the data).
 
@@ -168,7 +172,7 @@ The statistical summary of the fit can be retrieved using the `summary()` method
 summary(primary_fit)
 ```
 
-And the `plot()` method compares the model fitted against the experimental data. This function takes additional arguments that enable editting several aesthetics of the plot. For a complete list, please check the help page of `GrowthFit`. Note that this method returns an instance of `ggplot`, so it can be edited using additional layers.
+And the `plot()` method compares the model fitted against the experimental data. This function takes additional arguments that enable editing several aesthetics of the plot. For a complete list, please check the help page of `GrowthFit`. Note that this method returns an instance of `ggplot`, so it can be edited using additional layers.
 
 ```{r}
 plot(primary_fit, line_col = "red", point_shape = 1)
@@ -235,11 +239,13 @@ If the target population size is not reached within the fitted curve, the functi
 time_to_size(primary_fit, 8)
 ```
 
-This function can take two additional arguments. The argument `logbase_logN` allows defining `size` in different log-bases. By default, this function assumes the same base as the one used in the instance of `GrowthFit`. The second argument is type. By default, `type="discrete"`, indicating that the function calculates a single values of the elapsed time required to reach the target population size. Setting `type = "distribution"` accounts for parameter uncertainty and calculates a distribution for the elapsed time. This is described in detail in the vignette about including uncertainty in growth predictions.
+This function can take two additional arguments. The argument `logbase_logN` allows defining `size` in different log-bases. By default, this function assumes the same base as the one used in the instance of `GrowthFit`. The second argument is type. By default, `type="discrete"`, indicating that the function calculates a single value of the elapsed time required to reach the target population size. Setting `type = "distribution"` accounts for parameter uncertainty and calculates a distribution for the elapsed time. This is described in detail in the vignette about including uncertainty in growth predictions.
 
 ### Fitting both primary and secondar models from a single experiment under dynamic environnental conditions
 
-The `fit_growth()` function can also be used to fit a growth model based on both primary and secondary models to a set of data gathered under dynamic experimental conditions. This behavior is triggered by setting `environment="dynamic"`. Then, `fit_growth()` supports two fitting approach. The first one assumes that every data point was gathered (at different time points of) one or more growth experiments under a single, dynamic environmental profile. This method is set up setting `approach="single"`. The second on, triggered when `approach="global"` considers that different experiments could have different (dynamic) environmental conditions. This section describes the former approach, whereas the latter will be described in the following one.
+The `fit_growth()` function can also be used to fit a growth model based on both primary and secondary models to a set of data gathered under dynamic experimental conditions. This behavior is triggered by setting `environment="dynamic"`. Then, `fit_growth()` supports two fitting approaches. The first one assumes that every data point was gathered (at different time points of) one or more growth experiments under a single, dynamic environmental profile. This method is set up setting `approach="single"`. The second one, triggered when `approach="global"` considers that different experiments could have different (dynamic) environmental conditions. This section describes the former approach, whereas the latter will be described in the following section.
+
+#COMMENT based on the text above, I expected this example to be on `approach="single"`, is line below correct?  
 
 In this case, when `environment="dynamic"` and `approach="global"`, the function requires the definition of the following arguments:
 
@@ -373,7 +379,7 @@ Again, the `time_to_size()` function can be used to calculate the time required 
 time_to_size(my_dyna_fit, 3)
 ```
 
-### Fitting both primary and secondary mdoels from several experiments (global fitting)
+### Fitting both primary and secondary models from several experiments (global fitting)
 
 As mentioned above, `fit_growth()` can also fit a unique growth model to a set of experimental data including the results of growth experiments under different (dynamic) environmental conditions. This is triggered passing `approach="global"`. In this case, the function takes the same arguments as for `approach="single"`.
 
@@ -396,7 +402,7 @@ head(multiple_counts[[1]])
 
 ```
 
-In a similar way, the variation of the experimental conditions during the experiment are also described as a (named) list. This list should have the same length (and names) as the experimental data, so each growth experiment is mapped to an environmental profile. The conditions during each experiment are described following the same conventions as when `algorithm="single"`. That is, using a tibble (or data.frame) with one column describing the elapsed time and as many additional columns as environmental factors considered in the model. Note that, although the function admits any number of environmental conditions, every experiment must include the same environmental ones.
+In a similar way, the variation of the experimental conditions during the experiment are also described as a (named) list. This list should have the same length (and names) as the experimental data, so each growth experiment is mapped to an environmental profile. The conditions during each experiment are described following the same conventions as when `algorithm="single"`. That is, using a tibble (or data.frame) with one column describing the elapsed time and as many additional columns as environmental factors considered in the model. Note that, although the function admits any number of environmental conditions, these must be presnet in each experiment.
 
 The `multiple_conditions` dataset included in the package is a convenient example of this format. It includes the results of two experiments, paired with `multiple_counts`, that consider two environmental factors: `temperature` and `pH`.
 
@@ -450,6 +456,7 @@ global_fit <- fit_growth(multiple_counts,
                          ) 
 ```
 
+#COMMENT: Is the difference in S3 methods relevant for the end user? 
 In this case, the function returns an instance of `GlobalGrowthFit`. Although this class implements similar S3 methods as `GrowthFit`, in many cases, their behavior varies largely. For that reason, they are defined as separate classes. The print method provides a summary of the model fitted.
 
 ```{r}
@@ -502,7 +509,7 @@ The other modeling approach included in **biogrowth** is fitting secondary growt
 * `check`: whether to do some validity checks of the model parameters (`TRUE` by default).
 * `formula`: a formula defining the column name defining the growth rate.
 
-The `fit_data` argument must be a tibble containing the growth rates observed in several experiment under static environmental conditions. It must have one column describing the observed growth rate. Then, it must have as many additional columns as environmental factors included in the experiment. By default, the column describing the growth rate must be named `mu`. This can be changed using the `formula` argument, which is a one-sided formula, where the left hand side defines the column name.
+The `fit_data` argument must be a tibble containing the growth rates observed in several experiments under static environmental conditions. It must have one column describing the observed growth rate. Then, it must have as many additional columns as environmental factors included in the experiment. By default, the column describing the growth rate must be named `mu`. This can be changed using the `formula` argument, which is a one-sided formula, where the left hand side defines the column name.
 
 The **biogrowth** package includes the dataset `example_cardinal` to illustrate the data used by this function. It represents the specific growth rate (in log10 CFU/h) observed in several growth experiments under static environmental conditions, where each row represent one experiment. In this simulated dataset, two environmental factors were considered: temperature and pH. 
 
@@ -526,7 +533,7 @@ sec_model_names <- c(temperature = "Zwietering",
                      pH = "CPM")
 ```
 
-The `fit_secondary_growth()` function estimates the values of the cardinal parameters, as well as the growth rate under optimal conditions using the `modFit` function from **FME**, which uses non-linear regression. This algorithm requires the definition of initial guesses for every parameter estimates. These can be defined based on experience or exploratory analysis. In order to facilitate this definition, **biogrowth** includes the function `make_guess_secondary()`. This function makes a guess of the model parameters based on basic heuristic rules. It takes two arguments:
+The `fit_secondary_growth()` function estimates the values of the cardinal parameters, as well as the growth rate under optimal conditions using the `modFit` function from **FME**, which uses non-linear regression. This algorithm requires the definition of initial guesses for every parameter estimate. These can be defined based on experience or exploratory analysis. In order to facilitate this definition, **biogrowth** includes the function `make_guess_secondary()`. This function makes a guess of the model parameters based on basic heuristic rules. It takes two arguments:
 
 * `fit_data` the data for the fit
 * `sec_model_names` a named vector assigning models for each environmental factor
@@ -569,7 +576,7 @@ This class incorporates several S3 method to ease visualization of results. For 
 summary(fit_cardinal)
 ```
 
-In this case, the summary method shows `NA` values for the standard error of every model parameters. This is due to the poor identifiability of the model (e.g., due to parameter correlation). For this reason, it is often needed for this kind of model to fix some of the model parameters. This can be done with the `known_pars` argument, which is a numeric vector following the same conventions as `starting_point`. 
+In this case, the summary method shows `NA` values for the standard error of every model parameter. This is due to the poor identifiability of the model (e.g., due to parameter correlation). For this reason, it is often needed for this kind of model to fix some of the model parameters. This can be done with the `known_pars` argument, which is a numeric vector following the same conventions as `starting_point`. 
 
 The selection of parameters to fix is complex and is outside of the scope of this article. We recommend the interested reader checking the documentation of the **FME** package, as well as the  scientific literature on the topic (e.g. Tsiantis et al. (2018); 10.1093/bioinformatics/bty139). For this example, we will consider that the growth rate under optimum conditions is known, as well as most of the the cardinal parameters for pH. Regarding temperature, we will only fix the order of the model.
 
