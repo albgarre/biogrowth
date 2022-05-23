@@ -7,7 +7,7 @@
 #' The class [DynamicGrowth] has been superseded by the top-level
 #' class [GrowthPrediction], which provides a unified approach for growth modelling.
 #' 
-#' Still, it is still returned if the superseded [predict_dynamic_growth()] is called.
+#' Still, it is returned if the superseded [predict_dynamic_growth()] is called.
 #' 
 #' A subclass of list with items:
 #' \itemize{
