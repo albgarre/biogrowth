@@ -13,7 +13,7 @@
 #' @param sec_model_names named character vector with names the
 #' environmental conditions and values the secondary model (e.g. 'CPM').
 #' @param cost an instance of modCost to be combined (to fit multiple models).
-#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' @param logbase_mu Base of the logarithm of the growthrate. 
 #' By default, the same as logbase_logN. See vignette about units for details. 
 #' @param logbase_logN Base of the logarithm for the population size. By default,
 #' 10 (i.e. log10). See vignette about units for details.
@@ -41,7 +41,7 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
     ## Calculate the prediction
 
     times <- seq(0, max(fit_data$time), length = 1000)
-    
+    #COMMENT: can this commented part be removed?
     # prediction <- predict_dynamic_growth(times, env_conditions, as.list(primary_pars),
     #                                      secondary_models, check=FALSE)
     
@@ -89,7 +89,7 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
 #' Parameters for the primary model must be named in the usual way. Parameters for the
 #' secondary model are named as `env_factor`+'_'+`parameter`. For instance,
 #' the maximum growth temperature shall be named 'temperature_xmax'.
-#' @param known_pars A named vectors of known model parameters (i.e. not fitted). They
+#' @param known_pars A named vector of known model parameters (i.e. not fitted). They
 #' must be named using the same convention as for `starting_point`.
 #' @param sec_model_names A named character vector defining the secondary model for each
 #' environmental factor. The names define the factor and the value the type of model.
