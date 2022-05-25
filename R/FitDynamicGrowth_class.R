@@ -67,7 +67,7 @@ print.FitDynamicGrowth <- function(x, ...) {
 #' @param y ignored
 #' @param ... ignored.
 #' @param add_factor whether to plot also one environmental factor.
-#' If `NULL` (default), no environmenta factor is plotted. If set
+#' If `NULL` (default), no environmental factor is plotted. If set
 #' to one character string that matches one entry of x$env_conditions,
 #' that condition is plotted in the secondary axis
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
