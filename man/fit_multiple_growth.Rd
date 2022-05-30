@@ -29,8 +29,8 @@ The default column names can be changed with the formula argument.}
 
 \item{known_pars}{named vector of known model parameters}
 
-\item{sec_model_names}{named character vector with names the
-environmental conditions and values the secondary model (see secondary_model_data).}
+\item{sec_model_names}{named character vector with names of the
+environmental conditions and values of the secondary model (see secondary_model_data).}
 
 \item{...}{additional arguments for \code{\link[=modFit]{modFit()}}.}
 
@@ -54,7 +54,7 @@ An instance of \code{\link[=FitMultipleDynamicGrowth]{FitMultipleDynamicGrowth()
 The function \code{\link[=fit_multiple_growth]{fit_multiple_growth()}} has been superseded by the top-level
 function \code{\link[=fit_growth]{fit_growth()}}, which provides a unified approach for growth modelling.
 
-But, if you so wish, this functions still enables fitting a growth model using a dataset comprised of
+But, if you so wish, this function still enables fitting a growth model using a dataset comprised of
 several experiments with potentially different dynamic experimental conditions.
 Note that the definition of secondary models must comply with the
 \code{secondary_model_data} function.

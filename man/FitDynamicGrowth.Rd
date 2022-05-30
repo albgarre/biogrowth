@@ -62,7 +62,7 @@
 \item{y}{ignored}
 
 \item{add_factor}{whether to plot also one environmental factor.
-If \code{NULL} (default), no environmenta factor is plotted. If set
+If \code{NULL} (default), no environmental factor is plotted. If set
 to one character string that matches one entry of x$env_conditions,
 that condition is plotted in the secondary axis}
 

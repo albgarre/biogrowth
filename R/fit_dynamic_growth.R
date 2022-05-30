@@ -41,9 +41,6 @@ get_dyna_residuals <- function(this_p, fit_data, env_conditions,
     ## Calculate the prediction
 
     times <- seq(0, max(fit_data$time), length = 1000)
-    #COMMENT: can this commented part be removed?
-    # prediction <- predict_dynamic_growth(times, env_conditions, as.list(primary_pars),
-    #                                      secondary_models, check=FALSE)
     
     prediction <- predict_growth(environment = "dynamic",
                                  times,

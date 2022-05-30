@@ -4,7 +4,7 @@
 #' @description 
 #' `r lifecycle::badge("stable")`
 #' 
-#' The `GrowthPrediction` class contains the results of a growth prediction
+#' The `GrowthPrediction` class contains the results of a growth prediction.
 #' Its constructor is [predict_growth()].
 #' 
 #' It is a subclass of list with the items:
@@ -18,6 +18,7 @@
 #' - sec_models: a named list describing the secondary models as in [predict_growth()].
 #' `NULL` if `environment="constant"`.
 #' - gammas: a tibble describing the variation of the gamma factors through the experiment.
+#' `NUll` if `environment="constant"`.
 #' - logbase_mu: the log-base for the definition of parameter mu (see the relevant vignette)
 #' - logbase_logN: the log-base for the definition of the logarithm of the population size
 #' 

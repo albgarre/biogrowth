@@ -20,16 +20,12 @@ library(biogrowth)
 library(tidyverse)
 ```
 
-In most situations, the model parameters of growth models cannot be known beforehand. Instead, they must be estimated from experimental data. For this reason, model fitting is a central part of modeling the growth of populations. The **biogrowth** package can fit growth models from four different types of data:
+In most situations, the model parameters of growth models cannot be known beforehand. Instead, they must be estimated from experimental data. For this reason, model fitting is a central part of modeling the growth of populations. The **biogrowth** package can do four types of model fitting:
 
-#COMMENT "it can fit primary growth models" does not really relate to the kind of data. Suggestion: can fit four types of models:
-#COMMENT Primary growth models
-#COMMENT Both primary... 
-
-* it can fit primary growth models 
-* it can fit both primary and secondary models from a single experiment under dynamic environmental conditions
-* it can fit both primary and secondary models from multiple experiments (often called "global fitting")
-* it can fit secondary models to a dataset of growth rates
+* fitting primary growth models 
+* fitting both primary and secondary models from a single experiment under dynamic environmental conditions
+* fitting both primary and secondary models from multiple experiments (often called "global fitting")
+* fitting secondary models to a dataset of growth rates
 
 This vignette describes the two functions that **biogrowth** implements for this: `fit_growth()`  and `fit_secondary_growth()`.
 
@@ -245,9 +241,7 @@ This function can take two additional arguments. The argument `logbase_logN` all
 
 The `fit_growth()` function can also be used to fit a growth model based on both primary and secondary models to a set of data gathered under dynamic experimental conditions. This behavior is triggered by setting `environment="dynamic"`. Then, `fit_growth()` supports two fitting approaches. The first one assumes that every data point was gathered (at different time points of) one or more growth experiments under a single, dynamic environmental profile. This method is set up setting `approach="single"`. The second one, triggered when `approach="global"` considers that different experiments could have different (dynamic) environmental conditions. This section describes the former approach, whereas the latter will be described in the following section.
 
-#COMMENT based on the text above, I expected this example to be on `approach="single"`, is line below correct?  
-
-In this case, when `environment="dynamic"` and `approach="global"`, the function requires the definition of the following arguments:
+In this case, when `environment="dynamic"` and `approach="single"`, the function requires the definition of the following arguments:
 
 * `fit_data` to pass the experimental data
 * `model_keys` defining the model equation
@@ -456,8 +450,7 @@ global_fit <- fit_growth(multiple_counts,
                          ) 
 ```
 
-#COMMENT: Is the difference in S3 methods relevant for the end user? 
-In this case, the function returns an instance of `GlobalGrowthFit`. Although this class implements similar S3 methods as `GrowthFit`, in many cases, their behavior varies largely. For that reason, they are defined as separate classes. The print method provides a summary of the model fitted.
+In this case, the function returns an instance of `GlobalGrowthFit`. The print method provides a summary of the model fitted.
 
 ```{r}
 print(global_fit)

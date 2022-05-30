@@ -68,7 +68,7 @@ that condition is plotted in the secondary axis}
 The class \link{DynamicGrowth} has been superseded by the top-level
 class \link{GrowthPrediction}, which provides a unified approach for growth modelling.
 
-Still, it is still returned if the superseded \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}} is called.
+Still, it is returned if the superseded \code{\link[=predict_dynamic_growth]{predict_dynamic_growth()}} is called.
 
 A subclass of list with items:
 \itemize{

@@ -62,6 +62,7 @@ print.FitSecondaryGrowth <- function(x, ...) {
 #' @importFrom ggplot2 theme_bw element_blank facet_wrap theme geom_segment
 #' @importFrom tidyr pivot_longer
 #' @importFrom stats residuals
+#' @importFrom tidyr matches
 #' 
 #'
 #' @export

@@ -68,7 +68,7 @@ predict_stochastic_growth <- function(model_name,
 #' (uncorrelated parameters).
 #' @param check Whether to do some tests. `FALSE` by default.
 #'
-#' @return An instance of [StochasticGrowth()].
+#' @return An instance of [GrowthUncertainty()].
 #'
 #' @importFrom MASS mvrnorm
 #' @importFrom dplyr mutate

@@ -30,8 +30,8 @@ The default column names can be changed with the formula argument.}
 
 \item{known_pars}{named vector of known model parameters}
 
-\item{sec_model_names}{named character vector with names the
-environmental conditions and values the secondary model (see secondary_model_data).}
+\item{sec_model_names}{named character vector with names of the
+environmental conditions and values of the secondary model (see secondary_model_data).}
 
 \item{niter}{number of samples of the MCMC algorithm.}
 

@@ -8,7 +8,7 @@ calculate_gammas_secondary(sec_model_names, my_data, secondary_models)
 }
 \arguments{
 \item{sec_model_names}{named character vector defining the type of secondary
-model. Its names correspond to the environmental condition and the values
+model. Its names correspond to the environmental conditions and its values
 define the corresponding type of secondary model.}
 
 \item{my_data}{Tibble of experimental conditions.}

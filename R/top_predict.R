@@ -87,8 +87,7 @@
 #' @param formula An object of class "formula" describing the x variable for predictions 
 #' under dynamic conditions. `. ~ time` as a default.
 #' 
-#' @return For environment="constant", an instance of [IsothermalGrowth()] . 
-#' For environment="dynamic", an instance of [DynamicGrowth()].
+#' @return An instance of [GrowthPrediction].
 #' 
 #' 
 #' @export

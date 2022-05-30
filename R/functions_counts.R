@@ -112,13 +112,6 @@ time_to_logcount <- function(model, log_count) {
 #' 
 #' stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
 #'
-#' ## We can now call the function
-#'
-#' time_distrib <- distribution_to_logcount(stoc_growth, 4)
-#'
-#' ## And plot the results
-#'
-#' plot(time_distrib)
 #' }
 #'
 distribution_to_logcount <- function(model, log_count) {
@@ -246,9 +239,10 @@ distribution_to_logcount <- function(model, log_count) {
 #' known_pars <- list(Nmax = 1e8, N0 = 1e0, Q0 = 1e-3,
 #'                    temperature_n = 2, temperature_xmin = 20, 
 #'                    temperature_xmax = 35,
+#'                    temperature_xopt = 30,
 #'                    pH_n = 2, pH_xmin = 5.5, pH_xmax = 7.5, pH_xopt = 6.5)
 #'                    
-#' my_start <- list(mu_opt = .8, temperature_xopt = 30)
+#' my_start <- list(mu_opt = .8)
 #' 
 #' global_fit <- fit_growth(multiple_counts, 
 #'                          sec_models, 

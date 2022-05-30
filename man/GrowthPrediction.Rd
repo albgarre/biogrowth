@@ -68,7 +68,7 @@ that condition is plotted in the secondary axis. Ignored for \code{environment="
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-The \code{GrowthPrediction} class contains the results of a growth prediction
+The \code{GrowthPrediction} class contains the results of a growth prediction.
 Its constructor is \code{\link[=predict_growth]{predict_growth()}}.
 
 It is a subclass of list with the items:
@@ -82,6 +82,7 @@ environmental conditions. \code{NULL} if \code{environment="constant"}.
 \item sec_models: a named list describing the secondary models as in \code{\link[=predict_growth]{predict_growth()}}.
 \code{NULL} if \code{environment="constant"}.
 \item gammas: a tibble describing the variation of the gamma factors through the experiment.
+\code{NUll} if \code{environment="constant"}.
 \item logbase_mu: the log-base for the definition of parameter mu (see the relevant vignette)
 \item logbase_logN: the log-base for the definition of the logarithm of the population size
 }

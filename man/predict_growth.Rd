@@ -46,8 +46,7 @@ By default, the same as logbase_logN. See vignette about units for details.}
 under dynamic conditions. \code{. ~ time} as a default.}
 }
 \value{
-For environment="constant", an instance of \code{\link[=IsothermalGrowth]{IsothermalGrowth()}} .
-For environment="dynamic", an instance of \code{\link[=DynamicGrowth]{DynamicGrowth()}}.
+An instance of \link{GrowthPrediction}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}

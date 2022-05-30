@@ -23,6 +23,8 @@
 #' - niter: number of iterations of the Markov chain. `NULL` if `algorithm != "MCMC"`
 #' - logbase_mu: base of the logarithm for the definition of parameter mu 
 #' (check the relevant vignette)
+#' - logbase_logN: base of the logarithm for the definition of the population size 
+#' (check the relevant vignette)
 #' - environment: "dynamic". Always
 #' 
 #' @name GlobalGrowthFit

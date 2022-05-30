@@ -61,8 +61,8 @@ pars <- tribble(
     )
 ```
 
-For the time points, we will take 100 points uniformly distributed between 0 and 200:
-#COMMENT, this is between 0 and 15. Not 200
+For the time points, we will take 100 points uniformly distributed between 0 and 15:
+
 ```{r}
 my_times <- seq(0, 15, length = 100)
 ```
@@ -142,7 +142,6 @@ First, we need a model fitted using `fit_growth()`. In this example, we will use
 The following code chunk fits the growth model using a global approach. For a detailed description of the `fit_growth()` function, the reader is referred to the vignette dedicated to model fitting.
 
 ```{r}
-
 ## We will use the data included in the package
 
 data("multiple_counts")
@@ -173,7 +172,7 @@ global_MCMC <- fit_growth(multiple_counts,
                          algorithm = "MCMC",
                          approach = "global",
                          env_conditions = multiple_conditions,
-                         niter = 10000,
+                         niter = 100,
                          lower = c(.2, 29),  # lower limits of the model parameters
                          upper = c(.8, 34)  # upper limits of the model parameters
                          ) 

@@ -36,7 +36,7 @@ Parameters for the primary model must be named in the usual way. Parameters for 
 secondary model are named as \code{env_factor}+'_'+\code{parameter}. For instance,
 the maximum growth temperature shall be named 'temperature_xmax'.}
 
-\item{known_pars}{A named vectors of known model parameters (i.e. not fitted). They
+\item{known_pars}{A named vector of known model parameters (i.e. not fitted). They
 must be named using the same convention as for \code{starting_point}.}
 
 \item{sec_model_names}{A named character vector defining the secondary model for each

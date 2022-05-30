@@ -23,9 +23,7 @@ library(tidyverse)
 
 Growth predictions in **biogrowth** are done using the `predict_growth()` function. It provides a unified interface for making predictions with a variety of modeling approaches. This vignette provides a detailed description of the arguments of `predict_growth()` and how they can be used to make different kinds of model predictions. For a detailed description of the mathematical models available in the package and the computational methods used, please check the relevant vignette. 
 
-#COMMENT Is it 6 (7 including check) or 9 arguments here?
-
-The `predict_growth()` function has 9 arguments, as well as the `...` argument to pass additional arguments to the functions used for making the predictions. The prediction is defined by the following 6 arguments:
+The `predict_growth()` function has 6 arguments, as well as the `...` argument to pass additional arguments to the functions used for making the predictions. The prediction is defined by the following 6 arguments:
 
 * `times` defines the time points for the calculation of the prediction,
 * `primary_model` defines the primary growth model (both the model equation an the values of the model parameters),
@@ -285,8 +283,8 @@ For instance, we will define a gamma-type model for temperature as defined by Zw
 ```{r}
 secondary_model_data("Zwietering")$pars
 ```
-#COMMENT, we did not mention cardinal values before. Should we introduce or define differently? 
-In this case, we need the minimum (`xmin`) and optimum (`xopt`) cardinal values, as well as the order of the model (`n`). We define them using individual entries in the list:
+
+In this case, we need to define parameters `xmin`, `xopt` and `n` (for a detailed description of the modeling approach, please check the relevant vignette). We define them using individual entries in the list:
 
 
 ```{r}

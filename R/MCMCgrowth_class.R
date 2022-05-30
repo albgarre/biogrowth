@@ -2,10 +2,11 @@
 #' MCMCgrowth class
 #' 
 #' @description 
+#' `r lifecycle::badge("stable")`
+#' 
 #' The `MCMCgrowth` class contains the results of a growth prediction
 #' consider parameter variability based on a model
-#' fitted using [fit_MCMC_growth()] or 
-#' [fit_multiple_growth_MCMC()].
+#' fitted using an MCMC algorithm.
 #' 
 #' It is a subclass of list with items:
 #' \itemize{

@@ -29,7 +29,7 @@ same order as in \code{pars}. An identity matrix by default
 \item{check}{Whether to do some tests. \code{FALSE} by default.}
 }
 \value{
-An instance of \code{\link[=StochasticGrowth]{StochasticGrowth()}}.
+An instance of \code{\link[=GrowthUncertainty]{GrowthUncertainty()}}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}

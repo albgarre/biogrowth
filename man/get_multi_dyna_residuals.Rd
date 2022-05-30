@@ -23,8 +23,8 @@ and as many additional columns as environmental factors.}
 
 \item{known_pars}{named vector of known model parameters}
 
-\item{sec_model_names}{named character vector with names the
-environmental conditions and values the secondary model (see secondary_model_data).}
+\item{sec_model_names}{named character vector with names of the
+environmental conditions and values of the secondary model (see secondary_model_data).}
 
 \item{logbase_mu}{Base of the logarithm the growth rate is referred to.
 By default, the same as logbase_logN. See vignette about units for details.}

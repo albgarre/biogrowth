@@ -46,13 +46,6 @@ pars <- tribble(
 
 stoc_growth <- predict_stochastic_growth(my_model, my_times, n_sims, pars)
 
-## We can now call the function
-
-time_distrib <- distribution_to_logcount(stoc_growth, 4)
-
-## And plot the results
-
-plot(time_distrib)
 }
 
 }

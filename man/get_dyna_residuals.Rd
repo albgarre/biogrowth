@@ -29,7 +29,7 @@ environmental conditions and values the secondary model (e.g. 'CPM').}
 
 \item{cost}{an instance of modCost to be combined (to fit multiple models).}
 
-\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+\item{logbase_mu}{Base of the logarithm of the growthrate.
 By default, the same as logbase_logN. See vignette about units for details.}
 
 \item{logbase_logN}{Base of the logarithm for the population size. By default,

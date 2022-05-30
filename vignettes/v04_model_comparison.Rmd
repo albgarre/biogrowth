@@ -231,8 +231,7 @@ my_models <- list(`n=1` = fit1, `n=2` = fit2)
 secondary_comparison <- compare_secondary_fits(my_models)
 ```
 
-The function returns an instance of `SecondaryGrowthComparison`. It includes similar S3 methods as those defined for the other types of model fits. The main difference is that it cannot plot directly the fitted model against the data. The reason for that is that `fit_secondary_growth` can use an arbitrary number of dimensions (in the example: temperature and pH). Therefore, representing the predictions as a function of a unique factor is not simple.
-#COMMENT: representing the predictions as a function of a unique factor is not simple. Suggest change to: is not very informative. 
+The function returns an instance of `SecondaryGrowthComparison`. It includes similar S3 methods as those defined for the other types of model fits. The main difference is that it cannot plot directly the fitted model against the data. The reason for that is that `fit_secondary_growth` can use an arbitrary number of dimensions (in the example: temperature and pH). Therefore, representing the predictions as a function of a unique factor is not very informative.
 
 ```{r, fig.width=6}
 print(secondary_comparison)
