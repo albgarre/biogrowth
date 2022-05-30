@@ -23,7 +23,9 @@ library(tidyverse)
 
 Growth predictions in **biogrowth** are done using the `predict_growth()` function. It provides a unified interface for making predictions with a variety of modeling approaches. This vignette provides a detailed description of the arguments of `predict_growth()` and how they can be used to make different kinds of model predictions. For a detailed description of the mathematical models available in the package and the computational methods used, please check the relevant vignette. 
 
-The `predict_growth()` function has 9 arguments, as well as an additional `...` argument to pass additional arguments to the functions used for making the predictions. The prediction is defined by the following 6 arguments:
+#COMMENT Is it 6 (7 including check) or 9 arguments here?
+
+The `predict_growth()` function has 9 arguments, as well as the `...` argument to pass additional arguments to the functions used for making the predictions. The prediction is defined by the following 6 arguments:
 
 * `times` defines the time points for the calculation of the prediction,
 * `primary_model` defines the primary growth model (both the model equation an the values of the model parameters),
@@ -42,13 +44,13 @@ Because the growth of population often spans several orders of magnitude, the mo
 
 ### Basic growth predictions
 
-The argument `environment` defines the type of model that `predict_growth()` will use to calculate the model predictions. When `environment="constant"`, calculations are calculated based only on primary models. The model equation and the values of the model parameters are defined through the argument `primary_model`. It must be a named list with one entry called `"model"` that defines the model equation. The keys identifying the types of model can be retrieved by calling the `primary_model_data()`.
+The argument `environment` defines the type of model that `predict_growth()` will use to calculate the model predictions. When `environment="constant"`, calculations are calculated based only on primary models. The model equation and the values of the model parameters are defined through the argument `primary_model`. It must be a named list with one entry called `"model"` that defines the model equation. The keys identifying the types of model can be retrieved by calling `primary_model_data()`.
 
 ```{r}
 primary_model_data()
 ```
 
-In this example, we will use the modified Baranyi model
+In this example, we will use the modified Baranyi model.
 
 ```{r}
 my_model <- "Baranyi"
@@ -60,7 +62,7 @@ Then, the values of the model parameters are defined using additional entries in
 primary_model_data(my_model)$pars
 ```
 
-Therefore, the Baranyi model requires the definition of the logarithm of the initial population size (`logN0`), the maximum population size in the stationary phase (`logNmax`), the growth rate during the exponential growth phase `mu` and the duration of the lag phase `lambda`. In this example, we will assign `logN0=1`, `logNmax=7`, `mu=0.2` and `lambda=20`. 
+Here we can see that the Baranyi model requires the definition of the logarithm of the initial population size (`logN0`), the maximum population size in the stationary phase (`logNmax`), the growth rate during the exponential growth phase `mu` and the duration of the lag phase `lambda`. In this example, we will assign `logN0=1`, `logNmax=7`, `mu=0.2` and `lambda=20`. 
 
 ```{r}
 primary_model <- list(model = my_model, logN0 = 1, logNmax = 7, mu = .2, lambda = 20)
@@ -68,7 +70,7 @@ primary_model <- list(model = my_model, logN0 = 1, logNmax = 7, mu = .2, lambda 
 
 For additional details on the model equations and the interpretation of the different model parameters, the reader is referred to the specific vignette about mathematical methods.
 
-In the case of model predictions under constant environmental conditions, the simulations are calculated by solving the algebraic form of the model equation. The time points were it is calculated must be defined using the `times` argument, which is a numeric vector of any length. In this case, we will use a regular vector from 0 to 100 with 1,000 uniformly spaced points.
+For model predictions under constant environmental conditions, the simulations are calculated by solving the algebraic form of the model equation. The time points were it is calculated must be defined using the `times` argument, which is a numeric vector of any length. In this case, we will use a regular vector from 0 to 100 with 1,000 uniformly spaced points.
 
 ```{r}
 my_times <- seq(0, 100, length = 1000)
@@ -109,7 +111,7 @@ plot(my_prediction,
      line_type = "dotted")
 ```
 
-For a detailed description of the arguments admitted by the function, please check its help page (e.g. with `?plot.GrowthPrediction`). Note that the function returns an instance of `ggplot`, so it can be edited using additional layers
+For a detailed description of the arguments admitted by the function, please check its help page (e.g. with `?plot.GrowthPrediction`). Note that `plot()` returns an instance of `ggplot`, so it can be edited using additional layers
 
 ```{r, fig.width=6}
 plot(my_prediction) + theme_gray() + xlab("Time (years)")
@@ -221,7 +223,8 @@ time_to_size(prediction_base_e, log10(exp(5)), logbase_logN = 10)
 
 ## Growth predictions under dynamic environmental conditions
 
-The function `predict_growth()` can account for the effect of changes in the environmental conditions on parameter $\mu$. This behaviour is triggered setting `environment="dynamic"`. This requires the definition of additional arguments:
+The function `predict_growth()` can account for the effect of changes in the environmental conditions on parameter $\mu$. This behaviour is triggered setting `environment="dynamic"`, and requires the definition of additional arguments:
+
 * `secondary_models`, a nested named list that defines the secondary models (models that describe the effect of the changes of the environmental conditions on $\mu$)
 * `env_conditions`, a tibble (or data.frame) that describe the variation of the environmental conditions during the experiment.
 
@@ -252,7 +255,7 @@ ggplot(my_conditions) +
 
 We could define *smoother* profiles using additional rows. For time points outside of the range defined in `env_conditions`, the value at the closes extreme is used (rule=2 from `approx` function).
 
-For dynamic conditions, **biogrowth** uses the Baranyi growth model as primary model. This model requires the definition of two model parameters: the specific growth rate at optimum conditions (`mu_opt`) and the maximum population size (`Nmax`). Moreover, the initial values of the population size (`N0`) and the theoretical substance $Q$ (`Q0`) must be defined. Note that $Q_0$ is related to the duration of the lag phase under isothermal conditions by the identity $\lambda = \ln \left( 1 + 1/q_0 \right)/\mu_{max}$. For the `predict_dynamic_growth()`function, they all must be defined in a single list:
+For dynamic conditions, **biogrowth** uses the Baranyi growth model as primary model. This model requires the definition of two model parameters: the specific growth rate at optimum conditions (`mu_opt`) and the maximum population size (`Nmax`). Moreover, the initial values of the population size (`N0`) and the theoretical substance $Q$ (`Q0`) must be defined. Note that $Q_0$ is related to the duration of the lag phase under isothermal conditions by the identity $\lambda = \ln \left( 1 + 1/q_0 \right)/\mu_{max}$. For the `predict_dynamic_growth()` function, all variables must be defined in a single list:
 
  
 ```{r}
@@ -270,7 +273,7 @@ $$
 $$
 
 
-Therefore, in this example, we need to define one secondary model per environmental condition. This must be done using a list. We define a list per environmental condition that defines the type of gamma model as well as the model parameters. The function `secondary_model_data()` can aid in the definition of the secondary models. Calling it without any arguments returns the available model keys.
+Therefore, in this example, we need to define one secondary model per environmental condition. This must be done using a list. This list should contain the type of gamma model as well as the model parameters for each environmental condition. The function `secondary_model_data()` can aid in the definition of the secondary models. Calling it without any arguments returns the available model keys.
 
 ```{r}
 secondary_model_data()
@@ -282,7 +285,7 @@ For instance, we will define a gamma-type model for temperature as defined by Zw
 ```{r}
 secondary_model_data("Zwietering")$pars
 ```
-
+#COMMENT, we did not mention cardinal values before. Should we introduce or define differently? 
 In this case, we need the minimum (`xmin`) and optimum (`xopt`) cardinal values, as well as the order of the model (`n`). We define them using individual entries in the list:
 
 
@@ -293,7 +296,7 @@ sec_temperature <- list(model = "Zwietering",
                         n = 1)
 ```
 
-Next, we will define a CPM model for the effect of pH. Note that the model selection is for illustration purposes, not based on any scientific knowledge. First of all, we need to set the item `model` to `"CPM"`. Then, we need to define the model parameters (note this model also needs `xmax`).
+Next, we will define a CPM model for the effect of pH. Note that the model selection is for illustration purposes, not based on any scientific knowledge. First of all, we need to set the item `model` to `"CPM"`. Then, we need to define the model parameters (note that this model also needs `xmax`).
 
 ```{r}
 sec_pH <- list(model = "CPM",
@@ -352,7 +355,7 @@ plot(dynamic_prediction,
      label_y2 = "Temperature (ºC)")
 ```
 
-As well as for predictions under constant environmental conditions, `time_to_size` can estimate the time required to reach a given population size:
+Similar to predictions under constant environmental conditions, `time_to_size` can estimate the time required to reach a given population size:
 
 ```{r}
 time_to_size(dynamic_prediction, 3)

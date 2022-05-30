@@ -7,7 +7,7 @@
 #' The class [FitDynamicGrowthMCMC] has been superseded by the top-level
 #' class [GrowthFit], which provides a unified approach for growth modelling.
 #' 
-#' Still, it is still returned if the superseded [fit_MCMC_growth()] is called.
+#' Still, it is returned if the superseded [fit_MCMC_growth()] is called.
 #' 
 #' It is a subclass of list with the items:
 #'      \itemize{

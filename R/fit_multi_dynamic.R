@@ -8,8 +8,8 @@
 #'
 #' @param this_p named vector of model parameters
 #' @param known_pars named vector of known model parameters
-#' @param sec_model_names named character vector with names the
-#' environmental conditions and values the secondary model (see secondary_model_data).
+#' @param sec_model_names named character vector with names of the
+#' environmental conditions and values of the secondary model (see secondary_model_data).
 #' @param experiment_data a nested list with the experimental data. Each entry describes
 #' one experiment as a list with two elements: data and conditions. `data` is a tibble
 #' with two columns: time and logN. `conditions` is a tibble with one column named time
@@ -56,7 +56,7 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #' The function [fit_multiple_growth()] has been superseded by the top-level
 #' function [fit_growth()], which provides a unified approach for growth modelling.
 #'
-#' But, if you so wish, this functions still enables fitting a growth model using a dataset comprised of
+#' But, if you so wish, this function still enables fitting a growth model using a dataset comprised of
 #' several experiments with potentially different dynamic experimental conditions.
 #' Note that the definition of secondary models must comply with the
 #' `secondary_model_data` function.
