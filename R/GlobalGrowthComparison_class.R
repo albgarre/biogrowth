@@ -60,11 +60,6 @@ coef.GlobalGrowthComparison <- function(object, ...) {
         
     } else if (object$algorithm == "MCMC") {
         
-        object %>% summary() %>%
-            as_tibble(rownames = "index") %>%
-            pivot_longer(-"index") %>%
-            pivot_wider(values_from = "value", names_from = "index")
-
         object$models %>%
             map(~ summary(.)) %>%
             map(~ as_tibble(., rownames = "index")) %>%
