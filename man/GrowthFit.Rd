@@ -156,32 +156,32 @@ fitting. \code{NULL} for \code{environment="constant"}
 (check the relevant vignette)
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.GrowthFit}: print of the model
+\item \code{print(GrowthFit)}: print of the model
 
-\item \code{coef.GrowthFit}: vector of fitted model parameters.
+\item \code{coef(GrowthFit)}: vector of fitted model parameters.
 
-\item \code{summary.GrowthFit}: statistical summary of the fit.
+\item \code{summary(GrowthFit)}: statistical summary of the fit.
 
-\item \code{predict.GrowthFit}: vector of model predictions.
+\item \code{predict(GrowthFit)}: vector of model predictions.
 
-\item \code{residuals.GrowthFit}: vector of model residuals.
+\item \code{residuals(GrowthFit)}: vector of model residuals.
 
-\item \code{vcov.GrowthFit}: variance-covariance matrix of the model, estimated
+\item \code{vcov(GrowthFit)}: variance-covariance matrix of the model, estimated
 as 1/(0.5*Hessian) for regression and as the variance-covariance of the draws
 for MCMC
 
-\item \code{deviance.GrowthFit}: deviance of the model.
+\item \code{deviance(GrowthFit)}: deviance of the model.
 
-\item \code{fitted.GrowthFit}: vector of fitted values.
+\item \code{fitted(GrowthFit)}: vector of fitted values.
 
-\item \code{logLik.GrowthFit}: loglikelihood of the model
+\item \code{logLik(GrowthFit)}: loglikelihood of the model
 
-\item \code{AIC.GrowthFit}: Akaike Information Criterion
+\item \code{AIC(GrowthFit)}: Akaike Information Criterion
 
-\item \code{plot.GrowthFit}: compares the fitted model against the data.
+\item \code{plot(GrowthFit)}: compares the fitted model against the data.
 
-\item \code{predictMCMC.GrowthFit}: prediction including parameter uncertainty
+\item \code{predictMCMC(GrowthFit)}: prediction including parameter uncertainty
+
 }}
-

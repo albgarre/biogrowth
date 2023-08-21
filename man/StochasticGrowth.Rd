@@ -68,11 +68,11 @@ each time point.
 \details{
 FitIsoGrowth class
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.StochasticGrowth}: print of the model
+\item \code{print(StochasticGrowth)}: print of the model
 
-\item \code{plot.StochasticGrowth}: Growth prediction (prediction band) considering
+\item \code{plot(StochasticGrowth)}: Growth prediction (prediction band) considering
 parameter uncertainty.
-}}
 
+}}

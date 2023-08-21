@@ -91,29 +91,29 @@ It is a subclass of list with the items:
 \item best_prediction: model prediction for the model fitted.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.FitIsoGrowth}: print of the model
+\item \code{print(FitIsoGrowth)}: print of the model
 
-\item \code{plot.FitIsoGrowth}: compares the fitted model against the data.
+\item \code{plot(FitIsoGrowth)}: compares the fitted model against the data.
 
-\item \code{summary.FitIsoGrowth}: statistical summary of the fit.
+\item \code{summary(FitIsoGrowth)}: statistical summary of the fit.
 
-\item \code{residuals.FitIsoGrowth}: vector of model residuals.
+\item \code{residuals(FitIsoGrowth)}: vector of model residuals.
 
-\item \code{coef.FitIsoGrowth}: vector of fitted model parameters.
+\item \code{coef(FitIsoGrowth)}: vector of fitted model parameters.
 
-\item \code{vcov.FitIsoGrowth}: variance-covariance matrix of the model, estimated
+\item \code{vcov(FitIsoGrowth)}: variance-covariance matrix of the model, estimated
 as 1/(0.5*Hessian)
 
-\item \code{deviance.FitIsoGrowth}: deviance of the model.
+\item \code{deviance(FitIsoGrowth)}: deviance of the model.
 
-\item \code{fitted.FitIsoGrowth}: vector of fitted values.
+\item \code{fitted(FitIsoGrowth)}: vector of fitted values.
 
-\item \code{predict.FitIsoGrowth}: vector of model predictions.
+\item \code{predict(FitIsoGrowth)}: vector of model predictions.
 
-\item \code{logLik.FitIsoGrowth}: loglikelihood of the model
+\item \code{logLik(FitIsoGrowth)}: loglikelihood of the model
 
-\item \code{AIC.FitIsoGrowth}: Akaike Information Criterion
+\item \code{AIC(FitIsoGrowth)}: Akaike Information Criterion
+
 }}
-

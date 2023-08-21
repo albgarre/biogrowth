@@ -121,29 +121,29 @@ It is a subclass of list with the items:
 for each environmental factor
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.FitDynamicGrowth}: comparison between the fitted model and the data.
+\item \code{print(FitDynamicGrowth)}: comparison between the fitted model and the data.
 
-\item \code{plot.FitDynamicGrowth}: comparison between the fitted model and the data.
+\item \code{plot(FitDynamicGrowth)}: comparison between the fitted model and the data.
 
-\item \code{summary.FitDynamicGrowth}: statistical summary of the fit.
+\item \code{summary(FitDynamicGrowth)}: statistical summary of the fit.
 
-\item \code{residuals.FitDynamicGrowth}: residuals of the model.
+\item \code{residuals(FitDynamicGrowth)}: residuals of the model.
 
-\item \code{coef.FitDynamicGrowth}: vector of fitted parameters.
+\item \code{coef(FitDynamicGrowth)}: vector of fitted parameters.
 
-\item \code{vcov.FitDynamicGrowth}: (unscaled) variance-covariance matrix of the model,
+\item \code{vcov(FitDynamicGrowth)}: (unscaled) variance-covariance matrix of the model,
 calculated as 1/(0.5*Hessian)
 
-\item \code{deviance.FitDynamicGrowth}: deviance of the model.
+\item \code{deviance(FitDynamicGrowth)}: deviance of the model.
 
-\item \code{fitted.FitDynamicGrowth}: fitted values.
+\item \code{fitted(FitDynamicGrowth)}: fitted values.
 
-\item \code{predict.FitDynamicGrowth}: model predictions.
+\item \code{predict(FitDynamicGrowth)}: model predictions.
 
-\item \code{logLik.FitDynamicGrowth}: loglikelihood of the model
+\item \code{logLik(FitDynamicGrowth)}: loglikelihood of the model
 
-\item \code{AIC.FitDynamicGrowth}: Akaike Information Criterion
+\item \code{AIC(FitDynamicGrowth)}: Akaike Information Criterion
+
 }}
-

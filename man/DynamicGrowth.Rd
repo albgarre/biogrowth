@@ -81,12 +81,12 @@ conditions.
 \item sec_models: A nested list defining the secondary models.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.DynamicGrowth}: print of the model
+\item \code{print(DynamicGrowth)}: print of the model
 
-\item \code{plot.DynamicGrowth}: predicted growth curve under dynamic conditions.
+\item \code{plot(DynamicGrowth)}: predicted growth curve under dynamic conditions.
 
-\item \code{coef.DynamicGrowth}: coefficients of the model
+\item \code{coef(DynamicGrowth)}: coefficients of the model
+
 }}
-

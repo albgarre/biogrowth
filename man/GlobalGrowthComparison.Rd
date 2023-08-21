@@ -43,17 +43,17 @@ and visual analyses. Please check the sections below for details.
 Note that all these tools use the names defined in \code{\link[=compare_growth_fits]{compare_growth_fits()}}, so
 we recommend passing a named list to that function.
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{coef.GlobalGrowthComparison}: table of parameter estimates
+\item \code{coef(GlobalGrowthComparison)}: table of parameter estimates
 
-\item \code{summary.GlobalGrowthComparison}: summary table for the comparison
+\item \code{summary(GlobalGrowthComparison)}: summary table for the comparison
 
-\item \code{print.GlobalGrowthComparison}: print of the model comparison
+\item \code{print(GlobalGrowthComparison)}: print of the model comparison
 
-\item \code{plot.GlobalGrowthComparison}: illustrations comparing the fitted models
+\item \code{plot(GlobalGrowthComparison)}: illustrations comparing the fitted models
+
 }}
-
 \section{Statistical indexes}{
 
 \code{GlobalGrowthComparison} implements two S3 methods to obtain numerical values to facilitate

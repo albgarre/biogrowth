@@ -122,34 +122,34 @@ It is a subclass of list with the items:
 for each environmental factor.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.FitMultipleDynamicGrowth}: print of the model
+\item \code{print(FitMultipleDynamicGrowth)}: print of the model
 
-\item \code{plot.FitMultipleDynamicGrowth}: comparison between the fitted model and
+\item \code{plot(FitMultipleDynamicGrowth)}: comparison between the fitted model and
 the experimental data.
 
-\item \code{summary.FitMultipleDynamicGrowth}: statistical summary of the fit.
+\item \code{summary(FitMultipleDynamicGrowth)}: statistical summary of the fit.
 
-\item \code{residuals.FitMultipleDynamicGrowth}: calculates the model residuals. Returns a
+\item \code{residuals(FitMultipleDynamicGrowth)}: calculates the model residuals. Returns a
 tibble with 4 columns: time (storage time), logN (observed count),
 exp (name of the experiment) and res (residual).
 
-\item \code{coef.FitMultipleDynamicGrowth}: vector of fitted parameters.
+\item \code{coef(FitMultipleDynamicGrowth)}: vector of fitted parameters.
 
-\item \code{vcov.FitMultipleDynamicGrowth}: (unscaled) variance-covariance matrix,
+\item \code{vcov(FitMultipleDynamicGrowth)}: (unscaled) variance-covariance matrix,
 estimated as 1/(0.5*Hessian).
 
-\item \code{deviance.FitMultipleDynamicGrowth}: deviance of the model.
+\item \code{deviance(FitMultipleDynamicGrowth)}: deviance of the model.
 
-\item \code{fitted.FitMultipleDynamicGrowth}: fitted values. They are returned as a
+\item \code{fitted(FitMultipleDynamicGrowth)}: fitted values. They are returned as a
 tibble with 3 columns: time (storage time), exp (experiment
 identifier) and fitted (fitted value).
 
-\item \code{predict.FitMultipleDynamicGrowth}: vector of model predictions
+\item \code{predict(FitMultipleDynamicGrowth)}: vector of model predictions
 
-\item \code{logLik.FitMultipleDynamicGrowth}: loglikelihood of the model
+\item \code{logLik(FitMultipleDynamicGrowth)}: loglikelihood of the model
 
-\item \code{AIC.FitMultipleDynamicGrowth}: Akaike Information Criterion
+\item \code{AIC(FitMultipleDynamicGrowth)}: Akaike Information Criterion
+
 }}
-

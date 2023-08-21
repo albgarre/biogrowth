@@ -1,0 +1,24 @@
+
+bibentry(bibtype = "Article",
+  title        = "Modeling Population Growth in {R} with the {biogrowth} Package",
+  author       = c(person(given = "Alberto",
+                          family = "Garre",
+                          email = "alberto.garreperez@wur.nl"),
+                   person(given = "Jeroen",
+                          family = "Koomen",
+                          email = "jeroen.koomen@wur.nl"),
+                   person(given = c("Heidy", "M.", "W."),
+                          family = "den Besten",
+                          email = "heidy.denbesten@wur.nl"),
+                   person(given = c("Marcel", "H."),
+                          family = "Zwietering",
+                          email = "marcel.zwietering@wur.nl")),
+  journal      = "Journal of Statistical Software",
+  year         = "2023",
+  volume       = "107",
+  number       = "1",
+  pages        = "1--51",
+  doi          = "10.18637/jss.v107.i01",
+  header       = "To cite biogrowth in publications use:"
+)
+

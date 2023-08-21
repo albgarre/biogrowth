@@ -80,6 +80,18 @@
 #' }
 "arabian_tractors"
 
+#' Number of tractors in Greece according to the World Bank
+#' 
+#' A dataset showing the increase in tractors in Greece. It was retrieved
+#' from https://data.worldbank.org/indicator/AG.AGR.TRAC.NO?end=2009&start=1961&view=chart.
+#' 
+#' @format A tibble with 46 rows (each corresponding to one year) and 7 columns:
+#' \describe{
+#'     \item{year}{Year for the recording}
+#'     \item{tractors}{Number of tractors}
+#' }
+"greek_tractors"
+
 #' Example of dynamic growth
 #' 
 #' A dataset to demonstrate the use of fit_dynamic_growth. The values of the 
@@ -130,5 +142,20 @@
 #' * pH: observed pH
 #' 
 "multiple_conditions"
+
+#' Temperature recorded in refrigerators
+#'
+#' This dataset includes the temperature recorded in refrigerators in households
+#' of the Catalonia region. The data was published as part of Jofre et al. (2019) 
+#' Domestic refrigerator temperatures in Spain: Assessment of its impact on the 
+#' safety and shelf-life of cooked meat products. Food Research International, 
+#' 126, 108578. And was kindly provided by the original authors of the study.
+#'
+#' @format A tibble with three columns:
+#' * time: elapsed time in hours
+#' * A1: temperature observed in refrigerator "1"
+#' * A2: temperature observed in refrigerator "2"
+#' 
+"refrigeratorSpain"
 
 

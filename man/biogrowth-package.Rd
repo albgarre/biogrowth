@@ -6,7 +6,7 @@
 \alias{biogrowth-package}
 \title{biogrowth: Modelling of Population Growth}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Modelling of population growth under static and dynamic environmental conditions. Includes functions for model fitting and making prediction under isothermal and dynamic conditions. The methods (algorithms & models) are based on predictive microbiology (See Perez-Rodriguez and Valero (2012, ISBN:978-1-4614-5519-6)).
 }

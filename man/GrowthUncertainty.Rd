@@ -60,11 +60,11 @@ each time point.
 \item sigma: Variance-covariance matrix used for the simulations.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.GrowthUncertainty}: print of the model
+\item \code{print(GrowthUncertainty)}: print of the model
 
-\item \code{plot.GrowthUncertainty}: Growth prediction (prediction band) considering
+\item \code{plot(GrowthUncertainty)}: Growth prediction (prediction band) considering
 parameter uncertainty.
-}}
 
+}}

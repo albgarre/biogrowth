@@ -42,17 +42,17 @@ and visual analyses. Please check the sections below for details.
 Note that all these tools use the names defined in \code{\link[=compare_growth_fits]{compare_growth_fits()}}, so
 we recommend passing a named list to that function.
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{plot.GrowthComparison}: illustrations comparing the fitted models
+\item \code{plot(GrowthComparison)}: illustrations comparing the fitted models
 
-\item \code{coef.GrowthComparison}: table of parameter estimates
+\item \code{coef(GrowthComparison)}: table of parameter estimates
 
-\item \code{print.GrowthComparison}: print of the model comparison
+\item \code{print(GrowthComparison)}: print of the model comparison
 
-\item \code{summary.GrowthComparison}: summary table for the comparison
+\item \code{summary(GrowthComparison)}: summary table for the comparison
+
 }}
-
 \section{Statistical indexes}{
 
 \code{GrowthComparison} implements two S3 methods to obtain numerical values to facilitate

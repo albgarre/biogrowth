@@ -36,13 +36,13 @@ It is a subclass of list with the items:
 \item summary Summary statistics of distribution (mean, sd, median, q10 and q90).
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.TimeDistribution}: print of the model
+\item \code{print(TimeDistribution)}: print of the model
 
-\item \code{summary.TimeDistribution}: summary of the model
+\item \code{summary(TimeDistribution)}: summary of the model
 
-\item \code{plot.TimeDistribution}: plot of the distribution of the time to reach a
+\item \code{plot(TimeDistribution)}: plot of the distribution of the time to reach a
 microbial count.
-}}
 
+}}

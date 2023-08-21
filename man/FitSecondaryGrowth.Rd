@@ -73,32 +73,32 @@ It is a subclass of list with the items:
 \item transformation: type of transformation of \code{mu} for the fit.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.FitSecondaryGrowth}: print of the model
+\item \code{print(FitSecondaryGrowth)}: print of the model
 
-\item \code{plot.FitSecondaryGrowth}: plots to evaluate the goodness of the fit.
+\item \code{plot(FitSecondaryGrowth)}: plots to evaluate the goodness of the fit.
 
-\item \code{summary.FitSecondaryGrowth}: statistical summary of the fit.
+\item \code{summary(FitSecondaryGrowth)}: statistical summary of the fit.
 
-\item \code{residuals.FitSecondaryGrowth}: vector of model residuals.
+\item \code{residuals(FitSecondaryGrowth)}: vector of model residuals.
 
-\item \code{coef.FitSecondaryGrowth}: vector of fitted model parameters.
+\item \code{coef(FitSecondaryGrowth)}: vector of fitted model parameters.
 
-\item \code{vcov.FitSecondaryGrowth}: variance-covariance matrix of the model, estimated
+\item \code{vcov(FitSecondaryGrowth)}: variance-covariance matrix of the model, estimated
 as 1/(0.5*Hessian)
 
-\item \code{deviance.FitSecondaryGrowth}: deviance of the model.
+\item \code{deviance(FitSecondaryGrowth)}: deviance of the model.
 
-\item \code{fitted.FitSecondaryGrowth}: vector of fitted values.
+\item \code{fitted(FitSecondaryGrowth)}: vector of fitted values.
 
 The fitted values are returned in the same scale as the one
 used for the fitting (sqrt, log or none).
 
-\item \code{predict.FitSecondaryGrowth}: vector of model predictions.
+\item \code{predict(FitSecondaryGrowth)}: vector of model predictions.
 
-\item \code{logLik.FitSecondaryGrowth}: loglikelihood of the model
+\item \code{logLik(FitSecondaryGrowth)}: loglikelihood of the model
 
-\item \code{AIC.FitSecondaryGrowth}: Akaike Information Criterion
+\item \code{AIC(FitSecondaryGrowth)}: Akaike Information Criterion
+
 }}
-

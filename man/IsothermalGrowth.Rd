@@ -63,12 +63,12 @@ It is a subclass of list with the items:
 \item pars: A list with the values of the model parameters.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.IsothermalGrowth}: print of the model
+\item \code{print(IsothermalGrowth)}: print of the model
 
-\item \code{plot.IsothermalGrowth}: plot of the predicted growth curve.
+\item \code{plot(IsothermalGrowth)}: plot of the predicted growth curve.
 
-\item \code{coef.IsothermalGrowth}: coefficients of the model
+\item \code{coef(IsothermalGrowth)}: coefficients of the model
+
 }}
-

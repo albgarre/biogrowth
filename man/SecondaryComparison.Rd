@@ -42,17 +42,17 @@ and visual analyses. Please check the sections below for details.
 Note that all these tools use the names defined in \code{\link[=compare_secondary_fits]{compare_secondary_fits()}}, so
 we recommend passing a named list to that function.
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{coef.SecondaryComparison}: table of parameter estimates
+\item \code{coef(SecondaryComparison)}: table of parameter estimates
 
-\item \code{summary.SecondaryComparison}: summary table for the comparison
+\item \code{summary(SecondaryComparison)}: summary table for the comparison
 
-\item \code{print.SecondaryComparison}: print of the model comparison
+\item \code{print(SecondaryComparison)}: print of the model comparison
 
-\item \code{plot.SecondaryComparison}: illustrations comparing the fitted models
+\item \code{plot(SecondaryComparison)}: illustrations comparing the fitted models
+
 }}
-
 \section{Statistical indexes}{
 
 \code{SecondaryComparison} implements two S3 methods to obtain numerical values to facilitate

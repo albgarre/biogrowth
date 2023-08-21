@@ -85,10 +85,10 @@ sample.
 \item env_conditions: A tibble with the environmental conditions of the simulation.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.MCMCgrowth}: print of the model
+\item \code{print(MCMCgrowth)}: print of the model
 
-\item \code{plot.MCMCgrowth}: plot of predicted growth (prediction band).
+\item \code{plot(MCMCgrowth)}: plot of predicted growth (prediction band).
+
 }}
-

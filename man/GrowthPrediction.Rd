@@ -87,14 +87,14 @@ environmental conditions. \code{NULL} if \code{environment="constant"}.
 \item logbase_logN: the log-base for the definition of the logarithm of the population size
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.GrowthPrediction}: print of the model
+\item \code{print(GrowthPrediction)}: print of the model
 
-\item \code{summary.GrowthPrediction}: summary of the model
+\item \code{summary(GrowthPrediction)}: summary of the model
 
-\item \code{plot.GrowthPrediction}: predicted growth curve.
+\item \code{plot(GrowthPrediction)}: predicted growth curve.
 
-\item \code{coef.GrowthPrediction}: coefficients of the model
+\item \code{coef(GrowthPrediction)}: coefficients of the model
+
 }}
-

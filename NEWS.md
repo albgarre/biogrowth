@@ -1,3 +1,23 @@
+# biogrowth 1.0.3
+
+* added the CITATION to the paper in the JSS.
+
+# biogrowth 1.0.2
+
+* included a new vignette describing the use of custom distributions for forward uncertainty propagation.
+
+# biogrowth 1.0.1
+
+* included two new datasets: `refrigeratorSpain` and `greek_tractors`.
+
+# biogrowth 1.0.0-3
+
+* upgraded the HTML documentation to the format of R version 4
+
+# biogrowth 1.0.0-2 
+
+* fixed a bug in coef.GlobalGrowthComparison and coef.GrowthComparison
+
 # biogrowth 1.0.0
 
 * added a biogrowth-package help page

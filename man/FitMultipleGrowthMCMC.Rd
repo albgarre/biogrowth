@@ -147,39 +147,39 @@ It is a subclass of list with the items:
 for each environmental factor.
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.FitMultipleGrowthMCMC}: print of the model
+\item \code{print(FitMultipleGrowthMCMC)}: print of the model
 
-\item \code{plot.FitMultipleGrowthMCMC}: comparison between the model fitted and the
+\item \code{plot(FitMultipleGrowthMCMC)}: comparison between the model fitted and the
 data.
 
-\item \code{summary.FitMultipleGrowthMCMC}: statistical summary of the fit.
+\item \code{summary(FitMultipleGrowthMCMC)}: statistical summary of the fit.
 
-\item \code{residuals.FitMultipleGrowthMCMC}: model residuals. They are returned as a tibble
+\item \code{residuals(FitMultipleGrowthMCMC)}: model residuals. They are returned as a tibble
 with 4 columns: time (storage time), logN (observed count),
 exp (name of the experiment) and res (residual).
 
-\item \code{coef.FitMultipleGrowthMCMC}: vector of fitted model parameters.
+\item \code{coef(FitMultipleGrowthMCMC)}: vector of fitted model parameters.
 
-\item \code{vcov.FitMultipleGrowthMCMC}: variance-covariance matrix of the model,
+\item \code{vcov(FitMultipleGrowthMCMC)}: variance-covariance matrix of the model,
 estimated as the variance of the samples from the Markov chain.
 
-\item \code{deviance.FitMultipleGrowthMCMC}: deviance of the model, calculated as the sum of
+\item \code{deviance(FitMultipleGrowthMCMC)}: deviance of the model, calculated as the sum of
 squared residuals of the prediction with the lowest standard error.
 
-\item \code{fitted.FitMultipleGrowthMCMC}: fitted values of the model. They are returned
+\item \code{fitted(FitMultipleGrowthMCMC)}: fitted values of the model. They are returned
 as a tibble with 3 columns: time (storage time), exp (experiment
 identifier) and fitted (fitted value).
 
-\item \code{predict.FitMultipleGrowthMCMC}: model predictions. They are returned as a tibble
+\item \code{predict(FitMultipleGrowthMCMC)}: model predictions. They are returned as a tibble
 with 3 columns: time (storage time), logN (observed count),
 and exp (name of the experiment).
 
-\item \code{logLik.FitMultipleGrowthMCMC}: loglikelihood of the model
+\item \code{logLik(FitMultipleGrowthMCMC)}: loglikelihood of the model
 
-\item \code{AIC.FitMultipleGrowthMCMC}: Akaike Information Criterion
+\item \code{AIC(FitMultipleGrowthMCMC)}: Akaike Information Criterion
 
-\item \code{predictMCMC.FitMultipleGrowthMCMC}: prediction including parameter uncertainty
+\item \code{predictMCMC(FitMultipleGrowthMCMC)}: prediction including parameter uncertainty
+
 }}
-

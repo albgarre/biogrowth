@@ -155,37 +155,37 @@ fitting. \code{NULL} for \code{environment="constant"}
 \item environment: "dynamic". Always
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.GlobalGrowthFit}: print of the model
+\item \code{print(GlobalGrowthFit)}: print of the model
 
-\item \code{coef.GlobalGrowthFit}: vector of fitted model parameters.
+\item \code{coef(GlobalGrowthFit)}: vector of fitted model parameters.
 
-\item \code{summary.GlobalGrowthFit}: statistical summary of the fit.
+\item \code{summary(GlobalGrowthFit)}: statistical summary of the fit.
 
-\item \code{predict.GlobalGrowthFit}: vector of model predictions
+\item \code{predict(GlobalGrowthFit)}: vector of model predictions
 
-\item \code{residuals.GlobalGrowthFit}: model residuals. They are returned as a tibble
+\item \code{residuals(GlobalGrowthFit)}: model residuals. They are returned as a tibble
 with 4 columns: time (storage time), logN (observed count),
 exp (name of the experiment) and res (residual).
 
-\item \code{vcov.GlobalGrowthFit}: variance-covariance matrix of the model, estimated
+\item \code{vcov(GlobalGrowthFit)}: variance-covariance matrix of the model, estimated
 as 1/(0.5*Hessian) for regression and as the variance-covariance of the draws
 for MCMC
 
-\item \code{deviance.GlobalGrowthFit}: deviance of the model.
+\item \code{deviance(GlobalGrowthFit)}: deviance of the model.
 
-\item \code{fitted.GlobalGrowthFit}: fitted values. They are returned as a
+\item \code{fitted(GlobalGrowthFit)}: fitted values. They are returned as a
 tibble with 3 columns: time (storage time), exp (experiment
 identifier) and fitted (fitted value).
 
-\item \code{logLik.GlobalGrowthFit}: loglikelihood of the model
+\item \code{logLik(GlobalGrowthFit)}: loglikelihood of the model
 
-\item \code{AIC.GlobalGrowthFit}: Akaike Information Criterion
+\item \code{AIC(GlobalGrowthFit)}: Akaike Information Criterion
 
-\item \code{plot.GlobalGrowthFit}: comparison between the fitted model and
+\item \code{plot(GlobalGrowthFit)}: comparison between the fitted model and
 the experimental data.
 
-\item \code{predictMCMC.GlobalGrowthFit}: prediction including parameter uncertainty
-}}
+\item \code{predictMCMC(GlobalGrowthFit)}: prediction including parameter uncertainty
 
+}}

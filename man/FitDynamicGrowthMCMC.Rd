@@ -149,32 +149,32 @@ It is a subclass of list with the items:
 for each environmental factor
 }
 }
-\section{Functions}{
+\section{Methods (by generic)}{
 \itemize{
-\item \code{print.FitDynamicGrowthMCMC}: print of the model
+\item \code{print(FitDynamicGrowthMCMC)}: print of the model
 
-\item \code{plot.FitDynamicGrowthMCMC}: compares the model fitted against the data.
+\item \code{plot(FitDynamicGrowthMCMC)}: compares the model fitted against the data.
 
-\item \code{summary.FitDynamicGrowthMCMC}: statistical summary of the fit.
+\item \code{summary(FitDynamicGrowthMCMC)}: statistical summary of the fit.
 
-\item \code{residuals.FitDynamicGrowthMCMC}: model residuals.
+\item \code{residuals(FitDynamicGrowthMCMC)}: model residuals.
 
-\item \code{coef.FitDynamicGrowthMCMC}: vector of fitted model parameters.
+\item \code{coef(FitDynamicGrowthMCMC)}: vector of fitted model parameters.
 
-\item \code{vcov.FitDynamicGrowthMCMC}: variance-covariance matrix of the model,
+\item \code{vcov(FitDynamicGrowthMCMC)}: variance-covariance matrix of the model,
 estimated as the variance of the samples from the Markov chain.
 
-\item \code{deviance.FitDynamicGrowthMCMC}: deviance of the model, calculated as the sum
+\item \code{deviance(FitDynamicGrowthMCMC)}: deviance of the model, calculated as the sum
 of squared residuals for the parameter values resulting in the best fit.
 
-\item \code{fitted.FitDynamicGrowthMCMC}: vector of fitted values.
+\item \code{fitted(FitDynamicGrowthMCMC)}: vector of fitted values.
 
-\item \code{predict.FitDynamicGrowthMCMC}: vector of model predictions.
+\item \code{predict(FitDynamicGrowthMCMC)}: vector of model predictions.
 
-\item \code{logLik.FitDynamicGrowthMCMC}: loglikelihood of the model
+\item \code{logLik(FitDynamicGrowthMCMC)}: loglikelihood of the model
 
-\item \code{AIC.FitDynamicGrowthMCMC}: Akaike Information Criterion
+\item \code{AIC(FitDynamicGrowthMCMC)}: Akaike Information Criterion
 
-\item \code{predictMCMC.FitDynamicGrowthMCMC}: prediction including parameter uncertainty
+\item \code{predictMCMC(FitDynamicGrowthMCMC)}: prediction including parameter uncertainty
+
 }}
-
