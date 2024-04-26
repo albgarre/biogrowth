@@ -24,7 +24,7 @@ In most situations, growth predictions are surrounded by different sources of un
 
 ## Growth predictions with uncertainty using `predict_growth_uncertainty()`
 
-The function `predict_growth_uncertainty()` allows the definition of the distribution of the parameters of the primary growth model. Then, it includes this uncertainty in the model predictions through Monte Carlo simulations. It has 6 arguments:
+The function `predict_growth_uncertainty()` allows the definition of the distribution of the parameters of the primary growth model. Then, it includes this uncertainty in the model predictions through Monte Carlo simulations. It has 8 arguments:
 
 * `model_name` defines the primary growth model,
 * `times` defines the time points where to make the calculations,
@@ -32,6 +32,8 @@ The function `predict_growth_uncertainty()` allows the definition of the distrib
 * `pars` defines the distribution of the model parameters,
 * `corr_matrix` correlation matrix between the model parameters. By default, this argument is set to an identity matrix (i.e. no correlation between parameters).
 * `check` states whether to do validity checks of the model parameters (`TRUE` by default).
+* `logbase_mu` defines the log-base used for the definition of the growth rate (as in `predict_growth()`).
+* `logbase_logN` defines the log-base used for the definition of the log-microbial concentration (as in `predict_growth()`).
 
 The calculations are done by taking a sample of size `n_sims` of the model parameters according to a multivariate normal distribution. For simulation, the population growth is predicted and the quantiles of the predicted population size is used as an estimate of the credible interval.
 
