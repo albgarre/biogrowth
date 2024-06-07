@@ -1,3 +1,7 @@
+# biogrowth 1.0.4
+
+* included `logbase_mu` and `logbase_logN` to `predict_growth_uncertainty()`.
+
 # biogrowth 1.0.3
 
 * added the CITATION to the paper in the JSS.

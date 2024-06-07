@@ -1,8 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^CRAN-RELEASE$
+README.md
+README.Rmd
 ^cran-comments\.md$
-^README\.Rmd$
-^_pkgdown\.yml$
-^docs$
-^pkgdown$
+^CRAN-SUBMISSION$

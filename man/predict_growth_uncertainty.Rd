@@ -10,7 +10,9 @@ predict_growth_uncertainty(
   n_sims,
   pars,
   corr_matrix = diag(nrow(pars)),
-  check = TRUE
+  check = TRUE,
+  logbase_mu = logbase_logN,
+  logbase_logN = 10
 )
 }
 \arguments{
@@ -27,6 +29,12 @@ same order as in \code{pars}. An identity matrix by default
 (uncorrelated parameters).}
 
 \item{check}{Whether to do some tests. \code{FALSE} by default.}
+
+\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
+By default, the same as logbase_logN. See vignette about units for details.}
+
+\item{logbase_logN}{Base of the logarithm for the population size. By default,
+10 (i.e. log10). See vignette about units for details.}
 }
 \value{
 An instance of \code{\link[=GrowthUncertainty]{GrowthUncertainty()}}.

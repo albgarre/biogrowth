@@ -58,6 +58,10 @@ each time point.
 \item model: Model used for the calculations.
 \item mus: Mean parameter values used for the simulations.
 \item sigma: Variance-covariance matrix used for the simulations.
+\item logbase_mu: base of the logarithm for the definition of parameter mu
+(check the relevant vignette)
+\item logbase_logN: base of the logarithm for the definition of the population size
+(check the relevant vignette)
 }
 }
 \section{Methods (by generic)}{

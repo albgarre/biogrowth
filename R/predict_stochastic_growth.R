@@ -67,6 +67,10 @@ predict_stochastic_growth <- function(model_name,
 #' same order as in `pars`. An identity matrix by default
 #' (uncorrelated parameters).
 #' @param check Whether to do some tests. `FALSE` by default.
+#' @param logbase_mu Base of the logarithm the growth rate is referred to. 
+#' By default, the same as logbase_logN. See vignette about units for details. 
+#' @param logbase_logN Base of the logarithm for the population size. By default,
+#' 10 (i.e. log10). See vignette about units for details.
 #'
 #' @return An instance of [GrowthUncertainty()].
 #'
@@ -135,7 +139,8 @@ predict_growth_uncertainty <- function(model_name,
                                       n_sims,
                                       pars, 
                                       corr_matrix = diag(nrow(pars)),
-                                      check = TRUE
+                                      check = TRUE,
+                                      logbase_mu = logbase_logN, logbase_logN = 10
                                       ) {
     
     ## Checks
@@ -182,7 +187,9 @@ predict_growth_uncertainty <- function(model_name,
     my_sims <- split(aa, aa$iter) %>%
         # split(.$iter) %>%
         map(as.list) %>%
-        map(~ predict_isothermal_growth(model_name, times, ., check = FALSE)) %>%
+        map(~ predict_isothermal_growth(model_name, times, ., check = FALSE,
+                                        logbase_mu = logbase_mu,
+                                        logbase_logN = logbase_logN)) %>%
         map(~ .$simulation) %>%
         imap_dfr(~ mutate(.x, iter = .y))
 
@@ -206,7 +213,9 @@ predict_growth_uncertainty <- function(model_name,
                 quantiles = q_values,
                 model = model_name,
                 mus = mus,
-                sigma = cov_matrix)
+                sigma = cov_matrix,
+                logbase_logN = logbase_logN,
+                logbase_mu = logbase_mu)
 
     class(out) <- c("GrowthUncertainty", class(out))
 
