@@ -75,6 +75,26 @@ full_Ratkowski <- function(x, xmin, xmax, c) {
 
 }
 
+#' Secondary Aryani model
+#'
+#' Secondary cardinal parameter model as defined by Aryani et al. (2015).
+#'
+#' @param x Value of the environmental factor.
+#' @param xmin Minimum value for growth.
+#' @param xhalf Value where gamma = 0.5
+#'
+#' @return The corresponding gamma factor.
+#'
+Aryani_model <- function(x, xmin, xhalf) {
+  
+  gamma <- 1 - 2^( -(x - xmin)/(xhalf - xmin) )
+
+  gamma[x < xmin] <- 0
+  
+  return(gamma)
+  
+}
+
 #' Calculates every gamma factor
 #'
 #' A helper function for [predict_dynamic_growth()] that
@@ -101,6 +121,7 @@ calculate_gammas <- function(this_t, env_func, sec_models) {
                              CPM = CPM_model(this_x, this_sec$xmin,
                                              this_sec$xopt, this_sec$xmax, this_sec$n),
                              Zwietering = zwietering_gamma(this_x, this_sec$xmin, this_sec$xopt, this_sec$n),
+                             Aryani = Aryani_model(this_x, this_sec$xmin, this_sec$xhalf),
                              stop(paste("Model", this_sec$model, "not known."))
         )
 

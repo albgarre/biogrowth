@@ -46,7 +46,17 @@ secondary_model_data <- function(model_name=NULL) {
                                                         "bacterial culture growth rate throughout the entire",
                                                         "biokinetic temperature range. Journal of Bacteriology,",
                                                         "154(3), 1222-1226.")
-                                            )
+                                            ),
+                       Aryani = list(identifier = "Aryani",
+                                     name = "Aryani pH model",
+                                     pars = c("xmin", "xhalf"),
+                                     model = Aryani_model,
+                                     ref = paste("Aryani, D.C., den Besten, H.M.W., Zwietering, M.H.,", 
+                                     "2016. Quantifying Variability in Growth and Thermal Inactivation", 
+                                     "Kinetics of Lactobacillus plantarum. Appl. Environ. Microbiol. 82,", 
+                                     "4896–4908. https://doi.org/10.1128/AEM.00277-16"
+                                     )
+                                     )
                        )
 
     if (is.null(model_name)) {

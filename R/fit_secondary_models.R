@@ -29,6 +29,7 @@ calculate_gammas_secondary <- function(sec_model_names, my_data, secondary_model
                                              this_sec$xopt, this_sec$xmax, this_sec$n),
                              Zwietering = zwietering_gamma(this_x, this_sec$xmin, this_sec$xopt, this_sec$n),
                              fullRatkowsky = full_Ratkowski(this_x, this_sec$xmin, this_sec$xmax, this_sec$c),
+                             Aryani = Aryani_model(this_x, this_sec$xmin, this_sec$xhalf),
                              stop(paste("Model", this_sec$model, "not known."))
         )
         
