@@ -66,7 +66,13 @@ secondary_model_data <- function(model_name=NULL) {
                             "on the growth of moulds. International Journal of Food Microbiology",
                             "63, 265–273."
                             )
-                       )
+                            ),
+                       Inhibitory = list(identifier = "Inhibitory",
+                                         name = "Model for inhibitory chemicals",
+                                         pars = c("MIC", "alpha"),
+                                         model = inhibitory_model,
+                                         ref = paste("")
+                                         )
                        )
 
     if (is.null(model_name)) {

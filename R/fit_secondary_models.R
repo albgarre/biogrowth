@@ -31,6 +31,7 @@ calculate_gammas_secondary <- function(sec_model_names, my_data, secondary_model
                              fullRatkowsky = full_Ratkowski(this_x, this_sec$xmin, this_sec$xmax, this_sec$c),
                              Aryani = Aryani_model(this_x, this_sec$xmin, this_sec$xhalf),
                              Rosso_aw = Rossoaw_model(this_x, this_sec$xmin),
+                             Inhibitory = inhibitory_model(this_x, this_sec$MIC, this_sec$alpha),
                              stop(paste("Model", this_sec$model, "not known."))
         )
         

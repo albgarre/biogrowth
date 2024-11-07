@@ -114,6 +114,26 @@ Rossoaw_model <- function(x, xmin) {
   
 }
 
+#' Secondary model for inhibitory compounds
+#'
+#' Secondary model for the effect of inhibitory compounds.
+#'
+#' @param x Value of the environmental factor (in principle, concentration of compound).
+#' @param MIC Minimum Inhibitory Concentration
+#' @param alpha shape factor of the miodel
+#'
+#' @return The corresponding gamma factor.
+#'
+inhibitory_model <- function(x, MIC, alpha) {
+  
+  gamma <- 1 - (x/MIC)^alpha
+  
+  gamma[x > MIC] <- 0
+  
+  return(gamma)
+  
+}
+
 #' Calculates every gamma factor
 #'
 #' A helper function for [predict_dynamic_growth()] that
@@ -142,6 +162,7 @@ calculate_gammas <- function(this_t, env_func, sec_models) {
                              Zwietering = zwietering_gamma(this_x, this_sec$xmin, this_sec$xopt, this_sec$n),
                              Aryani = Aryani_model(this_x, this_sec$xmin, this_sec$xhalf),
                              Rosso_aw = Rossoaw_model(this_x, this_sec$xmin),
+                             Inhibitory = inhibitory_model(this_x, this_sec$MIC, this_sec$alpha),
                              stop(paste("Model", this_sec$model, "not known."))
         )
 
