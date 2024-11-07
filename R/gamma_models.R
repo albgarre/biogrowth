@@ -77,7 +77,7 @@ full_Ratkowski <- function(x, xmin, xmax, c) {
 
 #' Secondary Aryani model
 #'
-#' Secondary cardinal parameter model as defined by Aryani et al. (2015).
+#' Secondary model as defined by Aryani et al. (2015).
 #'
 #' @param x Value of the environmental factor.
 #' @param xmin Minimum value for growth.
@@ -88,7 +88,26 @@ full_Ratkowski <- function(x, xmin, xmax, c) {
 Aryani_model <- function(x, xmin, xhalf) {
   
   gamma <- 1 - 2^( -(x - xmin)/(xhalf - xmin) )
+  
+  gamma[x < xmin] <- 0
+  
+  return(gamma)
+  
+}
 
+#' Secondary Rosso model for water activity
+#'
+#' Secondary model for water activity as defined by Aryani et al. (2001).
+#'
+#' @param x Value of the environmental factor (in principle, aw).
+#' @param xmin Minimum value for growth (in principle, aw).
+#'
+#' @return The corresponding gamma factor.
+#'
+Rossoaw_model <- function(x, xmin) {
+  
+  gamma <- (x - xmin)/(1 - xmin)
+  
   gamma[x < xmin] <- 0
   
   return(gamma)
@@ -122,6 +141,7 @@ calculate_gammas <- function(this_t, env_func, sec_models) {
                                              this_sec$xopt, this_sec$xmax, this_sec$n),
                              Zwietering = zwietering_gamma(this_x, this_sec$xmin, this_sec$xopt, this_sec$n),
                              Aryani = Aryani_model(this_x, this_sec$xmin, this_sec$xhalf),
+                             Rosso_aw = Rossoaw_model(this_x, this_sec$xmin),
                              stop(paste("Model", this_sec$model, "not known."))
         )
 

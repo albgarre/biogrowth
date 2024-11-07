@@ -17,5 +17,5 @@ Aryani_model(x, xmin, xhalf)
 The corresponding gamma factor.
 }
 \description{
-Secondary cardinal parameter model as defined by Aryani et al. (2015).
+Secondary model as defined by Aryani et al. (2015).
 }
