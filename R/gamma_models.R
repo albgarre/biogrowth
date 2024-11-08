@@ -109,6 +109,7 @@ Rossoaw_model <- function(x, xmin) {
   gamma <- (x - xmin)/(1 - xmin)
   
   gamma[x < xmin] <- 0
+  gamma[x > 1] <- 0
   
   return(gamma)
   
