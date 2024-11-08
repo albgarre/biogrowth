@@ -2,7 +2,7 @@
 title: "Custom distributions for uncertainty propagation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{v05_custom_stochastic}
+  %\VignetteIndexEntry{Custom distributions for uncertainty propagation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
