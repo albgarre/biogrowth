@@ -116,8 +116,22 @@ richards_model <- function(times, logN0, mu, lambda, C, nu) {
 #' @inheritParams iso_repGompertz
 #' 
 loglinear_model <- function(times, logN0, mu) {
-
+  
   logN <- logN0 + mu*times
+  
+  logN
+  
+}
+
+#' Bilinear model with lag
+#' 
+#' @inheritParams trilinear_model
+#' 
+bilinear_lag <- function(times, logN0, mu, lambda) {
+  
+  logN <- logN0 + mu*(times - lambda)
+  logN[times < lambda] <- logN0
+  # logN[logN>logNmax] <- logNmax
   
   logN
   
@@ -205,6 +219,8 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
                                            simul_pars$lambda, simul_pars$C,
                                            simul_pars$nu),
                  Loglinear = loglinear_model(times, simul_pars$logN0, simul_pars$mu),
+                 Bilinear_lag = bilinear_lag(times, simul_pars$logN0, simul_pars$mu, simul_pars$lambda),
+                 
                  stop(paste("Unknown model:", model_name))
                  )
   

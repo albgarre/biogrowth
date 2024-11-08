@@ -62,11 +62,17 @@ primary_model_data <- function(model_name=NULL) {
                                                    "Growth Curve. Applied and Environmental Microbiology, 56(6), 1875-1881.")
                                        ),
                        Loglinear = list(identifier = "Loglinear",
-                                       name = "Loglinear growth model",
-                                       pars = c("logN0", "mu"),
-                                       model = loglinear_model,
-                                       ref = paste("")
-                                       )
+                                        name = "Loglinear growth model",
+                                        pars = c("logN0", "mu"),
+                                        model = loglinear_model,
+                                        ref = paste("")
+                       ),
+                       Bilinear_lag = list(identifier = "Bilinear_lag",
+                                        name = "Bilinear growth model with lag phase (no stationary)",
+                                        pars = c("logN0", "mu", "lambda"),
+                                        model = bilinear_lag,
+                                        ref = paste("")
+                       )
                        )
 
 
