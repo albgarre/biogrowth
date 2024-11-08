@@ -211,8 +211,11 @@ predict_growth <- function(times,
         }
         
         if( is.null(my_pars$logNmax) & is.null(my_pars$C) ) {
+          
+          if (! is.null(my_pars$Nmax)) {  # Now, some models do not have an Nmax
             my_pars$logNmax <- log(my_pars$Nmax, base = logbase_logN)
             my_pars$Nmax <- NULL
+          }
         }
         
         if( is.null(my_pars[["mu"]]) ) {
@@ -221,9 +224,12 @@ predict_growth <- function(times,
         }
         
         if( is.null(my_pars$lambda) ) {
+          
+          if (! is.null(my_pars$Q0)) {  # Now, some models do not have lambda
             my_pars$lambda <- Q0_to_lambda(my_pars$Q0, my_pars$mu,
                                            logbase_mu = logbase_mu)
             my_pars$Q0 <- NULL
+          }
         }
         
         ## Give a warning if someone defined environmental conditions

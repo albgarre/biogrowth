@@ -60,6 +60,12 @@ primary_model_data <- function(model_name=NULL) {
                                        ref = paste("Zwietering, M. H., Jongenburger, I., Rombouts,",
                                                    "F. M., and Riet, K. van t. (1990). Modeling of the Bacterial",
                                                    "Growth Curve. Applied and Environmental Microbiology, 56(6), 1875-1881.")
+                                       ),
+                       Loglinear = list(identifier = "Loglinear",
+                                       name = "Loglinear growth model",
+                                       pars = c("logN0", "mu"),
+                                       model = loglinear_model,
+                                       ref = paste("")
                                        )
                        )
 
