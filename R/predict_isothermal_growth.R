@@ -33,6 +33,38 @@ iso_Baranyi <- function(times, logN0, mu, lambda, logNmax) {
   
 }
 
+#' Isothermal Baranyi model without lag phase
+#'
+#' Baranyi growth model as defined by Baranyi and Roberts (1994). We use the solution
+#' calculated by Poschet et al. (2005, doi: https://doi.org/10.1016/j.ijfoodmicro.2004.10.008)
+#' after log-transformation according to MONTE CARLO ANALYSIS FOR MICROBIAL GROWTH CURVES,
+#' by Oksuz and Buzrul.
+#'
+#' @inheritParams iso_Baranyi
+#'
+#' @return Numeric vector with the predicted microbial count.
+#'
+iso_Baranyi_noLag <- function(times, logN0, mu, logNmax) {
+  
+  ## Comprobation using the "other" formulation  --> it does return the same
+  
+  # mu <- mu*log(10)  # This one is defined in a different scale
+  # 
+  # inside <- exp(-mu * times) + exp(-mu*lambda) - exp(-mu*times - mu*lambda)
+  # A <- times + 1/mu*log(inside)
+  # 
+  # logN <- logN0 + mu/log(10)*A - 1/log(10)*log(1 + (exp(mu*A) - 1)/(10^(logNmax - logN0)))
+  
+  lambda <- 0
+  
+  num <- 1 + exp(log(10)*mu*(times - lambda)) - exp(-log(10)*mu*lambda)
+  den <- exp(log(10)*mu*(times-lambda)) - exp(-log(10)*mu*lambda) + 10^(logNmax - logN0)
+  logN <- logNmax + log10(num/den)
+  
+  logN
+  
+}
+
 #' Reparameterized Gompertz model
 #'
 #' Reparameterized Gompertz growth model defined by Zwietering et al. (1990).
@@ -225,6 +257,8 @@ predict_isothermal_growth <- function(model_name, times, model_pars, check = TRU
                                                simul_pars$mu, simul_pars$lambda),
                  Baranyi = iso_Baranyi(times, simul_pars$logN0, simul_pars$mu,
                                        simul_pars$lambda, simul_pars$logNmax),
+                 Baranyi_noLag = iso_Baranyi_noLag(times, simul_pars$logN0, simul_pars$mu,
+                                       simul_pars$logNmax),
                  Trilinear = trilinear_model(times, simul_pars$logN0, simul_pars$mu,
                                              simul_pars$lambda,simul_pars$logNmax),
                  Logistic = logistic_model(times, simul_pars$logN0, simul_pars$mu,
