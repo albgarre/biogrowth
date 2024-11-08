@@ -87,7 +87,7 @@ It is a subclass of list with the items:
 \item model: name of the primary inactivation model
 \item starting_point: initial value of the model parameters
 \item known: fixed model parameters
-\item fit: object returned by \code{\link[=modFit]{modFit()}}
+\item fit: object returned by \code{\link[FME:modFit]{FME::modFit()}}
 \item best_prediction: model prediction for the model fitted.
 }
 }
