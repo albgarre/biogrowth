@@ -23,7 +23,7 @@
 #' an entry named "primary" assigned to a model. Valid model keys can be retrieved
 #' calling [primary_model_data()].
 #' 
-#' The model is fitted by non-linear regression (using [modFit()]). This algorithm 
+#' The model is fitted by non-linear regression (using [FME::modFit()]). This algorithm 
 #' needs initial guesses for every model parameter. This are defined as a named numeric
 #' vector. The names must be valid model keys, which can be retrieved using [primary_model_data()]
 #' (see example below). Apart from that, any model parameter can be fixed using the
@@ -51,8 +51,8 @@
 #' list where the names match the column names of "env_conditions" and the values
 #' are model keys. These can be retrieved using [secondary_model_data()].
 #' 
-#' The model can be fitted using regression ([modFit()]) or an adaptive Monte Carlo
-#' algorithm ([modMCMC()]). Both algorithms require initial guesses for every model
+#' The model can be fitted using regression ([FME::modFit()]) or an adaptive Monte Carlo
+#' algorithm ([FME::modMCMC()]). Both algorithms require initial guesses for every model
 #' parameter to fit. These are defined through the named numeric vector "start". Each
 #' parameter must be named as *factor*+"_"+*parameter*, where *factor* is the name of the 
 #' environmental factor defined in "model_keys". The *parameter* is a valid key
@@ -92,7 +92,7 @@
 #' conditions for dynamic experiments. See the relevant sections (and examples) below
 #' for details. Ignored for environment="constant".
 #' @param niter number of iterations of the MCMC algorithm. Ignored when algorithm!="MCMC".
-#' @param ... Additional arguments for [modFit()].
+#' @param ... Additional arguments for [FME::modFit()].
 #' @param check Whether to check the validity of the models. TRUE by default.
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
 #' By default, the same as logbase_logN. See vignette about units for details. 

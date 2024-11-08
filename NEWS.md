@@ -3,6 +3,7 @@
 * included additional secondary models (Aryani, Inhibitory and Rosso_aw).
 * included additional primary models (Baranyi_noLag, Baranyi_noStationary, Loglinear, Bilinear_lag, Bilinear_stationary).
 * fixed the CRAN name of vignette 0.5.
+* made several fixes in the documentation with broken links to external functions
 
 # biogrowth 1.0.4
 

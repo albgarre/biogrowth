@@ -298,7 +298,7 @@ make_guess_secondary <- function(fit_data, sec_model_names
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
 #' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
-#' @return A [ggplot()] comparing the model prediction against the data
+#' @return A [ggplot2::ggplot()] comparing the model prediction against the data
 #' 
 #' 
 show_guess_primary <- function(fit_data, model_name, guess, 
@@ -352,7 +352,7 @@ show_guess_primary <- function(fit_data, model_name, guess,
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
 #' By default, 10 (i.e. log10). See vignette about units for details. 
 #' 
-#' @return A [ggplot()] comparing the model prediction against the data
+#' @return A [ggplot2::ggplot()] comparing the model prediction against the data
 #' 
 #' 
 show_guess_dynamic <- function(fit_data, model_keys, guess,
@@ -422,7 +422,7 @@ show_guess_dynamic <- function(fit_data, model_keys, guess,
 #' @importFrom purrr map2
 #' @importFrom cowplot plot_grid
 #' 
-#' @return A [ggplot()] comparing the model prediction against the data
+#' @return A [ggplot2::ggplot()] comparing the model prediction against the data
 #' 
 #' @export
 #' 

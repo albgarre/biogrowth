@@ -36,9 +36,9 @@ By default, the same as logbase_logN. See vignette about units for details.}
 10 (i.e. log10). See vignette about units for details.}
 }
 \value{
-An instance of \code{\link[=modCost]{modCost()}}.
+An instance of \code{\link[FME:modCost]{FME::modCost()}}.
 }
 \description{
 Function for calculating residuals of a dynamic prediction according
-to the requirements of \code{\link[=modFit]{modFit()}}.
+to the requirements of \code{\link[FME:modFit]{FME::modFit()}}.
 }

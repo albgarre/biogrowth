@@ -8,7 +8,7 @@
 #' 
 #' It is a subclass of list with the items:
 #' \itemize{
-#' \item fit_results: object returned by [modFit()].
+#' \item fit_results: object returned by [FME::modFit()].
 #' \item secondary_model: secondary model fitted to the data.
 #' \item mu_opt_fit: estimated growth rate under optimum conditions.
 #' \item data: data used for the fit.

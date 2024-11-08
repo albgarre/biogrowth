@@ -35,7 +35,7 @@ environmental conditions and values of the secondary model (see secondary_model_
 
 \item{niter}{number of samples of the MCMC algorithm.}
 
-\item{...}{additional arguments for \link{modMCMC} (e.g. upper and lower bounds).}
+\item{...}{additional arguments for \link[FME:modMCMC]{FME::modMCMC} (e.g. upper and lower bounds).}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 

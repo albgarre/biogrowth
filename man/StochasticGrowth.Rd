@@ -28,15 +28,15 @@
 
 \item{y}{ignored}
 
-\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link[=geom_line]{geom_line()}}}
+\item{line_col}{Aesthetic parameter to change the colour of the line geom in the plot, see: \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
 
-\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link[=geom_line]{geom_line()}}}
+\item{line_size}{Aesthetic parameter to change the thickness of the line geom in the plot, see: \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
 
-\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line()}}}
+\item{line_type}{Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
 
-\item{ribbon80_fill}{fill colour for the space between the 10th and 90th quantile, see: \code{\link[=geom_ribbon]{geom_ribbon()}}}
+\item{ribbon80_fill}{fill colour for the space between the 10th and 90th quantile, see: \code{\link[ggplot2:geom_ribbon]{ggplot2::geom_ribbon()}}}
 
-\item{ribbon90_fill}{fill colour for the space between the 5th and 95th quantile, see: \code{\link[=geom_ribbon]{geom_ribbon()}}}
+\item{ribbon90_fill}{fill colour for the space between the 5th and 95th quantile, see: \code{\link[ggplot2:geom_ribbon]{ggplot2::geom_ribbon()}}}
 
 \item{alpha80}{transparency of the ribbon aesthetic for the space between the 10th and 90th quantile. Takes a value between 0 (fully transparant) and 1 (fully opaque)}
 

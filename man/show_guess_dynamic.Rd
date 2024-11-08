@@ -33,7 +33,7 @@ By default, 10 (i.e. log10). See vignette about units for details.}
 \code{logN ~ time} as a default.}
 }
 \value{
-A \code{\link[=ggplot]{ggplot()}} comparing the model prediction against the data
+A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} comparing the model prediction against the data
 }
 \description{
 Compares the prediction corresponding to a guess of the parameters of the

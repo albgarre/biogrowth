@@ -30,7 +30,7 @@ and the initial values of the model variables. That is, with names \code{mu_opt}
 
 \item{secondary_models}{A nested list describing the secondary models.}
 
-\item{...}{Additional arguments for \code{\link[=ode]{ode()}}.}
+\item{...}{Additional arguments for \code{\link[deSolve:ode]{deSolve::ode()}}.}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 

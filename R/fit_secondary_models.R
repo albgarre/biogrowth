@@ -128,7 +128,7 @@ get_secondary_residuals <- function(this_p, my_data,
 #' @param transformation Character defining the transformation of `mu` for
 #' model fitting. One of `sq` (square root; default), `log` (log-transform) or
 #' `none` (no transformation).
-#' @param ... Additional arguments passed to [modFit()].
+#' @param ... Additional arguments passed to [FME::modFit()].
 #' @param check Whether to do some basic checks (TRUE by default).
 #' @param formula an object of class "formula" describing the y variable. The
 #' right hand side must be ".". By default `mu ~ .`.

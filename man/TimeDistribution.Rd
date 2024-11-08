@@ -23,7 +23,7 @@
 \item{y}{ignored.}
 
 \item{bin_width}{A number that specifies the width of a bin in the histogram,
-see: \code{\link[=geom_histogram]{geom_histogram()}}. \code{NULL} by default.}
+see: \code{\link[ggplot2:geom_histogram]{ggplot2::geom_histogram()}}. \code{NULL} by default.}
 }
 \description{
 The \code{TimeDistribution} class contains an estimate of the probability

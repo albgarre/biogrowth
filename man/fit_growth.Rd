@@ -49,7 +49,7 @@ for details. Ignored for environment="constant".}
 
 \item{niter}{number of iterations of the MCMC algorithm. Ignored when algorithm!="MCMC".}
 
-\item{...}{Additional arguments for \code{\link[=modFit]{modFit()}}.}
+\item{...}{Additional arguments for \code{\link[FME:modFit]{FME::modFit()}}.}
 
 \item{check}{Whether to check the validity of the models. TRUE by default.}
 
@@ -91,7 +91,7 @@ The model equation is defined through the model_keys argument. It must include
 an entry named "primary" assigned to a model. Valid model keys can be retrieved
 calling \code{\link[=primary_model_data]{primary_model_data()}}.
 
-The model is fitted by non-linear regression (using \code{\link[=modFit]{modFit()}}). This algorithm
+The model is fitted by non-linear regression (using \code{\link[FME:modFit]{FME::modFit()}}). This algorithm
 needs initial guesses for every model parameter. This are defined as a named numeric
 vector. The names must be valid model keys, which can be retrieved using \code{\link[=primary_model_data]{primary_model_data()}}
 (see example below). Apart from that, any model parameter can be fixed using the
@@ -122,8 +122,8 @@ The model equations are defined through the model_keys argument. It must be a na
 list where the names match the column names of "env_conditions" and the values
 are model keys. These can be retrieved using \code{\link[=secondary_model_data]{secondary_model_data()}}.
 
-The model can be fitted using regression (\code{\link[=modFit]{modFit()}}) or an adaptive Monte Carlo
-algorithm (\code{\link[=modMCMC]{modMCMC()}}). Both algorithms require initial guesses for every model
+The model can be fitted using regression (\code{\link[FME:modFit]{FME::modFit()}}) or an adaptive Monte Carlo
+algorithm (\code{\link[FME:modMCMC]{FME::modMCMC()}}). Both algorithms require initial guesses for every model
 parameter to fit. These are defined through the named numeric vector "start". Each
 parameter must be named as \emph{factor}+"_"+\emph{parameter}, where \emph{factor} is the name of the
 environmental factor defined in "model_keys". The \emph{parameter} is a valid key

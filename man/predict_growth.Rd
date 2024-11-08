@@ -32,7 +32,7 @@ conditions for dynamic experiments. It must have with the elapsed time (named \c
 by default; can be changed with the "formula" argument),
 and as many additional columns as environmental factors. Ignored for "constant" environments.}
 
-\item{...}{Additional arguments for \code{\link[=ode]{ode()}}.}
+\item{...}{Additional arguments for \code{\link[deSolve:ode]{deSolve::ode()}}.}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 

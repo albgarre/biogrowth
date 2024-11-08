@@ -4,7 +4,7 @@
 #'
 #' Function for calculating residuals of dynamic predictions under
 #' different conditions for the same model parameters according
-#' to the requirements of [modFit()].
+#' to the requirements of [FME::modFit()].
 #'
 #' @param this_p named vector of model parameters
 #' @param known_pars named vector of known model parameters
@@ -63,7 +63,7 @@ get_multi_dyna_residuals <- function(this_p, experiment_data,
 #'
 #' @inheritParams get_multi_dyna_residuals
 #' @param starting_point a named vector of starting values for the model parameters.
-#' @param ... additional arguments for [modFit()].
+#' @param ... additional arguments for [FME::modFit()].
 #' @param check Whether to check the validity of the models. `TRUE` by default.
 #' @param experiment_data a nested list with the experimental data. Each entry describes
 #' one experiment as a list with two elements: data and conditions. `data` is a tibble
@@ -229,7 +229,7 @@ fit_multiple_growth <- function(starting_point, experiment_data,
 #' several experiments with potentially different dynamic experimental conditions.
 #'
 #' @inheritParams fit_multiple_growth
-#' @param ... additional arguments for [modMCMC] (e.g. upper and lower bounds).
+#' @param ... additional arguments for [FME::modMCMC] (e.g. upper and lower bounds).
 #' @param niter number of samples of the MCMC algorithm.
 #' @param logbase_logN Base of the logarithm for the population size. By default,
 #' 10 (i.e. log10). See vignette about units for details.

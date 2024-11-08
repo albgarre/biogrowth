@@ -60,7 +60,7 @@ get_iso_residuals <- function(this_p, fit_data, model_name, known_pars,
 #' @param model_name Character defining the primary growth model
 #' @param starting_point Named vector of initial values for the model parameters.
 #' @param known_pars Named vector of known model parameters (not fitted).
-#' @param ... Additional arguments passed to [modFit()].
+#' @param ... Additional arguments passed to [FME::modFit()].
 #' @param check Whether to do some basic checks (TRUE by default).
 #' @param formula an object of class "formula" describing the x and y variables.
 #' `logN ~ time` as a default.

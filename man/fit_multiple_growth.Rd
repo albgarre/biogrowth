@@ -32,7 +32,7 @@ The default column names can be changed with the formula argument.}
 \item{sec_model_names}{named character vector with names of the
 environmental conditions and values of the secondary model (see secondary_model_data).}
 
-\item{...}{additional arguments for \code{\link[=modFit]{modFit()}}.}
+\item{...}{additional arguments for \code{\link[FME:modFit]{FME::modFit()}}.}
 
 \item{check}{Whether to check the validity of the models. \code{TRUE} by default.}
 

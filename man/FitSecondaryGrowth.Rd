@@ -66,7 +66,7 @@ Its constructor is \code{\link[=fit_secondary_growth]{fit_secondary_growth()}}.
 
 It is a subclass of list with the items:
 \itemize{
-\item fit_results: object returned by \code{\link[=modFit]{modFit()}}.
+\item fit_results: object returned by \code{\link[FME:modFit]{FME::modFit()}}.
 \item secondary_model: secondary model fitted to the data.
 \item mu_opt_fit: estimated growth rate under optimum conditions.
 \item data: data used for the fit.

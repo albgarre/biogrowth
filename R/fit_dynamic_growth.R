@@ -4,7 +4,7 @@
 #' 
 #'
 #' Function for calculating residuals of a dynamic prediction according
-#' to the requirements of [modFit()].
+#' to the requirements of [FME::modFit()].
 #'
 #' @param this_p named vector of model parameters
 #' @param fit_data tibble with the data for the fit
@@ -18,7 +18,7 @@
 #' @param logbase_logN Base of the logarithm for the population size. By default,
 #' 10 (i.e. log10). See vignette about units for details.
 #'
-#' @return An instance of [modCost()].
+#' @return An instance of [FME::modCost()].
 #'
 #' @importFrom FME modCost
 #'

@@ -54,7 +54,7 @@ summary.TimeDistribution <- function(object, ...) {
 #' @param y ignored.
 #' @param ... ignored.
 #' @param bin_width A number that specifies the width of a bin in the histogram, 
-#' see: [geom_histogram()]. `NULL` by default.
+#' see: [ggplot2::geom_histogram()]. `NULL` by default.
 #'
 #' @export
 #'

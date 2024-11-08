@@ -52,11 +52,11 @@ print.IsothermalGrowth <- function(x, ...) {
 #' @param y ignored
 #' @param ... ignored.
 #' @param line_col Aesthetic parameter to change the colour of the line,
-#' see: [geom_line()]
+#' see: [ggplot2::geom_line()]
 #' @param line_size Aesthetic parameter to change the thickness of the line,
-#' see: [geom_line()]
+#' see: [ggplot2::geom_line()]
 #' @param line_type Aesthetic parameter to change the type of the line,
-#' takes numbers (1-6) or strings ("solid") see: [geom_line()]
+#' takes numbers (1-6) or strings ("solid") see: [ggplot2::geom_line()]
 #' @param label_x Title of the x-axis
 #' @param label_y Title of the y-axis
 #' @param ylims Two-dimensional numeric vector with the limits of the y-axis

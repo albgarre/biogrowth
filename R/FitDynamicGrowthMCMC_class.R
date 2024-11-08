@@ -73,12 +73,12 @@ print.FitDynamicGrowthMCMC <- function(x, ...) {
 #' @param ylims A two dimensional vector with the limits of the primary y-axis.
 #' @param label_y1 Label of the primary y-axis.
 #' @param label_y2 Label of the secondary y-axis.
-#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [geom_line()]
-#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: [geom_line()]
-#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: [geom_line()]
-#' @param point_col Aesthetic parameter to change the colour of the point geom, see: [geom_point()]
-#' @param point_size Aesthetic parameter to change the size of the point geom, see: [geom_point()]
-#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: [geom_point()]
+#' @param line_col Aesthetic parameter to change the colour of the line geom in the plot, see: [ggplot2::geom_line()]
+#' @param line_size Aesthetic parameter to change the thickness of the line geom in the plot, see: [ggplot2::geom_line()]
+#' @param line_type Aesthetic parameter to change the type of the line geom in the plot, takes numbers (1-6) or strings ("solid") see: [ggplot2::geom_line()]
+#' @param point_col Aesthetic parameter to change the colour of the point geom, see: [ggplot2::geom_point()]
+#' @param point_size Aesthetic parameter to change the size of the point geom, see: [ggplot2::geom_point()]
+#' @param point_shape Aesthetic parameter to change the shape of the point geom, see: [ggplot2::geom_point()]
 #' @param line_col2 Same as lin_col, but for the environmental factor.
 #' @param line_size2 Same as line_size, but for the environmental factor.
 #' @param line_type2 Same as lin_type, but for the environmental factor.

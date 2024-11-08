@@ -40,7 +40,7 @@ By default, 10 (i.e. log10). See vignette about units for details.}
 \code{logN ~ time} as a default.}
 }
 \value{
-A \code{\link[=ggplot]{ggplot()}} comparing the model prediction against the data
+A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} comparing the model prediction against the data
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}

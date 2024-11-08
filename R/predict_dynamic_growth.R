@@ -23,7 +23,7 @@
 #' and the initial values of the model variables. That is, with names `mu_opt`,
 #' `Nmax`, `N0`, `Q0`.
 #' @param secondary_models A nested list describing the secondary models.
-#' @param ... Additional arguments for [ode()].
+#' @param ... Additional arguments for [deSolve::ode()].
 #' @param check Whether to check the validity of the models. `TRUE` by default.
 #' @param formula An object of class "formula" describing the x variable.
 #' `. ~ time` as a default.

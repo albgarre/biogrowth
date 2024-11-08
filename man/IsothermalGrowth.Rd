@@ -31,13 +31,13 @@
 \item{y}{ignored}
 
 \item{line_col}{Aesthetic parameter to change the colour of the line,
-see: \code{\link[=geom_line]{geom_line()}}}
+see: \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
 
 \item{line_size}{Aesthetic parameter to change the thickness of the line,
-see: \code{\link[=geom_line]{geom_line()}}}
+see: \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
 
 \item{line_type}{Aesthetic parameter to change the type of the line,
-takes numbers (1-6) or strings ("solid") see: \code{\link[=geom_line]{geom_line()}}}
+takes numbers (1-6) or strings ("solid") see: \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
 
 \item{ylims}{Two-dimensional numeric vector with the limits of the y-axis
 (or \code{NULL}, which is the default)}

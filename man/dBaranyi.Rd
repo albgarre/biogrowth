@@ -20,12 +20,12 @@ the environmental conditions for time (t)}
 }
 \value{
 A numeric vector of two components according to the requirements of
-\code{\link[=ode]{ode()}}.
+\code{\link[deSolve:ode]{deSolve::ode()}}.
 }
 \description{
 Microbial growth model as defined in Baranyi and Roberts (1994). It has
 been implemented according to the requirements of
-\code{\link[=ode]{ode()}}. For consistency in the function for isothermal growth,
+\code{\link[deSolve:ode]{deSolve::ode()}}. For consistency in the function for isothermal growth,
 calculations are done assuming the user input for mu is in log10 scale. In other words,
 the input is multiplied by ln(10).
 }

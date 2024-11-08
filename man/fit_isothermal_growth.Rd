@@ -28,7 +28,7 @@ defined using the \code{formula} argument.}
 
 \item{known_pars}{Named vector of known model parameters (not fitted).}
 
-\item{...}{Additional arguments passed to \code{\link[=modFit]{modFit()}}.}
+\item{...}{Additional arguments passed to \code{\link[FME:modFit]{FME::modFit()}}.}
 
 \item{check}{Whether to do some basic checks (TRUE by default).}
 

@@ -78,7 +78,7 @@
 #' conditions for dynamic experiments. It must have with the elapsed time (named `time` 
 #' by default; can be changed with the "formula" argument), 
 #' and as many additional columns as environmental factors. Ignored for "constant" environments.
-#' @param ... Additional arguments for [ode()].
+#' @param ... Additional arguments for [deSolve::ode()].
 #' @param check Whether to check the validity of the models. `TRUE` by default.
 #' @param logbase_mu Base of the logarithm the growth rate is referred to. 
 #' By default, the same as logbase_logN. See vignette about units for details. 

@@ -36,7 +36,7 @@ for each environmental factor.}
 model fitting. One of \code{sq} (square root; default), \code{log} (log-transform) or
 \code{none} (no transformation).}
 
-\item{...}{Additional arguments passed to \code{\link[=modFit]{modFit()}}.}
+\item{...}{Additional arguments passed to \code{\link[FME:modFit]{FME::modFit()}}.}
 
 \item{check}{Whether to do some basic checks (TRUE by default).}
 
