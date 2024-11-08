@@ -218,6 +218,34 @@ $$
 
 where $t_{max}$, defined is the time required for the population size to reach $N_{max}$ ($t_{max} = \left( \log_{10} N_{max} - \log_{10} N_0 \right)/\mu + \lambda $).
 
+### Bilinear model with lag phase
+
+This model is a simplification of the trilinear model without a stationary phase. It is described by the following equations:
+
+$$
+\log_{10} N(t) = \log_{10} N_0; t \leq \lambda \\
+\log_{10} N(t) = \log_{10} N_0 + \mu(t-\lambda); otherwise
+$$
+
+### Bilinear model with stationary phase
+
+This model is a simplification of the trilinear model without a lag phase. It is described by the following equations:
+
+$$
+\log_{10} N(t) = \log_{10} N_0 + \mu \cdot t; t < t_{max} \\
+\log_{10} N(t) = \log N_{max}; otherwise
+$$
+where $t_{max}$, defined is the time required for the population size to reach $N_{max}$ ($t_{max} = \left( \log_{10} N_{max} - \log_{10} N_0 \right)/\mu $).
+
+### Loglinear model 
+
+This model is a simplification of the trilinear model that only has an exponential phase. It is described by the following equation:
+
+$$
+\log_{10} N(t) = \log_{10} N_0 + \mu \cdot t
+$$
+
+
 ### Gathering primary models metadata directly from biogrowth
 
 The **biogrowth** package includes the `primary_model_data()` function, which provides information about the primary models included in the package. It takes just one argument (`model_name`). By default, this argument is `NULL`, and the function returns the identifiers of the available models.
