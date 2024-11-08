@@ -14,7 +14,7 @@
 #'          \item model: name of the primary inactivation model
 #'          \item starting_point: initial value of the model parameters
 #'          \item known: fixed model parameters
-#'          \item fit: object returned by [modFit()]
+#'          \item fit: object returned by [FME::modFit()]
 #'          \item best_prediction: model prediction for the model fitted.
 #'          }
 #' 
