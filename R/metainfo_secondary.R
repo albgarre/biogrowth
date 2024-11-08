@@ -54,7 +54,7 @@ secondary_model_data <- function(model_name=NULL) {
                                      ref = paste("Aryani, D.C., den Besten, H.M.W., Zwietering, M.H.,", 
                                                  "2016. Quantifying Variability in Growth and Thermal Inactivation", 
                                                  "Kinetics of Lactobacillus plantarum. Appl. Environ. Microbiol. 82,", 
-                                                 "4896–4908."
+                                                 "4896-4908."
                                                  )
                                      ),
                        Rosso_aw = list(identifier = "Rosso_aw",
@@ -64,7 +64,7 @@ secondary_model_data <- function(model_name=NULL) {
                             ref = paste("Rosso, L., Robinson, T.P., 2001.",
                             "A cardinal model to describe the effect of water activity",
                             "on the growth of moulds. International Journal of Food Microbiology",
-                            "63, 265–273."
+                            "63, 265-273."
                             )
                             ),
                        Inhibitory = list(identifier = "Inhibitory",
