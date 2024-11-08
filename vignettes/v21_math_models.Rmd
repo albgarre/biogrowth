@@ -96,6 +96,7 @@ $$
 
 where $N_0$ is the initial population size, $\mu$ is the maximum specific growth rate and $N_{max}$ is the maximum growth rate, and $\lambda$ is the lag phase. 
 
+
 #### Relationship between Q0 and the lag phase duration
 
 In the Baranyi model, the duration of the lag phase is determined by the initial value of the ideal substance $Q(t)$, $Q_0$. Disregarding the stationary phase, the Baranyi model becomes
@@ -167,6 +168,31 @@ $$
 where $\mu$ is defined in natural (i.e. exp(1)) scale.
 
 The package includes the functions `Q0_to_lambda` and `lambda_to_Q0` to perform these operations. Please check the vignette *Models based on secondary models to predict growth under constant environmental conditions* for some critical points when using them.
+
+### Baranyi model under static conditions without stationary phase
+
+The algebraic solution of the Baranyi model can be simplified when there is no stationary phase to
+
+$$
+  \log N = \log N_0 + \mu A
+$$
+
+where
+
+$$
+A = t + \frac{1}{mu} \cdot \ln \left( e^{-\mu * t} + e^{-\mu \lambda} - e^{-\mu t - \mu \lambda} \right)
+
+$$
+
+### Baranyi model under static conditions without lag phase
+
+The algebraic solution of the Baranyi model can be simplified when there is no lag phase to
+
+$$
+\log_{10} N = \log_{10} N_{max} + \log_{10}{ \frac{1 + \exp{ \left( \ln (10) \mu t \right)} - 1}
+  {\exp \left( \ln (10) \mu (t-\lambda) \right) + 10^{\log_{10} N_{max} - \log_{10} N_0}}  
+  }
+$$
 
 ### Trilinear model under static conditions
 
