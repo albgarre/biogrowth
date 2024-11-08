@@ -54,7 +54,7 @@ secondary_model_data <- function(model_name=NULL) {
                                      ref = paste("Aryani, D.C., den Besten, H.M.W., Zwietering, M.H.,", 
                                                  "2016. Quantifying Variability in Growth and Thermal Inactivation", 
                                                  "Kinetics of Lactobacillus plantarum. Appl. Environ. Microbiol. 82,", 
-                                                 "4896–4908. https://doi.org/10.1128/AEM.00277-16"
+                                                 "4896–4908."
                                                  )
                                      ),
                        Rosso_aw = list(identifier = "Rosso_aw",
