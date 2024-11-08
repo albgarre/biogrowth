@@ -72,7 +72,14 @@ primary_model_data <- function(model_name=NULL) {
                                         pars = c("logN0", "mu", "lambda"),
                                         model = bilinear_lag,
                                         ref = paste("")
+                       ),
+                       Bilinear_stationary = list(identifier = "Bilinear_stationary",
+                                           name = "Bilinear growth model with stationary phase (no lag)",
+                                           pars = c("logN0", "mu", "logNmax"),
+                                           model = bilinear_stationary,
+                                           ref = paste("")
                        )
+                       
                        )
 
 
