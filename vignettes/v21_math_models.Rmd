@@ -286,6 +286,36 @@ $$
 
 Note that parameter $b$ banishes after doing the division, so this model has 3 model parameters: $c$, $X_{min}$ and $X_{max}$.
 
+## Secondary model by Aryani
+
+The secondary model by Aryani et al. (2016) was defined for the relationship between the growth rate and pH. It is defined as
+
+$$
+\gamma(X) = 1 - 2^{- \left( X - X_{min} \right)/ \left( X_{1/2} - X_{min} \right) }
+$$
+
+where $X_{min}$ is the minimum value of $X$ enabling growth, and $X_{1/2}$ is the value of $X$ where $\gamma(X) = 0.5$.
+
+## Secondary model for water activity by Rosso
+
+The secondary model for water activity by Rosso (et al. 2001) is defined as
+
+$$
+\gamma(X) = \frac{X-X_{min}}{1 - X_{min}}
+$$
+
+where $X_{min}$ is the minimum value of $X$ enabling growth. Please note that this model is defined between 0 and 1, so it specially tailored for the effect of water activity.
+
+## Secondary model for inhibitory compounds
+
+The general model for inhibitory compounds is defined as
+
+$$
+\gamma(X) <- 1 - \left( \frac{X}{MIC} \right)^\alpha
+$$
+
+where $MIC$ is the minimum inhibitory concentration and $\alpha$ is a shape factor.
+
 ### Gathering meta data about secondary models directly from biogrowth
 
 The **biogrowth** package includes the `secondary_model_data()` function, which provides information about the secondary models it implements. It takes just one argument (`model_name`). By default, this argument is `NULL`, and the function returns the identifiers of the available models.
@@ -329,7 +359,10 @@ $Q$ | `Q` | Variable of the Baranyi model describing the lag phase
 $Q_0$ | `Q0` | Initial value of $Q$. 
 $X_{min}$ | `xmin` | Minimum value of $X$ enabling growth. 
 $X_{opt}$ | `xopt` | Optimum value of $X$ for growth. 
+$X_{1/2}$ | `xhalf` | Value of $X$ where $\mu = \mu_{opt}/2$. 
 $X_{max}$ | `xmax` | Maximum value of $X$ enabling growth. 
+$MIC$ | `MIC` | Minimum inhibitory concentration.
+$alpha$ | `alpha` | Shape factor.
 $n$ | `n` | Order of the secondary model. 
 $\mu_{opt}$ | `mu_opt` | Value of $\mu$ under optimal environmental conditions for growth.
 
@@ -340,6 +373,8 @@ population growth under dynamic conditions. Namely, the differential equations r
 
 
 ## References
+
+Aryani, D.C., den Besten, H.M.W., Zwietering, M.H., 2016. Quantifying Variability in Growth and Thermal Inactivation Kinetics of Lactobacillus plantarum. Appl. Environ. Microbiol. 82, 4896–4908. https://doi.org/10.1128/AEM.00277-16
 
 Baranyi, J., & Roberts, T. A. (1994). A dynamic approach to predicting bacterial growth in food. International Journal of Food Microbiology, 23(3–4), 277–294. https://doi.org/10.1016/0168-1605(94)90157-0
 
@@ -369,6 +404,8 @@ Ratkowsky, D. A., Lowry, R. K., McMeekin, T. A., Stokes, A. N., & Chandler, R. E
 Ratkowsky, D. A., Olley, J., McMeekin, T. A., & Ball, A. (1982). Relationship between temperature and growth rate of bacterial cultures. J Bacteriol, 149(1), 1–5.
 
 Rosso, L., Lobry, J. R., Bajard, S., & Flandrois, J. P. (1995). Convenient Model To Describe the Combined Effects of Temperature and pH on Microbial Growth. Applied and Environmental Microbiology, 61(2), 610–616.
+
+Rosso, L., Robinson, T.P., 2001. A cardinal model to describe the effect of water activity on the growth of moulds. International Journal of Food Microbiology 63, 265–273.
 
 Soetaert, K., & Petzoldt, T. (2010). Inverse Modelling, Sensitivity and Monte Carlo Analysis in R Using Package FME. Journal of Statistical Software, 33(3). https://doi.org/10.18637/jss.v033.i03
 
