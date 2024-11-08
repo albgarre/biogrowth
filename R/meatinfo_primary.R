@@ -36,13 +36,21 @@ primary_model_data <- function(model_name=NULL) {
                                       "Microbiology, 23(3-4), 277-294. https://doi.org/10.1016/0168-1605(94)90157-0")
                                       ),
                        Baranyi_noLag = list(identifier = "Baranyi_noLag",
-                            name = "Isothermal Baranyi model without lag phase",
-                            pars = c("logN0", "logNmax", "mu"),
-                            model = iso_Baranyi_noLag,
-                            ref = paste("Baranyi, J., and Roberts, T. A. (1994). A dynamic approach",
-                                        "to predicting bacterial growth in food. International Journal of Food",
-                                        "Microbiology, 23(3-4), 277-294. https://doi.org/10.1016/0168-1605(94)90157-0")
-                            ),
+                                            name = "Isothermal Baranyi model without lag phase",
+                                            pars = c("logN0", "logNmax", "mu"),
+                                            model = iso_Baranyi_noLag,
+                                            ref = paste("Baranyi, J., and Roberts, T. A. (1994). A dynamic approach",
+                                                        "to predicting bacterial growth in food. International Journal of Food",
+                                                        "Microbiology, 23(3-4), 277-294. https://doi.org/10.1016/0168-1605(94)90157-0")
+                                            ),
+                       Baranyi_noStationary = list(identifier = "Baranyi_noLag",
+                                            name = "Isothermal Baranyi model without stationary phase",
+                                            pars = c("logN0", "lambda", "mu"),
+                                            model = iso_Baranyi_noStat,
+                                            ref = paste("Baranyi, J., and Roberts, T. A. (1994). A dynamic approach",
+                                                        "to predicting bacterial growth in food. International Journal of Food",
+                                                        "Microbiology, 23(3-4), 277-294. https://doi.org/10.1016/0168-1605(94)90157-0")
+                                            ),
                        Trilinear = list(identifier = "Trilinear",
                                         name = "Tri-linear growth model",
                                         pars = c("logN0", "logNmax", "mu", "lambda"),
