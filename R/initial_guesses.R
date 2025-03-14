@@ -111,13 +111,13 @@ make_guess_primary <- function(fit_data, primary_model,
                 logNmax = logNmax, C = C, nu = nu)
     
     par_map <- tribble(
-        ~ par,  ~modGompertz, ~Baranyi, ~Trilinear, ~Logistic, ~Richards,
-        "logN0", TRUE, TRUE, TRUE, TRUE, TRUE,
-        "mu", TRUE, TRUE, TRUE, TRUE, TRUE,
-        "lambda", TRUE, TRUE, TRUE, TRUE, TRUE,
-        "logNmax", FALSE, TRUE, TRUE, FALSE, FALSE,
-        "C", TRUE, FALSE, FALSE, TRUE, TRUE,
-        "nu", FALSE, FALSE, FALSE, FALSE, TRUE
+        ~ par,  ~modGompertz, ~Baranyi, ~Trilinear, ~Logistic, ~Richards, ~Baranyi_noLag, ~Baranyi_noStationary, ~Loglinear, ~Bilinear_lag, ~Bilinear_stationary,
+        "logN0", TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,
+        "mu", TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,
+        "lambda", TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE,
+        "logNmax", FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE,
+        "C", TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
+        "nu", FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
         )
     
     my_pars <- par_map$par[par_map[[primary_model]]]
