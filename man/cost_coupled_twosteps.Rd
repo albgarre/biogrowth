@@ -9,12 +9,14 @@ cost_coupled_twosteps(p, this_data, weight = NULL, known)
 \arguments{
 \item{p}{numeric vector (or list) of model parameters. Must have entries \code{logC0}, \code{b} and \code{Tmin}}
 
+\item{this_data}{tibble (or data.frame) of data. It must have one column named \code{temp} (temperature),
+one named \code{lambda} (specific growth rate; in ln CFU/TIME) and one named \code{mu}
+(specific growth rate; in ln CFU/TIME).}
+
 \item{weight}{type of weights to apply. Either \code{NULL} (no weights; default),
 \code{sd} (standard deviation) or \code{mean} (mean value).}
 
-\item{my_d}{tibble (or data.frame) of data. It must have one column named \code{temp} (temperature),
-one named \code{lambda} (specific growth rate; in ln CFU/TIME) and one named \code{mu}
-(specific growth rate; in ln CFU/TIME).}
+\item{known}{vector of known model parameters}
 }
 \value{
 vector of weighted residuals

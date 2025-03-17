@@ -64,6 +64,22 @@ named \code{time}.}
 \item{k}{penalty for the parameters (k=2 by default)}
 
 \item{y}{ignored}
+
+\item{line_col}{colour of the line}
+
+\item{line_size}{size of the line}
+
+\item{line_type}{type of the line}
+
+\item{point_col}{colour of the points}
+
+\item{point_size}{size of the points}
+
+\item{point_shape}{shape of the point}
+
+\item{label_y}{label for the y-axis. By default, \code{NULL} (default value depending on the mode)}
+
+\item{label_x}{label for the x-axis. By default, \code{NULL} (default value depending on the mode)}
 }
 \description{
 The \code{FitCoupledGrowth} class contains a Baranyi model fitted to experimental data

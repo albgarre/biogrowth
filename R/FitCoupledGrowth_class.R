@@ -229,10 +229,18 @@ AIC.FitCoupledGrowth <- function(object, ..., k=2) {
 #' @param x The object of class [FitCoupledGrowth] to plot.
 #' @param y ignored
 #' @param ... ignored.
+#' @param line_col colour of the line
+#' @param line_size size of the line
+#' @param line_type type of the line
+#' @param point_col colour of the points
+#' @param point_size size of the points
+#' @param point_shape shape of the point
+#' @param label_y label for the y-axis. By default, `NULL` (default value depending on the mode)
+#' @param label_x label for the x-axis. By default, `NULL` (default value depending on the mode)
 #' 
 #' @export
 #'
-#' @importFrom ggplot2 ggplot geom_point
+#' @importFrom ggplot2 ggplot geom_point labs
 #' @importFrom rlang .data
 #' @importFrom graphics plot
 #' @importFrom cowplot theme_cowplot 
@@ -253,10 +261,11 @@ plot.FitCoupledGrowth <- function(x, y=NULL, ...,
     
     d <- x$data
     
-    p <- d %>%
-      summarize(t = max(time), .by = "temp") %>%
-      mutate(i = row_number()) %>%
-      split(.$i) %>%
+    aa <- d %>%
+      summarize(t = max(.data$time), .by = "temp") %>%
+      mutate(i = row_number()) 
+    
+    p <- split(aa, aa$i) %>%
       map(
         ~ tibble(temp = .$temp,
                  time = seq(0, .$t, length = 100))
@@ -318,7 +327,7 @@ plot.FitCoupledGrowth <- function(x, y=NULL, ...,
     
     ## Aesthetics
     
-    if (is.null(label_x)) label_x <- "Temperature (ºC)"
+    if (is.null(label_x)) label_x <- "Temperature (C)"
     if (is.null(label_y)) label_y <- "Value"
     
     p <- p + labs(x = label_x, y = label_y)

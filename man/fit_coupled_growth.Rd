@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_coupled_growth.R
 \name{fit_coupled_growth}
 \alias{fit_coupled_growth}
-\title{Growth fitting considering link between mu and lambda}
+\title{Growth fitting considering link between mu and lambda for the Baranyi-Ratkowsky model}
 \usage{
 fit_coupled_growth(
   fit_data,

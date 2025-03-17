@@ -129,11 +129,12 @@ residuals_lambda <- function(p, my_d) {
 #' Cost for the coupled model fitted in two-steps
 #' 
 #' @param p numeric vector (or list) of model parameters. Must have entries `logC0`, `b` and `Tmin`
-#' @param my_d tibble (or data.frame) of data. It must have one column named `temp` (temperature),
+#' @param this_data tibble (or data.frame) of data. It must have one column named `temp` (temperature),
 #' one named `lambda` (specific growth rate; in ln CFU/TIME) and one named `mu` 
 #' (specific growth rate; in ln CFU/TIME).
 #' @param weight type of weights to apply. Either `NULL` (no weights; default), 
 #' `sd` (standard deviation) or `mean` (mean value).
+#' @param known vector of known model parameters
 #' 
 #' @returns vector of weighted residuals
 #' 
@@ -312,8 +313,8 @@ fit_coupled_growth <- function(fit_data, start,
     fit_data$mu <- fit_data$mu*log(logbase_mu)
     
     ## Calculate the sq of mu (I dont wanna calculate it 1M times)
-    
-    fit_data <- mutate(fit_data, sq_mu = sqrt(mu))
+
+    fit_data$sq_mu <- sqrt(fit_data$mu)
     
     ## Fit the model
     
@@ -330,7 +331,7 @@ fit_coupled_growth <- function(fit_data, start,
                 mode = "two_steps",
                 weight = weight,
                 logbase_mu = logbase_mu,
-                data = select(fit_data, temp, mu, lambda),
+                data = select(fit_data, "temp", "mu", "lambda"),
                 known = known
                 )
     
@@ -357,7 +358,7 @@ fit_coupled_growth <- function(fit_data, start,
     out <- list(fit = my_fit,
                 mode = "one_step",
                 weight = weight,
-                data = select(fit_data, temp, time, logN),
+                data = select(fit_data, "temp", "time", "logN"),
                 known = known
     )
     

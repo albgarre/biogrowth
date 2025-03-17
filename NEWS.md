@@ -1,3 +1,8 @@
+
+# biogrowth 1.1.0
+
+* included the `fit_coupled_growth()` function with a novel approach for the Baranyi-Ratkowsky model.
+
 # biogrowth 1.0.5
 
 * included additional secondary models (Aryani, Inhibitory and Rosso_aw).
