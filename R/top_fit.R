@@ -363,7 +363,7 @@ fit_growth <- function(fit_data,
                        ..., 
                        check = TRUE,
                        logbase_mu = logbase_logN,
-                       logbase_logN = 10,  # TODO
+                       logbase_logN = 10,
                        formula = logN ~ time
                        ) {
     

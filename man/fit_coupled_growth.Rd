@@ -7,7 +7,7 @@
 fit_coupled_growth(
   fit_data,
   start,
-  known,
+  known = c(),
   mode = "two_steps",
   weight = "sd",
   ...,
@@ -17,11 +17,11 @@ fit_coupled_growth(
 }
 \arguments{
 \item{fit_data}{a tibble (or data.frame) with the data for the fit. The content must
-be different depending on the fitting mode (see Details).}
+be different depending on the fitting mode (see relevant sections within the help page).}
 
 \item{start}{a numeric vector of initial guesses for the parameter estimates}
 
-\item{known}{a numeric vector of known mode parameters}
+\item{known}{a numeric vector of known mode parameters. An empty vector by default (no knonw parameter)}
 
 \item{mode}{the type of model fitting approach. Either \code{two_steps} (fitted from the
 values of \code{mu} and \code{lambda}) or \code{one_step} (fitted from logN)}
@@ -31,10 +31,128 @@ values of \code{mu} and \code{lambda}) or \code{one_step} (fitted from logN)}
 
 \item{...}{ignored}
 
-\item{logbase_mu}{AA}
+\item{logbase_mu}{Base for the definition of mu. By default, \code{exp(1)} (natural logarithm).}
 
-\item{logbase_logN}{AA}
+\item{logbase_logN}{Base for the definition of logN. By default, 10 (decimal logarithm).}
 }
 \description{
-Growth fitting considering link between mu and lambda
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+This function implements the methodology suggested by Garre et al. (2025; doi: 10.1016/j.ijfoodmicro.2025.111078)
+for the Baranyi-Ratkowsky model. Rather than fitting independent models for mu and lambda,
+this approach considers a link between both secondary models, reducing the number of
+unknown parameters from 3 to 4.
+
+The function implements too modes of fitting: two-steps and one-step. Please see the respective sections
+for further information.
+}
+\section{Two-steps fitting}{
+
+In this mode, it is assumed that primary models have been already fitted to each experiment. Therefore,
+the data is available as a table of values of mu and lambda estimated at each temperature. Hence,
+\code{fit_data} must be a tibble (or data.frame) with three columns: \code{temp} (storage temperature),
+\code{mu} (specific growth rate) and \code{lambda} (lag phase duration). By default, \code{mu} must be
+defined in the scale of natural logarithm, although this can be modified using the \code{logbase_mu} argument.
+The package includes the dataset \code{example_coupled_twosteps} as an illustration of the type of data.
+}
+
+\section{One-step fitting}{
+
+In this mode, secondary models are directly fitted to the observed (log) microbial counts. Hence,
+\code{fit_data} must be a tibble (or data.frame) with three columns: \code{temp} (storage temperature),
+\code{time} (the elapsed time) and \code{logN} (the log-microbial concentration). By default, \code{logN} must be
+defined in the scale of decimal logarithm, although this can be modified using the \code{logbase_logN} argument.
+The package includes the dataset \code{example_coupled_onestep} as an illustration of the type of data.
+}
+
+\examples{
+
+## Example 1: Two-steps fitting-------------------------------------------------
+
+## We can use the example dataset 
+
+data(example_coupled_twosteps)
+
+## We need to define initial guesses for every parameter
+
+guess <- c(logC0 = -1, b = .1, Tmin = 5)
+
+## We can now call the fitting function
+
+my_fit <- fit_coupled_growth(example_coupled_twosteps, 
+                             start = guess,
+                             mode = "two_steps")
+
+## Common S3 methods are included
+
+print(my_fit)
+coef(my_fit)
+summary(my_fit)
+plot(my_fit)
+
+## Any model parameter can be fixed using the known argument
+
+known <- c(b = .01)
+
+## Please note that the guess must be updated, as now parameter can appear both as a guess and known
+
+guess <- c(logC0 = -1, Tmin =  0)
+
+
+fixed_fit <- fit_coupled_growth(example_coupled_twosteps, 
+                                start = guess,
+                                known = known, 
+                                mode = "two_steps")
+
+print(fixed_fit)
+coef(fixed_fit)
+summary(fixed_fit)
+plot(fixed_fit)
+
+## Example 2: One-step fitting--------------------------------------------------
+
+## We can use an example dataset with the right format
+
+data("example_coupled_onestep")
+
+## The function requires initial guesses for every model parameter
+
+guess <- c(logN0 = 2, logNmax = 8, b = 0.04, logC0 = -4, Tmin = 5)
+
+## We can now call the fitting function
+
+my_fit <- fit_coupled_growth(example_coupled_onestep,
+                             start = guess,
+                             mode = "one_step")
+
+## The package includes common S3 methods
+
+print(my_fit)
+coef(my_fit)
+summary(my_fit)
+plot(my_fit)
+
+## Any model parameter can be fixed before fitting
+
+known <- c(logNmax = 7)
+
+## Guesses must be updated, so no parameter appears twice
+
+guess <- c(logN0 = 2, b = 0.04, logC0 = -4, Tmin = 5)
+
+## We can now call the fitting function
+
+my_fit <- fit_coupled_growth(example_coupled_onestep,
+                             start = guess,
+                             known = known,
+                             mode = "one_step")
+
+## The package includes common S3 methods
+
+print(my_fit)
+coef(my_fit)
+summary(my_fit)
+plot(my_fit)
+
+
 }

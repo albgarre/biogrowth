@@ -251,7 +251,7 @@ plot.FitCoupledGrowth <- function(x, y=NULL, ...,
     
     ## Lines and points
     
-    d <- bb$data
+    d <- x$data
     
     p <- d %>%
       summarize(t = max(time), .by = "temp") %>%

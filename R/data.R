@@ -158,4 +158,28 @@
 #' 
 "refrigeratorSpain"
 
+#' Example data for two-steps fitting of the Baranyi-Ratkowsky model
+#'
+#' This dataset serve as an example of the data input for `fit_coupled_growth` using the
+#' two-steps mode. 
+#'
+#' @format A tibble with three columns:
+#' * temp: the treatment temperature
+#' * mu: the value of mu estimated at each temperature
+#' * lambda: the value of lambda estimated at each temperature
+#' 
+"example_coupled_twosteps"
+
+#' Example data for two-steps fitting of the Baranyi-Ratkowsky model
+#'
+#' This dataset serve as an example of the data input for `fit_coupled_growth` using the
+#' one-step mode. 
+#'
+#' @format A tibble with three columns:
+#' * temp: the treatment temperature
+#' * time: the elapsed time of the sample
+#' * logN: the (decimal) log microbial concentration
+#' 
+"example_coupled_onestep"
+
 

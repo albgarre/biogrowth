@@ -1,0 +1,238 @@
+---
+title: "Baranyi model with coupled secondary models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Baranyi model with coupled secondary models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tidyverse)
+library(biogrowth)
+```
+
+## Theoretical background
+
+The Baranyi model has demonstrated its reliability for describing the growth of bacterial populations. When combined with the Ratkowsky secondary model, it can describe how the microbial population grows for different temperatures.
+
+The parameters of the Baranyi-Ratkowsky model must be estimated from empirical data. The most common approach is to perform a set of experiments at different temperatures. Then, the model is fitted in a two-steps fashion. First, the primary Baranyi model is fitted to the data obtained at each temperature. Next, based on the values of $\mu$ obtained for each temperature, the parameters of the Ratkowsky model are estimated. An independent secondary model for the lag phase is defined in a similar way, based on the estimates of $\lambda$ from the primary model.
+
+$$
+\sqrt \mu = b\left(T-T_{min} \right)^2
+$$
+
+A recent study revisited the Baranyi-Ratkowsky model, reaching two main conclusions (Garre et al. 2025). The first one is that an inverse-squared relation is the only secondary model for $\lambda$ compatible with the Baranyi-Ratkowsky model:
+
+$$
+\lambda = B\frac{1}{(T-T_{min})^2}
+$$
+
+The second conclusion is that there is a coupling between the secondary models for $\mu$ and $\lambda$. Namely, parameter $B$ is defined as:
+
+$$
+B = \frac{\ln \left(1 + 1/C_0 \right)}{b}
+$$
+
+Please note that the slope of the Ratkowsky model ($b$) also appears in this equation. Then, the secondary model for the lag phase only introduces an additional parameter ($C_0$), which is related to the hypotheses of the Baranyi model related to the lag phase.
+
+This opens new possibilities for fitting the Baranyi-Ratkowsky model, exploiting the coupling between both parameters to improve model robustness.
+
+## The `fit_coupled_growth()` function
+
+The **biogrowth** package includes the `fit_coupled_growth()` function to fit the Baranyi-Ratkowsky model considering the coupling between both parameters. This function has the following arguments:
+
+- `fit_data` defines the data for the fitting. Its format will depend on the type of fit (see below).
+- `start` initial guess for the model parameters.
+- `known` vector of fixed model parameters.
+- `mode` the function defines two types of fitting: one-step or two-steps. This argument allows switching between both.
+- `weight` type of weight to apply for the fitting (only for two-steps fitting).
+- `...` ignored
+- `logbase_mu` logarithmic base for the definition of `mu` (only used for two-steps fitting). By default, `exp(1)` (natural logarithm).
+- `logbase_logN` logarithmic base for the definition of `logN` (only used for one-step fitting). By default, `10` (decimal logarithm).
+
+### Two-steps fitting of the Baranyi-Ratkowsky model
+
+The two-steps fitting mode considers that the primary models have already been fitted to the dataset. Therefore, a table of values of $\mu$ and $\lambda$ estimated for each temperature are already available. It must be presented as a tibble (or data.frame) with three columns:
+
+- temp: the temperature of the experiment
+- mu: the value of $\mu$ estimated at that temperature
+- lambda: the value of $\lambda$ estimated at that temperature
+
+The package includes the `example_coupled_twosteps` as an example of the data format.
+
+```{r}
+data("example_coupled_twosteps")
+example_coupled_twosteps
+```
+
+The `fit_coupled_growth()` function uses nonlinear regression. Therefore, it requires an initial guess for every model parameter. This must be defined as a named numeric vector with the following elements: `Tmin` (theoretical minimum temperature for growth), `b` (slope of the Ratkowsky model), `logC0` (decimal logarithm of the initial value of the theoretical substance $C_0$ of the Baranyi model):
+
+```{r}
+guess <- c(logC0 = -1, b = .1, Tmin = 5)
+```
+
+Once the initial guess has been defined, the `fit_coupled_growth` function can be called:
+
+```{r}
+fit_twosteps <- fit_coupled_growth(example_coupled_twosteps, 
+                   start = guess,
+                   mode = "two_steps")
+```
+
+It returns an instance of `FitCoupledGrowth` with several S3 methods. The `print()` method shows a summary of the fit:
+
+```{r}
+fit_twosteps
+```
+
+Detailed statistics of the fit are shown by the `summary()` method:
+
+```{r}
+summary(fit_twosteps)
+```
+
+The `plot()` method compares the model fitted against the experimental data.
+
+```{r}
+plot(fit_twosteps)
+```
+
+This method returns a `ggplot` object, so it can be editted with further layers:
+
+```{r}
+plot(fit_twosteps) + scale_y_sqrt()
+```
+
+The `fit_coupled_growth()` function also includes the `known` argument that allows fixing any model parameter. For instance, we can fix parameter `Tmin` to 5ºC:
+
+```{r}
+known <- c(Tmin = 5)
+```
+
+Please note that now we need to update the initial guess, as no parameter can appear both as an initial guess and a known parameter:
+
+```{r}
+guess <- c(logC0 = -1, b = .1)
+```
+
+We can now fit the model by calling `fit_coupled_growth()` passing also this parameter
+
+```{r}
+fit_twosteps_fixed <- fit_coupled_growth(example_coupled_twosteps, 
+                   start = guess,
+                   known = known,
+                   mode = "two_steps")
+```
+
+Now, the statistical summary only provides information on two parameters, as `Tmin` was fixed.
+
+```{r}
+summary(fit_twosteps_fixed)
+```
+
+We can check the impact on the fitted curve using the `plot()` method.
+
+```{r}
+plot(fit_twosteps_fixed)
+```
+
+### One-step fitting of the Baranyi-Ratkowsky model
+
+The one-step fitting mode estimates secondary models directly from the log-microbial concentrations. Hence, the data must be defined as a tibble (or data.frame) with three columns:
+
+- `temp`: the storage temperature
+- `time`: the elapsed time of each sample
+- `logN`: the log-microbial concentration. By default, decimal logarithm, although this can be modified using the `logbase_logN` argument.
+
+The package includes the `example_coupled_onestep` as an example dataset:
+
+```{r}
+data("example_coupled_onestep")
+head(example_coupled_onestep)
+```
+
+The function uses nonlinear regression for parameter estimation. Therefore, it requires initial guesses for every model parameter. They must be defined as a named vector including:
+
+- `logN0`: log of the initial microbial concentration
+- `logNmax`: log of the maximum microbial concentration
+- `b`: slope of the Ratkowsky model
+- `logC0`: decimal logarithm of the initial value of theoretical variable $C$ from the Baranyi model
+- `Tmin`: theoretical minimum growth temperature.
+
+```{r}
+guess <- c(logN0 = 2, logNmax = 8, b = 0.04, logC0 = -4, Tmin = 5)
+```
+
+Once the data and guess have been defined, the model can be fitted by passing `mode = "one_step"` to `fit_coupled_growth()`:
+
+```{r}
+fit_onestep <- fit_coupled_growth(example_coupled_onestep,
+                             start = guess,
+                             mode = "one_step")
+```
+
+It returns an instance of `FitCoupledGrowth` with several S3 methods. The `print()` method shows a summary of the fit:
+
+```{r}
+fit_onestep
+```
+
+Detailed statistics of the fit are shown by the `summary()` method:
+
+```{r}
+summary(fit_onestep)
+```
+
+The `plot()` method compares the model fitted against the experimental data.
+
+```{r}
+plot(fit_onestep)
+```
+
+Any model parameter can be fixed using the `known` argument, which must be a numeric vector:
+
+```{r}
+known <- c(logN0 = 3)
+```
+
+Please note that the initial guess must be updated, so no parameter appears both as fixed as an initial guess:
+
+```{r}
+guess <- c(logNmax = 8, b = 0.04, logC0 = -4, Tmin = 5)
+```
+
+Then, the function can be called again, including the additional argument.
+
+```{r}
+fit_onestep <- fit_coupled_growth(example_coupled_onestep,
+                             start = guess,
+                             known = known,
+                             mode = "one_step")
+```
+
+Please note how the statistical summary now excludes parameter `logN0`
+
+```{r}
+summary(fit_onestep)
+```
+
+The impact of the overall model fitting can be evaluated using the `plot()` method.
+
+```{r}
+plot(fit_onestep)
+```
+
+## References
+
+Garre, A., Valdramidis, V., Guillén, S., 2025. Revisiting secondary model features for describing the shoulder and lag parameters of microbial inactivation and growth models. International Journal of Food Microbiology 111078. https://doi.org/10.1016/j.ijfoodmicro.2025.111078
+
+
+
