@@ -262,9 +262,16 @@ vcov.GrowthFit <- function(object, ...) {
             p      <- length(param)
             
             covar <- matrix(data = NA, nrow = p, ncol = p)
+            
+            return(covar)
         }
         
-        covar
+        ## Scale the variance
+        
+        rdf <- object$fit_results$df.residual
+        resvar <- object$fit_results$ssr/rdf
+        
+        covar*resvar
         
     }
 }

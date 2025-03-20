@@ -1,5 +1,9 @@
 
-# biogrowth 1.1.0
+# biogrowth 1.0.7
+
+* fixed a bug in the calculation of `vcov` methods. The variance was not properly scaled.
+
+# biogrowth 1.0.6
 
 * included the `fit_coupled_growth()` function with a novel approach for the Baranyi-Ratkowsky model.
 

@@ -141,9 +141,16 @@ vcov.FitCoupledGrowth <- function(object, ...) {
     
     covar <- matrix(data = NA, nrow = p, ncol = p)
     
+    return(covar)
+    
   }
   
-  covar
+  ## Scale the variance
+  
+  rdf <- object$fit$df.residual
+  resvar <- object$fit$ssr/rdf
+  
+  covar*resvar
 }
 
 #' @describeIn FitCoupledGrowth deviance of the model.
