@@ -308,6 +308,27 @@ fit_coupled_growth <- function(fit_data, start,
 
   if (mode == "two_steps") {  # Fitting directly from mu and lambda
     
+    ## Check the model parameters
+    
+    par_names <- c(names(start), names(known))
+    
+    if (length(par_names) != 3) {
+      stop(paste("The initial guess and the known parameters must define exactly 3 parameters. Found: ", 
+                 length(par_names)))
+    }
+    
+    if ( !("b" %in% par_names) ) {
+      stop("Parameter 'b' must be assigned an initial guess or fixed.")
+    }
+    
+    if ( !("Tmin" %in% par_names) ) {
+      stop("Parameter 'Tmin' must be assigned an initial guess or fixed.")
+    }
+    
+    if ( !("logC0" %in% par_names) ) {
+      stop("Parameter 'logC0' must be assigned an initial guess or fixed.")
+    }
+    
     ## Convert the mu to ln CFU
     
     fit_data$mu <- fit_data$mu*log(logbase_mu)
@@ -322,7 +343,8 @@ fit_coupled_growth <- function(fit_data, start,
                      start,
                      this_data = fit_data,
                      known = known,
-                     weight = weight
+                     weight = weight,
+                     ...
            )
     
     ## Output
@@ -340,6 +362,35 @@ fit_coupled_growth <- function(fit_data, start,
     out
     
   } else if (mode == "one_step") {  # Fitting from logN
+    
+    ## Check the model parameters
+    
+    par_names <- c(names(start), names(known))
+    
+    if (length(par_names) != 5) {
+      stop(paste("The initial guess and the known parameters must define exactly 5 parameters. Found: ", 
+                 length(par_names)))
+    }
+    
+    if ( !("b" %in% par_names) ) {
+      stop("Parameter 'b' must be assigned an initial guess or fixed.")
+    }
+    
+    if ( !("Tmin" %in% par_names) ) {
+      stop("Parameter 'Tmin' must be assigned an initial guess or fixed.")
+    }
+    
+    if ( !("logC0" %in% par_names) ) {
+      stop("Parameter 'logC0' must be assigned an initial guess or fixed.")
+    }
+    
+    if ( !("logN0" %in% par_names) ) {
+      stop("Parameter 'logN0' must be assigned an initial guess or fixed.")
+    }
+    
+    if ( !("logNmax" %in% par_names) ) {
+      stop("Parameter 'logNmax' must be assigned an initial guess or fixed.")
+    }
     
     ## Convert logN to log CFU
     
