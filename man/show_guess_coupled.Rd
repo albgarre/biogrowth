@@ -13,20 +13,17 @@ show_guess_coupled(
 )
 }
 \arguments{
-\item{fit_data}{Tibble (or data.frame) of data for the fit. It must have two columns, one with
-the elapsed time (\code{time} by default) and another one with the decimal logarithm
-of the populatoin size (\code{logN} by default). Different column names can be
-defined using the \code{formula} argument.}
+\item{fit_data}{Tibble (or data.frame) of data for the fit. The shape of the data will depend on the
+fitting \code{mode} (see \code{\link[=fit_coupled_growth]{fit_coupled_growth()}})}
 
 \item{guess}{Named vector with the initial guess of the model parameters}
 
-\item{logbase_mu}{Base of the logarithm the growth rate is referred to.
-By default, 10 (i.e. log10). See vignette about units for details.}
+\item{mode}{the type of model fitting approach. Either \code{two_steps} (fitted from the
+values of \code{mu} and \code{lambda}) or \code{one_step} (fitted from logN)}
 
-\item{model_name}{Character defining the primary growth model as per \code{\link[=primary_model_data]{primary_model_data()}}}
+\item{logbase_mu}{Base for the definition of mu. By default, \code{exp(1)} (natural logarithm).}
 
-\item{formula}{an object of class "formula" describing the x and y variables.
-\code{logN ~ time} as a default.}
+\item{logbase_logN}{Base for the definition of logN. By default, 10 (decimal logarithm).}
 }
 \value{
 A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} comparing the model prediction against the data
