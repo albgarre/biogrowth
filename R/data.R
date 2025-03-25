@@ -182,4 +182,14 @@
 #' 
 "example_coupled_onestep"
 
+#' Example data for TTD calculation and the serial-dilution method
+#'
+#' This dataset serve as an example of the data input for [get_TTDs()]. 
+#'
+#' @format A tibble with 97 rows and 61 columns:
+#' * the first column (`time`) presents the time of the reading
+#' * the remaining columns present the OD recorded on each well. They are codified as
+#' condition + _ + number of dilutions, according to [get_TTDs()].
+#' 
+"example_od"
 
