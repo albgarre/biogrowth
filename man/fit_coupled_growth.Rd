@@ -117,7 +117,7 @@ data("example_coupled_onestep")
 
 ## The function requires initial guesses for every model parameter
 
-guess <- c(logN0 = 2, logNmax = 8, b = 0.04, logC0 = -4, Tmin = 5)
+guess <- c(logN0 = 2, logNmax = 8, b = 0.05, logC0 = -3, Tmin = 5)
 
 ## We can now call the fitting function
 
