@@ -156,3 +156,11 @@ predictMCMC.FitMultipleGrowthMCMC <- function(model,
                         formula = formula)
     
 }
+
+
+
+
+
+
+
+
