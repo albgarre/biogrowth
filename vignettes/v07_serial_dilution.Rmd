@@ -1,0 +1,245 @@
+---
+title: "Serial dilution method"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Serial dilution method}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(biogrowth)
+library(tidyverse)
+```
+
+## The serial-fold dilution method
+
+Plate counts are generally a reliable method for studying microbial growth. However, this approach does not scale well with the size of the experimental design, such as when studying variability or developing a secondary model, where we must analyze hundreds of curves. This issue can be mitigated using experiments based on optical density, as devices (such as a bioscreen or a plate reader) can use 96-well or 100-well plates, so a large number of conditions can be run in parallel.
+
+It is important to underline that these devices do not measure the microbial concentration directly. Instead, it is estimated from the optical density. The device sends a ray of light through the well and measures the intensity that reaches a sensor. Higher microbial concentration will scatter more light and reduce the light intensity read. The dataset `example_od` includes a typical dataset provided by this type of device:
+
+```{r}
+data("example_od")
+example_od %>%
+  pivot_longer(-"time") %>%
+  ggplot() +
+  geom_line(aes(x = time, y = value, colour = name)) +
+  theme(legend.position = "none")
+```
+
+Although the OD curve looks like a bacterial growth curve, it is not. Higher microbial concentrations imply a higher OD, but this relation is not one-to-one. Furthermore, OD-based devices have a relatively large detection limit (often around 6 log CFU/mL, although this limit is strain and media dependent), so only the background noise is measured for low microbial concentrations.  As a result, the OD curve has a longer lag phase than the actual microbial growth curve. 
+Another issue is that the device often "saturates" before the stationary growth phase. This is because, at some point, the OD is so high (due to the high microbial concentration) that there is no longer a measurable change in  OD. Hence, the OD curve enters the stationary phase before the actual microbial population (red in the plot above). 
+
+Therefore, when using OD-based devices, we only observe a relativelly small part of the growth curve. Also, even though we can estimate some growth parameters ($\lambda$, $\log N_{max}$ and $\mu$) directly from the OD curve, they are not really representative of the actual microbial growth.
+
+## The serial-fold dilution method
+
+### Principles
+
+The serial-fold dilution method allows the estimation of the parameters of the growth curve directly from OD measurements. This method is based on these hypotheses:
+
+* the microbial concentration that corresponds to a given OD (within a reasonable range) is unique. For instance, that an OD of 0.2 corresponds to a microbial concentration of 6 log CFU/ml. 
+* that the growth parameters ($\lambda$, $\mu$) do not depend on the initial bacterial concentration. 
+
+Under these hypotheses, we would observe this for different initial levels of the inoculum:
+
+```{r}
+c(0:4) %>%
+    map(.,
+        ~ predict_growth(seq(0, 100, length = 1000),
+                         list(model = "Baranyi", 
+                              logN0 = log10(100/6^.),
+                              logNmax = 8,
+                              mu = .2, lambda = 15))
+        ) %>%
+    imap_dfr(., ~ mutate(.x$simulation, dil = .y-1)) %>%
+    ggplot() +
+    geom_line(aes(x = time, y = logN, colour = factor(dil))) +
+    geom_hline(yintercept = 6, linetype = 2) +
+    theme(legend.position = "none")
+```
+
+The plot shows a horizontal line, which corresponds to a hypothetical detection concentration $N_{det}$ according to some OD (e.g., 0.25). It can be demonstrated that, under those hypotheses, the time to detection $t_{det}$ is linear with the initial concentration on each well ($N_0$:
+
+$$ 
+t_{det} = \left( \lambda + \frac{1}{\mu} \log N_{det} \right) - \frac{1}{\mu} \log N_0 
+$$
+
+Taking advantage of that, the serial-dilution method performs several experiments in parallel for different initial concentrations. Then, the parameters of the growth curve can be obtained from the values of $t_{det}$ by (non-linear) regression. 
+
+For practical reasons, the different initial concentrations are defined by serial dilution of the samples. A bacterial inoculum is introduced in the wells at one edge of the plate. Then, this is serially diluted (often two-fold) over the whole row. Therefore, the initial concentration on each well is defined by
+
+$$
+\log N_0 = \log \left( N_{dil0} / f^d \right) = \log N_{dil0} - \log f^d = \log N_{dil0} - d \cdot \log f
+$$
+
+where $N_{dil0}$ is the microbial concentration in the well corresponding to the zero-dilution, $d$ is the number of dilutions and $f$ is the dilution factor. 
+
+By introducing that expression in the equation above, the $t_{det}$ can be calculated from the number of dilutions according to
+
+$$
+t_{det} = \left( \lambda + \frac{1}{\mu} \log N_{det} - \frac{1}{\mu} \log N_{dil0} \right) + \frac{1}{\mu} \cdot d \cdot \log f
+$$
+
+## Implementation of the serial dilution method
+
+### Getting the time-to-detection
+
+The **biogrowth** package includes several functions and methods that implement the serial dilution method. First, `get_TTDs()` can be used to calculate $t_{det}$ directly from OD data. This function takes three arguments:
+
+- `OD_data`
+- `target_OD`
+- `codified`
+
+The data is introduced as a `tibble` (or `data.frame`) using `OD_data`. It must include a column named `time` with the time of the reading. Then, the remaining columns indicate the OD measured on each well. The `example_od` dataset includes an example of the data format.
+
+```{r}
+data("example_od")
+head(example_od)
+```
+
+Any detection OD can be defined using the `target_OD` argument. The $t_{det}$ for each well is calculated by linear interpolation. 
+
+By passing these two arguments to `get_TTDs()`, the function returns a `tibble` with two columns: `condition` (the name of the well, according to the names in `OD_data`) and `TTD` (the value of $t_{det}$ for that well). For wells where $t_{det}$ is not reached, the function returns an `NA`.
+
+```{r}
+my_TTDs <- get_TTDs(example_od, target_OD = 0.2)
+head(my_TTDs)
+```
+
+Using the serial-dilution method requires the number of dilutions to be identified. This can be done by setting `codified = TRUE`. In that case, the column names of `OD_data` must be defined as "condition" + "_" + "n_dilutions". For instance, the following column names in `example_od` indicate dilution 0, 1 and 2 for the same condition:
+
+```{r}
+names(example_od)[c(2, 5, 8)]
+```
+
+Now, the `tibble` returned by `get_TTDs()` has an additional column with the number of dilutions. Furthermore, the identified of the dilution number is removed from `condition`:
+
+```{r}
+my_TTDs <- get_TTDs(example_od, target_OD = 0.2, codified = TRUE)
+head(my_TTDs)
+```
+
+### Estimating the growth rate from the time-to-detection
+
+The `fit_serial_dilution()` function implements the serial-dilution method. It takes 7 arguments:
+
+- `TTD_data`
+- `start`
+- `dil_factor`
+- `mode`
+- `logN_det`
+- `logN_dil0`
+- `max_dil`
+
+The argument `TTD_data` defines the data for the fitting. It must be a `tibble` (or `data.frame`) with two columns: `TTD` (the $t_{det}$) and `dil` the dilution number. The output of `get_TTDs` (after filtering for one condition) already has that format.
+
+```{r}
+my_data <- filter(ttds, condition == "S/6,5/35/R1")
+```
+
+The dilution factor is defined by the argument `dil_factor`. By default, this parameter takes the value `2` (as the two-fold dilution method is the most common). Then, the fitting is done by nonlinear regression, so the function requires initial guesses for the model parameters using the argument `start`.
+
+The fitting can be done in two different modes. The default ("intercept") simplifies the equation into an intercept term (`a`). Therefore, `start` must include an initial guess for `mu` and `a`.
+
+
+```{r}
+my_fit <- fit_serial_dilution(my_data, start = c(a = 0, mu = .1))
+```
+
+The function returns an instance of `FitSerial` with the results of the fit. It includes common S3 methods for analysing the model output such as print
+
+```{r}
+my_fit
+```
+
+coef 
+
+```{r}
+coef(my_fit)
+```
+
+or summary
+
+```{r}
+summary(my_fit)
+```
+
+It also includes a plot method to compare the fitted curve against the values of $t_{det}$.
+
+```{r}
+plot(my_fit)
+```
+
+A common issue when applying the serial-dilution method is that high dilution numbers often have higher error. Therefore, the function includes the `max_dil` argument to define a maximum number of dilutions to consider. For instance, we can only take the first 5 serial dilutions:
+
+```{r}
+fit_max5 <- fit_serial_dilution(my_data, start = c(a = 0, mu = .1), max_dil = 5)
+```
+
+Now, the plot method shows a lower number of data points:
+
+```{r}
+plot(fit_max5)
+```
+
+Obviously, this results in different parameter estimates:
+
+```{r}
+coef(fit_max5)
+```
+
+### Estimating both the growth rate and lag phase duration from the time-to-detection
+
+The serial-dilution method also allows for an estimation of the lag phase duration. This mode can be activated by passing `mode = "lambda"` to `fit_serial_dilution()`. This mode requires additional information; namely, the initial microbial concentration at the well with dilution 0 (`logN_dil0`) and the microbial concentration at the detection of (`logN_det`). This information must be identified using independent experiments (i.e., by direct plating).
+
+Please note that this mode requires an initial guess on `lambda` instead on `a`:
+
+```{r}
+my_fit2 <- fit_serial_dilution(my_data, 
+                               start = c(lambda = 0, mu = .1),
+                               mode = "lambda", 
+                               logN_det = 7.5,
+                               logN_dil0 = 4)
+```
+
+The function also returns for this mode an instance of `FitSerial` with the same methods. The plot method shows that the fitted curve is the same, regarless of the mode:
+
+```{r}
+plot(my_fit2)
+```
+
+However, the `summary()` method now returns the estimate of `lambda` instead of `a`:
+
+```{r}
+summary(my_fit2)
+```
+
+Please note that the estimate for $\mu$ is the same regardless of the mode, as the slope term is only dependent on this parameter:
+
+```{r}
+coef(my_fit)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
