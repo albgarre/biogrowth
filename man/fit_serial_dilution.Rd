@@ -10,7 +10,8 @@ fit_serial_dilution(
   dil_factor = 2,
   mode = "intercept",
   logN_det = NULL,
-  logN_dil0 = NULL
+  logN_dil0 = NULL,
+  max_dil = NULL
 )
 }
 \arguments{
@@ -25,7 +26,56 @@ or "lambda" (able to estimate also the value of the lag phase duration)}
 \item{logN_det}{log10 microbial concentration at the detection OD (only for mode = "lambda")}
 
 \item{logN_dil0}{log10 microbial concentration at wells where dilution = 0 (only for mode = "lambda")}
+
+\item{max_dil}{maximum number of dilutions to include. By default, \code{NULL} (no limit)}
 }
 \description{
 Model fitting by the serial-fold dilution method
+}
+\examples{
+## We can use the example data set
+
+data("example_od")
+
+## We first need to estimate the TTDs
+
+my_TTDs <- get_TTDs(example_od, target_OD = 0.2, codified = TRUE)
+my_data <- filter(ttds, condition == "S/6,5/35/R1")
+
+## Fitting using the "intercept" mode
+
+guess <- c(a = 0, mu = .1)  # we need initial guesses for the model parameters
+
+my_fit <- fit_serial_dilution(my_data, start = guess)
+
+## The class returned implements common S3 methods
+
+my_fit
+summary(my_fit)
+plot(my_fit)
+
+## The fitting can define a maximum number of dilutions
+
+my_fit <- fit_serial_dilution(my_data, start = guess, max_dil = 4)
+plot(my_fit)
+
+## Fitting using the "lambda" mode
+
+logNdet <- 7.5  # this mode requires the microbial concentration at the detection OD
+logN_dil0 <- 4  # and the concentration at the well with dilution 0 
+guess <- c(lambda = 0, mu = .1)  # the guess must be defined now on lambda instead of a
+
+my_fit2 <- fit_serial_dilution(my_data, 
+                               start = guess,
+                               mode = "lambda", 
+                               logN_det = logNdet,
+                               logN_dil0 = logN_dil0)
+
+## The instance implements the same S3 methods as before
+
+my_fit2
+summary(my_fit2)
+plot(my_fit2)
+
+
 }

@@ -13,6 +13,8 @@
 #' is codified as `condition_number-of-dilutions`. Therefore, the results are separated
 #' to simplify the application of [fit_serial_dilution()]
 #' 
+#' @importFrom tidyr separate
+#' 
 #' @returns A tibble with two or three columns. If `codified = FALSE`, the tibble has two columns:
 #' `condition` (the name of the well according to `OD_data`) and `TTD` (the estimated time to detection).
 #' If the `target_OD` was not reached for some well, it assigns `NA`. If `codified = TRUE`, 
@@ -61,15 +63,67 @@ get_TTDs <- function(OD_data, target_OD, codified = FALSE) {
 #' @param dil_factor dilution factor. By default, 2
 #' @param logN_det log10 microbial concentration at the detection OD (only for mode = "lambda")
 #' @param logN_dil0 log10 microbial concentration at wells where dilution = 0 (only for mode = "lambda")
+#' @param max_dil maximum number of dilutions to include. By default, `NULL` (no limit)
 #' 
 #' @export
+#' 
+#' @examples
+#' ## We can use the example data set
+#' 
+#' data("example_od")
+#' 
+#' ## We first need to estimate the TTDs
+#' 
+#' my_TTDs <- get_TTDs(example_od, target_OD = 0.2, codified = TRUE)
+#' my_data <- filter(ttds, condition == "S/6,5/35/R1")
+#' 
+#' ## Fitting using the "intercept" mode
+#' 
+#' guess <- c(a = 0, mu = .1)  # we need initial guesses for the model parameters
+#' 
+#' my_fit <- fit_serial_dilution(my_data, start = guess)
+#' 
+#' ## The class returned implements common S3 methods
+#' 
+#' my_fit
+#' summary(my_fit)
+#' plot(my_fit)
+#' 
+#' ## The fitting can define a maximum number of dilutions
+#' 
+#' my_fit <- fit_serial_dilution(my_data, start = guess, max_dil = 4)
+#' plot(my_fit)
+#' 
+#' ## Fitting using the "lambda" mode
+#' 
+#' logNdet <- 7.5  # this mode requires the microbial concentration at the detection OD
+#' logN_dil0 <- 4  # and the concentration at the well with dilution 0 
+#' guess <- c(lambda = 0, mu = .1)  # the guess must be defined now on lambda instead of a
+#' 
+#' my_fit2 <- fit_serial_dilution(my_data, 
+#'                                start = guess,
+#'                                mode = "lambda", 
+#'                                logN_det = logNdet,
+#'                                logN_dil0 = logN_dil0)
+#' 
+#' ## The instance implements the same S3 methods as before
+#' 
+#' my_fit2
+#' summary(my_fit2)
+#' plot(my_fit2)
+#' 
 #' 
 fit_serial_dilution <- function(TTD_data,
                                 start,
                                 dil_factor = 2,
                                 mode = "intercept",
                                 logN_det = NULL,
-                                logN_dil0 = NULL) {
+                                logN_dil0 = NULL,
+                                max_dil = NULL) {
+  
+  if (!is.null(max_dil)) {
+    TTD_data <- filter(TTD_data, dil <= max_dil)
+  }
   
   
   if (mode == "intercept") {
