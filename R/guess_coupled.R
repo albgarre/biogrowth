@@ -186,7 +186,7 @@ make_guess_coupled <- function(fit_data,
     c(Tmin = Tmin, b = b, logC0 = log10(C0))
 
   } else if (mode == "one_step") {
-    
+
     ## Guess for logN0
     
     logN0 <- min(fit_data$logN, na.rm = TRUE)
@@ -232,9 +232,15 @@ make_guess_coupled <- function(fit_data,
     
     C0 <- mean(quickprimary$lambda * quickprimary$mu, na.rm = TRUE)
     
+    if (C0 <= 0) {
+      logC0 <- 0
+    } else {
+      logC0 = log10(C0)
+    }
+    
     ## Return
     
-    c(Tmin = Tmin, b = b, logC0 = log10(C0), logN0 = logN0, logNmax = logNmax)
+    c(Tmin = Tmin, b = b, logC0 = logC0, logN0 = logN0, logNmax = logNmax)
     
   } else {
     
