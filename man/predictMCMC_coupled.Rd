@@ -4,7 +4,7 @@
 \alias{predictMCMC_coupled}
 \title{Generic for calculating predictions with uncertainty from fits}
 \usage{
-predictMCMC_coupled(model, niter, newdata = NULL)
+predictMCMC_coupled(model, niter, newdata = NULL, includecorr = TRUE)
 }
 \arguments{
 \item{model}{An instance of FitCoupledGrowth}
@@ -13,6 +13,8 @@ predictMCMC_coupled(model, niter, newdata = NULL)
 
 \item{newdata}{a tibble (or data.frame) with two columns (time and temperature)
 for the prediction. By default, \code{NULL} (the fitting conditions)}
+
+\item{includecorr}{whether to include parameter correlation (\code{TRUE} by default)}
 }
 \description{
 Generic for calculating predictions with uncertainty from fits

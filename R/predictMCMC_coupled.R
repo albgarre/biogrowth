@@ -5,12 +5,14 @@
 #' @param newdata a tibble (or data.frame) with two columns (time and temperature) 
 #' for the prediction. By default, `NULL` (the fitting conditions)
 #' @param niter number of MC simulations
+#' @param includecorr whether to include parameter correlation (`TRUE` by default)
 #' 
 #' @export
 #' 
 predictMCMC_coupled <- function(model,
                                 niter,
-                                newdata = NULL
+                                newdata = NULL,
+                                includecorr = TRUE
 ) {
   UseMethod("predictMCMC_coupled", model)
 }
@@ -24,16 +26,25 @@ predictMCMC_coupled <- function(model,
 #' 
 predictMCMC_coupled.FitCoupledGrowth <- function(model,
                                                  niter,
-                                                 newdata = NULL
+                                                 newdata = NULL,
+                                                 includecorr = TRUE
 ) {
   
   if (model$mode != "one_step") stop("MCMC prediction only implemented for one-step models")
+  
+  ## Check the correlation
+  
+  if (includecorr) {
+    v <- vcov(model)
+  } else {
+    v <- diag(summary(model)$par[,"Std. Error"]^2)
+  }
   
   ## Get the parameter sample
   
   sample <- rmvnorm(n = niter, 
                     mean = coef(model), 
-                    sigma = vcov(model)) %>%
+                    sigma = v) %>%
     as_tibble() %>%
     mutate(i = row_number())
   

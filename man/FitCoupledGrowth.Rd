@@ -51,7 +51,7 @@
   label_x = NULL
 )
 
-\method{predictMCMC_coupled}{FitCoupledGrowth}(model, niter, newdata = NULL)
+\method{predictMCMC_coupled}{FitCoupledGrowth}(model, niter, newdata = NULL, includecorr = TRUE)
 }
 \arguments{
 \item{x}{The object of class \link{FitCoupledGrowth} to plot.}
