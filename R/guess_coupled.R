@@ -42,13 +42,14 @@ show_guess_coupled <- function(fit_data,
     ## Make the plot
     
     p1 <- ggplot(preds) +
-      geom_line(aes(x = temp, y = mu)) +
-      geom_point(aes(x = temp, y = mu), data = fit_data) +
+      geom_line(aes(x = .data$temp, y = .data$mu)) +
+      geom_point(aes(x = .data$temp, y = .data$mu), data = fit_data) +
       theme_cowplot()
     
     p2 <- ggplot(preds) +
-      geom_line(aes(x = temp, y = lambda)) +
-      geom_point(aes(x = temp, y = lambda), data = fit_data) +
+      geom_line(aes(x = .data$temp, y = .data$lambda)) +
+      geom_point(aes(x = .data$temp, y = .data$lambda), 
+                 data = fit_data) +
       theme_cowplot()
     
     plot_grid(p2, p1)
@@ -71,20 +72,21 @@ show_guess_coupled <- function(fit_data,
                  temp = .$temp[1]
                  )
         ) %>%
-      map(.,
+      map(
           ~ tibble(time = .$time,
                    temp = .$temp,
                    logN = pred_coupled_baranyi(guess, temp, time)
                    )
           ) %>%
-      imap_dfr(., ~ mutate(.x, temp = as.numeric(.y)))
+      imap_dfr(~ mutate(.x, temp = as.numeric(.y)))
     
     ## Make the plot
     
     preds %>%
       ggplot() +
-      geom_line(aes(x = time, y = logN)) +
-      geom_point(aes(x = time, y = logN), data = fit_data) +
+      geom_line(aes(x = .data$time, y = .data$logN)) +
+      geom_point(aes(x = .data$time, y = .data$logN), 
+                 data = fit_data) +
       facet_wrap("temp", scales = "free") +
       theme_cowplot()
     
@@ -112,8 +114,6 @@ show_guess_coupled <- function(fit_data,
 #' fitting `mode` (see [fit_coupled_growth()])
 #' @param mode the type of model fitting approach. Either `two_steps` (fitted from the
 #' values of `mu` and `lambda`) or `one_step` (fitted from logN)
-#' @param logbase_mu Base for the definition of mu. By default, `exp(1)` (natural logarithm).
-#' @param logbase_logN Base for the definition of logN. By default, 10 (decimal logarithm).
 #' 
 #' @return A named numeric vector of initial guesses for the model parameters
 #' 
@@ -213,7 +213,7 @@ make_guess_coupled <- function(fit_data,
                  mu = mu*log(10)
                  )
       ) %>%
-      imap_dfr(., ~ mutate(.x, temp = as.numeric(.y)))
+      imap_dfr(~ mutate(.x, temp = as.numeric(.y)))
     
     ## Guess for b
     

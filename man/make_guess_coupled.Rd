@@ -12,10 +12,6 @@ fitting \code{mode} (see \code{\link[=fit_coupled_growth]{fit_coupled_growth()}}
 
 \item{mode}{the type of model fitting approach. Either \code{two_steps} (fitted from the
 values of \code{mu} and \code{lambda}) or \code{one_step} (fitted from logN)}
-
-\item{logbase_mu}{Base for the definition of mu. By default, \code{exp(1)} (natural logarithm).}
-
-\item{logbase_logN}{Base for the definition of logN. By default, 10 (decimal logarithm).}
 }
 \value{
 A named numeric vector of initial guesses for the model parameters

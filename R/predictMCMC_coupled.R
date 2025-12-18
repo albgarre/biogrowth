@@ -20,6 +20,13 @@ predictMCMC_coupled <- function(model,
 #' @describeIn FitCoupledGrowth prediction including parameter uncertainty
 #' 
 #' @importFrom mvtnorm rmvnorm
+#' @importFrom stats vcov
+#' 
+#' @param niter Number of MCMC iterations
+#' @param model an instance of FitCoupledGrowth
+#' @param newdata a data.frame (or tibble) describing experimental conditions. If null,
+#' the ones used for the fitting are used (default).
+#' @param includecorr whether to include parameter correlation (`TRUE` by default)
 #' 
 #' @export
 #' 
@@ -70,23 +77,22 @@ predictMCMC_coupled.FitCoupledGrowth <- function(model,
   }
   
   sims <- split(sample, sample$i) %>%
-    map(.,
-        ~ mutate(newdata,
+    map(~ mutate(newdata,
                  logN = pred_coupled_baranyi(as.list(.), temp, time)
         ) %>%
           mutate(eps = rnorm(nrow(.), mean = 0, sd = sd_res),
                  logN_pred = logN + eps)
     ) %>%
-    imap_dfr(., ~ mutate(.x, i = .y))
+    imap_dfr(~ mutate(.x, i = .y))
   
   ## Summarize the simulations
   
   quants <- sims %>%
-    summarize(med_logN = median(logN),
-              q10 = quantile(logN, .1),
-              q90 = quantile(logN, .9),
-              q10_pred = quantile(logN_pred, .1),
-              q90_pred = quantile(logN_pred, .9),
+    summarize(med_logN = median(.data$logN),
+              q10 = quantile(.data$logN, .1),
+              q90 = quantile(.data$logN, .9),
+              q10_pred = quantile(.data$logN_pred, .1),
+              q90_pred = quantile(.data$logN_pred, .9),
               .by = c("time", "temp"))
   
   ## Return

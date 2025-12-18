@@ -1,7 +1,7 @@
 Package: biogrowth
 Type: Package
 Title: Modelling of Population Growth 
-Version: 1.0.7.9999
+Version: 1.0.8
 Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4404-3550")),
              person("Jeroen", "Koomen", email = "jeroen.koomen@wur.nl", role = "aut"),
              person("Heidy", "den Besten", email = "heidy.denbesten@wur.nl", role = "aut"),
@@ -28,6 +28,7 @@ Imports:
     lamW (>= 1.3.0),
     tidyr (>= 1.0.2),
     formula.tools (>= 1.7.1),
+    mvtnorm (>= 1.1-3),
     lifecycle
 Suggests: 
     knitr,

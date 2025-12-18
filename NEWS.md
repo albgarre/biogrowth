@@ -1,4 +1,11 @@
 
+# biogrowth 1.0.8
+
+* Guesses for the coupled model
+* Implemented basic parameter checks for coupled models.
+* Implemented MCMC predictions for coupled models.
+* Implemented the serial dilution method.
+
 # biogrowth 1.0.7
 
 * fixed a bug in the calculation of `vcov` methods. The variance was not properly scaled.

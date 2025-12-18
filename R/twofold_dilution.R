@@ -43,8 +43,8 @@ get_TTDs <- function(OD_data, target_OD, codified = FALSE) {
   
   if (codified) {
     TTDs <- TTDs %>%
-      separate(condition, into = c("condition", "dil"), sep = "_") %>%
-      mutate(dil = as.numeric(dil))
+      separate("condition", into = c("condition", "dil"), sep = "_") %>%
+      mutate(dil = as.numeric(.data$dil))
   }
   
   TTDs
@@ -56,6 +56,8 @@ get_TTDs <- function(OD_data, target_OD, codified = FALSE) {
 #' 
 #' Model fitting by the serial-fold dilution method
 #' 
+#' @importFrom stats nls
+#' 
 #' @param TTD_data a tibble (or data.frame) with the TTD observed for different dilutions.
 #' It must have two columns: `TTD` (the TTD) and `dil` the number of serial dilutions.
 #' @param mode one of "intercept" (serial dilution method with a generic intercept; default) 
@@ -64,7 +66,8 @@ get_TTDs <- function(OD_data, target_OD, codified = FALSE) {
 #' @param logN_det log10 microbial concentration at the detection OD (only for mode = "lambda")
 #' @param logN_dil0 log10 microbial concentration at wells where dilution = 0 (only for mode = "lambda")
 #' @param max_dil maximum number of dilutions to include. By default, `NULL` (no limit)
-#' 
+#' @param start named numeric vector of initial guesses for the model parameters
+#'
 #' @export
 #' 
 #' @examples
@@ -74,8 +77,10 @@ get_TTDs <- function(OD_data, target_OD, codified = FALSE) {
 #' 
 #' ## We first need to estimate the TTDs
 #' 
+#' library(tidyverse)
+#' 
 #' my_TTDs <- get_TTDs(example_od, target_OD = 0.2, codified = TRUE)
-#' my_data <- filter(ttds, condition == "S/6,5/35/R1")
+#' my_data <- filter(my_TTDs, condition == "S/6,5/35/R1")
 #' 
 #' ## Fitting using the "intercept" mode
 #' 
@@ -122,7 +127,7 @@ fit_serial_dilution <- function(TTD_data,
                                 max_dil = NULL) {
   
   if (!is.null(max_dil)) {
-    TTD_data <- filter(TTD_data, dil <= max_dil)
+    TTD_data <- filter(TTD_data, .data$dil <= max_dil)
   }
   
   
@@ -137,12 +142,13 @@ fit_serial_dilution <- function(TTD_data,
     
     ## Fit the model
     
-    fit <- TTD_data %>%
-      mutate(x = log10(dil_factor)*dil) %>%
-      filter(!is.na(TTD), is.finite(TTD)) %>%
-      nls(TTD ~ a + x/mu, data = .,
-          start = start
-      )
+    aa <- TTD_data %>%
+      mutate(x = log10(dil_factor) * .data$dil) %>%
+      filter(!is.na(.data$TTD), is.finite(.data$TTD))
+    
+    fit <- nls(TTD ~ a + x/mu, data = aa,
+               start = start
+               )
     
   } else if (mode == "lambda") {
     
@@ -159,12 +165,14 @@ fit_serial_dilution <- function(TTD_data,
     
     ## Fit the model
     
-    fit <- TTD_data %>%
-      mutate(x = log10(dil_factor)*dil) %>%
-      filter(!is.na(TTD), is.finite(TTD)) %>%
-      nls(TTD ~ (lambda + logN_det/mu - logN_dil0/mu) + x/mu, data = .,
-          start = start
-      )
+    aa <- TTD_data %>%
+      mutate(x = log10(dil_factor)*.data$dil) %>%
+      filter(!is.na(.data$TTD), is.finite(.data$TTD))
+    
+    fit <- nls(TTD ~ (lambda + logN_det/mu - logN_dil0/mu) + x/mu, 
+               data = aa,
+               start = start
+               )
     
   } else {
     stop(paste("Unknown mode:", mode))

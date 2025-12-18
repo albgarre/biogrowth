@@ -18,6 +18,8 @@ fit_serial_dilution(
 \item{TTD_data}{a tibble (or data.frame) with the TTD observed for different dilutions.
 It must have two columns: \code{TTD} (the TTD) and \code{dil} the number of serial dilutions.}
 
+\item{start}{named numeric vector of initial guesses for the model parameters}
+
 \item{dil_factor}{dilution factor. By default, 2}
 
 \item{mode}{one of "intercept" (serial dilution method with a generic intercept; default)
@@ -39,8 +41,10 @@ data("example_od")
 
 ## We first need to estimate the TTDs
 
+library(tidyverse)
+
 my_TTDs <- get_TTDs(example_od, target_OD = 0.2, codified = TRUE)
-my_data <- filter(ttds, condition == "S/6,5/35/R1")
+my_data <- filter(my_TTDs, condition == "S/6,5/35/R1")
 
 ## Fitting using the "intercept" mode
 

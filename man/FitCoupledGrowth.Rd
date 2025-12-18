@@ -60,10 +60,8 @@
 
 \item{object}{an instance of FitCoupledGrowth}
 
-\item{newdata}{tibble (or data.frame) with the conditions for the prediction.
-If \code{NULL} (default), the fitting conditions. For \code{two_steps} fits, it must have
-a column named \code{temp}. For \code{one_step}, it must have a column named \code{temp} and one
-named \code{time}.}
+\item{newdata}{a data.frame (or tibble) describing experimental conditions. If null,
+the ones used for the fitting are used (default).}
 
 \item{k}{penalty for the parameters (k=2 by default)}
 
@@ -84,6 +82,12 @@ named \code{time}.}
 \item{label_y}{label for the y-axis. By default, \code{NULL} (default value depending on the mode)}
 
 \item{label_x}{label for the x-axis. By default, \code{NULL} (default value depending on the mode)}
+
+\item{model}{an instance of FitCoupledGrowth}
+
+\item{niter}{Number of MCMC iterations}
+
+\item{includecorr}{whether to include parameter correlation (\code{TRUE} by default)}
 }
 \description{
 The \code{FitCoupledGrowth} class contains a Baranyi model fitted to experimental data

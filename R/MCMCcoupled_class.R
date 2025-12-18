@@ -28,22 +28,19 @@ NULL
 #' @param ... ignored.
 #' @param add_factor Includes the variation of one environmental factor in the plot.
 #' It must be one of the column names in x$env_conditions.
-#' @param alpha_80 transparency of the ribbon for the 80th posterior. .5 by default.
-#' @param fill_80 fill colour of the ribbon for the 80th posterior. "grey" by default.
-#' @param alpha_90 transparency of the ribbon for the 90th posterior. .5 by default.
-#' @param fill_90 fill colour of the ribbon for the 90th posterior. "grey" by default.
-#' @param label_y1 label of the primary y axis. "logN" by default.
-#' @param label_y2 label of the secondary y axis. The name of the environmental factor
-#' by default.
-#' @param line_col colour of the line representing the median. "black" by default.
-#' @param line_type linetype for the line representing the median. solid by default.
+#' @param alpha_conf transparency of the ribbon for the confidence interval. .5 by default.
+#' @param fill_conf fill colour of the ribbon for the confidence interval. "grey" by default.
+#' @param alpha_pred transparency of the ribbon for the prediction interval. .5 by default.
+#' @param fill_pred fill colour of the ribbon for the prediction interval. "grey" by default.
+#' @param label_y label of the  y axis. "logN" by default.
+#' @param linecol_conf colour of the line for the confidence interval. "black" by default.
+#' @param linetype_conf linetype for the line of the confidence interval. solid by default.
+#' @param linecol_pred colour of the line for the prediction interval. "grey45" by default.
+#' @param linetype_pred linetype for the line of the prediction interval. solid by default.
 #' @param line_size size of the line representing the median. 1 by default.
-#' @param line_type2 linetype for the line representing the environmental condition.
-#' Dashed by default.
-#' @param line_col2 colour of the line representing the environmental condition. "black"
-#' by default.
-#' @param line_size2 size of the line representing the environmental condition. 1 by default.
-#' @param ylims limits of the primary y-axis. `NULL` by default (let ggplot choose).
+#' @param label_x label for the x-label ("time" by default).
+#' @param line_col color of the line representing the median ("black" by default).
+#' @param line_type type for the line representing the median (solid by default).
 #'
 #' @export
 #'

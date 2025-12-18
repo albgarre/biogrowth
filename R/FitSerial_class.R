@@ -204,12 +204,12 @@ plot.FitSerial <- function(x, y=NULL, ...,
     filter(!is.na(.data$TTD)) %>%
     mutate(pred = predict(x)) %>%
     ggplot() +
-    geom_point(aes(x = dil, y = TTD),
+    geom_point(aes(x = .data$dil, y = .data$TTD),
                colour = point_col, 
                size = point_size,
                shape = point_shape
                ) +
-    geom_line(aes(x = dil, y = pred),
+    geom_line(aes(x = .data$dil, y = .data$pred),
               colour = line_col,
               linewidth = line_size,
               linetype = line_type

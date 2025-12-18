@@ -35,34 +35,31 @@
 \item{add_factor}{Includes the variation of one environmental factor in the plot.
 It must be one of the column names in x$env_conditions.}
 
-\item{line_col}{colour of the line representing the median. "black" by default.}
+\item{alpha_conf}{transparency of the ribbon for the confidence interval. .5 by default.}
 
-\item{line_type}{linetype for the line representing the median. solid by default.}
+\item{fill_conf}{fill colour of the ribbon for the confidence interval. "grey" by default.}
+
+\item{linetype_conf}{linetype for the line of the confidence interval. solid by default.}
+
+\item{linecol_conf}{colour of the line for the confidence interval. "black" by default.}
+
+\item{linetype_pred}{linetype for the line of the prediction interval. solid by default.}
+
+\item{alpha_pred}{transparency of the ribbon for the prediction interval. .5 by default.}
+
+\item{fill_pred}{fill colour of the ribbon for the prediction interval. "grey" by default.}
+
+\item{linecol_pred}{colour of the line for the prediction interval. "grey45" by default.}
+
+\item{line_col}{color of the line representing the median ("black" by default).}
+
+\item{line_type}{type for the line representing the median (solid by default).}
 
 \item{line_size}{size of the line representing the median. 1 by default.}
 
-\item{alpha_80}{transparency of the ribbon for the 80th posterior. .5 by default.}
+\item{label_y}{label of the  y axis. "logN" by default.}
 
-\item{fill_80}{fill colour of the ribbon for the 80th posterior. "grey" by default.}
-
-\item{alpha_90}{transparency of the ribbon for the 90th posterior. .5 by default.}
-
-\item{fill_90}{fill colour of the ribbon for the 90th posterior. "grey" by default.}
-
-\item{label_y1}{label of the primary y axis. "logN" by default.}
-
-\item{label_y2}{label of the secondary y axis. The name of the environmental factor
-by default.}
-
-\item{line_type2}{linetype for the line representing the environmental condition.
-Dashed by default.}
-
-\item{line_col2}{colour of the line representing the environmental condition. "black"
-by default.}
-
-\item{line_size2}{size of the line representing the environmental condition. 1 by default.}
-
-\item{ylims}{limits of the primary y-axis. \code{NULL} by default (let ggplot choose).}
+\item{label_x}{label for the x-label ("time" by default).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
