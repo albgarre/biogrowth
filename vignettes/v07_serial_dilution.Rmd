@@ -142,7 +142,7 @@ The `fit_serial_dilution()` function implements the serial-dilution method. It t
 The argument `TTD_data` defines the data for the fitting. It must be a `tibble` (or `data.frame`) with two columns: `TTD` (the $t_{det}$) and `dil` the dilution number. The output of `get_TTDs` (after filtering for one condition) already has that format.
 
 ```{r}
-my_data <- filter(ttds, condition == "S/6,5/35/R1")
+my_data <- filter(my_TTDs, condition == "S/6,5/35/R1")
 ```
 
 The dilution factor is defined by the argument `dil_factor`. By default, this parameter takes the value `2` (as the two-fold dilution method is the most common). Then, the fitting is done by nonlinear regression, so the function requires initial guesses for the model parameters using the argument `start`.
