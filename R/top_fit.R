@@ -416,6 +416,8 @@ fit_growth <- function(fit_data,
                               logbase_logN = logbase_logN
                               )
         
+        # browser()
+        
         ## Overwrite the class
         
         class(out) <- c("GrowthFit", "list")
